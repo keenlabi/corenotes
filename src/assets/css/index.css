@@ -1,0 +1,44 @@
+:root {
+    /* colors */
+
+    /* Blue pallete */
+    --blue-accent-100: #0F88E3;
+
+    /* grey pallete */
+    --grey-accent-100: #FEFEFE;
+    --grey-accent-200: #AAAAAA;
+
+    /* black pallete */
+    --black-accent-100: #212121;
+
+    /* green pallete */
+    --green-accent-100: #388909;
+
+    /* shadows */
+    --shadow-container-100: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
+
+    /* radii */
+    --radius-container-100: 16px;
+    --radius-input-field-100: 4px;
+}
+
+html {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: 0;
+    color: inherit;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.font-icon {
+    font-size: 1.6rem;
+}
