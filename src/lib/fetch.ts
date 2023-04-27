@@ -1,4 +1,5 @@
 import axios from "axios";
+import { successResponseType } from "./types";
 
 interface bodyType {
     [key: string]: unknown;
@@ -16,8 +17,8 @@ const getFetch = (url:string, params?:bodyType)=> {
     })
 }
 
-const postFetch = (url:string, body:bodyType)=> {
-    return new Promise((resolve, reject)=> {
+function postFetch (url:string, body:bodyType){
+    return new Promise<successResponseType>((resolve, reject)=> {
         fetch(url, "POST", body)
         .then((response)=> resolve(response.data))
         .catch((error)=> {
