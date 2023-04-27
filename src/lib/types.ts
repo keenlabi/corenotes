@@ -3,6 +3,6 @@ export interface successResponseType {
     status:"SUCCESS"|"ERROR",
     message:string,
     data:{
-        [key: string]: unknown
+        [key: string]: [value:unknown]
     }
 }
