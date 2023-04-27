@@ -4,10 +4,12 @@ import { ReactComponent as IconAlertCirle } from "src/assets/icons/icon-alert-ci
  
 export interface formStateModalType {
     isError: boolean
-    message: string
+    message: string,
+    reset?: ()=> void
 }
 
-export default function FormStateModal({ isError, message }:formStateModalType) {
+export default function FormStateModal({ isError, message, reset }:formStateModalType) {
+
     return (
         <div 
             className={`
@@ -17,7 +19,7 @@ export default function FormStateModal({ isError, message }:formStateModalType) 
         >
             { isError ? <IconAlertCirle /> : null }
             <div className={styles.text}> { message } </div>
-            <FaTimes onClick={()=> close()} className={styles.close_icon} />
+            <FaTimes onClick={()=> reset?.()} className={styles.close_icon} />
         </div>
     )
 }
