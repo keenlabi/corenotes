@@ -10,6 +10,12 @@ export interface formFieldType {
     suffixIconAlt?: JSX.Element
 }
 
-export interface setFormFieldType extends React.Dispatch<React.SetStateAction<formFieldType>> {
+export interface setFormFieldType extends React.Dispatch<React.SetStateAction<formFieldType>> {}
 
+export interface formStateType {
+    error: string,
+    validated: boolean
 }
+
+export interface setFormStateType extends React.Dispatch<React.SetStateAction<formStateType>> {}
+
