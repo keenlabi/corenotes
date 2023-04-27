@@ -9,11 +9,43 @@ import {ReactComponent as IconUser} from "src/assets/icons/icon-user.svg"
 import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField/PasswordInputField"
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton"
 import { Link } from "react-router-dom"
+import { useState } from "react"
+import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types"
 
 export default function Login() {
 
-    function setInput(value:string) {
-        console.log(value)
+    const [usernameModel, setUsernameModel] = useState<formFieldType>({
+        type: 'text',
+        label: 'Username',
+        placeholder:'Username',
+        error: '',
+        prefixIcon: <IconUser />,
+        validated: false
+    })
+
+    const [passwordModel, setPasswordModel] = useState<formFieldType>({
+        type: 'password',
+        label: "Password",
+        error: '',
+        validated: false
+    })
+
+    function setInput(value:string, inputModel:formFieldType, setInputModel:setFormFieldType) {
+        inputModel.value = value
+        validateModel(inputModel)
+        setInputModel({...inputModel});
+    }
+
+    function validateModel(updatedInputModel:formFieldType) {
+        if(!updatedInputModel.value) {
+            updatedInputModel.validated = false;
+            updatedInputModel.error = `${updatedInputModel.label} field cannot be empty`;
+            return
+        }
+
+        updatedInputModel.validated = true;
+        updatedInputModel.error = "";
+        return
     }
 
     function loginUserIn() {
@@ -46,17 +78,16 @@ export default function Login() {
 
                         <div className={styles.input_fields_wrapper}>
                             <InputField 
-                                label=""
-                                placeholder="Username"
-                                error={""}
-                                prefixIcon={<IconUser />}
-                                onInput={(value:string)=> setInput(value)}
+                                placeholder={usernameModel.placeholder}
+                                error={usernameModel.error}
+                                prefixIcon={usernameModel.prefixIcon}
+                                onInput={(value:string)=> setInput(value, usernameModel, setUsernameModel)}
                             />
 
                             <PasswordInputField 
-                                placeholder={"Password"}
-                                error={""}
-                                onInput={(value:string)=> setInput(value)}
+                                placeholder={passwordModel.placeholder}
+                                error={passwordModel.error}
+                                onInput={(value:string)=> setInput(value, passwordModel, setPasswordModel)}
                             />
                         </div>
 
