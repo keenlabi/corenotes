@@ -8,12 +8,14 @@ import InputField from "src/components/FormComponents/InputField"
 import {ReactComponent as IconUser} from "src/assets/icons/icon-user.svg"
 import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField/PasswordInputField"
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types"
 import LoginAction from "src/features/auth/actions"
 
 export default function Login() {
+
+    const navigate = useNavigate();
 
     const [usernameModel, setUsernameModel] = useState<formFieldType>({
         type: 'text',
@@ -31,10 +33,18 @@ export default function Login() {
         validated: false
     })
 
+    const [formStateModel, setFormStateModel] = useState({
+        isError: false,
+        message: 'The email or password entered does not match',
+        validated: false
+    })
+
     function setInput(value:string, inputModel:formFieldType, setInputModel:setFormFieldType) {
         inputModel.value = value
         validateModel(inputModel)
         setInputModel({...inputModel});
+
+        isFormStateValid()
     }
 
     function validateModel(updatedInputModel:formFieldType) {
@@ -49,19 +59,46 @@ export default function Login() {
         return
     }
 
-    function loginInTrigger() {
-        const payload = {
-            username: usernameModel.value ?? "",
-            password: passwordModel.value ?? ""
+    function isFormStateValid() {
+        if(!usernameModel.validated || !passwordModel.validated) {
+            setFormStateModel((state)=> {
+                return {
+                    ...state,
+                    validated: false
+                }
+            })
+        } else {
+            setFormStateModel((state)=> {
+                return {
+                    ...state,
+                    validated: true
+                }
+            })
         }
+    } 
 
-        LoginAction(payload)
-        .then((response)=> {
-            console.log(response)
-        })
-        .catch((error)=> {
-            console.log(error)
-        })
+    function loginInTrigger() {
+        if(formStateModel.validated) {
+
+            const payload = {
+                username: usernameModel.value ?? "",
+                password: passwordModel.value ?? ""
+            }
+
+            LoginAction(payload)
+            .then((response:any)=> {
+                navigate({pathname: "/dashboard"})
+            })
+            .catch((error)=> {
+                setFormStateModel(()=> {
+                    return {
+                        isError: true,
+                        message: error.message,
+                        validated: false
+                    }
+                })
+            })
+        }
 
     }
 
@@ -82,7 +119,10 @@ export default function Login() {
                     
                     <SizedBox height="50px" />
                     
-                    <FormWrapper extraStyles={styles.form_wrapper}>
+                    <FormWrapper 
+                        extraStyles={styles.form_wrapper}
+                        state={formStateModel}
+                    >
                         <FormHeading 
                             heading="Login"
                             subheading="If you already have an account registered in the system."
@@ -112,7 +152,8 @@ export default function Login() {
                         <SizedBox height="50px" />
 
                         <PrimaryTextButton 
-                            label={"Login"} 
+                            label={"Login"}
+                            disabled={!formStateModel.validated}
                             clickAction={()=> loginInTrigger()}
                         />
 
