@@ -28,7 +28,7 @@ export default function TextButton({
             type={type ?? "button"}
             className={`${styles.button} ${extraStyles}`}
             style={{ width: width ?? "100%" }}
-            onClick={()=> (isLoading) ?onClick?.() :null }
+            onClick={()=> (isLoading) ?null :onClick?.() }
             disabled={disabled}
         >
             {
