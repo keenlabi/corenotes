@@ -1,15 +1,10 @@
 import { postFetch } from "src/lib/fetch"
+import { successResponseType } from "src/lib/types"
 
 export default function LoginAction(payload:{username:string, password:string}) {
-    return new Promise((resolve, reject)=> {
-        console.log(payload)
-        
+    return new Promise<successResponseType>((resolve, reject)=> {
         postFetch(`/auth/login`, payload)
-        .then((response)=> {
-            resolve(response)
-        })
-        .catch((error)=> {
-            reject(error)
-        })
+        .then((response:successResponseType)=> resolve(response))
+        .catch((error)=> reject(error))
     })
 }
