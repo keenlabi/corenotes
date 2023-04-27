@@ -12,11 +12,13 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types"
 import LoginAction from "src/features/auth/actions"
-import { successResponseType } from "src/lib/types"
+import { useSetAuthState } from "src/features/auth/state"
 
 export default function Login() {
 
     const navigate = useNavigate();
+
+    const setAuthState = useSetAuthState()
 
     const [usernameModel, setUsernameModel] = useState<formFieldType>({
         type: 'text',
@@ -96,10 +98,27 @@ export default function Login() {
             const payload = {
                 username: usernameModel.value ?? "",
                 password: passwordModel.value ?? ""
-            }
+            }   
+
+            setFormStateModel((state)=> {
+                return {
+                    ...state,
+                    isLoading: true
+                }
+            })
 
             LoginAction(payload)
-            .then((response:successResponseType)=> {
+            .then(()=> {
+                localStorage.setItem('sid.set', 'true')
+
+                setAuthState(() => {
+                    return {
+                        error: false,
+                        message: '',
+                        status: 'succeeded',
+                        isSignedIn: true,
+                    }
+                })
                 navigate({pathname: "/dashboard"})
             })
             .catch((error)=> {
