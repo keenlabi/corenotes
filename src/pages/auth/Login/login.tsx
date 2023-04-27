@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types"
 import LoginAction from "src/features/auth/actions"
+import { successResponseType } from "src/lib/types"
 
 export default function Login() {
 
@@ -77,6 +78,17 @@ export default function Login() {
         }
     } 
 
+    function resetFormState() {
+        setFormStateModel((state)=> {
+            return {
+                ...state,
+                isError: false,
+                message: '',
+                validated: false
+            }
+        })
+    }
+
     function loginInTrigger() {
         if(formStateModel.validated) {
 
@@ -86,7 +98,7 @@ export default function Login() {
             }
 
             LoginAction(payload)
-            .then((response:any)=> {
+            .then((response:successResponseType)=> {
                 navigate({pathname: "/dashboard"})
             })
             .catch((error)=> {
@@ -122,6 +134,7 @@ export default function Login() {
                     <FormWrapper 
                         extraStyles={styles.form_wrapper}
                         state={formStateModel}
+                        resetState={()=> resetFormState()}
                     >
                         <FormHeading 
                             heading="Login"
