@@ -11,6 +11,7 @@ import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types"
+import LoginAction from "src/features/auth/actions"
 
 export default function Login() {
 
@@ -48,8 +49,20 @@ export default function Login() {
         return
     }
 
-    function loginUserIn() {
-        console.log()
+    function loginInTrigger() {
+        const payload = {
+            username: usernameModel.value ?? "",
+            password: passwordModel.value ?? ""
+        }
+
+        LoginAction(payload)
+        .then((response)=> {
+            console.log(response)
+        })
+        .catch((error)=> {
+            console.log(error)
+        })
+
     }
 
     return (
@@ -100,7 +113,7 @@ export default function Login() {
 
                         <PrimaryTextButton 
                             label={"Login"} 
-                            clickAction={()=> loginUserIn()}
+                            clickAction={()=> loginInTrigger()}
                         />
 
                     </FormWrapper>
