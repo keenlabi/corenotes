@@ -35,6 +35,7 @@ export default function Login() {
     })
 
     const [formStateModel, setFormStateModel] = useState({
+        isLoading: false,
         isError: false,
         message: 'The email or password entered does not match',
         validated: false
@@ -104,6 +105,7 @@ export default function Login() {
             .catch((error)=> {
                 setFormStateModel(()=> {
                     return {
+                        isLoading: false,
                         isError: true,
                         message: error.message,
                         validated: false
@@ -166,6 +168,7 @@ export default function Login() {
 
                         <PrimaryTextButton 
                             label={"Login"}
+                            isLoading={formStateModel.isLoading}
                             disabled={!formStateModel.validated}
                             clickAction={()=> loginInTrigger()}
                         />
