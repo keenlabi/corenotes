@@ -1,6 +1,6 @@
 .sidebar {
     position: fixed;
-    width: 20%;
+    width: var(--sidebar-width);
     height: 100%;
 
     display: flex;
