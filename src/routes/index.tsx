@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import AuthRoutes from "./public/auth/authRoutes";
-import DashboardRoutes from "./public/dashboard/dashboardRoutes";
+import AuthRoutes from "./auth/authRoutes";
+import DashboardRoutes from "./dashboard/dashboardRoutes";
 
 export default function Router() {
 
