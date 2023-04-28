@@ -9,12 +9,23 @@ export default function Router() {
     return (
         <Routes>
             {
-                allRoutes.map(({path, element})=> {
+                allRoutes.map(({path, element, children})=> {
                     return  <Route
                                 key={path}
                                 path={path}
                                 element={element}
-                            />
+                            >
+                                {/* create nested route from children array */}
+                                {
+                                    children?.map(({path, element})=> {
+                                        return  <Route 
+                                                    key={path}
+                                                    path={path}
+                                                    element={element}
+                                                />
+                                    })
+                                }
+                            </Route>
                 })
             }
         </Routes>
