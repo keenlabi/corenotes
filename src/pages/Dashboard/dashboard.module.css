@@ -1,21 +1,9 @@
-/* DESKTOP SCREEN */
-@media screen and (min-width: 1024px) {
-    .mobile_sidebar_wrapper {
-        display: none;
-    }
-
-    .body {
-        display: flex;
-        --sidebar-width: 270px;
-    }
-    /* .sidebar_wrapper {
-        display: block;
-        width: var(--sidebar-width);
-        position: fixed;
-        height: 100vh;
-    } */
-    .main {
-        margin-left: var(--sidebar-width);
-        width: calc(100% - var(--sidebar-width));
-    }
+.body {
+    display: flex;
+}
+.main {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    background: var(--grey-accent-100-a);
+    height: 100vh;
 }

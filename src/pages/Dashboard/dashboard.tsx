@@ -9,6 +9,7 @@ import {ReactComponent as iconFlag} from "src/assets/icons/icon-flag.svg";
 import {ReactComponent as iconSettings} from "src/assets/icons/icon-setting.svg";
 import { NavOptionsType } from "src/components/Navigation/types.ts";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
+import PageHeader from "./components/PageHeader";
 
 export default function Dashboard() {
 
@@ -105,6 +106,8 @@ export default function Dashboard() {
                 />
                 
                 <div className={styles.main}>
+                    <PageHeader />
+                    
                     <Suspense fallback={<ComponentLoader />}>
                         <Outlet />
                     </Suspense>
