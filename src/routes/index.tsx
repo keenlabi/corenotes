@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import AuthRoutes from "./public/auth/authRoutes";
+import DashboardRoutes from "./public/dashboard/dashboardRoutes";
 
 export default function Router() {
 
-    const allRoutes = [...AuthRoutes]
+    const allRoutes = [...AuthRoutes, ...DashboardRoutes]
 
     return (
         <Routes>
