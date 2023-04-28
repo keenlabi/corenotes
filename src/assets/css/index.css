@@ -6,6 +6,8 @@
 
     /* grey pallete */
     --grey-accent-100: #FBFBFB;
+    --grey-accent-100-a: #FEFEFE;
+    --grey-accent-100-b: #F3F3F3;
     --grey-accent-200: #f5f5f5;
     --grey-accent-300: #EDEDED;
     --grey-accent-400: rgba(230, 230, 230, 0.957);
@@ -32,6 +34,9 @@
     /* radii */
     --radius-container-100: 16px;
     --radius-input-field-100: 4px;
+
+    /* DIMENSISONS */
+    --sidebar-width: 20%;
 }
 
 html {
