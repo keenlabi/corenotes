@@ -10,6 +10,7 @@ export default function Router() {
             {
                 allRoutes.map(({path, element})=> {
                     return  <Route
+                                key={path}
                                 path={path}
                                 element={element}
                             />

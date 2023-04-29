@@ -1,0 +1,5 @@
+.primary_text_button {
+    height: 50px;
+    color: white;
+    background: var(--green-accent-100);
+}
