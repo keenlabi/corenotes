@@ -5,11 +5,21 @@
     --blue-accent-100: #0F88E3;
 
     /* grey pallete */
-    --grey-accent-100: #FEFEFE;
-    --grey-accent-200: #AAAAAA;
+    --grey-accent-100: #FBFBFB;
+    --grey-accent-100-a: #FEFEFE;
+    --grey-accent-100-b: #F3F3F3;
+    --grey-accent-200: #f5f5f5;
+    --grey-accent-300: #EDEDED;
+    --grey-accent-400: rgba(230, 230, 230, 0.957);
+    --grey-accent-500: #C5C5C5;
+    --grey-accent-600: #8E8E8E;
+    --grey-accent-700: #AAAAAA;
+    --grey-accent-800: #7a7878;
+    --grey-accent-900: #686868;
 
     /* black pallete */
     --black-accent-100: #212121;
+    --black-accent-200: #4F4F4F;
 
     /* green pallete */
     --green-accent-100: #388909;
@@ -19,10 +29,14 @@
 
     /* shadows */
     --shadow-container-100: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
+    --shadow-sidebar-200: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
 
     /* radii */
     --radius-container-100: 16px;
     --radius-input-field-100: 4px;
+
+    /* DIMENSISONS */
+    --sidebar-width: 20%;
 }
 
 html {
@@ -37,9 +51,6 @@ body {
 a {
     text-decoration: 0;
     color: inherit;
-}
-a:hover {
-    text-decoration: underline;
 }
 
 .font-icon {
