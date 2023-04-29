@@ -43,5 +43,5 @@ export default async function sortByDate(list:any[]) {
         iCount++;
     }
 
-    return list.reverse();
+    return list;
 }
