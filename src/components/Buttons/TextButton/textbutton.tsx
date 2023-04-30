@@ -1,4 +1,4 @@
-import CircularRingLoader from "../../../../../../../TSE/webapp/src/components/Loaders/CircularRingLoader";
+import CircularRingLoader from "src/components/Loaders/CircularRingLoader";
 import styles from "./textbutton.module.css"
 
 interface textButtonType {
