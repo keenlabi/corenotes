@@ -1,4 +1,5 @@
 import { initStateType } from "../types";
+import { staffDetailsType } from "./utils/formatStaff";
 import { staffsListType } from "./utils/formatStaffsList";
 
 export interface IUser {
@@ -19,5 +20,6 @@ export interface IUser {
 export interface staffStateType extends initStateType {
     currentPage:number,
     totalPages:number,
-    list:staffsListType[]
+    list:staffsListType[],
+    details?: staffDetailsType
 }
