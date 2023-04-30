@@ -1,6 +1,7 @@
 import { selectorFamily, useRecoilValue } from "recoil";
-import fetchStaffListAction, { fetchStaffListSuccessResponseType } from "./actions";
+import {fetchStaffAction, fetchStaffListAction, fetchStaffListSuccessResponseType, fetchStaffSuccessResponseType } from "./actions";
 import formatStaffList from "./utils/formatStaffsList";
+import formatStaff from "./utils/formatStaff";
 
 const fetchStaffsListSelector = selectorFamily({
     key: 'fetch_staffs_list_selector',
@@ -27,3 +28,29 @@ const fetchStaffsListSelector = selectorFamily({
 })
 
 export const useFetchStaffListSelector = (pageNumber:number)=> useRecoilValue(fetchStaffsListSelector(pageNumber))
+
+const fetchStaffSelector = selectorFamily({
+    key: 'fetch_staff_selector',
+    get: (id:string)=> async ()=> {
+        return await fetchStaffAction({id})
+        .then((response:fetchStaffSuccessResponseType)=> {
+            return {
+                staff: formatStaff(response.data.staff),
+                code: 200,
+                message: '',
+                error: false
+            }
+        })
+        .catch((error)=> {
+            console.log(error)
+            return {
+                code: error.response.code,
+                error: true,
+                message: error.response.message,
+                staff: []
+            }
+        })
+    }
+})
+
+export const useFetchStaffSelector = (id:string)=> useRecoilValue(fetchStaffSelector(id))
