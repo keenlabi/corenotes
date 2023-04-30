@@ -6,7 +6,7 @@ interface bodyType {
 }
 
 const getFetch = (url:string, params?:bodyType)=> {
-    return new Promise((resolve, reject)=> {
+    return new Promise<successResponseType>((resolve, reject)=> {
         fetch(url, "GET", params)
         .then((response)=> {
             resolve(response.data)
