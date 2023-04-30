@@ -79,7 +79,7 @@ export default function Table ({head, body, action, extraStyle, currentPage, tot
                                                 head?.map((cell, index)=> {
                                                     if(cell !== head[index - 1]) {
                                                         return  <th 
-                                                                    key={cell}
+                                                                    key={cell+index}
                                                                     colSpan={ (cell === head[index + 1]) ?2 :1}
                                                                     children={cell}
                                                                 />   
