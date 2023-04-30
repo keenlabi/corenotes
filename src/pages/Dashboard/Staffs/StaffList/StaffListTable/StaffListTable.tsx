@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import sortByDate from "src/utils/sortByDate";
 import UserImage from "src/components/ImageComponent/UserImage";
-import NoBackgroundButton from "src/components/Buttons/NoBackgroundButton/NoBackgroundButton";
 import { staffsListType } from "src/features/staff/utils/formatStaffsList";
+import StaffViewProfileButton from "./StaffViewProfileButton/StaffViewProfileButton";
 
 export default function StaffListTable({
     currentPage, 
@@ -17,7 +17,7 @@ export default function StaffListTable({
     
     const [isLoading, setIsLoading] = useState(false);
 
-    const [tableBody, setTableBody] = useState<any[]>([]);
+    const [tableBody, setTableBody] = useState<any[][]>([]);
     const tableHead = [
         '',
         'Name',
@@ -55,13 +55,7 @@ export default function StaffListTable({
                 <div>{staff.phoneNumber}</div>,
                 <div className={styles.compartment}>{staff.compartment}</div>,
                 <div className={styles.button}>
-                    <NoBackgroundButton 
-                        width="100px"
-                        height="30px"
-                        fontSize="16px"
-                        label="View profile" 
-                        clickAction={()=> console.log('g')}                       
-                    />
+                    <StaffViewProfileButton id={staff.id} />
                 </div>
             ]
         });
