@@ -1,35 +1,45 @@
 import StaffListTable from "./StaffListTable";
 import styles from "./stafflist.module.css";
-import profilePicture from "src/assets/images/user-dp.png"
+import { useEffect } from "react";
+import { useFetchStaffListSelector } from "src/features/staff/selector";
+import { useStaffState } from "src/features/staff/state";
 
 export default function StaffList() {
 
-    const staffList = [
-        {
-            id:'1',
-            profilePicture: profilePicture,
-            fullname: 'Williams, Augusta',
-            role: 'Super admin',
-            cellPhone: '(678)123-1234',
-            compartment: 'test compartment'
-        },
-        {
-            id:'2',
-            profilePicture: profilePicture,
-            fullname: 'Williams, Augusta',
-            role: 'Super admin',
-            cellPhone: '(678)123-1234',
-            compartment: 'test compartment'
+    const [staffState, setStaffState] = useStaffState();
+    const staffsListResponse = useFetchStaffListSelector(staffState.currentPage);
+
+    useEffect(()=> {
+        if(!staffsListResponse.error) {
+            setStaffState((state)=> {
+                return {
+                    ...state,
+                    status: 'SUCCESS',
+                    error: false,
+                    message: staffsListResponse.message,
+                    list: staffsListResponse.staffs
+                }
+            })
+        } else {
+            setStaffState((state)=> {
+                return {
+                    ...state,
+                    status: 'FAILED',
+                    error: true,
+                    message: staffsListResponse.message
+                }
+            })
         }
-    ]
+    }, [staffsListResponse, setStaffState])
 
     return (
         <div className={styles.staff_list}>
-            <StaffListTable 
-                staffs={staffList}
+            <StaffListTable
+                staffs={staffState.list}
                 currentPage={0} 
                 totalPages={0} 
                 goToPage={(pageNumber:number)=> console.log(pageNumber)} 
+                errorMessage={staffState.message}
             />
         </div>
     )
