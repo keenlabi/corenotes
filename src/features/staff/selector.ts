@@ -2,6 +2,7 @@ import { selectorFamily, useRecoilValue } from "recoil";
 import {fetchStaffAction, fetchStaffListAction, fetchStaffListSuccessResponseType, fetchStaffSuccessResponseType } from "./actions";
 import formatStaffList from "./utils/formatStaffsList";
 import formatStaff from "./utils/formatStaff";
+import { staffState } from "./state";
 
 const fetchStaffsListSelector = selectorFamily({
     key: 'fetch_staffs_list_selector',
@@ -44,10 +45,10 @@ const fetchStaffSelector = selectorFamily({
         .catch((error)=> {
             console.log(error)
             return {
-                code: error.response.code,
+                code: 500,
                 error: true,
                 message: error.response.message,
-                staff: []
+                staff: staffState.details
             }
         })
     }

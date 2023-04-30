@@ -33,13 +33,14 @@ export interface fetchStaffSuccessResponseType extends Omit<successResponseType,
 
 export function fetchStaffAction(payload:{id:string}) {
     return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
-        getFetch(`/staffs/${payload.id}`)
-        .then((response:successResponseType)=> resolve({
+        getFetch(`/staffs/profile/${payload.id}`)
+        .then((response:successResponseType)=> {
+            resolve({
             ...response, 
             data: { 
                 staff: response.data.staff
             }
-        }))
+        })})
         .catch((error)=> reject(error))
     })
 }
