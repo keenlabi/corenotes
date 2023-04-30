@@ -15,3 +15,6 @@
 .error_state {
     background: var(--red-accent-100);
 }
+.success_state {
+    background: var(--green-accent-100)
+}

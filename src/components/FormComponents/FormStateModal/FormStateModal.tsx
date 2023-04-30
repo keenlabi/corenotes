@@ -3,13 +3,15 @@ import { FaTimes } from "react-icons/fa";
 import { ReactComponent as IconAlertCirle } from "src/assets/icons/icon-alert-circle.svg";
  
 export interface formStateModalType {
+    state:"SUCCESS"|"FAILED"|"IDLE"|"LOADING",
     isError: boolean
     message: string,
     reset?: ()=> void
 }
 
-export default function FormStateModal({ isError, message, reset }:formStateModalType) {
+export default function FormStateModal({ state, isError, message, reset }:formStateModalType) {
 
+    if(["IDLE", "LOADING"].includes(state)) return null
     return (
         <div 
             className={`
