@@ -21,5 +21,5 @@ export interface staffStateType extends initStateType {
     currentPage:number,
     totalPages:number,
     list:staffsListType[],
-    details?: staffDetailsType
+    details: staffDetailsType
 }

@@ -7,7 +7,21 @@ export const staffState:staffStateType = {
     message: '',
     list:[],
     currentPage:1,
-    totalPages:1
+    totalPages:1,
+    details: {
+        id:'',
+        email: '',
+        username: '',
+        password: '',
+        accessToken: '',
+        phoneNumber: '',
+        firstname: '',
+        lastname: '',
+        role: '',
+        createdAt: new Date(),
+        lastSeen: new Date(),
+        profileImage:''
+    }
 }
 
 export const staffAtom = atom({
