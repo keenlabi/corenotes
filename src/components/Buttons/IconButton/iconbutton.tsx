@@ -14,7 +14,7 @@ export default function IconButton(props:{
 }) {
     return(
         <button 
-            className={`${styles.icon_btn_container} ${props.extraStyle}`} 
+            className={` ${props.extraStyle} ${styles.icon_btn_container}`} 
             onClick={()=> (!props.isLoading) ?props.onClick() :null }
             disabled={props.disabled}
         >

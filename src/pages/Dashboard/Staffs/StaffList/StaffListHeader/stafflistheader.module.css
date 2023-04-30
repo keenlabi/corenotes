@@ -1,0 +1,21 @@
+.staff_list_header {
+    display: flex;
+    align-items: center;
+}
+.heading {
+    color: var(--black-accent-100);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.add_new_staff_button {
+    width: max-content;
+    padding: 0 10px;
+    font-weight: 400;
+    font-size: 16px;
+    background: none;
+    color: var(--dark-blue-faded-accent-200);
+    margin: 0 0 0 auto;
+}
+.add_new_staff_button svg path {
+    stroke: var(--dark-blue-faded-accent-200);
+}

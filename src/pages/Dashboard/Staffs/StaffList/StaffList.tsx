@@ -3,6 +3,7 @@ import styles from "./stafflist.module.css";
 import { useEffect } from "react";
 import { useFetchStaffListSelector } from "src/features/staff/selector";
 import { useStaffState } from "src/features/staff/state";
+import StaffListHeader from "./StaffListHeader/StaffListHeader";
 
 export default function StaffList() {
 
@@ -34,6 +35,9 @@ export default function StaffList() {
 
     return (
         <div className={styles.staff_list}>
+            
+            <StaffListHeader  />
+
             <StaffListTable
                 staffs={staffState.list}
                 currentPage={0} 
