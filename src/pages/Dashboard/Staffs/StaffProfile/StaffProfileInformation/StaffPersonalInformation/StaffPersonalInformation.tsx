@@ -1,20 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./staffpersonalinformation.module.css";
+import { useStaffValue } from "src/features/staff/state";
 
 export default function StaffPersonalInformation() {
 
-    const [personalInfo, setPersonalInfo] = useState([
+    const staffState = useStaffValue();
+
+    const [personalInfoObj, setPersonalInfoObj] = useState({
+        firstname: '',
+        lastname: '',
+        phoneNumber: '',
+        username: '',
+        email: '',
+    })
+
+    const personalInfo = [
         {
             label:'First name',
-            value:'Williams'
+            value: personalInfoObj.firstname
         },
         {
             label:'Last name',
-            value:'Augusta'
+            value: personalInfoObj.lastname
         },
         {
             label:'Username',
-            value:'Willy'
+            value: personalInfoObj.username
         },
         {
             label:'Initials',
@@ -34,15 +45,15 @@ export default function StaffPersonalInformation() {
         },
         {
             label:'Work phone',
-            value:'(678)123-1234'
+            value: personalInfoObj.phoneNumber
         },
         {
             label:'Cell phone',
-            value:'(678)123-1234'
+            value: personalInfoObj.phoneNumber
         },
         {
             label:'Other phone',
-            value:'(678)123-1234'
+            value: personalInfoObj.phoneNumber
         },
         {
             label:'Emergency contact',
@@ -54,13 +65,26 @@ export default function StaffPersonalInformation() {
         },
         {
             label:'Cell phone',
-            value:'(678)123-1234'
+            value: personalInfoObj.phoneNumber
         },
         {
             label:'Email address',
-            value:'williams.xyz@corenote.com'
+            value: personalInfoObj.email
         }
-    ])
+    ]
+    
+    useEffect(()=> {
+        setPersonalInfoObj(state => {
+            return {
+                ...state,
+                firstname: staffState.details.firstname,
+                lastname: staffState.details.lastname,
+                phoneNumber: staffState.details.phoneNumber,
+                username: staffState.details.username,
+                email: staffState.details.email
+            }
+        })
+    }, [staffState.details])
 
     return (
         <div className={styles.staff_personal_information}>
@@ -68,8 +92,9 @@ export default function StaffPersonalInformation() {
 
             <div className={styles.info_section}>
                 {
-                    personalInfo.map(info => {
+                    personalInfo.map((info, index) => {
                         return  <InfoField
+                                    key={info.label + index}
                                     label={info.label} 
                                     value={info.value} 
                                 />

@@ -4,8 +4,47 @@ import {ReactComponent as IconEditProfile} from "src/assets/icons/icon-edit-prof
 import StaffPersonalInformation from "./StaffPersonalInformation";
 import StaffWorkInformation from "./StaffWorkInformation";
 import SizedBox from "src/components/SizedBox";
+import { useFetchStaffSelector } from "src/features/staff/selector";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useStaffState } from "src/features/staff/state";
+import { staffDetailsType } from "src/features/staff/utils/formatStaff";
+import UserImage from "src/components/ImageComponent/UserImage";
 
 export default function StaffProfileInformation() {
+
+    const { id } = useParams();
+
+    const [staffState, setStaffState] = useStaffState();
+
+    const staffDetailsResponse:{
+        code:number,
+        message:string,
+        error: boolean,
+        staff:staffDetailsType
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    } = useFetchStaffSelector(id!)
+
+    useEffect(()=> {
+        if(!staffDetailsResponse.error) {
+            setStaffState((state)=> {
+                return {
+                    ...state,
+                    status: 'SUCCESS',
+                    details: staffDetailsResponse.staff
+                }
+            })
+        } else {
+            setStaffState((state)=> {
+                return {
+                    ...state,
+                    status: 'FAILED',
+                    details: staffDetailsResponse.staff
+                }
+            })
+        }
+    }, [setStaffState, staffDetailsResponse, staffState.details])
 
     function editProfile () {
         console.log("EDIT")
@@ -15,9 +54,9 @@ export default function StaffProfileInformation() {
         <div className={styles.staff_profile_information}>
             <div className={styles.section_identity}>
                 <div className={styles.user_info}>
-                    <div className={styles.user_image}></div>
+                    { UserImage(staffState.details.profileImage, staffState.details.firstname, "100px") }
                     <div className={styles.info}>
-                        <div className={styles.fullname}>Williams, Augusta</div>
+                        <div className={styles.fullname}>{ staffState.details.firstname }, {staffState.details.lastname}</div>
                         <div className={styles.last_update}>Updated: 04/04/2023 01:00pm</div>
                     </div>
                 </div>

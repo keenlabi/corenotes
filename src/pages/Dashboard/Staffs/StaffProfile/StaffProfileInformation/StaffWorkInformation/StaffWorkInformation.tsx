@@ -1,29 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./staffworkinformation.module.css";
 import { InfoField } from "../StaffPersonalInformation/StaffPersonalInformation";
+import { useStaffValue } from "src/features/staff/state";
 
 export default function StaffWorkInformation() {
 
-    const [workInfo, setWorkInfo] = useState([
+    const staffState = useStaffValue();
+
+    const [workObj, setWorkObj] = useState({
+        compartment: '',
+        title: '',
+        providerRole: '',
+        username: '',
+        employeeId: '234325435'
+    })
+
+    const workInfo = [
         {
-            label:'Department',
-            value:'Marietta'
+            label:'Compartment',
+            value: workObj.compartment
         },
         {
             label:'Staff title',
-            value:'Administrator'
+            value: workObj.title
         },
         {
             label:'Provider role',
-            value:'Willy'
+            value: workObj.providerRole
         },
         {
             label:'Username',
-            value:'Willy'
+            value:workObj.username
         },
         {
             label:'Employee ID',
-            value:'234325435'
+            value:workObj.employeeId
         },
         {
             label:'Schedule type',
@@ -33,7 +44,19 @@ export default function StaffWorkInformation() {
             label:'Hire date',
             value:'19/03/2023'
         }
-    ])
+    ]
+    
+    useEffect(()=> {
+        setWorkObj(state => {
+            return {
+                ...state,
+                compartment: staffState.details.username,
+                title: staffState.details.username,
+                providerRole: staffState.details.username,
+                username: staffState.details.username,
+            }
+        })
+    }, [staffState.details])
 
     return (
         <div className={styles.staff_work_information}>
@@ -41,8 +64,9 @@ export default function StaffWorkInformation() {
 
             <div className={styles.info_section}>
                 {
-                    workInfo.map(info => {
+                    workInfo.map((info, index) => {
                         return  <InfoField
+                                    key={info.label + index}
                                     label={info.label} 
                                     value={info.value} 
                                 />
