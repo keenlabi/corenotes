@@ -5,14 +5,16 @@ import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import sortByDate from "src/utils/sortByDate";
 import UserImage from "src/components/ImageComponent/UserImage";
 import NoBackgroundButton from "src/components/Buttons/NoBackgroundButton/NoBackgroundButton";
+import { staffsListType } from "src/features/staff/utils/formatStaffsList";
 
 export default function StaffListTable({
     currentPage, 
     totalPages,
     goToPage,
-    staffs
-}:{staffs:object[] ,currentPage:number, totalPages:number, goToPage:(pageNumber:number)=> void}) {
-
+    staffs,
+    errorMessage
+}:{staffs:staffsListType[] ,currentPage:number, totalPages:number, errorMessage:string, goToPage:(pageNumber:number)=> void}) {
+    
     const [isLoading, setIsLoading] = useState(false);
 
     const [tableBody, setTableBody] = useState<any[]>([]);
@@ -28,7 +30,7 @@ export default function StaffListTable({
     useEffect(()=> {
         setIsLoading(true)
 
-        sortByDate([...staffs])
+        sortByDate(staffs)
         .then((result)=> {
             const newTransactions = formatTransactionsTable(result);
             setTableBody(newTransactions)
@@ -37,20 +39,20 @@ export default function StaffListTable({
         .catch((error)=> {
             console.log(error)
         })
-    }, [])
+    }, [staffs])
 
-    function formatTransactionsTable (staffs:any[]) {
-        return staffs.map((staff:any)=> {
+    function formatTransactionsTable (staffs:staffsListType[]) {
+        return staffs.map((staff)=> {
             return  [
                 {
                     rowKey: staff.id,
                     actionEvent: 'action_button_click',
                     actionButtonPosition: 6
                 },
-                <div className={styles.user_image}>{UserImage(staff.profilePicture, staff.fullname, '40px')}</div>,
+                <div className={styles.user_image}>{UserImage(staff.profileImage, staff.fullname, '40px')}</div>,
                 <div className={styles.fullname}>{staff.fullname}</div>,
                 <div>{staff.role}</div>,
-                <div>{staff.cellPhone}</div>,
+                <div>{staff.phoneNumber}</div>,
                 <div className={styles.compartment}>{staff.compartment}</div>,
                 <div className={styles.button}>
                     <NoBackgroundButton 
@@ -70,7 +72,7 @@ export default function StaffListTable({
         goToPage(parseInt(pageNumber.toString()))
     }
 
-    return(
+    return (
         <div className={styles.staff_list_table}>
             {   
                 isLoading
@@ -82,7 +84,7 @@ export default function StaffListTable({
                         totalPages={totalPages}
                         goToPage={(pageNumber:string|number)=> paginateAction(pageNumber)}
                         extraStyle={styles}
-                        emptyListMessage={"Transactions made by customers will show here"}
+                        emptyListMessage={errorMessage}
                     />
             }
         </div>
