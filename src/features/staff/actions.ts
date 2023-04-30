@@ -10,7 +10,7 @@ export interface fetchStaffListSuccessResponseType extends Omit<successResponseT
     }
 }
 
-export default function fetchStaffListAction(payload:{pageNumber:number}) {
+export function fetchStaffListAction(payload:{pageNumber:number}) {
     return new Promise<fetchStaffListSuccessResponseType>((resolve, reject)=> {
         getFetch(`/staffs/${payload.pageNumber}`)
         .then((response:successResponseType)=> resolve({
@@ -19,6 +19,25 @@ export default function fetchStaffListAction(payload:{pageNumber:number}) {
                 currentPage: response.data.currentPage,
                 totalPages: response.data.currentPage,
                 staffs: response.data.staffs
+            }
+        }))
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface fetchStaffSuccessResponseType extends Omit<successResponseType, 'data'> {
+    data: {
+        staff: IUser
+    }
+}
+
+export function fetchStaffAction(payload:{id:string}) {
+    return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
+        getFetch(`/staffs/${payload.id}`)
+        .then((response:successResponseType)=> resolve({
+            ...response, 
+            data: { 
+                staff: response.data.staff
             }
         }))
         .catch((error)=> reject(error))
