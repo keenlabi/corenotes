@@ -2,6 +2,7 @@ import { routerType } from "src/routes/types";
 import Dashboard from "src/pages/Dashboard";
 import Staffs from "src/pages/Dashboard/Staffs";
 import StaffList from "src/pages/Dashboard/Staffs/StaffList";
+import StaffProfile from "src/pages/Dashboard/Staffs/StaffProfile";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -20,8 +21,8 @@ const DashboardRoutes:routerType[] = [
                     },
                     {
                         path:':id',
-                        title: 'Staffs',
-                        element: <StaffList />,
+                        title: 'Staff Profile',
+                        element: <StaffProfile />,
                     }
                 ]
             }
