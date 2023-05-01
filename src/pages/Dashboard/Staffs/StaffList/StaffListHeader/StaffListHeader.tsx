@@ -3,13 +3,11 @@ import styles from "./stafflistheader.module.css"
 import IconButton from "src/components/Buttons/IconButton";
 import { ReactComponent as IconPlusCircle } from "src/assets/icons/icon-plus-circle.svg";
 
-export default function StaffListHeader(){
+export default function StaffListHeader({
+    showNewStaffModal
+}:{ showNewStaffModal: ()=> void }){
 
     const staffState = useStaffValue();
-
-    function addNewStaff () {
-        console.log('')
-    }
 
     return (
         <div className={styles.staff_list_header}>
@@ -21,7 +19,7 @@ export default function StaffListHeader(){
                 extraStyle={styles.add_new_staff_button}
                 prefixIcon={<IconPlusCircle />}
                 label={"Add new Staff"}
-                onClick={()=> addNewStaff()}
+                onClick={()=> showNewStaffModal()}
             />
         </div>
     )

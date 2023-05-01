@@ -1,14 +1,17 @@
 import StaffListTable from "./StaffListTable";
 import styles from "./stafflist.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFetchStaffListSelector } from "src/features/staff/selector";
 import { useStaffState } from "src/features/staff/state";
 import StaffListHeader from "./StaffListHeader/StaffListHeader";
+import AddNewStaffModal from "./AddNewStaffModal";
 
 export default function StaffList() {
 
     const [staffState, setStaffState] = useStaffState();
     const staffsListResponse = useFetchStaffListSelector(staffState.currentPage);
+
+    const [isNewStaffModalVisible, setIsNewStaffModalVisible] = useState(false)
 
     useEffect(()=> {
         if(!staffsListResponse.error) {
@@ -36,7 +39,9 @@ export default function StaffList() {
     return (
         <div className={styles.staff_list}>
             
-            <StaffListHeader  />
+            <StaffListHeader  
+                showNewStaffModal={()=> setIsNewStaffModalVisible(true)}
+            />
 
             <StaffListTable
                 staffs={staffState.list}
@@ -45,6 +50,14 @@ export default function StaffList() {
                 goToPage={(pageNumber:number)=> console.log(pageNumber)} 
                 errorMessage={staffState.message}
             />
+
+            {
+                isNewStaffModalVisible
+                ?   <AddNewStaffModal 
+                        closeModal={()=> setIsNewStaffModalVisible(false)}
+                    />
+                :   null
+            }
         </div>
     )
 }
