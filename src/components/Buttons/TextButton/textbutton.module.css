@@ -8,6 +8,7 @@
     cursor: pointer;
     text-align: center;
     outline: none;
+    padding: 0 20px;
 }
 .button:disabled {
     opacity: 0.5;

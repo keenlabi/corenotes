@@ -7,6 +7,8 @@ interface textButtonType {
     height?:string,
     fontSize?:string,
     label:string,
+    backgroundColor?:string,
+    labelColor?:string,
     isLoading?:boolean,
     loaderColor?:string,
     disabled?:boolean,
@@ -21,6 +23,8 @@ export default function TextButton({
     fontSize,
     label, 
     isLoading,
+    backgroundColor,
+    labelColor,
     loaderColor, 
     disabled,
     extraStyles,
@@ -31,7 +35,13 @@ export default function TextButton({
         <button
             type={type ?? "button"}
             className={`${styles.button} ${extraStyles}`}
-            style={{ width: width ?? "100%", fontSize: fontSize, height:height }}
+            style={{ 
+                width: width ?? "100%", 
+                fontSize: fontSize, 
+                height:height ?? "50px",
+                backgroundColor: backgroundColor,
+                color: labelColor
+            }}
             onClick={()=> (isLoading) ?null :onClick?.() }
             disabled={disabled}
         >
