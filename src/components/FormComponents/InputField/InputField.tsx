@@ -3,7 +3,7 @@ import FormInputError from "../FormInputError";
 import FormLabel from "../FormLabel";
 
 interface inputFieldType {
-    type?:"text" | "number" | "password",
+    type?:"text" | "number" | "password" | "date",
     label?:string,
     placeholder?:string,
     error:string,
