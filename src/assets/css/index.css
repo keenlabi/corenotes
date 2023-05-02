@@ -4,6 +4,7 @@
     /* Blue pallete */
     --blue-accent-100: #0F88E3;
     --blue-accent-200: #16ADF5;
+    --blue-accent-faded-100: rgba(22, 173, 245, 0.04);
 
     /* Dark blue pallete */
     --dark-blue-accent-100: #0A66D3;
@@ -49,6 +50,8 @@
 
     /* DIMENSIONS */
     --sidebar-width: 20%;
+
+    --absolute-z-index-modal: 0
 }
 
 html {
