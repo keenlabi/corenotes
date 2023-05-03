@@ -5,7 +5,7 @@ export default function StaffViewProfileButton({id}:{id:string}) {
     const navigate = useNavigate();
 
     return  <NoBackgroundButton 
-                width="100px"
+                width="max-content"
                 height="30px"
                 fontSize="16px"
                 label="View profile" 
