@@ -24,6 +24,7 @@ export default function Login() {
         type: 'text',
         label: 'Username',
         placeholder:'Username',
+        value: '',
         error: '',
         prefixIcon: <IconUser />,
         validated: false
@@ -32,6 +33,7 @@ export default function Login() {
     const [passwordModel, setPasswordModel] = useState<formFieldType>({
         type: 'password',
         label: "Password",
+        value: '',
         error: '',
         validated: false
     })
@@ -40,7 +42,8 @@ export default function Login() {
         isLoading: false,
         isError: false,
         message: 'The email or password entered does not match',
-        validated: false
+        validated: false,
+        state:"IDLE",
     })
 
     function setInput(value:string, inputModel:formFieldType, setInputModel:setFormFieldType) {
@@ -115,7 +118,7 @@ export default function Login() {
                     return {
                         error: false,
                         message: '',
-                        status: 'succeeded',
+                        status: 'SUCCESS',
                         isSignedIn: true,
                     }
                 })
@@ -127,7 +130,8 @@ export default function Login() {
                         isLoading: false,
                         isError: true,
                         message: error.message,
-                        validated: false
+                        validated: false,
+                        state:'FAILED'
                     }
                 })
             })
@@ -154,7 +158,6 @@ export default function Login() {
                     
                     <FormWrapper 
                         extraStyles={styles.form_wrapper}
-                        state={formStateModel}
                         resetState={()=> resetFormState()}
                     >
                         <FormHeading 
@@ -166,6 +169,7 @@ export default function Login() {
                         <div className={styles.input_fields_wrapper}>
                             <InputField 
                                 placeholder={usernameModel.placeholder}
+                                value={usernameModel.value}
                                 error={usernameModel.error}
                                 prefixIcon={usernameModel.prefixIcon}
                                 onInput={(value:string)=> setInput(value, usernameModel, setUsernameModel)}
@@ -173,8 +177,10 @@ export default function Login() {
 
                             <PasswordInputField 
                                 placeholder={passwordModel.placeholder}
+                                value={passwordModel.value}
                                 error={passwordModel.error}
-                                onInput={(value:string)=> setInput(value, passwordModel, setPasswordModel)}
+                                onInput={(value: string) => setInput(value, passwordModel, setPasswordModel)} 
+                                showPrefixIcon={true}
                             />
                         </div>
 

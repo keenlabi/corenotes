@@ -3,13 +3,18 @@ import styles from "./staffworkinformationform.module.css"
 import InputField from "src/components/FormComponents/InputField";
 import { useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
+import { useStaffState } from "src/features/staff/state";
+import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField";
 
 export default function StaffWorkInformationForm() {
+
+    const [staffStateModel, setStaffModel] = useStaffState()
 
     const [compartmentModel, setCompartmentModel] = useState<formFieldType>({
         type:'text',
         label: 'Compartment',
         placeholder:'Compartment',
+        value:staffStateModel.newStaff.compartment,
         error:'',
         validated:false
     })
@@ -18,6 +23,7 @@ export default function StaffWorkInformationForm() {
         type:'text',
         label: 'Staff title',
         placeholder:'Staff title',
+        value:staffStateModel.newStaff.title,
         error:'',
         validated:false
     })
@@ -26,6 +32,7 @@ export default function StaffWorkInformationForm() {
         type:'text',
         label: 'Provider role',
         placeholder:'Provider role',
+        value:staffStateModel.newStaff.providerRole,
         error:'',
         validated:false
     })
@@ -34,6 +41,7 @@ export default function StaffWorkInformationForm() {
         type:'text',
         label: 'Username',
         placeholder:'Username',
+        value:staffStateModel.newStaff.username,
         error:'',
         validated:false
     })
@@ -42,6 +50,7 @@ export default function StaffWorkInformationForm() {
         type:'date',
         label: 'Employee ID',
         placeholder:'Employee ID',
+        value:staffStateModel.newStaff.employeeId,
         error:'',
         validated:false
     })
@@ -50,6 +59,7 @@ export default function StaffWorkInformationForm() {
         type:'text',
         label: 'Schedule Type',
         placeholder:'Schedule Type',
+        value:staffStateModel.newStaff.jobSchedule,
         error:'',
         validated:false
     })
@@ -58,6 +68,16 @@ export default function StaffWorkInformationForm() {
         type:'date',
         label: 'Hire date',
         placeholder:'Hire date',
+        value:staffStateModel.newStaff.hiredAt,
+        error:'',
+        validated:false
+    })
+
+    const [passwordModel, setPasswordModel] = useState<formFieldType>({
+        type:'password',
+        label: 'Password',
+        placeholder:'Password',
+        value:staffStateModel.newStaff.password,
         error:'',
         validated:false
     })
@@ -66,6 +86,8 @@ export default function StaffWorkInformationForm() {
         inputModel.value = value
         validateModel(inputModel)
         setInputModel({...inputModel});
+
+        submit()
     }
 
     function validateModel(updatedInputModel:formFieldType) {
@@ -80,6 +102,25 @@ export default function StaffWorkInformationForm() {
         return
     }
 
+    function submit() {
+        setStaffModel((state)=> {
+            return {
+                ...state,
+                newStaff: {
+                    ...state.newStaff,
+                    compartment: compartmentModel.value,
+                    title: staffTitleModel.value,
+                    providerRole: providerRoleModel.value,
+                    hiredAt: hireDateModel.value,
+                    username: usernameModel.value,
+                    employeeId: employeeIdModel.value,
+                    jobSchedule: scheduleTypeModel.value,
+                    password: passwordModel.value
+                }
+            }
+        })
+    }
+
     return (
         <FormWrapper extraStyles={styles.staff_personal_information_form}>
             <div className={styles.heading}>
@@ -92,6 +133,7 @@ export default function StaffWorkInformationForm() {
                     <InputField 
                         type={compartmentModel.type}
                         placeholder={compartmentModel.placeholder}
+                        value={compartmentModel.value}
                         error={compartmentModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, compartmentModel, setCompartmentModel)}
                     />
@@ -99,6 +141,7 @@ export default function StaffWorkInformationForm() {
                     <InputField 
                         type={staffTitleModel.type}
                         placeholder={staffTitleModel.placeholder}
+                        value={staffTitleModel.value}
                         error={staffTitleModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, staffTitleModel, setStaffTitleModel)}
                     />
@@ -106,6 +149,7 @@ export default function StaffWorkInformationForm() {
                     <InputField 
                         type={providerRoleModel.type}
                         placeholder={providerRoleModel.placeholder}
+                        value={providerRoleModel.value}
                         error={providerRoleModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, providerRoleModel, setProviderRoleModel)}
                     />
@@ -115,6 +159,7 @@ export default function StaffWorkInformationForm() {
                     <InputField 
                         type={usernameModel.type}
                         placeholder={usernameModel.placeholder}
+                        value={usernameModel.value}
                         error={usernameModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, usernameModel, setUsernameModel)}
                     />
@@ -122,6 +167,7 @@ export default function StaffWorkInformationForm() {
                     <InputField 
                         type={employeeIdModel.type}
                         placeholder={employeeIdModel.placeholder}
+                        value={employeeIdModel.value}
                         error={employeeIdModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, employeeIdModel, setEmployeeIdModel)}
                     />
@@ -129,6 +175,7 @@ export default function StaffWorkInformationForm() {
                     <InputField 
                         type={scheduleTypeModel.type}
                         placeholder={scheduleTypeModel.placeholder}
+                        value={scheduleTypeModel.value}
                         error={scheduleTypeModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, scheduleTypeModel, setScheduleTypeModel)}
                     />
@@ -138,9 +185,20 @@ export default function StaffWorkInformationForm() {
                     <InputField
                         type={hireDateModel.type}
                         placeholder={hireDateModel.placeholder}
+                        value={hireDateModel.value}
                         error={hireDateModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, hireDateModel, setHireDateModel)}
                     />
+
+                    <PasswordInputField
+                        placeholder={passwordModel.placeholder}
+                        value={passwordModel.value}
+                        error={passwordModel.error}
+                        showPrefixIcon={false}
+                        onInput={(inputValue:string) => setInput(inputValue, passwordModel, setPasswordModel)}
+                    />
+
+                    <div></div>
                 </div>
             </div>
         </FormWrapper>
