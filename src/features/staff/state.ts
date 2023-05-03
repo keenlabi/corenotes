@@ -9,18 +9,43 @@ export const staffState:staffStateType = {
     currentPage:1,
     totalPages:1,
     details: {
-        id:'',
-        email: '',
-        username: '',
-        password: '',
-        accessToken: '',
-        phoneNumber: '',
+        id: '',
+        // ACCOUNT INFO
+        role: '',
+        lastSeen: '',
+        
+        // PERSONAL INFORMATION
         firstname: '',
         lastname: '',
-        role: '',
-        createdAt: new Date(),
-        lastSeen: new Date(),
-        profileImage:''
+        nickname: '',
+        initials: '',
+        dob:'',
+        gender: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        phoneNumber: {
+            work: '',
+            cell: '',
+            other: ''
+        },
+        emergencyContact: {
+            name: '',
+            relationship: '',
+            phoneNumber: ''
+        },
+        email: '',
+        profileImage: '',
+        
+        // WORK INFORMATION
+        compartment: '',
+        title: '',
+        providerRole: '',
+        hiredAt: '',
+        username: '',
+        employeeId: '',
+        jobSchedule: ''
     },
     newStaff: {
         // PERSONAL INFORMATION

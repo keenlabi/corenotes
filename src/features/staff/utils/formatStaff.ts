@@ -7,6 +7,6 @@ export interface staffDetailsType extends Omit<IUser, '_id'> {
 export default function formatStaff(staff:IUser):staffDetailsType {
     return {
         ...staff,
-        id: staff._id ?? ""
+        id: staff.id ?? ""
     }
 }

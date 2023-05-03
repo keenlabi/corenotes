@@ -3,18 +3,43 @@ import { staffDetailsType } from "./utils/formatStaff";
 import { staffsListType } from "./utils/formatStaffsList";
 
 export interface IUser {
-    id:string,
-    email: string,
-    username: string,
-    password: string,
-    accessToken: string,
-    phoneNumber: string,
+    id: string,
+    // ACCOUNT INFO
+    role: string,
+    lastSeen: string,
+    
+    // PERSONAL INFORMATION
     firstname: string,
     lastname: string,
-    role: string,
-    createdAt: Date,
-    lastSeen: Date,
-    profileImage:string
+    nickname: string,
+    initials: string,
+    dob:string,
+    gender: string,
+    address: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    phoneNumber: {
+        work: string,
+        cell: string,
+        other: string
+    },
+    emergencyContact: {
+        name: string,
+        relationship: string,
+        phoneNumber: string
+    },
+    email: string,
+    profileImage: string,
+    
+    // WORK INFORMATION
+    compartment: string,
+    title: string,
+    providerRole: string,
+    hiredAt: string,
+    username: string,
+    employeeId: string,
+    jobSchedule: string
 }
 
 export interface NewStaffType {
