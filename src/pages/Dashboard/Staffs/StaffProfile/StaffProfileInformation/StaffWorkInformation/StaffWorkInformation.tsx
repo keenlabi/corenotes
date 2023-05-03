@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styles from "./staffworkinformation.module.css";
 import { InfoField } from "../StaffPersonalInformation/StaffPersonalInformation";
 import { useStaffValue } from "src/features/staff/state";
@@ -7,34 +6,26 @@ export default function StaffWorkInformation() {
 
     const staffState = useStaffValue();
 
-    const [workObj, setWorkObj] = useState({
-        compartment: '',
-        title: '',
-        providerRole: '',
-        username: '',
-        employeeId: '234325435'
-    })
-
     const workInfo = [
         {
             label:'Compartment',
-            value: workObj.compartment
+            value: staffState.details.compartment
         },
         {
             label:'Staff title',
-            value: workObj.title
+            value: staffState.details.title
         },
         {
             label:'Provider role',
-            value: workObj.providerRole
+            value: staffState.details.providerRole
         },
         {
             label:'Username',
-            value:workObj.username
+            value:staffState.details.username
         },
         {
             label:'Employee ID',
-            value:workObj.employeeId
+            value:staffState.details.employeeId
         },
         {
             label:'Schedule type',
@@ -45,18 +36,6 @@ export default function StaffWorkInformation() {
             value:'19/03/2023'
         }
     ]
-    
-    useEffect(()=> {
-        setWorkObj(state => {
-            return {
-                ...state,
-                compartment: staffState.details.username,
-                title: staffState.details.username,
-                providerRole: staffState.details.username,
-                username: staffState.details.username,
-            }
-        })
-    }, [staffState.details])
 
     return (
         <div className={styles.staff_work_information}>

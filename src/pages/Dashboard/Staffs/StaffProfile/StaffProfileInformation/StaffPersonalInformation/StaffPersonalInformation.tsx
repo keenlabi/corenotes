@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styles from "./staffpersonalinformation.module.css";
 import { useStaffValue } from "src/features/staff/state";
 
@@ -6,85 +5,64 @@ export default function StaffPersonalInformation() {
 
     const staffState = useStaffValue();
 
-    const [personalInfoObj, setPersonalInfoObj] = useState({
-        firstname: '',
-        lastname: '',
-        phoneNumber: '',
-        username: '',
-        email: '',
-    })
-
     const personalInfo = [
         {
             label:'First name',
-            value: personalInfoObj.firstname
+            value: staffState.details.firstname
         },
         {
             label:'Last name',
-            value: personalInfoObj.lastname
+            value: staffState.details.lastname
         },
         {
             label:'Username',
-            value: personalInfoObj.username
+            value: staffState.details.username
         },
         {
             label:'Initials',
-            value:'WA'
+            value: staffState.details.initials
         },
         {
             label:'Date of Birth',
-            value:'02/10/2023'
+            value: staffState.details.dob
         },
         {
             label:'Gender',
-            value:'Female'
+            value: staffState.details.gender
         },
         {
             label:'Home address',
-            value:'146 Roberts St.Maplewood, NJ 07040'
+            value: staffState.details.address
         },
         {
             label:'Work phone',
-            value: personalInfoObj.phoneNumber
+            value: staffState.details.phoneNumber.work
         },
         {
             label:'Cell phone',
-            value: personalInfoObj.phoneNumber
+            value: staffState.details.phoneNumber.cell
         },
         {
             label:'Other phone',
-            value: personalInfoObj.phoneNumber
+            value: staffState.details.phoneNumber.other
         },
         {
             label:'Emergency contact',
-            value:'Augusta'
+            value: staffState.details.emergencyContact.name
         },
         {
             label:'Relationship with contact',
-            value:'Sibling (Sister)'
+            value: staffState.details.emergencyContact.relationship
         },
         {
             label:'Cell phone',
-            value: personalInfoObj.phoneNumber
+            value: staffState.details.emergencyContact.phoneNumber
         },
         {
             label:'Email address',
-            value: personalInfoObj.email
+            value: staffState.details.email
         }
     ]
-    
-    useEffect(()=> {
-        setPersonalInfoObj(state => {
-            return {
-                ...state,
-                firstname: staffState.details.firstname,
-                lastname: staffState.details.lastname,
-                phoneNumber: staffState.details.phoneNumber,
-                username: staffState.details.username,
-                email: staffState.details.email
-            }
-        })
-    }, [staffState.details])
 
     return (
         <div className={styles.staff_personal_information}>
