@@ -17,7 +17,7 @@ const getFetch = (url:string, params?:bodyType)=> {
     })
 }
 
-function postFetch (url:string, body:bodyType){
+function postFetch (url:string, body:any){
     return new Promise<successResponseType>((resolve, reject)=> {
         fetch(url, "POST", body)
         .then((response)=> resolve(response.data))

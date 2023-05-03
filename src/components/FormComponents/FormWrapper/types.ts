@@ -1,8 +1,9 @@
 export interface formFieldType {
     type:"text" | "number" | "password" | "date",
+    name?:string,
     label?: string,
     placeholder?: string,
-    value?: string,
+    value: string,
     error: string,
     validated: boolean,
     prefixIcon?: JSX.Element,

@@ -6,12 +6,13 @@ export interface formStateModalType {
     state:"SUCCESS"|"FAILED"|"IDLE"|"LOADING",
     isError: boolean
     message: string,
-    reset?: ()=> void
+    reset?: ()=> void,
+    showSuccess?: boolean
 }
 
-export default function FormStateModal({ state, isError, message, reset }:formStateModalType) {
-
+export default function FormStateModal({ state, isError, message, reset, showSuccess }:formStateModalType) {
     if(["IDLE", "LOADING"].includes(state)) return null
+    if(!showSuccess) if(["SUCCESS"].includes(state)) return null
     return (
         <div 
             className={`

@@ -6,6 +6,7 @@ interface inputFieldType {
     type?:"text" | "number" | "password" | "date",
     label?:string,
     placeholder?:string,
+    value:string,
     error:string,
     prefixIcon?:JSX.Element,
     suffixIcon?:JSX.Element,
@@ -17,6 +18,7 @@ export default function InputField({
     type,
     label,
     placeholder,
+    value,
     error,
     prefixIcon,
     suffixIcon,
@@ -38,6 +40,7 @@ export default function InputField({
                     type={type ?? "text"}
                     className={styles.input}
                     placeholder={placeholder}
+                    value={value}
                     onChange={(e)=> onInput(e.target.value)}
                 />
 
