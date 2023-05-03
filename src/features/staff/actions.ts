@@ -1,4 +1,4 @@
-import { getFetch } from "src/lib/fetch"
+import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { IUser } from "./types"
 
@@ -41,6 +41,21 @@ export function fetchStaffAction(payload:{id:string}) {
                 staff: response.data.staff
             }
         })})
+        .catch((error)=> reject(error))
+    })
+}
+
+export function registerStaffAction(payload:FormData) {
+    return new Promise<fetchStaffListSuccessResponseType>((resolve, reject)=> {
+        postFetch(`/staffs/register`, payload)
+        .then((response:successResponseType)=> resolve({
+            ...response, 
+            data: { 
+                currentPage: response.data.currentPage,
+                totalPages: response.data.currentPage,
+                staffs: response.data.staffs
+            }
+        }))
         .catch((error)=> reject(error))
     })
 }
