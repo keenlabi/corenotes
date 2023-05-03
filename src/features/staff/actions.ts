@@ -21,7 +21,9 @@ export function fetchStaffListAction(payload:{pageNumber:number}) {
                 staffs: response.data.staffs
             }
         }))
-        .catch((error)=> reject(error))
+        .catch((error)=> {
+            reject(error)
+        })
     })
 }
 

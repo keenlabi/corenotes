@@ -1,3 +1,4 @@
+import capitalize from "src/utils/capitalize"
 import { IUser } from "../types"
 
 export interface staffsListType {
@@ -15,9 +16,9 @@ export default function formatStaffList(staffs:IUser[]):staffsListType[] {
 
     return staffs.map((staff:IUser)=> {
         return {
-            id: staff._id,
+            id: staff.id,
             profileImage:staff.profileImage,
-            fullname: `${staff.firstname}, ${staff.lastname}`,
+            fullname: `${capitalize(staff.firstname)}, ${staff.lastname.toUpperCase()}`,
             role: staff.role,
             phoneNumber: staff.phoneNumber,
             compartment: 'Test compartment',

@@ -3,7 +3,7 @@ import { staffDetailsType } from "./utils/formatStaff";
 import { staffsListType } from "./utils/formatStaffsList";
 
 export interface IUser {
-    _id:string,
+    id:string,
     email: string,
     username: string,
     password: string,

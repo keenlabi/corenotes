@@ -17,11 +17,10 @@ const fetchStaffsListSelector = selectorFamily({
             }
         })
         .catch((error)=> {
-            console.log(error)
             return {
-                code: error.response.code,
+                code: error.code,
                 error: true,
-                message: error.response.message,
+                message: error.message,
                 staffs: []
             }
         })
