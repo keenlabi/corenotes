@@ -1,6 +1,6 @@
 import styles from "./passwordinputfield.module.css";
 import { FaEye } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../InputField";
 import {ReactComponent as IconLock} from "src/assets/icons/icon-lock.svg"
 import {ReactComponent as IconEyeSlash} from "src/assets/icons/icon-eye-slash.svg"
@@ -23,7 +23,7 @@ export default function PasswordInputField({
     placeholder,
     onInput
 }:passwordInputFieldType) {
-
+                
     const [passwordModel, setPasswordModel] = useState<formFieldType>({
         type: "password",
         value: value,
@@ -42,6 +42,15 @@ export default function PasswordInputField({
         setPasswordModel({...passwordModel});
     }
 
+    useEffect(()=> {
+        setPasswordModel((state)=> {
+            return {
+                ...state,
+                value: value
+            }
+        })
+    }, [value])
+
     return (
         <div className={styles.container}>
             <InputField 
@@ -53,7 +62,7 @@ export default function PasswordInputField({
                 prefixIcon={passwordModel.prefixIcon}
                 suffixIcon={passwordModel.suffixIcon}
                 suffixAction={ ()=> togglePasswordVisibility() }
-                onInput={onInput} 
+                onInput={(inputValue:string)=> onInput(inputValue)} 
             />
         </div>
     );
