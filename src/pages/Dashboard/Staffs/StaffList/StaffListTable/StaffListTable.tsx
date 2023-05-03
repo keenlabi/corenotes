@@ -17,7 +17,7 @@ export default function StaffListTable({
     
     const [isLoading, setIsLoading] = useState(false);
 
-    const [tableBody, setTableBody] = useState<any[][]>([]);
+    const [tableBody, setTableBody] = useState<JSX.Element[][]|object[][]>([]);
     const tableHead = [
         '',
         'Name',
