@@ -21,6 +21,40 @@ export const staffState:staffStateType = {
         createdAt: new Date(),
         lastSeen: new Date(),
         profileImage:''
+    },
+    newStaff: {
+        // PERSONAL INFORMATION
+        firstname: '',
+        lastname: '',
+        nickname: '',
+        initials: '',
+        dob:'',
+        gender: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        phoneNumber: {
+            work: '',
+            cell: '',
+            other: ''
+        },
+        emergencyContact: {
+            name: '',
+            relationship: '',
+            phoneNumber: ''
+        },
+        email: '',
+        
+        // WORK INFORMATION
+        compartment: '',
+        title: '',
+        providerRole: '',
+        hiredAt: '',
+        username: '',
+        employeeId: '',
+        jobSchedule: '',
+        password:''
     }
 }
 

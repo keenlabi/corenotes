@@ -17,9 +17,46 @@ export interface IUser {
     profileImage:string
 }
 
+export interface NewStaffType {
+    // PERSONAL INFORMATION
+    firstname: string,
+    lastname: string,
+    nickname: string,
+    initials: string,
+    dob:string,
+    gender: string,
+    address: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    phoneNumber: {
+        work: string,
+        cell: string,
+        other: string
+    },
+    emergencyContact: {
+        name: string,
+        relationship: string,
+        phoneNumber: string
+    },
+    email: string,
+    profileImage?:Blob|MediaSource,
+    
+    // WORK INFORMATION
+    compartment: string,
+    title: string,
+    providerRole: string,
+    hiredAt: string,
+    username: string,
+    employeeId: string,
+    jobSchedule: string,
+    password: string
+}
+
 export interface staffStateType extends initStateType {
     currentPage:number,
     totalPages:number,
     list:staffsListType[],
-    details: staffDetailsType
+    details: staffDetailsType,
+    newStaff: NewStaffType
 }
