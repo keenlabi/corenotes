@@ -9,31 +9,31 @@ export default function StaffWorkInformation() {
     const workInfo = [
         {
             label:'Compartment',
-            value: staffState.details.compartment
+            value: staffState.details.work.compartment
         },
         {
             label:'Staff title',
-            value: staffState.details.title
+            value: staffState.details.work.title
         },
         {
             label:'Provider role',
-            value: staffState.details.providerRole
+            value: staffState.details.work.providerRole
         },
         {
             label:'Username',
-            value:staffState.details.username
+            value:staffState.details.work.username
         },
         {
             label:'Employee ID',
-            value:staffState.details.employeeId
+            value:staffState.details.work.employeeId
         },
         {
             label:'Schedule type',
-            value:'Willy'
+            value:staffState.details.work.jobSchedule
         },
         {
             label:'Hire date',
-            value:'19/03/2023'
+            value:staffState.details.work.hiredAt
         }
     ]
 
