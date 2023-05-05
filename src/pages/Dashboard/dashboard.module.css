@@ -1,0 +1,9 @@
+.body {
+    display: flex;
+}
+.main {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    background: var(--grey-accent-100-a);
+    height: 100vh;
+}

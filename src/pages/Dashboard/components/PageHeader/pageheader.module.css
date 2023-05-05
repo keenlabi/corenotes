@@ -1,0 +1,18 @@
+.page_header {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    background: white;
+}
+
+.search_bar {
+    height: 50%;
+    width: 70%;
+    border-radius: 8px;
+    background: var(--grey-accent-100-b);
+}
+
+.user_profile {
+    margin-left: auto;
+}

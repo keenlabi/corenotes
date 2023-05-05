@@ -1,0 +1,39 @@
+.user_profile_card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 250px;
+    padding: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.profile_picture {
+    width: 60px;
+    height: 60px;
+}
+
+.info {
+    max-width: 60%;
+}
+.info div {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: 600;
+}
+.role {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.arrow {
+    width: 15px;
+    height: 15px;
+}

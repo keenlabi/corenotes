@@ -1,5 +1,6 @@
 export interface routerType {
-    title:string,
+    title?:string,
     path:string,
-    element: JSX.Element
+    element: JSX.Element,
+    children?: routerType[]
 }

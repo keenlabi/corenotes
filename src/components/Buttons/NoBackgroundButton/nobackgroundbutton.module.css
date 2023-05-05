@@ -1,0 +1,6 @@
+.no_background_button {
+    height: 50px;
+    color: var(--blue-accent-200);
+    background: none;
+    font-weight: 400;
+}

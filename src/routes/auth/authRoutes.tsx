@@ -1,5 +1,5 @@
-import Login from "../../../pages/auth/Login";
-import { routerType } from "../../types";
+import { routerType } from "src/routes/types";
+import Login from "src/pages/Auth/Login";
 
 const AuthRoutes:routerType[] = [
     {

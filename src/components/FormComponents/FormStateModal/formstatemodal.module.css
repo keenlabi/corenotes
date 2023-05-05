@@ -1,0 +1,20 @@
+.form_state_modal {
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    min-width: 300px;
+    min-height: 40px;
+    border-radius: 12px;
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+}
+.error_state {
+    background: var(--red-accent-100);
+}
+.success_state {
+    background: var(--green-accent-100)
+}

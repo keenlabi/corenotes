@@ -1,0 +1,135 @@
+table {
+    width: 100%;
+    background: white;
+    margin-top: 1%;
+    box-shadow: var(--shadow-table-300);
+    border-radius: 16px;
+    border-collapse: collapse;
+}
+
+/* TABLE HEAD */
+thead {
+    height: 80px;
+}
+thead th {
+    text-align: start;
+    color: var(--blue-accent-200);
+    font-weight: 600;
+}
+
+/* TABLE BODY */
+tbody tr {
+    height: 80px;
+}
+tbody td {
+    border-top: 1px solid var(--table-row-line-color);
+}
+th, td {
+    padding: 0 10px;
+}
+
+
+.table_pagination {
+    --page-numbers-width: calc(100% - calc(20px * 2));
+    margin: 5% 5% 5% auto;
+    height: 30px;
+    width: max-content;
+    display: flex;
+    gap: .2rem;
+    align-items: center;
+}
+.table_pagination::selection {
+    background: none;
+    color: 0;
+}
+.page_button {
+    height: 100%;
+    padding: 0 15px;
+    border-radius: 5px;
+    color: var(--grey-accent-500);
+    cursor: pointer;
+}
+.page_button.inactive {
+    cursor: not-allowed;
+}
+.page_numbers {
+    height: 100%;
+    color: grey;
+    display: flex;
+    justify-content: space-between;
+}
+.page_number {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 15px;
+    font-weight: 800;
+    color: var(--grey-accent-500);
+    cursor: pointer;
+}
+.current_page {
+    background: var(--green-accent-100);
+    color: white;
+    border-radius: 5px;
+}
+/*
+.mobile_pagination {
+    display: none;
+}
+
+
+@media screen and (max-width: 600px) {
+    table {
+        border-radius: 0;
+    }
+    tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    tbody tr {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    tr td {
+        text-align: flex-end;
+    }
+    tr td:not(:nth-child(1)) {
+        flex-basis: calc(100% / 3);
+        padding: 0;
+    }
+    tr td:nth-child(1) {
+        display: none;
+    }
+    tr td:nth-child(2) {
+        text-align: start;
+    }
+    tr td:nth-child(3) {
+        flex-basis: 100%;
+        order: 5;
+        text-align: start;
+        padding: 1% 0;
+        color: var(--grey-accent-800);
+    }
+    tr td * {
+        margin-left: auto;
+    }
+    .table_pagination {
+        display: none;
+    }
+    .mobile_pagination {
+        display: flex;
+        justify-content: space-between;
+        margin: 10% 0;
+    }
+    .mobile_pagination > * {
+        width: 20%;
+        height: 40px;
+    }
+} */
