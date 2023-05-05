@@ -61,3 +61,43 @@ export function registerStaffAction(payload:FormData) {
         .catch((error)=> reject(error))
     })
 }
+
+export interface fetchStaffDocumentsSuccessResponseType extends Omit<successResponseType, 'data'> {
+    data: {
+        currentPage:number,
+        totalPages:number,
+        documents: IUser['documents']
+    }
+}
+
+export function fetchStaffDocumentsAction(staffId:string, pageNumber:number) {
+    return new Promise<fetchStaffDocumentsSuccessResponseType>((resolve, reject)=> {
+        getFetch(`/staffs/${staffId}/documents/${pageNumber}`)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage:response.data.currentPage,
+                    totalPages:response.data.totalPages,
+                    documents: response.data.documents
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function uploadStaffDocumentAction(staffId:string, payload:FormData) {
+    return new Promise<fetchStaffDocumentsSuccessResponseType>((resolve, reject)=> {
+        postFetch(`/staffs/${staffId}/documents`, payload)
+        .then((response:successResponseType)=> resolve({
+            ...response,
+            data: {
+                currentPage:response.data.currentPage,
+                totalPages:response.data.totalPages,
+                documents: response.data.documents
+            }
+        }))
+        .catch((error)=> reject(error))
+    })
+}
