@@ -1,7 +1,10 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./staffprofile.module.css";
-import { useState } from "react";
-import StaffProfileHeader from "./StaffProfileHeader/StaffProfileHeader";
+import { useEffect, useState } from "react";
+import StaffProfileNavigation from "./StaffProfileNavigation/StaffProfileNavigation";
+import { useStaffState } from "src/features/staff/state";
+import { staffDetailsType } from "src/features/staff/utils/formatStaff";
+import { useFetchStaffSelector } from "src/features/staff/selector";
 
 export default function StaffProfile() {
 
@@ -61,12 +64,45 @@ export default function StaffProfile() {
         }
     }
 
+    const { id } = useParams();
+
+    const [staffState, setStaffState] = useStaffState();
+
+    const staffDetailsResponse:{
+        code:number,
+        message:string,
+        error: boolean,
+        staff:staffDetailsType
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    } = useFetchStaffSelector(id!)
+
+    useEffect(()=> {
+        if(!staffDetailsResponse.error) {
+            setStaffState((state)=> {
+                return {
+                    ...state,
+                    status: 'SUCCESS',
+                    details: staffDetailsResponse.staff
+                }
+            })
+        } else {
+            setStaffState((state)=> {
+                return {
+                    ...state,
+                    status: 'FAILED',
+                    details: staffDetailsResponse.staff
+                }
+            })
+        }
+    }, [setStaffState, staffDetailsResponse, staffState.details])
+
     return (
         <div className={styles.staff_profile}>
             <div className={styles.heading}>Staff Profile</div>
 
             <div className={styles.main}>
-                <StaffProfileHeader 
+                <StaffProfileNavigation 
                     navItems={navItems} 
                     changeNav={(index:number)=> changeNav(index)}  
                 />
