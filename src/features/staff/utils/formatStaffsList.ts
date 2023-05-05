@@ -20,7 +20,7 @@ export default function formatStaffList(staffs:IUser[]):staffsListType[] {
             profileImage:staff.profileImage,
             fullname: `${capitalize(staff.firstname)}, ${staff.lastname.toUpperCase()}`,
             role: staff.role,
-            phoneNumber: staff.phoneNumber,
+            phoneNumber: staff.phoneNumber.work,
             compartment: 'Test compartment',
             createdAt: staff.createdAt
         }
