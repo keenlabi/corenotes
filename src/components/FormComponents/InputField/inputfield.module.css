@@ -34,3 +34,7 @@
     color: var(--grey-accent-900);
     font-size: 1rem;
 }
+.input_component.disabled,
+.input_component.disabled input {
+    background-color: var(--grey-accent-200);
+}

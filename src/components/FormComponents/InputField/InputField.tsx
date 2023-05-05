@@ -11,7 +11,8 @@ interface inputFieldType {
     prefixIcon?:JSX.Element,
     suffixIcon?:JSX.Element,
     suffixAction?: ()=> void,
-    onInput:(value:string)=> void
+    readonly?: boolean,
+    onInput?:(value:string)=> void
 }
 
 export default function InputField({
@@ -23,13 +24,16 @@ export default function InputField({
     prefixIcon,
     suffixIcon,
     suffixAction,
+    readonly,
     onInput
 }:inputFieldType) {
     return (
         <div className={styles.input_field_container}>
             <FormLabel text={label ?? ""} />
 
-            <div className={styles.input_component}>
+            <div 
+                className={`${styles.input_component} ${readonly ?styles.disabled :null}`}
+            >
                 
                 <div 
                     children={prefixIcon}
@@ -38,10 +42,11 @@ export default function InputField({
 
                 <input 
                     type={type ?? "text"}
-                    className={styles.input}
+                    className={`${styles.input}`}
                     placeholder={placeholder}
                     value={value}
-                    onChange={(e)=> onInput(e.target.value)}
+                    readOnly={readonly}
+                    onChange={(e)=> onInput?.(e.target.value)}
                 />
 
                 <div 
