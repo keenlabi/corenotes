@@ -12,14 +12,7 @@ export default function JSONToFormData(jsonObject:{ [key: string]: any }) {
                 if(Array.isArray(value)) {
                     value.forEach(val => formData.append(key, val))
                 } 
-                else if(
-                    typeof value === 'object' && 
-                    !['image/webp', 'image/png', 'image/jpg', 'image/jpeg', 'svg'].includes(value.type)
-                ) {
-                    // const objKeys = Object.keys(value);
-                    // for(let i=0; i<objKeys.length; i++) {
-                    //     formData.append(key+[objKeys[i]], value[objKeys[i]]);
-                    // }
+                else if(typeof value === 'object' && isNotFile(value.type)) {
                     for (const nestedKey in value) {
                         formData.append(`${key}[${nestedKey}]`, value[nestedKey]);
                     }
@@ -32,4 +25,8 @@ export default function JSONToFormData(jsonObject:{ [key: string]: any }) {
             resolve(formData);
         }
     });    
+}
+
+function isNotFile (fileType:string) {
+    return !fileType
 }
