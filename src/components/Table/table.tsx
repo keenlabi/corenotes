@@ -1,6 +1,5 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import PrimaryTextButton from "../Buttons/PrimaryTextButton";
 import styles from "./table.module.css";
 
 export default function Table ({head, body, action, extraStyle, currentPage, totalPages, goToPage, emptyListMessage, enableSearch}:{
@@ -123,7 +122,7 @@ export default function Table ({head, body, action, extraStyle, currentPage, tot
                             </tbody>
                         </table>
                         
-                        {
+                        {/* {
                             (totalPages)
                             ?   <div className={styles.mobile_pagination}>
                                     <PrimaryTextButton 
@@ -139,7 +138,7 @@ export default function Table ({head, body, action, extraStyle, currentPage, tot
                                     />
                                 </div>
                             :   null
-                        }
+                        } */}
                     </div>
 
                 :   <div children={emptyListMessage} />

@@ -9,7 +9,7 @@ table {
 
 /* TABLE HEAD */
 thead {
-    height: 60px;
+    height: 80px;
 }
 thead th {
     text-align: start;
@@ -22,13 +22,13 @@ tbody tr {
     height: 80px;
 }
 tbody td {
-    border-top: 1px solid var(--table-row-line);
+    border-top: 1px solid var(--table-row-line-color);
 }
 th, td {
     padding: 0 10px;
 }
 
-/* 
+
 .table_pagination {
     --page-numbers-width: calc(100% - calc(20px * 2));
     margin: 5% 5% 5% auto;
@@ -71,10 +71,11 @@ th, td {
     cursor: pointer;
 }
 .current_page {
-    background: var(--orange-accent-600);
+    background: var(--green-accent-100);
     color: white;
     border-radius: 5px;
 }
+/*
 .mobile_pagination {
     display: none;
 }
