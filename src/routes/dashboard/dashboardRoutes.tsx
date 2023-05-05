@@ -4,6 +4,7 @@ import Staffs from "src/pages/Dashboard/Staffs";
 import StaffList from "src/pages/Dashboard/Staffs/StaffList";
 import StaffProfile from "src/pages/Dashboard/Staffs/StaffProfile";
 import StaffProfileInformation from "src/pages/Dashboard/Staffs/StaffProfile/StaffProfileInformation";
+import StaffDocuments from "src/pages/Dashboard/Staffs/StaffProfile/StaffDocuments/StaffDocuments";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -27,8 +28,13 @@ const DashboardRoutes:routerType[] = [
                         children: [
                             {
                                 path:'',
-                                title: '',
+                                title: 'Profile Information',
                                 element: <StaffProfileInformation />,
+                            },
+                            {
+                                path:'documents',
+                                title: 'Documents',
+                                element: <StaffDocuments />,
                             }
                         ]
                     }
