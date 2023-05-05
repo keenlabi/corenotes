@@ -1,5 +1,5 @@
 export interface initStateType {
-    status:"idle"|"loading"|"succeeded"|"failed",
+    status:"IDLE"|"LOADING"|"SUCCESS"|"FAILED",
     error:boolean,
     message:string
 }

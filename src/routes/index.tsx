@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import AuthRoutes from "./auth/authRoutes";
 import DashboardRoutes from "./dashboard/dashboardRoutes";
+import { routerType } from "./types";
 
 export default function Router() {
 
@@ -9,25 +10,27 @@ export default function Router() {
     return (
         <Routes>
             {
-                allRoutes.map(({path, element, children})=> {
+                allRoutes.map((routeItem)=> {
                     return  <Route
-                                key={path}
-                                path={path}
-                                element={element}
-                            >
-                                {/* create nested route from children array */}
-                                {
-                                    children?.map(({path, element})=> {
-                                        return  <Route 
-                                                    key={path}
-                                                    path={path}
-                                                    element={element}
-                                                />
-                                    })
-                                }
-                            </Route>
+                                key={routeItem.path}
+                                path={routeItem.path}
+                                element={routeItem.element}
+                                children={RouteItem(routeItem)}
+                            />
                 })
             }
         </Routes>
     )
+}
+
+function RouteItem(route:routerType) {
+    {/* create nested route from children array */}
+    return route.children?.map((routeItem:routerType)=> {
+        return  <Route 
+                    key={routeItem.path}
+                    path={routeItem.path}
+                    element={routeItem.element}
+                    children={ RouteItem(routeItem) }
+                />
+    })
 }

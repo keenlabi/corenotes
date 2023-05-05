@@ -3,6 +3,13 @@
 
     /* Blue pallete */
     --blue-accent-100: #0F88E3;
+    --blue-accent-200: #16ADF5;
+    --blue-accent-faded-100: rgba(22, 173, 245, 0.04);
+
+    /* Dark blue pallete */
+    --dark-blue-accent-100: #0A66D3;
+    --dark-blue-faded-accent-100: rgba(2, 50, 184, 0.07);
+    --dark-blue-faded-accent-200: #0232BA;
 
     /* grey pallete */
     --grey-accent-100: #FBFBFB;
@@ -12,10 +19,15 @@
     --grey-accent-300: #EDEDED;
     --grey-accent-400: rgba(230, 230, 230, 0.957);
     --grey-accent-500: #C5C5C5;
-    --grey-accent-600: #8E8E8E;
-    --grey-accent-700: #AAAAAA;
+    --grey-accent-600: #AAAAAA;
+    --grey-accent-600-a: #9A9A9A;
+    --grey-accent-700: #9C9C9C;
+    --grey-accent-700-a: #8E8E8E;
     --grey-accent-800: #7a7878;
     --grey-accent-900: #686868;
+
+    /* COMPONENT GREY COLORS */
+    --table-row-line-color: var(--grey-accent-400);
 
     /* black pallete */
     --black-accent-100: #212121;
@@ -30,13 +42,16 @@
     /* shadows */
     --shadow-container-100: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
     --shadow-sidebar-200: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
+    --shadow-table-300: 0px 17px 42px -12px rgba(16, 24, 40, 0.14);
 
     /* radii */
     --radius-container-100: 16px;
     --radius-input-field-100: 4px;
 
-    /* DIMENSISONS */
+    /* DIMENSIONS */
     --sidebar-width: 20%;
+
+    --absolute-z-index-modal: 0
 }
 
 html {

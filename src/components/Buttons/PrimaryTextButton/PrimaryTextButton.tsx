@@ -28,8 +28,10 @@ export default function PrimaryTextButton({
             width={width}
             label={label}
             isLoading={isLoading}
-            disabled={disabled} 
-            onClick={clickAction}        
+            disabled={disabled}
+            onClick={clickAction} 
+            backgroundColor={""} 
+            labelColor={""}
         />
     );
 }

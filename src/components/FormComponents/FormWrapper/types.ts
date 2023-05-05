@@ -1,13 +1,16 @@
 export interface formFieldType {
-    type:"text" | "number" | "password",
+    type?:"text" | "number" | "password" | "date",
+    name?:string,
     label?: string,
     placeholder?: string,
-    value?: string,
+    value: string,
     error: string,
     validated: boolean,
     prefixIcon?: JSX.Element,
     suffixIcon?: JSX.Element,
-    suffixIconAlt?: JSX.Element
+    suffixIconAlt?: JSX.Element,
+    readonly?: boolean,
+    file?:File
 }
 
 export interface setFormFieldType extends React.Dispatch<React.SetStateAction<formFieldType>> {}
