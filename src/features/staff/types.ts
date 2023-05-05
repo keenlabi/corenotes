@@ -3,6 +3,7 @@ import { staffDetailsType } from "./utils/formatStaff";
 import { staffsListType } from "./utils/formatStaffsList";
 
 export interface IUser {
+    createdAt: any;
     id: string,
     // ACCOUNT INFO
     role: string,
@@ -39,7 +40,16 @@ export interface IUser {
     hiredAt: string,
     username: string,
     employeeId: string,
-    jobSchedule: string
+    jobSchedule: string,
+    documents: Array<{
+        _id:string,
+        docTitle: string,
+        docType: string,
+        docDate: string,
+        docFileLink: string,
+        docFileName: string,
+        createdAt:string
+    }>|[]
 }
 
 export interface NewStaffType {
@@ -81,6 +91,8 @@ export interface NewStaffType {
 export interface staffStateType extends initStateType {
     currentPage:number,
     totalPages:number,
+    currentDocumentsPage:number,
+    totalDocumentsPage:number,
     list:staffsListType[],
     details: staffDetailsType,
     newStaff: NewStaffType
