@@ -11,11 +11,7 @@ export default function StaffProfileHeader({
 }:{ actionType?:'edit-profile'|'upload-doc', clickAction?: ()=> void }) {
 
     const staffState = useStaffValue();
-
-    function editProfile() {
-        console.log('EDIT')
-    }
-
+    
     return (
         <div className={styles.section_identity}>
             <div className={styles.user_info}>
