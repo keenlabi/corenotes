@@ -9,7 +9,7 @@ import { formFieldType } from "../../FormWrapper/types";
 interface passwordInputFieldType {
     label?:string,
     value:string,
-    showPrefixIcon:boolean,
+    showPrefixIcon?:boolean,
     error:string,
     placeholder?:string,
     onInput: (value:string)=> void

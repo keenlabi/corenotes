@@ -1,0 +1,5 @@
+.date_range_field {
+    display: flex;
+    height: 50px;
+    gap: 0.5rem;
+}

@@ -102,10 +102,11 @@ export default function AddNewStaffModal({
     return (
         <ModalContainer close={()=> staffState.status !== 'LOADING' ? closeModal() :null}>
             <div className={styles.add_new_staff}>
-                <FormStateModal 
-                    state={staffState.status} 
-                    isError={staffState.error} 
+                <FormStateModal
+                    status={staffState.status}
+                    error={staffState.error}
                     message={staffState.message}
+                    dontShowSuccess={true}
                     reset={()=> resetFormStateModel()}
                 />
 
