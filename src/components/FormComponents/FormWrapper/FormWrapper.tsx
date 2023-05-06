@@ -7,15 +7,16 @@ export default function FormWrapper({
     resetState,
     extraStyles
 }:{children:JSX.Element | JSX.Element[], state?:formStateModalType, resetState?:()=> void, extraStyles?:string}) {
+
     return (
         <form className={`${styles.form_container} ${extraStyles}`}>
             {
                 state?.message
                 ?   <FormStateModal 
-                        isError={state?.isError ?? false}
-                        message={state?.message ?? ""}
+                        error={state?.error}
+                        message={state?.message}
                         reset={resetState} 
-                        state={"SUCCESS"}       
+                        status={"SUCCESS"}       
                     />
                 :   null
             }
