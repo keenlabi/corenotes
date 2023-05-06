@@ -1,6 +1,7 @@
 import styles from "./inputfield.module.css";
 import FormInputError from "../FormInputError";
 import FormLabel from "../FormLabel";
+import { useState } from "react";
 
 interface inputFieldType {
     type?:"text" | "number" | "password" | "date",
@@ -12,10 +13,15 @@ interface inputFieldType {
     suffixIcon?:JSX.Element,
     suffixAction?: ()=> void,
     readonly?: boolean,
-    onInput?:(value:string)=> void
+    onInput?:(value:string)=> void,
+    extraStyles?: string,
+    inputWidth?:string,
+    inputContainer?:string
 }
 
 export default function InputField({
+    inputWidth,
+    inputContainer,
     type,
     label,
     placeholder,
@@ -27,33 +33,47 @@ export default function InputField({
     readonly,
     onInput
 }:inputFieldType) {
+
+    const [internalType, setInternalType] = useState<string>(type === "date" ?'text' :type!);
+    
     return (
-        <div className={styles.input_field_container}>
+        <div className={`${styles.input_field_container}`} style={{width:inputContainer}}>
             <FormLabel text={label ?? ""} />
 
             <div 
                 className={`${styles.input_component} ${readonly ?styles.disabled :null}`}
             >
                 
-                <div 
-                    children={prefixIcon}
-                    className={styles.input_icon}
-                />
+                {   
+                    prefixIcon
+                    ?   <div 
+                            children={prefixIcon}
+                            className={` ${styles.prefix_icon} ${styles.input_icon}`}
+                        />
+                    :   null
+                }
 
-                <input 
-                    type={type ?? "text"}
+                <input  
+                    width={inputWidth}
+                    type={internalType}
                     className={`${styles.input}`}
                     placeholder={placeholder}
                     value={value}
                     readOnly={readonly}
+                    onFocus={()=> { type === 'date' ?setInternalType('date') :null}}
+                    onBlur={()=> { (type === 'date' && !value) ?setInternalType('text') :null}}
                     onChange={(e)=> onInput?.(e.target.value)}
                 />
 
-                <div 
-                    children={suffixIcon}
-                    className={styles.input_icon}
-                    onClick={suffixAction}
-                />
+                {   
+                    suffixIcon
+                    ?   <div 
+                            children={suffixIcon}
+                            className={` ${styles.suffix_icon} ${styles.input_icon}`}
+                            onClick={suffixAction}
+                        />
+                    :   null
+                }
             </div>
 
             <FormInputError message={error} />
