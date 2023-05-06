@@ -6,6 +6,7 @@ import StaffProfile from "src/pages/Dashboard/Staffs/StaffProfile";
 import StaffProfileInformation from "src/pages/Dashboard/Staffs/StaffProfile/StaffProfileInformation";
 import StaffDocuments from "src/pages/Dashboard/Staffs/StaffProfile/StaffDocuments/StaffDocuments";
 import StaffActivities from "src/pages/Dashboard/Staffs/StaffProfile/StaffActivities";
+import StaffReports from "src/pages/Dashboard/Staffs/StaffProfile/StaffReports";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -41,6 +42,11 @@ const DashboardRoutes:routerType[] = [
                                 path:'activities',
                                 title: 'Activities',
                                 element: <StaffActivities />,
+                            },
+                            {
+                                path:'reports',
+                                title: 'Reports',
+                                element: <StaffReports />,
                             }
                         ]
                     }
