@@ -2,7 +2,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import styles from "./table.module.css";
 
-export default function Table ({head, body, action, extraStyle, currentPage, totalPages, goToPage, emptyListMessage, enableSearch}:{
+export default function Table ({head, body, action, extraStyle, currentPage, totalPages, goToPage, emptyListMessage}:{
     head?:string[], 
     body:any[][],
     currentPage?:number,

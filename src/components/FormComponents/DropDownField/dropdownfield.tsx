@@ -3,9 +3,9 @@ import { useState } from "react";
 import useClickOutside from "src/hooks/useClickOutside";
 import { FaAngleDown } from "react-icons/fa";
 import { DropDownOption, DropDownProps } from "./types";
-import filterObjectList from "src/utils/filterObjectList";
 import FormLabel from "../FormLabel";
 import FormInputError from "../FormInputError";
+import filterObjectList from "src/utils/filterObjectList";
 
 export default function DropDownField({
     label,

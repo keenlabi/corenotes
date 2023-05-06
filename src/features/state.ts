@@ -2,7 +2,7 @@ import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { initStateType } from "./types";
 
 export const InitState:initStateType = {
-    status: 'idle',
+    status: 'IDLE',
     error: false,
     message: ''
 }
