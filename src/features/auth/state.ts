@@ -3,7 +3,7 @@ import { authStateType } from "./types";
 
 export const authInitState:authStateType = {
     isSignedIn: (localStorage.getItem('sid.set')) ?true :false,
-    status: 'idle',
+    status: 'IDLE',
     error: false,
     message:''
 }
