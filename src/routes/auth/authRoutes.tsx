@@ -1,4 +1,4 @@
-import Login from "src/pages/Login";
+import Login from "src/pages/Auth/Login";
 import { routerType } from "src/routes/types";
 
 const AuthRoutes:routerType[] = [
