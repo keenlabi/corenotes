@@ -8,12 +8,14 @@ interface PrimaryTextButtonType {
     label:string, 
     isLoading?:boolean, 
     loaderColor?:string, 
+    backgroundColor?: string,
     disabled?:boolean,
     clickAction: ()=> void
 }
 
 export default function PrimaryTextButton({ 
     width,
+    backgroundColor,
     type,
     label,
     isLoading,
@@ -30,7 +32,7 @@ export default function PrimaryTextButton({
             isLoading={isLoading}
             disabled={disabled}
             onClick={clickAction} 
-            backgroundColor={""} 
+            backgroundColor={backgroundColor} 
             labelColor={""}
         />
     );

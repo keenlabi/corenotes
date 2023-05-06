@@ -9,6 +9,7 @@ import filterObjectList from "src/utils/filterObjectList";
 
 export default function DropDownField({
     label,
+    placeholder,
     options,
     error,
     selected,
@@ -70,6 +71,7 @@ export default function DropDownField({
                                 { options[selectedOptionIndex].label }
                             </div>
                         :   <div className={styles.unselected} onClick={()=> dropOptions()}>
+                                <div className={styles.placeholder}>{placeholder}</div>
                                 <FaAngleDown />
                             </div>
                 }

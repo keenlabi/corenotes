@@ -3,28 +3,9 @@
     height: 100vh;
     background-color: var(--grey-accent-100);
 }
-.left_container {
-    height: 100%;
-    width: 40%;
-    background: var(--blue-accent-100);
-    color: white;
-    display: flex;
-}
-.container_text {
-    width: 80%;
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin: auto auto 20%;
-}
 
-.right_container {
-    height: 100%;
-    width: 60%;
-    display: flex;
-    justify-content: center;
-}
 .content_section {
-    width: 75%;
+    width: 50%;
     height: 80%;
     margin: auto;
     border-radius: var(--radius-container-100);

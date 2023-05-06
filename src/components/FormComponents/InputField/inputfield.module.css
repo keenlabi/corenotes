@@ -21,11 +21,13 @@
 }
 .input {
     height: 95%;
-    width: calc(100% - 70px);
+    min-width: calc(100% - 70px);
+    flex-grow: 1;
     margin: auto 0;
     background: 0;
     border: 0;
     padding: 0;
+    padding: 0 10px;
     outline: none;
     font-family: 'Source Sans Pro';
     font-size: 1rem;
@@ -37,4 +39,14 @@
 .input_component.disabled,
 .input_component.disabled input {
     background-color: var(--grey-accent-200);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url("src/assets/icons/icon-calendar.svg") no-repeat;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
 }

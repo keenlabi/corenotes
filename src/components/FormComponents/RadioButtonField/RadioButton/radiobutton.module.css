@@ -1,0 +1,34 @@
+.radio_button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+.radio {
+    border: 2px solid ;
+    color: var(--grey-accent-600);
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.radio::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    border-radius: 50%;
+}
+.label {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--grey-accent-800);
+}
+.radio.selected {
+    color: var(--dark-blue-accent-200);
+}
+.radio.selected::before {
+    background: var(--dark-blue-accent-200);
+}

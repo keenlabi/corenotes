@@ -12,13 +12,13 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types"
 import LoginAction from "src/features/auth/actions"
-import { useSetAuthState } from "src/features/auth/state"
+import { useAuthState } from "src/features/auth/state"
 
 export default function Login() {
 
     const navigate = useNavigate();
 
-    const setAuthState = useSetAuthState()
+    const [authState, setAuthState] = useAuthState()
 
     const [usernameModel, setUsernameModel] = useState<formFieldType>({
         type: 'text',
@@ -39,11 +39,11 @@ export default function Login() {
     })
 
     const [formStateModel, setFormStateModel] = useState({
-        isLoading: false,
-        isError: false,
-        message: 'The email or password entered does not match',
+        // isLoading: false,
+        // isError: false,
+        // message: 'The email or password entered does not match',
         validated: false,
-        state:"IDLE",
+        // state:"IDLE",
     })
 
     function setInput(value:string, inputModel:formFieldType, setInputModel:setFormFieldType) {
@@ -85,12 +85,12 @@ export default function Login() {
     } 
 
     function resetFormState() {
-        setFormStateModel((state)=> {
+        setAuthState((state)=> {
             return {
                 ...state,
-                isError: false,
-                message: '',
-                validated: false
+                status: 'IDLE',
+                error: false,
+                message: ''
             }
         })
     }
@@ -103,10 +103,10 @@ export default function Login() {
                 password: passwordModel.value ?? ""
             }   
 
-            setFormStateModel((state)=> {
+            setAuthState((state)=> {
                 return {
                     ...state,
-                    isLoading: true
+                    status: 'LOADING'
                 }
             })
 
@@ -125,13 +125,12 @@ export default function Login() {
                 navigate({pathname: "/dashboard"})
             })
             .catch((error)=> {
-                setFormStateModel(()=> {
+                setAuthState((state)=> {
                     return {
-                        isLoading: false,
-                        isError: true,
+                        ...state,
+                        error: true,
                         message: error.message,
-                        validated: false,
-                        state:'FAILED'
+                        status:'FAILED'
                     }
                 })
             })
@@ -141,65 +140,59 @@ export default function Login() {
 
     return (
         <div className={styles.login_page}>
-            <div className={styles.left_container}>
-                <div className={styles.container_text}>
-                    Community of caregivers <br /> dedicated to providing specialized <br /> care for those who need it most
-                </div>
-            </div>
-            <div className={styles.right_container}>
-                <div className={styles.content_section}>
-                    <ImageComponent
-                        src={logo}
-                        width={"100px"}
-                        extraStyles={styles.logo_image}
+            <div className={styles.content_section}>
+                <ImageComponent
+                    src={logo}
+                    width={"100px"}
+                    extraStyles={styles.logo_image}
+                />
+                
+                <SizedBox height="50px" />
+                
+                <FormWrapper 
+                    extraStyles={styles.form_wrapper}
+                    state={authState}
+                    resetState={()=> resetFormState()}
+                >
+                    <FormHeading 
+                        heading="Login"
+                        subheading="If you already have an account registered in the system."
+                        align="center"
                     />
-                    
+
+                    <div className={styles.input_fields_wrapper}>
+                        <InputField 
+                            placeholder={usernameModel.placeholder}
+                            value={usernameModel.value}
+                            error={usernameModel.error}
+                            prefixIcon={usernameModel.prefixIcon}
+                            onInput={(value:string)=> setInput(value, usernameModel, setUsernameModel)}
+                        />
+
+                        <PasswordInputField 
+                            placeholder={passwordModel.placeholder}
+                            value={passwordModel.value}
+                            error={passwordModel.error}
+                            onInput={(value: string) => setInput(value, passwordModel, setPasswordModel)} 
+                            showPrefixIcon={true}
+                        />
+                    </div>
+
+                    <div className={styles.forgot_prompt}>
+                        <Link to={"/forgot-username"} >Forgot username</Link>
+                        <Link to={"/forgot-password"} >Forgot password</Link>
+                    </div>
+
                     <SizedBox height="50px" />
-                    
-                    <FormWrapper 
-                        extraStyles={styles.form_wrapper}
-                        resetState={()=> resetFormState()}
-                    >
-                        <FormHeading 
-                            heading="Login"
-                            subheading="If you already have an account registered in the system."
-                            align="center"
-                        />
 
-                        <div className={styles.input_fields_wrapper}>
-                            <InputField 
-                                placeholder={usernameModel.placeholder}
-                                value={usernameModel.value}
-                                error={usernameModel.error}
-                                prefixIcon={usernameModel.prefixIcon}
-                                onInput={(value:string)=> setInput(value, usernameModel, setUsernameModel)}
-                            />
+                    <PrimaryTextButton 
+                        label={"Login"}
+                        isLoading={authState.status === 'LOADING'}
+                        disabled={!formStateModel.validated}
+                        clickAction={()=> loginInTrigger()}
+                    />
 
-                            <PasswordInputField 
-                                placeholder={passwordModel.placeholder}
-                                value={passwordModel.value}
-                                error={passwordModel.error}
-                                onInput={(value: string) => setInput(value, passwordModel, setPasswordModel)} 
-                                showPrefixIcon={true}
-                            />
-                        </div>
-
-                        <div className={styles.forgot_prompt}>
-                            <Link to={"/forgot-username"} >Forgot username</Link>
-                            <Link to={"/forgot-password"} >Forgot password</Link>
-                        </div>
-
-                        <SizedBox height="50px" />
-
-                        <PrimaryTextButton 
-                            label={"Login"}
-                            isLoading={formStateModel.isLoading}
-                            disabled={!formStateModel.validated}
-                            clickAction={()=> loginInTrigger()}
-                        />
-
-                    </FormWrapper>
-                </div>
+                </FormWrapper>
             </div>
         </div>
     )
