@@ -39,6 +39,7 @@
 
     /* red pallete */
     --red-accent-100: #FF0000;
+    --red-accent-faded-100: #FFE0E0;
 
     /* shadows */
     --shadow-container-100: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
