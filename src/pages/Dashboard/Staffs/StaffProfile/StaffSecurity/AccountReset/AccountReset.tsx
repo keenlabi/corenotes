@@ -91,6 +91,7 @@ export default function AccountReset() {
 
                 <PrimaryTextButton 
                     label="Save"
+                    disabled={!isFormValid}
                     clickAction={()=> saveNewPassword()}
                 />
             </div>

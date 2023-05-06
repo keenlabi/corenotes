@@ -2,7 +2,6 @@ import { useState } from "react";
 import { formFieldType, setFormFieldType } from "../FormWrapper/types";
 import InputField from "../InputField";
 import styles from "./daterangefield.module.css";
-import {ReactComponent as IconCalendar } from "src/assets/icons/icon-calendar.svg"
 
 export default function DateRangeField({
     onSelect

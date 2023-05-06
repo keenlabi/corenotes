@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./deactivatestaff.module.css";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
-import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField";
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton";
 
@@ -73,6 +72,7 @@ export default function DeactivateStaff() {
 
                 <FadedBackgroundButton
                     label="Deactivate staff"
+                    disabled={!isFormValid}
                     backgroundColor={"var(--red-accent-faded-100)"}
                     labelColor={"var(--red-accent-100)"}
                     action={()=> deactivateStaff()}
