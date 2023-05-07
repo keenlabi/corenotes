@@ -20,7 +20,7 @@ export default function formatStaffList(staffs:staffListType[]):staffsListType[]
             fullname: `${capitalize(staff.firstname)}, ${staff.lastname.toUpperCase()}`,
             role: staff.role,
             phoneNumber: staff.phoneNumber,
-            compartment: 'Test compartment'
+            compartment: staff.compartment || 'Test compartment'
         }
     })
 }
