@@ -6,7 +6,8 @@
 
 .content_section {
     width: 50%;
-    height: 80%;
+    min-height: 80%;
+    padding-bottom: 5%;
     margin: auto;
     border-radius: var(--radius-container-100);
     box-shadow: var(--shadow-container-100);
