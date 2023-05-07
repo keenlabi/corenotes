@@ -3,7 +3,7 @@ import { staffDetailsType } from "./utils/formatStaff";
 import { staffsListType } from "./utils/formatStaffsList";
 
 export interface IUser {
-    createdAt: any;
+    createdAt: string;
     id: string,
     active: boolean,
     // ACCOUNT INFO
