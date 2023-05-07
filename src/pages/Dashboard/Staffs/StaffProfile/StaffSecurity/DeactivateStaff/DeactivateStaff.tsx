@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./deactivatestaff.module.css";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
 import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField";
@@ -79,7 +79,6 @@ export default function DeactivateStaff() {
             setActivateStaffState(state => {
                 return {
                     ...state,
-                    details: formatStaff(response.data.staff),
                     error: false,
                     status: 'SUCCESS',
                     message: response.message
@@ -94,6 +93,8 @@ export default function DeactivateStaff() {
                     status: 'SUCCESS'
                 }
             })
+
+            setIsStaffActive(response.data.staff.active)
         })
         .catch((error)=> {
             setActivateStaffState(state => {
