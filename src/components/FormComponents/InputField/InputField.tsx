@@ -1,7 +1,7 @@
 import styles from "./inputfield.module.css";
 import FormInputError from "../FormInputError";
 import FormLabel from "../FormLabel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface inputFieldType {
     type?:"text" | "number" | "password" | "date",
@@ -35,6 +35,8 @@ export default function InputField({
 }:inputFieldType) {
 
     const [internalType, setInternalType] = useState<string>(type === "date" ?'text' :type!);
+
+    useEffect(()=> setInternalType(type!), [type])
     
     return (
         <div className={`${styles.input_field_container}`} style={{width:inputContainer}}>
