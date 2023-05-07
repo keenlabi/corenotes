@@ -101,3 +101,41 @@ export function uploadStaffDocumentAction(staffId:string, payload:FormData) {
         .catch((error)=> reject(error))
     })
 }
+
+export function updateStaffPasswordAction(staffId:string, payload:{newPassword:string}) {
+    return new Promise<successResponseType>((resolve, reject)=> {
+        postFetch(`/staffs/${staffId}/password-reset`, payload)
+        .then((response:successResponseType)=> resolve(response))
+        .catch((error)=> reject(error))
+    })
+}
+
+export function deactivateStaffPasswordAction(staffId:string, payload:{password:string}) {
+    return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
+        postFetch(`/staffs/${staffId}/deactivate`, payload)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: {
+                    staff: response.data.staff
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function activateStaffPasswordAction(staffId:string, payload:{password:string}) {
+    return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
+        postFetch(`/staffs/${staffId}/activate`, payload)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: {
+                    staff: response.data.staff
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}

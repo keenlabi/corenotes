@@ -3,8 +3,19 @@ import { formFieldType, setFormFieldType } from "src/components/FormComponents/F
 import { useState } from "react";
 import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
+import { updateStaffPasswordAction } from "src/features/staff/actions";
+import { useStaffState } from "src/features/staff/state";
+import FormWrapper from "src/components/FormComponents/FormWrapper";
+import { InitState } from "src/features/state";
+import { successResponseType } from "src/lib/types";
+import { useParams } from "react-router-dom";
 
 export default function AccountReset() {
+
+    const { id } = useParams();
+
+    const [staffState] = useStaffState()
+    const [updatePasswordState, setUpdatePasswordState] = useState(staffState)
 
     const [newStaffPassword, setNewStaffPassword] = useState<formFieldType>({
         type:'password',
@@ -19,6 +30,7 @@ export default function AccountReset() {
         type:'password',
         label:'Confirm new password',
         placeholder: 'Confirm new Password',
+        name: 'confirm-password',
         value: '',
         error: '',
         validated: false
@@ -37,6 +49,14 @@ export default function AccountReset() {
             updatedInputModel.validated = false;
             updatedInputModel.error = `${updatedInputModel.label} field cannot be empty`;
             return
+        }
+
+        if(updatedInputModel.name === 'confirm-password') {
+            if(updatedInputModel.value !== newStaffPassword.value) {
+                updatedInputModel.validated = false;
+                updatedInputModel.error = "Password doesn't match"
+                return false
+            }
         }
 
         updatedInputModel.validated = true;
@@ -62,10 +82,39 @@ export default function AccountReset() {
 
     function saveNewPassword() {
         const payload = {
-            password: newStaffPassword.value
+            newPassword: newStaffPassword.value
         }
 
-        console.log(payload)
+        setUpdatePasswordState(state => {
+            return {
+                ...state,
+                error: false,
+                status: 'LOADING',
+                message: ''
+            }
+        })
+
+        updateStaffPasswordAction(id!, payload)
+        .then((response:successResponseType)=> {
+            setUpdatePasswordState(state => {
+                return {
+                    ...state,
+                    error: false,
+                    status: 'SUCCESS',
+                    message: response.message
+                }
+            })
+        })
+        .catch((error)=> {
+            setUpdatePasswordState(state => {
+                return {
+                    ...state,
+                    error: true,
+                    status: 'FAILED',
+                    message: error.message
+                }
+            })
+        })
     }
 
     return (
@@ -74,7 +123,11 @@ export default function AccountReset() {
                 <div className={styles.heading}>Account reset</div>
                 <div className={styles.sub_heading}>Manage staff accounts</div>
             </div>
-            <div className={styles.right}>
+            <FormWrapper 
+                state={updatePasswordState}
+                resetState={()=> setUpdatePasswordState({...updatePasswordState, ...InitState})}
+                extraStyles={styles.right}
+            >
                 <PasswordInputField 
                     placeholder={newStaffPassword.placeholder}
                     value={newStaffPassword.value}
@@ -91,10 +144,11 @@ export default function AccountReset() {
 
                 <PrimaryTextButton 
                     label="Save"
+                    isLoading={updatePasswordState.status === 'LOADING'}
                     disabled={!isFormValid}
                     clickAction={()=> saveNewPassword()}
                 />
-            </div>
+            </FormWrapper>
         </div>
     )
 }

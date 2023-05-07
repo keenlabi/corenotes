@@ -7,12 +7,14 @@ export default function FadedBackgroundButton ({
     labelColor,
     backgroundColor,
     width,
+    isLoading,
     action
-}:{label:string, disabled?:boolean, labelColor:string, backgroundColor:string, width?:string, action: ()=> void}) {
+}:{label:string, disabled?:boolean, labelColor:string, backgroundColor:string, width?:string, isLoading?:boolean, action: ()=> void}) {
     return (
         <TextButton
             extraStyles={styles.fadedbackgroundbutton}
             disabled={disabled}
+            isLoading={isLoading}
             label={label}
             backgroundColor={backgroundColor}
             labelColor={labelColor} 
