@@ -18,3 +18,11 @@
 .success_state {
     background: var(--green-accent-100)
 }
+
+.close_icon {
+    cursor: pointer;
+}
+.close_icon path {
+    fill: white;
+    stroke: var(--red-accent-100);
+}
