@@ -8,7 +8,7 @@ export interface staffsListType {
     role: string,
     phoneNumber: string,
     compartment: string,
-    createdAt: Date
+    createdAt: string
 }
 
 export default function formatStaffList(staffs:IUser[]):staffsListType[] {
