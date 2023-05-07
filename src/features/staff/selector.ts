@@ -9,9 +9,9 @@ const fetchStaffsListSelector = selectorFamily({
     key: 'fetch_staffs_list_selector',
     get: (pageNumber:number)=> async ()=> {
         return await fetchStaffListAction({pageNumber})
-        .then((response:fetchStaffListSuccessResponseType)=> {
+        .then(({data})=> {
             return {
-                staffs: formatStaffList(response.data.staffs),
+                staffs: formatStaffList(data.staffs),
                 code: 200,
                 message: '',
                 error: false
