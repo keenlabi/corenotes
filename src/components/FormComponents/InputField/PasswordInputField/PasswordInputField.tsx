@@ -1,4 +1,3 @@
-import styles from "./passwordinputfield.module.css";
 import { FaEye } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import InputField from "../InputField";
@@ -52,18 +51,16 @@ export default function PasswordInputField({
     }, [value])
 
     return (
-        <div className={styles.container}>
-            <InputField 
-                type={passwordModel.type}
-                label={passwordModel.label}
-                value={passwordModel.value}
-                placeholder={passwordModel.placeholder}
-                error={error}
-                prefixIcon={passwordModel.prefixIcon}
-                suffixIcon={passwordModel.suffixIcon}
-                suffixAction={ ()=> togglePasswordVisibility() }
-                onInput={(inputValue:string)=> onInput(inputValue)} 
-            />
-        </div>
+        <InputField 
+            type={passwordModel.type}
+            label={passwordModel.label}
+            value={passwordModel.value}
+            placeholder={passwordModel.placeholder}
+            error={error}
+            prefixIcon={passwordModel.prefixIcon}
+            suffixIcon={passwordModel.suffixIcon}
+            suffixAction={ ()=> togglePasswordVisibility() }
+            onInput={(inputValue:string)=> onInput(inputValue)} 
+        />
     );
 }

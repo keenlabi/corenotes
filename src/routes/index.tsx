@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import AuthRoutes from "./auth/authRoutes";
 import DashboardRoutes from "./dashboard/dashboardRoutes";
 import { routerType } from "./types";
+import ProtectedRoute from "src/routes/ProtectedRoute";
 
 export default function Router() {
 
@@ -14,7 +15,7 @@ export default function Router() {
                     return  <Route
                                 key={routeItem.path}
                                 path={routeItem.path}
-                                element={routeItem.element}
+                                element={routeItem.protected ?<ProtectedRoute children={routeItem.element} /> :routeItem.element}
                                 children={RouteItem(routeItem)}
                             />
                 })

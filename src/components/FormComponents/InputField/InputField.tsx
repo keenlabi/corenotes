@@ -16,7 +16,8 @@ interface inputFieldType {
     onInput?:(value:string)=> void,
     extraStyles?: string,
     inputWidth?:string,
-    inputContainer?:string
+    inputContainer?:string,
+    extraInputContainerStyle?: string
 }
 
 export default function InputField({
@@ -31,7 +32,8 @@ export default function InputField({
     suffixIcon,
     suffixAction,
     readonly,
-    onInput
+    onInput,
+    extraInputContainerStyle
 }:inputFieldType) {
 
     const [internalType, setInternalType] = useState<string>(type === "date" ?'text' :type!);
@@ -43,7 +45,7 @@ export default function InputField({
             <FormLabel text={label ?? ""} />
 
             <div 
-                className={`${styles.input_component} ${readonly ?styles.disabled :null}`}
+                className={`${extraInputContainerStyle} ${styles.input_component} ${readonly ?styles.disabled :null}`}
             >
                 
                 {   

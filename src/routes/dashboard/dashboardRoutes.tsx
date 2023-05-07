@@ -13,6 +13,7 @@ const DashboardRoutes:routerType[] = [
     {
         path:'/dashboard',
         title: 'Dashboard',
+        protected: true,
         element: <Dashboard />,
         children: [
             {

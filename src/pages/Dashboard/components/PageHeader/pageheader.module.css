@@ -10,9 +10,14 @@
     height: 50%;
     width: 70%;
     border-radius: 8px;
-    background: var(--grey-accent-100-b);
 }
 
 .user_profile {
     margin-left: auto;
+}
+
+.input_container {
+    background: var(--grey-accent-100-b);
+    border-radius: 8px;
+    border: 0;
 }
