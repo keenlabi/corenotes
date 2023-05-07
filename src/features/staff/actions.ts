@@ -2,11 +2,21 @@ import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { IUser } from "./types"
 
+export interface staffListType {
+    id: string,
+    lastname: string,
+    firstname: string,
+    compartment: string,
+    role: string,
+    profileImage: string,
+    phoneNumber: string
+}
+
 export interface fetchStaffListSuccessResponseType extends Omit<successResponseType, 'data'> {
     data: {
         currentPage:number,
         totalPages:number,
-        staffs: IUser[]
+        staffs: staffListType[]
     }
 }
 
