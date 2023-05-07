@@ -5,6 +5,7 @@ export interface staffDetailsType {
     id: string,
     // ACCOUNT INFO
     role: string,
+    active: boolean,
     lastSeen: string,
     
     // PERSONAL INFORMATION
@@ -51,6 +52,7 @@ export default function formatStaff(staff:IUser):staffDetailsType {
     return {
         ...staff,
         id: staff.id ?? "",
+        active: staff.active,
         role: staff.role,
         lastSeen: staff.lastSeen,
         // PERSONAL INFORMATION

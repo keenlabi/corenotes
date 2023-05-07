@@ -13,6 +13,7 @@ export const staffState:staffStateType = {
     details: {
         // ACCOUNT INFO
         id: '',
+        active: true,
         role: '',
         lastSeen: '',
         // PERSONAL INFORMATION
@@ -89,7 +90,7 @@ export const staffState:staffStateType = {
 }
 
 export const staffAtom = atom({
-    key: 'init',
+    key: 'staffState',
     default: staffState  
 });
 
