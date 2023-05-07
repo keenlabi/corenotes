@@ -5,6 +5,7 @@ import { staffsListType } from "./utils/formatStaffsList";
 export interface IUser {
     createdAt: any;
     id: string,
+    active: boolean,
     // ACCOUNT INFO
     role: string,
     lastSeen: string,
