@@ -23,6 +23,7 @@
 .input {
     height: 95%;
     width: calc(100% - 90px);
+    flex-grow: 1;
     margin: auto 0;
     background: 0;
     border: 0;
