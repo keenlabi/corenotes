@@ -14,18 +14,15 @@
     display: flex;
 }
 .input_icon {
-    width: 80px;
-    /* border: 1px solid; */
+    min-width: 45px;
+    width: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* flex-grow: 1; */
 }
 .input {
     height: 95%;
-    min-width: calc(100% - 120px);
-    width: 100%;
-    flex-grow: 1;
+    width: calc(100% - 90px);
     margin: auto 0;
     background: 0;
     border: 0;
