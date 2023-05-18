@@ -65,7 +65,7 @@ export default function DropDownField({
                                 type={'text'}
                                 placeholder={"Search by keyword"}
                                 className={styles.search_bar}
-                                onInput={(e:any)=> filterOptions(e.target.value)}
+                                onInput={(e:React.ChangeEvent<HTMLInputElement>)=> filterOptions(e.target.value)}
                             />
                         </div>
                     :   (selected)
