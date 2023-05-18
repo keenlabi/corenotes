@@ -17,7 +17,9 @@ export default function DropDownField({
     onSelect,
     action,
     relative,
-    extraStyle
+    extraStyle,
+    width,
+    height
 }: DropDownProps) {
 
     const domNode = useClickOutside(()=> {
@@ -46,9 +48,9 @@ export default function DropDownField({
     }
 
     return (
-        <div className={`${extraStyle} ${styles.container}`} ref={domNode}>
+        <div style={{width}} className={`${extraStyle} ${styles.container}`} ref={domNode}>
             <FormLabel text={label ?? ""} />
-            <div className={`
+            <div style={{height}} className={`
                     ${styles.display}
                     ${isOpen ?styles.is_open :null}
                     ${isOpen ?relative ?styles.bottom_offset :null :null}
@@ -59,7 +61,7 @@ export default function DropDownField({
                 {
                     (isOpen)
                     ?   <div className={styles.search_bar_wrapper}>
-                            <input 
+                            <input
                                 type={'text'}
                                 placeholder={"Search by keyword"}
                                 className={styles.search_bar}
@@ -69,6 +71,7 @@ export default function DropDownField({
                     :   (selected)
                         ?   <div className={styles.selected_option} onClick={()=> dropOptions()}>
                                 { options[selectedOptionIndex].label }
+                                <FaAngleDown />
                             </div>
                         :   <div className={styles.unselected} onClick={()=> dropOptions()}>
                                 <div className={styles.placeholder}>{placeholder}</div>
