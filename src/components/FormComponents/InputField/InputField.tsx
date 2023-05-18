@@ -36,9 +36,11 @@ export default function InputField({
     extraInputContainerStyle
 }:inputFieldType) {
 
-    const [internalType, setInternalType] = useState<string>(type === "date" ?'text' :type!);
+    const [internalType, setInternalType] = useState<string>(type === "date" || type === 'text' ?'text' :type!);
 
-    useEffect(()=> setInternalType(type!), [type])
+    useEffect(()=> {
+        if(internalType !== type) setInternalType(type === "date" || type === 'text' ?'text' :type!)
+    }, [internalType, type])
     
     return (
         <div className={`${styles.input_field_container}`} style={{width:inputContainer}}>
