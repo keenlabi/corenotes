@@ -85,7 +85,7 @@ export default function DropDownField({
                         <div className={styles.options_container}>
                             {
                                 (filteredOptions.length)
-                                ?   filteredOptions.map((option, index:any)=> {
+                                ?   filteredOptions.map((option, index:number)=> {
                                         if(option.type === 'action-option' && options.length === 1) {
                                             return  <div 
                                                 key={index} 
