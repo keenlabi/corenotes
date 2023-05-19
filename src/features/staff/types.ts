@@ -1,5 +1,6 @@
 import { initStateType } from "../types";
 import { staffDetailsType } from "./utils/formatStaff";
+import { staffActivityType } from "./utils/formatStaffActivities";
 import { staffsListType } from "./utils/formatStaffsList";
 
 export interface IUser {
@@ -50,7 +51,13 @@ export interface IUser {
         docFileLink: string,
         docFileName: string,
         createdAt:string
-    }>|[]
+    }>|[],
+    activities: Array<{
+        _id:string,
+        activityHost:string,
+        activityTitle:string,
+        activityDateTime:string
+    }>
 }
 
 export interface NewStaffType {
@@ -96,5 +103,23 @@ export interface staffStateType extends initStateType {
     totalDocumentsPage:number,
     list:staffsListType[],
     details: staffDetailsType,
+    currentActivitiesPage?: number,
+    totalActivitiesPage?: number,
+    activities: staffActivityType[],
+    activityType?: string
     newStaff: NewStaffType
+}
+
+export interface IActivity {
+    _id: string,
+    title:string,
+    dateTime: {
+        startDateTime: string,
+        endDateTime: string
+    },
+    host:string,
+    assignees: Array<string>,
+    category: string,
+    status: string,
+    createdAt: string
 }
