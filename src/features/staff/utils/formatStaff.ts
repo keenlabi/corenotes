@@ -1,6 +1,7 @@
 import { IUser } from "../types"
 import { staffsDocumentsListType } from "./formatStaffDocuments"
 
+
 export interface staffDetailsType {
     id: string,
     // ACCOUNT INFO
