@@ -1,24 +1,54 @@
 import DateRangeField from "src/components/FormComponents/DateRangeField"
 import StaffProfileHeader from "../StaffProfileHeader"
 import styles from "./staffactivities.module.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield"
-import AddNewNoBackgroundIconButton from "src/components/Buttons/AddNewNoBackgroundIconButton"
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types"
 import capitalize from "src/utils/capitalize"
 import StaffActivitiesTable from "./StaffActivitiesTable"
 import SizedBox from "src/components/SizedBox"
+import { useFetchStaffActivities } from "src/features/staff/selector"
+import { useParams } from "react-router-dom"
+import { useStaffState } from "src/features/staff/state"
 
 export default function StaffActivities() {
     
-    const staffActivitiesResponse = [
-        {
-            id:'1',
-            title: 'Annual meeting',
-            host: 'Williams Augusta',
-            dateTime: '04/04/2023 01:00pm'
+    const { id } = useParams();
+
+    const [staffState, setStaffState] = useStaffState()
+
+    const staffActivitiesResponse = useFetchStaffActivities({id: id!, pageNumber:staffState.currentActivitiesPage!, activityType: staffState.activityType?.toUpperCase() ?? 'MEETING'})
+
+    useEffect(()=> {
+        if(!staffActivitiesResponse.error) {
+            setStaffState(state => {
+                return {
+                    ...state,
+                    activities: [...staffActivitiesResponse.activities],
+                    currentActivitiesPage: staffActivitiesResponse.currentPage,
+                    totalPages: staffActivitiesResponse.totalPages,
+                    error: false,
+                    status: 'SUCCESS',
+                    message: '',
+                }
+            })
+
+        } else {
+            setStaffState(state => {
+                return {
+                    ...state,
+                    error: true,
+                    status: 'FAILED',
+                    message: 'There was an error fetching staff activities',
+                    activities: staffActivitiesResponse.activities,
+                    currentActivitiesPage: staffActivitiesResponse.currentPage,
+                    totalPages: staffActivitiesResponse.totalPages,
+                }
+            })
+
         }
-    ]
+
+    }, [setStaffState, staffActivitiesResponse])
 
     const [activityDateRangeModel, setActivityDateRangeModel] = useState({
         start: '',
@@ -32,12 +62,12 @@ export default function StaffActivities() {
             {
                 id:'1',
                 label:'Meeting activity',
-                value:'meeting'
+                value:'MEETING'
             },
             {
                 id:'2',
                 label:'Training activity',
-                value:'training'
+                value:'TRAINING'
             }
         ],
         value: {
@@ -55,11 +85,16 @@ export default function StaffActivities() {
         model.selectedOptionIndex = optionIndex;
         model.selected = true;
 
-        setModel({...model})
-    }
+        if(model.name === 'activity-type') {
+            setStaffState(state=> {
+                return {
+                    ...state,
+                    activityType: model.value?.value
+                }
+            })
+        }
 
-    function createActivity() {
-        console.log('')
+        setModel({...model})
     }
 
     return (
@@ -86,19 +121,14 @@ export default function StaffActivities() {
                         selectedOptionIndex={activityTypeModel.selectedOptionIndex}       
                         onSelect={(optionIndex:number)=> selectOption(optionIndex, activityTypeModel, setActivityTypeModel)}
                     />
-
-                    <AddNewNoBackgroundIconButton
-                        label={`New ${activityTypeModel.value?.label}`}
-                        action={createActivity}
-                    />
                 </div>
 
                 <SizedBox height="50px" />
                 
                 <StaffActivitiesTable
-                    activitiesList={staffActivitiesResponse} 
-                    currentPage={0}
-                    totalPages={0}
+                    activitiesList={staffState.activities!}
+                    currentPage={staffState.currentActivitiesPage!}
+                    totalPages={staffState.totalActivitiesPage!}
                     errorMessage={"There are no activities to show"}
                     goToPage={(pageNumber: number)=> console.log(pageNumber)}
                 />

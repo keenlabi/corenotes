@@ -3,6 +3,7 @@ import styles from "./staffactivitiestable.module.css"
 import { useEffect, useState } from "react";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import sortByDate from "src/utils/sortByDate";
+import { staffActivityType } from "src/features/staff/utils/formatStaffActivities";
 
 export default function StaffActivitiesTable({
     currentPage,
@@ -11,7 +12,8 @@ export default function StaffActivitiesTable({
     activitiesList,
     errorMessage
 
-}:{activitiesList:{id:string, title:string, host:string, dateTime:string}[] , currentPage:number, totalPages:number, errorMessage:string, goToPage:(pageNumber:number)=> void}) {
+}:{activitiesList:staffActivityType[] , currentPage:number, totalPages:number, errorMessage:string, goToPage:(pageNumber:number)=> void}) {
+    
     const [isLoading, setIsLoading] = useState(false);
 
     const [tableBody, setTableBody] = useState<JSX.Element[][]|object[][]>([]);
@@ -35,7 +37,7 @@ export default function StaffActivitiesTable({
         })
     }, [activitiesList])
 
-    function formatTransactionsTable (activities:{id:string, title:string, host:string, dateTime:string}[]) {
+    function formatTransactionsTable (activities:staffActivityType[]) {
         return activities.map((activity)=> {
             return  [
                 {
@@ -43,7 +45,7 @@ export default function StaffActivitiesTable({
                     actionEvent: 'action_button_click',
                     actionButtonPosition: 5
                 },
-                <div className={styles.doc_date}>{activity.dateTime}</div>,
+                <div className={styles.doc_date}>{activity.dateTime.startDateTime}</div>,
                 <div>{activity.title}</div>,
                 <div>{activity.host}</div>
             ]
