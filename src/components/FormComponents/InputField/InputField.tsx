@@ -17,7 +17,8 @@ interface inputFieldType {
     extraStyles?: string,
     inputWidth?:string,
     inputContainer?:string,
-    extraInputContainerStyle?: string
+    extraInputContainerStyle?: string,
+    onEnterKeyPressed?: (value:string)=> void
 }
 
 export default function InputField({
@@ -33,7 +34,8 @@ export default function InputField({
     suffixAction,
     readonly,
     onInput,
-    extraInputContainerStyle
+    extraInputContainerStyle,
+    onEnterKeyPressed
 }:inputFieldType) {
 
     const [internalType, setInternalType] = useState<string>(type === "date" || type === 'text' ?'text' :type!);
@@ -41,7 +43,13 @@ export default function InputField({
     useEffect(()=> {
         if(internalType !== type) setInternalType(type === "date" || type === 'text' ?'text' :type!)
     }, [internalType, type])
-    
+
+    function handleKeyDown(e:any) {
+        if(e.key === 'Enter') {
+            onEnterKeyPressed?.(e.target.value)
+        }
+    }
+
     return (
         <div className={`${styles.input_field_container}`} style={{width:inputContainer}}>
             <FormLabel text={label ?? ""} />
@@ -69,6 +77,7 @@ export default function InputField({
                     onFocus={()=> { type === 'date' ?setInternalType('date') :null}}
                     onBlur={()=> { (type === 'date' && !value) ?setInternalType('text') :null}}
                     onChange={(e)=> onInput?.(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
 
                 {   
