@@ -1,7 +1,6 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { IActivity, IUser } from "./types"
-import { staffActivityType } from "./utils/formatStaffActivities"
 
 export interface staffListType {
     id: string,
@@ -49,11 +48,12 @@ export function fetchStaffAction(payload:{id:string}) {
         getFetch(`/staffs/profile/${payload.id}`)
         .then((response:successResponseType)=> {
             resolve({
-            ...response, 
-            data: { 
-                staff: response.data.staff
-            }
-        })})
+                ...response, 
+                data: { 
+                    staff: response.data.staff
+                }
+            })
+        })
         .catch((error)=> reject(error))
     })
 }
