@@ -1,0 +1,2 @@
+import IndividualAllergiesInformationForm from "./IndividualAllergiesInformation";
+export default IndividualAllergiesInformationForm;

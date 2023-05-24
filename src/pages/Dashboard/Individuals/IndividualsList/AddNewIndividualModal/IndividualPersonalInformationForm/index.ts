@@ -1,0 +1,2 @@
+import IndividualPersonalInformationForm from "./IndividualPersonalInformationForm";
+export default IndividualPersonalInformationForm;
