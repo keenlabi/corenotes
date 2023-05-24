@@ -2,6 +2,8 @@ import { routerType } from "src/routes/types";
 import Dashboard from "src/pages/Dashboard";
 import Staffs from "src/pages/Dashboard/Staffs";
 import StaffList from "src/pages/Dashboard/Staffs/StaffList";
+import Individuals from "src/pages/Dashboard/Individuals";
+import IndividualsList from "src/pages/Dashboard/Individuals/IndividualsList";
 import StaffProfile from "src/pages/Dashboard/Staffs/StaffProfile";
 import StaffProfileInformation from "src/pages/Dashboard/Staffs/StaffProfile/StaffProfileInformation";
 import StaffDocuments from "src/pages/Dashboard/Staffs/StaffProfile/StaffDocuments/StaffDocuments";
@@ -56,6 +58,17 @@ const DashboardRoutes:routerType[] = [
                                 element: <StaffSecurity />,
                             }
                         ]
+                    }
+                ]
+            },
+            {
+                path:'individuals',
+                element: <Individuals />,
+                children: [
+                    {
+                        path:'',
+                        title: '',
+                        element: <IndividualsList />,
                     }
                 ]
             }
