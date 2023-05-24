@@ -1,0 +1,9 @@
+.staff_list_header {
+    display: flex;
+    align-items: center;
+}
+.heading {
+    color: var(--black-accent-100);
+    font-size: 1.3rem;
+    font-weight: 600;
+}

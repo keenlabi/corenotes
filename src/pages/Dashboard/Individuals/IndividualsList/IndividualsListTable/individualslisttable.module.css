@@ -1,0 +1,40 @@
+th, td {
+    padding: 0 20px;
+}
+
+.user_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+tbody td {
+    color: var(--black-accent-200);
+    font-weight: 400;
+}
+
+.fullname {
+    color: var(--black-accent-100);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: capitalize;
+}
+
+.compartment {
+    text-transform: capitalize;
+}
+
+.gender {
+    text-transform: capitalize;
+}
+
+.age {
+    display: flex;
+}
