@@ -112,6 +112,7 @@ export interface IndividualProfileType {
         maritalStatus: string,
         religion: string,
         ssn: string,
+        weight: number,
         contact: {
             name: string,
             email: string,

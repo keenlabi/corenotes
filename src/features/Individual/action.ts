@@ -56,7 +56,7 @@ export function fetchIndividualListAction(pageNumber:number) {
 
 export function fetchIndividualProfileAction(id:string) {
     return new Promise<IndividualProfileSuccessResponseType>((resolve, reject)=> {
-        getFetch(`/individuals/${id}`)
+        getFetch(`/individuals/profile/${id}`)
         .then((response:successResponseType)=> resolve({
             ...response, 
             data: {

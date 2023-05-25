@@ -47,6 +47,7 @@ export const individualState:IndividualStateType = {
             maritalStatus: '',
             religion: '',
             ssn: '',
+            weight: 0,
             contact: {
                 name: '',
                 email: '',
