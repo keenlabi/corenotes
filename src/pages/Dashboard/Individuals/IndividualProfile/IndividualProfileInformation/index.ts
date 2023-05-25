@@ -1,0 +1,2 @@
+import InformationProfileInformation from "./IndividualProfileInformation";
+export default InformationProfileInformation

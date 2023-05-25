@@ -1,0 +1,2 @@
+import IndividualPersonalInformation from "./IndividualPersonalInformation";
+export default IndividualPersonalInformation
