@@ -10,6 +10,8 @@ import StaffDocuments from "src/pages/Dashboard/Staffs/StaffProfile/StaffDocumen
 import StaffActivities from "src/pages/Dashboard/Staffs/StaffProfile/StaffActivities";
 import StaffReports from "src/pages/Dashboard/Staffs/StaffProfile/StaffReports";
 import StaffSecurity from "src/pages/Dashboard/Staffs/StaffProfile/StaffSecurity/StaffSecurity";
+import IndividualProfile from "src/pages/Dashboard/Individuals/IndividualProfile";
+import IndividualProfileInformation from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualProfileInformation";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -67,8 +69,20 @@ const DashboardRoutes:routerType[] = [
                 children: [
                     {
                         path:'',
-                        title: '',
+                        title: 'Individual List',
                         element: <IndividualsList />,
+                    },
+                    {
+                        path:':id',
+                        title: 'Individual profile',
+                        element: <IndividualProfile />,
+                        children: [
+                            {
+                                path:'',
+                                title: 'Profile Information',
+                                element: <IndividualProfileInformation />,
+                            },
+                        ]
                     }
                 ]
             }
