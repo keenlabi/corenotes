@@ -3,14 +3,14 @@ import UserImage from "src/components/ImageComponent/UserImage";
 import IconButton from "src/components/Buttons/IconButton";
 import {ReactComponent as IconEditProfile} from "src/assets/icons/icon-edit-profile.svg"
 import {ReactComponent as IconUploadDoc} from "src/assets/icons/icon-folder-plus.svg"
-import { useIndividualValue } from "src/features/Individual/state";
+import { useIndividualStateValue } from "src/features/Individual/state";
 
 export default function IndividualProfileHeader({
     actionType, 
     clickAction
-}:{ actionType?:'edit-profile'|'upload-doc', clickAction?: ()=> void }) {
+}:{ actionType?:'edit-profile'|'upload-doc'|'take-assessment', clickAction?: ()=> void }) {
 
-    const individualState = useIndividualValue();
+    const individualState = useIndividualStateValue();
     
     return (
         <div className={styles.section_identity}>
@@ -37,7 +37,14 @@ export default function IndividualProfileHeader({
                             prefixIcon={<IconUploadDoc />}
                             onClick={()=> clickAction?.()}
                         />
-                    :   null
+                    :   actionType === 'take-assessment'
+                        ?   <IconButton
+                                extraStyle={styles.edit_profile_button}
+                                label="Take Assessment"
+                                suffixIcon={<IconEditProfile />}
+                                onClick={()=> clickAction?.()}
+                            />
+                        :   null
             }
         </div>
     )

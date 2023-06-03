@@ -1,6 +1,7 @@
-import { getFetch, postFetch } from "src/lib/fetch"
+import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { IndividualListItemType, IndividualProfileResponseType } from "./types"
+import { AssessmentModelType } from "../assessment/types"
 
 export interface IndividualListItemResponseType extends Omit<IndividualListItemType, 'age'> {
     dob: string
@@ -63,6 +64,59 @@ export function fetchIndividualProfileAction(id:string) {
                 individual: response.data.individual
             }
         }))
+        .catch((error)=> {
+            reject(error)
+        })
+    })
+}
+
+export interface IndividualAssessmentSessionResponseType extends Omit<successResponseType, 'data'> {
+    data: {
+        assessmentDetails: AssessmentModelType
+    }
+}
+
+export function fetchIndividualAssessmentSessionAction(assessmentId:string) {
+    return new Promise<IndividualAssessmentSessionResponseType>((resolve, reject)=> {
+        getFetch(`/individuals/assessments/${assessmentId}/session`)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: { assessmentDetails: response.data.individualAssessmentSession }
+            })
+        })
+        .catch((error)=> {
+            reject(error)
+        })
+    })
+}
+
+
+
+export function saveAssessmentSessionAction(assessmentId:string, payload:Pick<AssessmentModelType, 'questions'>) {
+    return new Promise<IndividualAssessmentSessionResponseType>((resolve, reject)=> {
+        patchFetch(`/individuals/assessments/${assessmentId}/session`, payload)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: { assessmentDetails: response.data.individualAssessmentSession }
+            })
+        })
+        .catch((error)=> {
+            reject(error)
+        })
+    })
+}
+
+export function completeAssessmentSessionAction(assessmentId:string, payload:Pick<AssessmentModelType, 'questions'>) {
+    return new Promise<IndividualAssessmentSessionResponseType>((resolve, reject)=> {
+        postFetch(`/individuals/assessments/${assessmentId}/session`, payload)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: { assessmentDetails: response.data.individualAssessmentSession }
+            })
+        })
         .catch((error)=> {
             reject(error)
         })

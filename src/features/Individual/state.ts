@@ -1,7 +1,7 @@
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { IndividualStateType } from "./types";
 
-export const individualState:IndividualStateType = {
+export const individualInitState:IndividualStateType = {
     status: 'IDLE',
     error: false,
     message: '',
@@ -64,14 +64,26 @@ export const individualState:IndividualStateType = {
                 others: []
             }
         }
+    },
+    assessments:{
+        list: [],
+        currentPage: 1,
+        totalPages: 1,
+        session: {
+            id:'',
+            title:'',
+            category:'',
+            questions:[],
+            status:'PENDING'
+        }
     }
 }
 
 export const IndividualAtom = atom({
     key: 'individualState',
-    default: individualState  
+    default: individualInitState  
 });
 
-export const useIndividualValue = ()=> useRecoilValue(IndividualAtom);
+export const useIndividualStateValue = ()=> useRecoilValue(IndividualAtom);
 export const useIndividualState = ()=> useRecoilState(IndividualAtom);
 export const useSetIndividualState = ()=> useSetRecoilState(IndividualAtom);

@@ -1,0 +1,24 @@
+.assessment_session_modal {
+    height: 80vh;
+}
+.header {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    border-bottom: 1px solid var(--grey-accent-400);
+    gap: 1rem;
+}
+.heading {
+    margin-right: auto;
+}
+.title {
+    text-transform: capitalize;
+    font-size: 1.5rem;
+}
+.status {
+    font-size: 0.9rem;
+}
+.questions_container {
+    padding: 5%;
+}

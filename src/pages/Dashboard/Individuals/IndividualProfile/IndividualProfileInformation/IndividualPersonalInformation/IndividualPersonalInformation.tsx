@@ -1,9 +1,9 @@
-import { useIndividualValue } from "src/features/Individual/state";
+import { useIndividualStateValue } from "src/features/Individual/state";
 import styles from "./individualpersonalinformation.module.css";
 
 export default function IndividualPersonalInformation() {
 
-    const IndividualState = useIndividualValue();
+    const IndividualState = useIndividualStateValue();
 
     const personalInfo = [
         {

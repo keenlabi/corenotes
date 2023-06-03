@@ -39,8 +39,9 @@ export default function IndividualsList() {
     return (
         <div className={styles.staff_list}>
             
-            <IndividualsListHeader  
+            <IndividualsListHeader 
                 showNewStaffModal={()=> setIsNewIndividualModalVisible(true)}
+                // showNewAssessmentModal={()=> navigate({pathname: 'assessments/new'})}
             />
 
             <IndividualsListTable
@@ -57,7 +58,7 @@ export default function IndividualsList() {
                         closeModal={()=> setIsNewIndividualModalVisible(false)}
                     />
                 :   null
-            }
+            }          
         </div>
     )
 }

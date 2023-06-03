@@ -1,0 +1,27 @@
+.question_card {
+    border: 1px solid;
+    border-radius: 10px;
+    min-height: 200px;
+    padding: 10px;
+    display: flex;
+}
+
+.question_number {
+    padding: 10px;
+    color: var(--red-accent-100);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.question_content {
+    padding: 10px;
+    width: 80%;
+}
+.question {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.comment {
+    margin-top: 10px;
+    width: 100%;
+    height: 85px;
+}

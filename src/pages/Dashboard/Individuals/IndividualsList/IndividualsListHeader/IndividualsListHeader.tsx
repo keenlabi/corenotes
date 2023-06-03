@@ -1,12 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./individualslistheader.module.css"
 import AddNewNoBackgroundIconButton from "src/components/Buttons/AddNewNoBackgroundIconButton";
-import { useIndividualValue } from "src/features/Individual/state";
+import { useIndividualStateValue } from "src/features/Individual/state";
 
 export default function IndividualsListHeader({
     showNewStaffModal
-}:{ showNewStaffModal: ()=> void }){
+}:{ showNewStaffModal: ()=> void}){
 
-    const individualState = useIndividualValue();
+    const navigate = useNavigate()
+
+    const individualState = useIndividualStateValue();
 
     return (
         <div className={styles.staff_list_header}>
@@ -15,8 +18,13 @@ export default function IndividualsListHeader({
             </div>
 
             <AddNewNoBackgroundIconButton 
+                label="Create assessment"
+                action={()=> navigate({pathname: '/dashboard/individuals/assessments/create'})} 
+            />
+
+            <AddNewNoBackgroundIconButton 
                 label="Add new staff"
-                action={showNewStaffModal} 
+                action={()=> showNewStaffModal()} 
             />  
         </div>
     )

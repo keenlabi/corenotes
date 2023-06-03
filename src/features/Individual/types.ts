@@ -1,3 +1,4 @@
+import { AssessmentModelType } from "../assessment/types";
 import { initStateType } from "../types";
 
 export interface IndividualStateType extends initStateType {
@@ -5,7 +6,13 @@ export interface IndividualStateType extends initStateType {
     currentListPage:number,
     totalListPages:number,
     newIndividual:NewIndividualType,
-    profile: IndividualProfileType
+    profile: IndividualProfileType,
+    assessments: {
+        list: AssessmentModelType[],
+        currentPage:number,
+        totalPages:number,
+        session: AssessmentModelType
+    }
 }
 
 export interface IndividualListItemType {
@@ -130,3 +137,16 @@ export interface IndividualProfileType {
         }
     }
 }
+
+// export interface IndividualAssessmentType {
+//     id:string,
+//     assessmentId:string,
+//     status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
+//     questions:Array<{
+//         id:string,
+//         question:string,
+//         answer:'YES'|'NO',
+//         comment:string
+//     }>,
+//     createdAt:string
+// }

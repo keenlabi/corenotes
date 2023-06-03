@@ -1,9 +1,9 @@
-import { useIndividualValue } from "src/features/Individual/state";
+import { useIndividualStateValue } from "src/features/Individual/state";
 import styles from "./individualhealthinformation.module.css"
 
 export default function IndividualHealthInformationForm() {
     
-    const IndividualState = useIndividualValue();
+    const IndividualState = useIndividualStateValue();
 
     return (
         <div className={styles.individual_health_information}>
@@ -15,7 +15,7 @@ export default function IndividualHealthInformationForm() {
                     <div className={styles.list}>
                         {
                             IndividualState.profile.healthInformation.diet.map(dietItem => (
-                                <div className={styles.diet_item}>{ dietItem  }</div>
+                                <div key={dietItem} className={styles.diet_item}>{ dietItem  }</div>
                             ))
                         }
                     </div>
@@ -29,7 +29,7 @@ export default function IndividualHealthInformationForm() {
                             <div>
                                 {
                                     IndividualState.profile.healthInformation.allergies.food.map(dietItem => (
-                                        <div className={styles.diet_item}>{ dietItem  }</div>
+                                        <div key={dietItem} className={styles.diet_item}>{ dietItem  }</div>
                                     ))
                                 }
                             </div>
@@ -40,7 +40,7 @@ export default function IndividualHealthInformationForm() {
                             <div>
                                 {
                                     IndividualState.profile.healthInformation.allergies.meds.map(dietItem => (
-                                        <div className={styles.diet_item}>{ dietItem  }</div>
+                                        <div key={dietItem} className={styles.diet_item}>{ dietItem  }</div>
                                     ))
                                 }
                             </div>
@@ -50,8 +50,8 @@ export default function IndividualHealthInformationForm() {
                             <div className={styles.allergy_type}>Others</div>
                             <div>
                                 {
-                                    IndividualState.profile.healthInformation.allergies.others.map(dietItem => (
-                                        <div className={styles.diet_item}>{ dietItem  }</div>
+                                    IndividualState.profile.healthInformation.allergies.others.map(allergies => (
+                                        <div key={allergies} className={styles.diet_item}>{ allergies  }</div>
                                     ))
                                 }
                             </div>
