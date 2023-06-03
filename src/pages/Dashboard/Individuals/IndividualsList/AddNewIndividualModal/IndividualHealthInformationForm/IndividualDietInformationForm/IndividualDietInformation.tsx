@@ -1,5 +1,5 @@
 import FormWrapper from "src/components/FormComponents/FormWrapper";
-import styles from "../IndividualHealthinformationform.module.css"
+import styles from "../individualhealthinformation.module.css"
 import { useState } from "react";
 import MultiSelectDropDownField from "src/components/FormComponents/DropDownField/MultiSelectDropDownField/MultiSelectDropDownField";
 import { MultiSelectDropDownFormData } from "src/components/FormComponents/DropDownField/MultiSelectDropDownField/types";
