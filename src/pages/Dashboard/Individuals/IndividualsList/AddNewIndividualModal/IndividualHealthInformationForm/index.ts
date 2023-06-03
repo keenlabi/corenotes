@@ -1,2 +1,2 @@
-import IndividualHealthInformationForm from "./IndividualWorkInformationForm";
+import IndividualHealthInformationForm from "./IndividualHealthInformationForm";
 export default IndividualHealthInformationForm
