@@ -39,7 +39,7 @@ function postFetch (url:string, body:any){
 }
 
 export const patchFetch = (url:string, body:bodyType)=> {
-    return new Promise((resolve, reject)=> {
+    return new Promise<successResponseType>((resolve, reject)=> {
         fetch(url, 'PATCH', body)
         .then((response)=> resolve(response.data))
         .catch((error)=> {
