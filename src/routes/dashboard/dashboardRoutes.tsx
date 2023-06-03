@@ -12,6 +12,9 @@ import StaffReports from "src/pages/Dashboard/Staffs/StaffProfile/StaffReports";
 import StaffSecurity from "src/pages/Dashboard/Staffs/StaffProfile/StaffSecurity/StaffSecurity";
 import IndividualProfile from "src/pages/Dashboard/Individuals/IndividualProfile";
 import IndividualProfileInformation from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualProfileInformation";
+import IndividualAssessments from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualAssesments";
+import Assessments from "src/pages/Dashboard/Assessments/Assessments";
+import CreateAssessment from "src/pages/Dashboard/Assessments/CreateAssessment/CreateAssessment";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -82,8 +85,40 @@ const DashboardRoutes:routerType[] = [
                                 title: 'Profile Information',
                                 element: <IndividualProfileInformation />,
                             },
+                            {
+                                path:'requested-services',
+                                title: '',
+                                element: <div></div>,
+                            },
+                            {
+                                path:'assessments',
+                                title: '',
+                                element: <IndividualAssessments />,
+                            },
+                            {
+                                path:'documents',
+                                title: '',
+                                element: <div />,
+                            },
+                            {
+                                path:'reports',
+                                title: '',
+                                element: <div />,
+                            },
                         ]
-                    }
+                    },
+                    {
+                        path:'assessments',
+                        title: 'Assessments',
+                        element: <Assessments />,
+                        children: [
+                            {
+                                path:'create',
+                                title: 'Create Assessment',
+                                element: <CreateAssessment />,
+                            },
+                        ]
+                    },
                 ]
             }
         ]
