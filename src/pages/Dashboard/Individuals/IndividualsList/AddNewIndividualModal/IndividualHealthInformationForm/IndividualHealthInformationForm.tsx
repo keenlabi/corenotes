@@ -1,3 +1,4 @@
+import styles from "./individualhealthinformation.module.css"
 import IndividualAllergiesInformationForm from "./IndividualAllergiesInformation/IndividualAllergiesInformation";
 import IndividualDietInformationForm from "./IndividualDietInformationForm/IndividualDietInformation";
 import IndividualRequestedServicesForm from "./IndividualRequestedServicesForm/IndividualRequestedServicesform";
@@ -5,7 +6,7 @@ import IndividualRequestedServicesForm from "./IndividualRequestedServicesForm/I
 export default function IndividualHealthInformationForm() {
 
     return (
-        <div>
+        <div className={styles.health_information}>
             <IndividualRequestedServicesForm />
             <IndividualDietInformationForm />
             <IndividualAllergiesInformationForm />
