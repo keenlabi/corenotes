@@ -65,7 +65,7 @@ export default function TagInputField({
                 value={tagInputModel.value}
                 placeholder={tagInputModel.placeholder}
                 error={tagInputModel.error}
-                onEnterKeyPressed={(value:string)=> addToTag()}
+                onEnterKeyPressed={()=> addToTag()}
                 onInput={(value:string)=> setInput(value, tagInputModel, setTagInputModel)}
             />
 

@@ -133,7 +133,7 @@ export default function MultiSelectDropDownField({
                                 (filteredOptions.length)
                                 ?   <div className={styles.radio_options}>
                                         {
-                                            filteredOptions.map((localOption, index:number)=> {
+                                            filteredOptions.map((localOption)=> {
                                                 return  <RadioButton
                                                             key={localOption.id}
                                                             selected={localOption.selected} 

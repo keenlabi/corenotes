@@ -4,6 +4,7 @@ export default function formatIndividual(individual:IndividualProfileResponseTyp
     return {
         id: individual._id,
         personalInformation: {
+            weight:0,
             profileImage: individual.profileImage,
             firstName: individual.firstname,
             middleName: individual.middlename,
