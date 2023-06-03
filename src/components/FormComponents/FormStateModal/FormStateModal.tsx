@@ -1,6 +1,6 @@
 import styles from "./formstatemodal.module.css";
 import { ReactComponent as IconAlertCirle } from "src/assets/icons/icon-alert-circle.svg";
-import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel.svg";
+import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg";
  
 export interface formStateModalType {
     status:"SUCCESS"|"FAILED"|"IDLE"|"LOADING",
@@ -23,7 +23,7 @@ export default function FormStateModal({ status, error, message, reset, dontShow
         >
             { error ? <IconAlertCirle /> : null }
             <div className={styles.text}> { message } </div>
-            <IconCancel onClick={()=> reset?.()} className={styles.close_icon} />
+            <IconCancelCircle onClick={()=> reset?.()} className={styles.close_icon} />
         </div>
     )
 }
