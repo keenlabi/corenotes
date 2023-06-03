@@ -15,7 +15,7 @@
     position: relative;
 }
 .is_open {
-    border-color: var(--orange-accent-700);
+    border-color: var(--blue-accent-100);
 }
 .bottom_offset {
     margin-bottom: 100%;
@@ -64,7 +64,7 @@
     padding: 0.5rem;
 }
 .option:hover {
-    background: var(--orange-accent-faded-200);
+    background: var(--blue-accent-faded-100);
 }
 .action_option {
     padding: 0.5rem;
@@ -75,7 +75,7 @@
     align-items: center;
     gap: 1rem;
     display: flex;
-    background: var(--teal-accent-faded-100);
+    background: var(--dark-blue-accent-100);
     padding: 0.5rem;
     color: white;
     border-radius: 5px;

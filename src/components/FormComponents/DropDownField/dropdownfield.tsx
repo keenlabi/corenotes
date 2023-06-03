@@ -1,11 +1,12 @@
 import styles from "./dropdownfield.module.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useClickOutside from "src/hooks/useClickOutside";
 import { FaAngleDown } from "react-icons/fa";
 import { DropDownOption, DropDownProps } from "./types";
 import FormLabel from "../FormLabel";
 import FormInputError from "../FormInputError";
 import filterObjectList from "src/utils/filterObjectList";
+import SizedBox from "src/components/SizedBox";
 
 export default function DropDownField({
     label,
@@ -21,6 +22,10 @@ export default function DropDownField({
     width,
     height
 }: DropDownProps) {
+
+    useEffect(()=> {
+        setFilteredOptions(options)
+    }, [options])
 
     const domNode = useClickOutside(()=> {
         setSearchKeyword('')
@@ -50,6 +55,7 @@ export default function DropDownField({
     return (
         <div style={{width}} className={`${extraStyle} ${styles.container}`} ref={domNode}>
             <FormLabel text={label ?? ""} />
+            <SizedBox height={"10px"}/>
             <div style={{height}} className={`
                     ${styles.display}
                     ${isOpen ?styles.is_open :null}
