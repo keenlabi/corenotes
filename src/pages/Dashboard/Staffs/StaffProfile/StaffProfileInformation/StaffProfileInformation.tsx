@@ -1,8 +1,8 @@
 import styles from "./staffprofileinformation.module.css";
-import StaffPersonalInformation from "./StaffPersonalInformation";
 import StaffWorkInformation from "./StaffWorkInformation";
 import SizedBox from "src/components/SizedBox";
 import StaffProfileHeader from "../StaffProfileHeader";
+import StaffPersonalInformation from "./StaffPersonalInformation";
 
 export default function StaffProfileInformation() {
     return (

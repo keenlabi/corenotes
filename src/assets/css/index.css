@@ -36,10 +36,15 @@
 
     /* green pallete */
     --green-accent-100: #388909;
+    --green-faded-accent-100: #d5f6bd;
 
     /* red pallete */
     --red-accent-100: #FF0000;
     --red-accent-faded-100: #FFE0E0;
+
+    /* yellow pallete */
+    --yellow-accent-100: #dd9d44;
+    --yellow-faded-accent-100: #fcf5ec;
 
     /* shadows */
     --shadow-container-100: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
@@ -53,7 +58,9 @@
     /* DIMENSIONS */
     --sidebar-width: 20%;
 
-    --absolute-z-index-modal: 0
+    --absolute-z-index-modal: 0;
+
+    --absolute-z-index-dropdown: 100;
 }
 
 html {

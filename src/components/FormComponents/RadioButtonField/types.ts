@@ -9,3 +9,7 @@ export interface RadioButtonFormFieldType {
     selectedIndex:number,
     error: string
 }
+
+export interface SetRadioButtonFormFieldType extends React.Dispatch<React.SetStateAction<RadioButtonFormFieldType>> {
+
+}

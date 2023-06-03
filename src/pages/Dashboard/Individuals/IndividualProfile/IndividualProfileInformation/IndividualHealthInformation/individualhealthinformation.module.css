@@ -1,0 +1,52 @@
+.individual_health_information {
+    margin-top: 70px;
+}
+.heading {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 2%;
+    color: var(--black-accent-100);
+}
+
+.info_section {
+    display: flex;
+    gap: 2rem;
+}
+.section {
+    width: fit-content;
+    padding: 15px;
+    width: 300px;
+    margin-top: 5%;
+    box-shadow: var(--shadow-100);
+    border-radius: 25px;
+}
+.sub_heading {
+    font-weight: 600;
+    font-size: 20px;
+}
+.list_group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.list {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.diet_item {
+    font-weight: 500;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 1000px;
+    background-color: var(--blue-accent-200);
+    width: fit-content;
+    color: white;
+}
+
+.allergy_type {
+    color: var(--grey-accent-700);
+}

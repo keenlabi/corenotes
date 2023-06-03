@@ -1,11 +1,12 @@
 import styles from "./dropdownfield.module.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useClickOutside from "src/hooks/useClickOutside";
 import { FaAngleDown } from "react-icons/fa";
 import { DropDownOption, DropDownProps } from "./types";
 import FormLabel from "../FormLabel";
 import FormInputError from "../FormInputError";
 import filterObjectList from "src/utils/filterObjectList";
+import SizedBox from "src/components/SizedBox";
 
 export default function DropDownField({
     label,
@@ -17,8 +18,14 @@ export default function DropDownField({
     onSelect,
     action,
     relative,
-    extraStyle
+    extraStyle,
+    width,
+    height
 }: DropDownProps) {
+
+    useEffect(()=> {
+        setFilteredOptions(options)
+    }, [options])
 
     const domNode = useClickOutside(()=> {
         setSearchKeyword('')
@@ -46,9 +53,10 @@ export default function DropDownField({
     }
 
     return (
-        <div className={`${extraStyle} ${styles.container}`} ref={domNode}>
+        <div style={{width}} className={`${extraStyle} ${styles.container}`} ref={domNode}>
             <FormLabel text={label ?? ""} />
-            <div className={`
+            <SizedBox height={"10px"}/>
+            <div style={{height}} className={`
                     ${styles.display}
                     ${isOpen ?styles.is_open :null}
                     ${isOpen ?relative ?styles.bottom_offset :null :null}
@@ -59,16 +67,17 @@ export default function DropDownField({
                 {
                     (isOpen)
                     ?   <div className={styles.search_bar_wrapper}>
-                            <input 
+                            <input
                                 type={'text'}
                                 placeholder={"Search by keyword"}
                                 className={styles.search_bar}
-                                onInput={(e:any)=> filterOptions(e.target.value)}
+                                onInput={(e:React.ChangeEvent<HTMLInputElement>)=> filterOptions(e.target.value)}
                             />
                         </div>
                     :   (selected)
                         ?   <div className={styles.selected_option} onClick={()=> dropOptions()}>
                                 { options[selectedOptionIndex].label }
+                                <FaAngleDown />
                             </div>
                         :   <div className={styles.unselected} onClick={()=> dropOptions()}>
                                 <div className={styles.placeholder}>{placeholder}</div>
@@ -82,7 +91,7 @@ export default function DropDownField({
                         <div className={styles.options_container}>
                             {
                                 (filteredOptions.length)
-                                ?   filteredOptions.map((option, index:any)=> {
+                                ?   filteredOptions.map((option, index:number)=> {
                                         if(option.type === 'action-option' && options.length === 1) {
                                             return  <div 
                                                 key={index} 

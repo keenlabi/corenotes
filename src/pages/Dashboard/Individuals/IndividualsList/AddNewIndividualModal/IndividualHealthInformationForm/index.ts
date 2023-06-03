@@ -1,0 +1,2 @@
+import IndividualHealthInformationForm from "./IndividualWorkInformationForm";
+export default IndividualHealthInformationForm

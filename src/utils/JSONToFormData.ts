@@ -10,7 +10,14 @@ export default function JSONToFormData(jsonObject:{ [key: string]: any }) {
                         value = jsonObject[allKeys[index]];
 
                 if(Array.isArray(value)) {
-                    value.forEach(val => formData.append(key, val))
+                    value.forEach((val, index) => {
+                        if(typeof val === 'object' && isNotFile(val.type)) {
+                            for (const nestedKey in val) {
+                                formData.append(`${key}[${index}][${nestedKey}]`, val[nestedKey]);
+                            }
+                        } 
+                        else formData.append(key, val)
+                    })
                 } 
                 else if(typeof value === 'object' && isNotFile(value.type)) {
                     for (const nestedKey in value) {

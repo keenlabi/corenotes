@@ -53,6 +53,9 @@ export const staffState:staffStateType = {
         },
         documents: []
     },
+    currentActivitiesPage: 1,
+    totalActivitiesPage: 1,
+    activities: [],
     newStaff: {
         // PERSONAL INFORMATION
         firstname: '',

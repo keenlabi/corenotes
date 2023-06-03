@@ -1,0 +1,2 @@
+import IndividualHealthInformation from "./IndividualHealthInformation";
+export default IndividualHealthInformation
