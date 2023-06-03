@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FormWrapper from "src/components/FormComponents/FormWrapper";
-import styles from "../IndividualHealthinformationform.module.css"
+import styles from "../individualhealthinformation.module.css"
 import TagInputField from "src/components/FormComponents/InputField/TagInputField/TagInputField";
 import { useIndividualState } from "src/features/Individual/state";
 
