@@ -50,11 +50,6 @@ export default function StaffActivities() {
 
     }, [setStaffState, staffActivitiesResponse])
 
-    const [activityDateRangeModel, setActivityDateRangeModel] = useState({
-        start: '',
-        end: ''
-    })
-
     const [activityTypeModel, setActivityTypeModel] = useState<DropDownFormData>({
         label:'',
         name:'activity-type',
@@ -108,7 +103,7 @@ export default function StaffActivities() {
 
                 <div className={styles.activity_header}>
                     <DateRangeField 
-                        onSelect={(dateRange)=>  setActivityDateRangeModel(dateRange)}  
+                        onSelect={()=>  ({})}  
                     />
 
                     <DropDownField 

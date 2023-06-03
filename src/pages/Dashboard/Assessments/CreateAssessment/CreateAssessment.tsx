@@ -29,7 +29,7 @@ export default function CreateAssessment() {
 
     const assessmentCategories = useFetchAssessmentCategories();   
 
-    const [categoryModel, setCategoryModel] = useState<DropDownFormData>({
+    const categoryModel:DropDownFormData = {
         name:'question-category',
         placeholder: 'Select question category',
         options: assessmentCategories.questionCategories.map(category => ({
@@ -40,7 +40,7 @@ export default function CreateAssessment() {
         selected: false,
         selectedOptionIndex: 0,
         error:''
-    })
+    }
 
     useEffect(()=> {
         setAssessmentState(state => ({
