@@ -143,7 +143,7 @@ export default function IndividualPersonalInformationForm() {
         type:'number',
         label: 'Medicaid',
         placeholder:'Medicaid number',
-        value: individualState.newIndividual!.medicaidNumber,
+        value: individualState.newIndividual!.medicaidNumber.toString(),
         error:'',
         validated:false
     })
@@ -222,7 +222,7 @@ export default function IndividualPersonalInformationForm() {
                     religion: religionModel.value,
                     ssn: ssnModel.value,
                     weight: weightModel.value.toString(),
-                    medicaidNumber: medicaidModel.value.toString(),
+                    medicaidNumber: parseInt(medicaidModel.value),
                     codeAlert: codeAlertsModel.value,
                     contact: {
                         name: contactFullnameModel.value,
