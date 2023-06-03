@@ -5,7 +5,6 @@
     font-size: 16px;
     background: none;
     color: var(--dark-blue-faded-accent-200);
-    margin: 0 0 0 auto;
 }
 .add_new_staff_button svg {
     width: 30px;

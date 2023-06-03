@@ -2,6 +2,7 @@ import CircularRingLoader from "src/components/Loaders/CircularRingLoader";
 import styles from "./iconbutton.module.css";
 
 export default function IconButton(props:{
+    backgroundColor?:string,
     extraStyle?:any,
     type?:"button"|"submit"|"reset",
     label?:string,
@@ -13,7 +14,8 @@ export default function IconButton(props:{
     loaderColor?:string
 }) {
     return(
-        <button 
+        <button
+            style={{backgroundColor:props.backgroundColor}}
             className={` ${props.extraStyle} ${styles.icon_btn_container}`} 
             onClick={()=> (!props.isLoading) ?props.onClick() :null }
             disabled={props.disabled}
