@@ -1,0 +1,2 @@
+import AddNewNoBackgroundIconButton from "./AddNewNoBackgroundIconButton";
+export default AddNewNoBackgroundIconButton;

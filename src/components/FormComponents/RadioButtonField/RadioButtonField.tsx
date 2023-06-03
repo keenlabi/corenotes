@@ -11,7 +11,8 @@ export interface RadioButtonType {
     }[],
     selected:boolean,
     selectedIndex:number,
-    selectOption: (optionIndex:number)=> void
+    selectOption: (optionIndex:number)=> void,
+    optionDirection?:'horizontal'|'vertical'
 }
 
 export default function RadioButtonField ({
@@ -19,7 +20,8 @@ export default function RadioButtonField ({
     options, 
     selected,
     selectedIndex,
-    selectOption
+    selectOption,
+    optionDirection
 }:RadioButtonType) {
     return (
         <div className={styles.radio_options} >
@@ -27,20 +29,22 @@ export default function RadioButtonField ({
 
             <SizedBox height="10px" />
             
-            {
-                options.map((option, index) => {
-                    return  <div 
-                                key={option.label}
-                                className={styles.date_filter_option}
-                            >
-                                <RadioButton 
-                                    label={option.label}
-                                    selected={selected ?selectedIndex === index :false}
-                                    onSelect={()=> selectOption(index)}
-                                />
-                            </div>
-                })
-            }
+            <div className={`${styles.options} ${optionDirection === 'vertical' ?styles.vertical :styles.horizontal }`}>
+                {
+                    options.map((option, index) => {
+                        return  <div 
+                                    key={option.label}
+                                    className={styles.date_filter_option}
+                                >
+                                    <RadioButton 
+                                        label={option.label}
+                                        selected={selected ?selectedIndex === index :false}
+                                        onSelect={()=> selectOption(index)}
+                                    />
+                                </div>
+                    })
+                }
+            </div>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IUser } from "./types"
+import { IActivity, IUser } from "./types"
 
 export interface staffListType {
     id: string,
@@ -48,11 +48,12 @@ export function fetchStaffAction(payload:{id:string}) {
         getFetch(`/staffs/profile/${payload.id}`)
         .then((response:successResponseType)=> {
             resolve({
-            ...response, 
-            data: { 
-                staff: response.data.staff
-            }
-        })})
+                ...response, 
+                data: { 
+                    staff: response.data.staff
+                }
+            })
+        })
         .catch((error)=> reject(error))
     })
 }
@@ -143,6 +144,31 @@ export function activateStaffPasswordAction(staffId:string, payload:{password:st
                 ...response,
                 data: {
                     staff: response.data.staff
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface fetchStaffActivitiesSuccessResponseType extends Omit<successResponseType, 'data'> {
+    data: {
+        currentPage:number,
+        totalPages:number,
+        activities: IActivity[]
+    }
+}
+
+export function fetchStaffActivitiesAction(staffId:string, pageNumber:number, activityType: string) {
+    return new Promise<fetchStaffActivitiesSuccessResponseType>((resolve, reject)=> {
+        postFetch(`/staffs/${staffId}/activities/${pageNumber}`, {activityType: activityType})
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage:response.data.currentPage,
+                    totalPages:response.data.totalPages,
+                    activities: response.data.activities
                 }
             })
         })

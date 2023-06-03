@@ -25,7 +25,7 @@ tbody td {
     border-top: 1px solid var(--table-row-line-color);
 }
 th, td {
-    padding: 0 10px;
+    padding: 0 40px;
 }
 
 

@@ -1,0 +1,47 @@
+.staff_profile_information {
+}
+.section_identity {
+    display: flex;
+}
+.user_info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.user_image {
+    border: 1px solid;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.fullname {
+    font-weight: 600;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+.last_update {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--grey-accent-700);
+}
+.edit_profile_button,
+.upload_document_button {
+    border: 1px solid var(--grey-accent-700);
+    width: max-content;
+    height: 40px;
+    padding: 0 10px;
+    font-weight: 600;
+    background: none;
+    color: var(--black-accent-200);
+    margin: auto 0 auto auto;
+}
+.edit_profile_button svg path {
+    stroke: var(--black-accent-200);
+}
+.upload_document_button {
+    border-color: var(--dark-blue-faded-accent-200);
+    color: var(--dark-blue-faded-accent-200);
+}
+.upload_document_button svg path {
+    stroke: var(--dark-blue-faded-accent-200);
+}

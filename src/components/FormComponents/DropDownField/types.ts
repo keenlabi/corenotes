@@ -13,7 +13,9 @@ export interface DropDownProps {
     onSelect?:(selectedOptionIndex:number)=> void,
     action?:(inputValue:string)=>  void,
     relative?: boolean,
-    extraStyle?: string
+    extraStyle?: string,
+    width?:string,
+    height?:string
 }
 
 export interface DropDownOption {

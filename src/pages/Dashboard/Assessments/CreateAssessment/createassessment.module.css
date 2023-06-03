@@ -1,0 +1,131 @@
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.section_heading {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.title {
+    font-size: 25px;
+    font-weight: 600;
+}
+.icon_cancel {
+    width: 40px;
+    height: 40px;
+}
+
+.body {
+    display: flex;
+}
+
+.form {
+    width: 65%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.row {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.add_button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.3rem;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.add_button .plus {
+    width: 20px;
+}
+
+.delete_button {
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 0.1rem;
+    color: var(--red-accent-100);
+    cursor: pointer;
+}
+.minus_icon {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--red-accent-100);
+    color: var(--red-accent-100);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.questions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2%;
+}
+
+.question_box {
+    display: flex;
+    gap: 1rem;
+}
+
+.number {
+    border: 1px solid black;
+    width: 40px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+}
+.question_content {
+    width: 100%;
+}
+.question_category {
+    display: flex;
+    gap: 1rem;
+}
+.assignee {
+    width: 20%;
+    bottom: 60px;
+    top: 250px;
+    position: fixed;
+    right: 60px;
+    padding: 1rem;
+    background: var(--grey-accent-100)
+}
+
+.select_all {
+    padding: 15px 0;
+}
+.selection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.container {
+    background: var(--grey-accent-300);
+    border-radius: 5px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+.container > div {
+    color: black !important;
+}

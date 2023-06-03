@@ -1,0 +1,67 @@
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 60px;
+    padding: 0 5%;
+}
+.add_new_service {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: max-content;
+    margin-left: auto;
+    cursor: pointer;
+}
+.add_new_service .icon_add {
+    width: 20px;
+    height: 20px;
+}
+.add_new_service .text {
+    font-size: 0.9rem;
+    padding: 5px;
+    color: var(--dark-blue-accent-200);
+}
+
+.number_circle {
+    border: 1px solid;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.form_content {
+    margin-left: 8.5%;
+    margin-right: 6%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.row {
+    display: flex;
+    gap: 0.5rem;
+}
+.row > div {
+    width: calc(100% / 3);
+}
+
+.requested_service {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.cancel_icon {
+    width: 30px;
+    cursor: pointer;
+}
+.cancel_icon path {
+    stroke: var(--red-accent-100);
+}
