@@ -1,0 +1,19 @@
+.compartment_card {
+    border-radius: 16px;
+    box-shadow: var(--shadow-table-300);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 240px;
+    cursor: pointer;
+}
+.title {
+    font-weight: 600;
+
+}
+.compartment_image {
+    margin-top: 20px;
+}
