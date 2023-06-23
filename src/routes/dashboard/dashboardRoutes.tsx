@@ -15,6 +15,8 @@ import IndividualProfileInformation from "src/pages/Dashboard/Individuals/Indivi
 import IndividualAssessments from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualAssesments";
 import Assessments from "src/pages/Dashboard/Assessments/Assessments";
 import CreateAssessment from "src/pages/Dashboard/Assessments/CreateAssessment/CreateAssessment";
+import Compartments from "src/pages/Dashboard/Compartments/Compartments";
+import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -120,7 +122,18 @@ const DashboardRoutes:routerType[] = [
                         ]
                     },
                 ]
-            }
+            },
+            {
+                path:'compartments',
+                element: <Compartments />,
+                children: [
+                    {
+                        path:'',
+                        title: 'Compartment list',
+                        element: <CompartmentsList />,
+                    },
+                ]
+            },
         ]
     },
 ]
