@@ -5,6 +5,7 @@ import { useServicesState } from "src/features/service/state";
 import { useEffect, useState } from "react";
 import { useFetchServicesList } from "src/features/service/selector";
 import AddServiceModal from "../AddServiceModal/AddServiceModal";
+import AddNewNoBackgroundIconButton from "src/components/Buttons/AddNewNoBackgroundIconButton";
 
 export default function ServicesList() {
 
@@ -15,12 +16,9 @@ export default function ServicesList() {
     useEffect(()=> {
         setServicesState(state => ({
             ...state,
-            status: fetchServicesListReponse.error ? 'FAILED' :'SUCCESS', 
-            error: fetchServicesListReponse.error,
-            message: fetchServicesListReponse.message,
             servicesList: fetchServicesListReponse.list.services,
-            currentListPage: fetchServicesListReponse.list.currentListPage,
-            totalListPages: fetchServicesListReponse.list.totalListPages,
+            currentListPage: fetchServicesListReponse.list.currentPage,
+            totalListPages: fetchServicesListReponse.list.totalPages,
         }))
     }, [fetchServicesListReponse, setServicesState])
     
@@ -29,14 +27,21 @@ export default function ServicesList() {
 
     return (
         <div className={styles.services_list}>
-            All Services
+            <div className={styles.heading}>
+                <div className={styles.title}>All Services</div>
+
+                <AddNewNoBackgroundIconButton 
+                    label="Create Service"
+                    action={()=> toggleCreateServicesModalVisibility(true)}
+                />
+            </div>
 
             <div className={styles.services_table}>
                 <ServicesListTable 
                     services={servicesState.servicesList}
-                    currentPage={0} 
-                    totalPages={0} 
-                    errorMessage={""} 
+                    currentPage={servicesState.currentListPage} 
+                    totalPages={servicesState.totalListPages} 
+                    errorMessage={"There are no services to show"} 
                     goToPage={()=> null}                    
                 />
             </div>

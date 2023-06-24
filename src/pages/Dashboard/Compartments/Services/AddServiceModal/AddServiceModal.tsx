@@ -8,6 +8,7 @@ import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton"
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton"
 import { useServicesState } from "src/features/service/state"
 import { newServiceData, postService } from "src/features/service/action"
+import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal"
 
 export default function AddCompartmentModal({ close }:{close:()=> void}) {
 
@@ -15,7 +16,7 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
 
     const [serviceTitle, setserviceTitle] = useState<formFieldType>({
         type:'text',
-        placeholder:'Enter name of compartment',
+        placeholder:'Enter name of service',
         value:'',
         error:'',
         validated:false
@@ -62,7 +63,7 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
     }
 
     function submitService() {
-        if(!isFormValidated) {
+        if(isFormValidated) {
 
             const payload:newServiceData = {
                 title: serviceTitle.value
@@ -77,20 +78,22 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
 
             postService(payload)
             .then((response)=> {
+                console.log(response)
                 setServicesState(state => ({
                     ...state,
                     status: 'SUCCESS', 
                     error: false,
                     message: "New Service successfully created",
                     servicesList: response.data.services,
-                    currentListPage: response.data.currentListPage,
-                    totalListPages: response.data.totalListPages,
+                    currentListPage: response.data.currentPage,
+                    totalListPages: response.data.totalPages,
                 }))
             })
             .catch((error)=> {
+                console.log(error)
                 setServicesState(state => ({
                     ...state,
-                    status: 'SUCCESS', 
+                    status: 'SUCCESS',
                     error: true,
                     message: error.message || "There was an error creating compartment"
                 }))
@@ -101,9 +104,17 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
     return (
         <ModalContainer close={()=> close()}>
             <div className={styles.container}>
+                
+                <FormStateModal 
+                    status={servicesState.status} 
+                    error={servicesState.error}
+                    message={servicesState.message}
+                    reset={()=> setServicesState((state)=> ({ ...state, status: 'IDLE' }))}
+                />
+
                 <div className={styles.heading}>
                     <div className={styles.title}>Services</div>
-                    <IconCancelCircle />
+                    <IconCancelCircle onClick={()=> close()} style={{cursor:"pointer"}} />
                 </div>
 
                 <div className={styles.body}>
@@ -121,12 +132,12 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
                         label="Cancel"
                         labelColor={"var(--blue-accent-200)"}
                         backgroundColor={"var(--blue-accent-faded-100)"}
-                        action={() => ({})}
+                        action={() => close()}
                     />
                     
                     <PrimaryTextButton
                         width="200px"
-                        label="Create compartment"
+                        label="Create service"
                         clickAction={()=> submitService()}
                         disabled={!isFormValidated}
                         isLoading={servicesState.status === 'LOADING'}

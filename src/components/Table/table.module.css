@@ -75,6 +75,14 @@ th, td {
     color: white;
     border-radius: 5px;
 }
+
+.empty_table_message {
+    font-size: 1.5rem;
+    color: var(--grey-accent-700);
+    text-align: center;
+    margin-top: 50px;
+}
+
 /*
 .mobile_pagination {
     display: none;
