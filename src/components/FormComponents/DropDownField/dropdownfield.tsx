@@ -6,7 +6,6 @@ import { DropDownOption, DropDownProps } from "./types";
 import FormLabel from "../FormLabel";
 import FormInputError from "../FormInputError";
 import filterObjectList from "src/utils/filterObjectList";
-import SizedBox from "src/components/SizedBox";
 
 export default function DropDownField({
     label,
@@ -55,7 +54,6 @@ export default function DropDownField({
     return (
         <div style={{width}} className={`${extraStyle} ${styles.container}`} ref={domNode}>
             <FormLabel text={label ?? ""} />
-            <SizedBox height={"10px"}/>
             <div style={{height}} className={`
                     ${styles.display}
                     ${isOpen ?styles.is_open :null}
@@ -77,11 +75,11 @@ export default function DropDownField({
                     :   (selected)
                         ?   <div className={styles.selected_option} onClick={()=> dropOptions()}>
                                 { options[selectedOptionIndex].label }
-                                <FaAngleDown />
+                                <FaAngleDown onClick={()=> dropOptions()} />
                             </div>
                         :   <div className={styles.unselected} onClick={()=> dropOptions()}>
                                 <div className={styles.placeholder}>{placeholder}</div>
-                                <FaAngleDown />
+                                <FaAngleDown onClick={()=> dropOptions()}/>
                             </div>
                 }
 

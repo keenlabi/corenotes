@@ -14,7 +14,7 @@ export default function IndividualsListHeader({
     return (
         <div className={styles.staff_list_header}>
             <div className={styles.heading}>
-                { individualState.list.length } Staff{individualState.list.length > 1 ?"s" :""} total
+                { individualState.list.length } individual{individualState.list.length > 1 ?"s" :""} total
             </div>
 
             <AddNewNoBackgroundIconButton 
@@ -23,7 +23,7 @@ export default function IndividualsListHeader({
             />
 
             <AddNewNoBackgroundIconButton 
-                label="Add new staff"
+                label="Add new individual"
                 action={()=> showNewStaffModal()} 
             />  
         </div>

@@ -46,7 +46,7 @@ export default function ImageUploader({
         checkFileSize(uploadedFile)
         
         if(uploadedFile) {
-            setSelectedImages(N=> event.target.files[0]);
+            setSelectedImages(()=> event.target.files[0]);
             saveImage(event.target.files[0])
         }
     }
@@ -60,7 +60,7 @@ export default function ImageUploader({
                         className={styles.icon_trash} 
                         onClick={()=> {
                             deleteImage();
-                            setSelectedImages(N=> undefined)
+                            setSelectedImages(()=> undefined)
                         }} 
                     /> 
                 :null

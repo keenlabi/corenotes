@@ -43,7 +43,7 @@ export default function IndividualPersonalInformation() {
             value: IndividualState.profile.personalInformation.ssn
         },
         {
-            label:'Weight',
+            label:'Weight (in pounds)',
             value: IndividualState.profile.personalInformation.weight
         },
         {
