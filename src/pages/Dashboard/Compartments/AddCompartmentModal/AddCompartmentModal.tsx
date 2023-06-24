@@ -13,6 +13,7 @@ import { ImageUploaderFormType } from "src/components/ImageUploader/ImageUploade
 import JSONToFormData from "src/utils/JSONToFormData"
 import SizedBox from "src/components/SizedBox"
 import displayFormData from "src/utils/displayFormData"
+import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal"
 
 export default function AddCompartmentModal({ close }:{close:()=> void}) {
 
@@ -68,7 +69,7 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
             title: compartmentTitle.value,
             compartmentImage: compartmentImage?.image
         }
-        console.log(payload)
+
         setCompartmentState(state => ({
             ...state,
             status: 'LOADING', 
@@ -78,14 +79,14 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
 
         JSONToFormData(payload)
         .then((payloadInFormData)=> {
-            displayFormData(payloadInFormData);
+
             postCompartment(payloadInFormData)
             .then((response)=> {
                 setCompartmentState(state => ({
                     ...state,
                     status: 'SUCCESS', 
                     error: false,
-                    message: "Compartment successfully created",
+                    message: "New compartment successfully created",
                     compartmentsList: response.data.compartments,
                     currentListPage: response.data.currentListPage,
                     totalListPages: response.data.totalListPages,
@@ -94,7 +95,7 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
             .catch((error)=> {
                 setCompartmentState(state => ({
                     ...state,
-                    status: 'SUCCESS', 
+                    status: 'FAILED', 
                     error: true,
                     message: error.message || "There was an error creating compartment"
                 }))
@@ -105,9 +106,17 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
     return (
         <ModalContainer close={()=> close()}>
             <div className={styles.container}>
+
+                <FormStateModal 
+                    status={compartmentState.status}
+                    error={compartmentState.error}
+                    message={compartmentState.message}
+                    reset={()=> setCompartmentState(state => ({ ...state, status:'IDLE' }))} 
+                />
+
                 <div className={styles.heading}>
                     <div className={styles.title}>Compartments</div>
-                    <IconCancelCircle />
+                    <IconCancelCircle onClick={()=> close()} style={{cursor:"pointer"}} />
                 </div>
 
                 <div className={styles.body}>
@@ -136,7 +145,7 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
                         label="Cancel"
                         labelColor={"var(--blue-accent-200)"}
                         backgroundColor={"var(--blue-accent-faded-100)"}
-                        action={() => ({})}
+                        action={() => close()}
                     />
                     
                     <PrimaryTextButton
