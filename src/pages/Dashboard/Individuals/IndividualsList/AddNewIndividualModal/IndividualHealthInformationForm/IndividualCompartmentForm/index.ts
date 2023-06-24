@@ -1,0 +1,2 @@
+import IndividualCompartmentForm from "./IndividualCompartmentForm";
+export default IndividualCompartmentForm

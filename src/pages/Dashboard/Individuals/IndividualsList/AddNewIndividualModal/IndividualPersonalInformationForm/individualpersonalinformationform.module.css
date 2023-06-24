@@ -22,7 +22,7 @@
 }
 
 .form_content {
-    margin-left: 8.5%;
+    margin-left: 5.5%;
     margin-right: 6%;
     display: flex;
     flex-direction: column;
@@ -31,7 +31,7 @@
 
 .row {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.6rem;
 }
 .row > div {
     width: calc(100% / 3);

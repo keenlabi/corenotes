@@ -22,7 +22,7 @@
 }
 
 .form_content {
-    margin-left: 8.5%;
+    margin-left: 5.5%;
     margin-right: 6%;
     display: flex;
     flex-direction: column;
@@ -34,4 +34,10 @@
 }
 .row > div {
     width: calc(100% / 3);
+}
+
+.health_information {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

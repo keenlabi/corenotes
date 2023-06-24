@@ -133,7 +133,7 @@ export default function IndividualPersonalInformationForm() {
     const [weightModel, setWeightModel] = useState<formFieldType>({
         type:'number',
         label: 'Weight',
-        placeholder:'Weight',
+        placeholder:'Weight (in pounds)',
         value: '',
         error:'',
         validated:false
