@@ -39,15 +39,15 @@ export default function ImageUploader({
 
     const [selectedImages, setSelectedImages] = useState<Blob|MediaSource>();
 
-    const saveAndPreviewFile = (event:any)=> {
-        const uploadedFile = event.target.files[0];
+    const saveAndPreviewFile = (files:FileList|null)=> {
+        const uploadedFile = files?.[0];
         
         // Check file size
-        checkFileSize(uploadedFile)
+        checkFileSize(uploadedFile!)
         
         if(uploadedFile) {
-            setSelectedImages(()=> event.target.files[0]);
-            saveImage(event.target.files[0])
+            setSelectedImages(()=>files[0]);
+            saveImage(files?.[0])
         }
     }
 
@@ -92,7 +92,7 @@ export default function ImageUploader({
                 type="file"
                 id={`profile_picture${position}`}
                 accept="image/*"
-                onChange={(e)=> saveAndPreviewFile(e)}
+                onChange={(e:React.ChangeEvent<HTMLInputElement>)=> saveAndPreviewFile(e.target.files)}
                 hidden
             />
 

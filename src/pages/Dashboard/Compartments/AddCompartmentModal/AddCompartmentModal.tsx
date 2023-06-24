@@ -12,7 +12,6 @@ import ImageUploader from "src/components/ImageUploader"
 import { ImageUploaderFormType } from "src/components/ImageUploader/ImageUploader"
 import JSONToFormData from "src/utils/JSONToFormData"
 import SizedBox from "src/components/SizedBox"
-import displayFormData from "src/utils/displayFormData"
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal"
 
 export default function AddCompartmentModal({ close }:{close:()=> void}) {
