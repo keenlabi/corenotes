@@ -1,0 +1,13 @@
+th, td {
+    padding: 0 4rem;
+}
+
+tbody td {
+    color: var(--black-accent-200);
+    font-weight: 400;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}

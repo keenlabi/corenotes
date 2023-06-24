@@ -1,5 +1,5 @@
 export default async function sortByDate(list:any[]) {
-    if(!list.length) return []
+    if(!list?.length) return []
     
     // list = [...list];
     // for (let i=0; i<list.length; i++) {
