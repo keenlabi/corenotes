@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import sortByDate from "src/utils/sortByDate";
 import { ServicesListItemType } from "src/features/service/types";
+import formatDate from "src/utils/formatDate";
+import formatTime from "src/utils/formatTime";
+import capitalize from "src/utils/capitalize";
 
 export default function ServicesListTable({
     currentPage, 
@@ -12,7 +15,7 @@ export default function ServicesListTable({
     services,
     errorMessage
 }:{services:ServicesListItemType[] ,currentPage:number, totalPages:number, errorMessage:string, goToPage:(pageNumber:number)=> void}) {
-    
+
     const [isLoading, setIsLoading] = useState(false);
 
     const [tableBody, setTableBody] = useState<JSX.Element[][]|object[][]>([]);
@@ -42,9 +45,9 @@ export default function ServicesListTable({
                 {
                     rowKey: service.id
                 },
-                <div className={styles.title}>{service.title}</div>,
-                <div className={styles.individuals}>{service.individualsCount}</div>,
-                <div className={styles.date}>{service.dateCreated}</div>
+                <div className={styles.title}>{capitalize(service.title)}</div>,
+                <div className={styles.individuals}>{service.assignedIndividualsCount}</div>,
+                <div className={styles.date}>{formatDate(service.createdAt)} {formatTime(service.createdAt)} </div>
             ]
         });
     }
