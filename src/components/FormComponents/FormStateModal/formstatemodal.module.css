@@ -31,6 +31,6 @@
 }
 
 .success_state .close_icon path {
-    fill: white;
+    fill: none;
     stroke: var(--green-accent-100);
 }

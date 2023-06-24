@@ -2,7 +2,7 @@ import { selectorFamily, useRecoilValue } from "recoil";
 import { GetServicesResponse, getServicesList } from "./action";
 import { serviceInitState } from "./state";
 
-interface IFetchCompartmentListType {
+interface IFetchServiceListType {
     list:Pick<GetServicesResponse, 'data'>['data'],
     code:number,
     message:string,
@@ -19,19 +19,19 @@ const fetchServicesList = selectorFamily({
                 code: 200,
                 message: '',
                 error: false
-            } satisfies IFetchCompartmentListType;
+            } satisfies IFetchServiceListType;
         })
         .catch((error)=> {
             return {
                 list: {
                     services: serviceInitState.servicesList,
-                    currentListPage: serviceInitState.currentListPage,
-                    totalListPages: serviceInitState.totalListPages
+                    currentPage: serviceInitState.currentListPage,
+                    totalPages: serviceInitState.totalListPages
                 },
                 code: error.code,
                 message: error.message,
                 error: true
-            } satisfies IFetchCompartmentListType;
+            } satisfies IFetchServiceListType;
         })
     }
 })

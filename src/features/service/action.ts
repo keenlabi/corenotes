@@ -5,8 +5,8 @@ import { ServicesListItemType } from "./types"
 export interface GetServicesResponse extends successResponseType {
     data: {
         services:ServicesListItemType[],
-        currentListPage:number,
-        totalListPages:number
+        currentPage:number,
+        totalPages:number
     }
 }
 
@@ -18,8 +18,8 @@ export function getServicesList(pageNumber:number) {
                 ...response,
                 data: { 
                     services: response.data.services,
-                    currentListPage: response.data.currentListPage,
-                    totalListPages: response.data.totalListPages
+                    currentPage: response.data.currentListPage,
+                    totalPages: response.data.totalListPages
                 }
             })
         })
@@ -33,14 +33,14 @@ export interface newServiceData {
 
 export function postService(payload:newServiceData) {
     return new Promise<GetServicesResponse>((resolve, reject)=> {
-        postFetch(`/service`, payload)
+        postFetch(`/services`, payload)
         .then((response)=> {
             resolve({
                 ...response,
                 data: { 
-                    services: response.data.compartments,
-                    currentListPage: response.data.currentListPage,
-                    totalListPages: response.data.totalListPages
+                    services: response.data.services,
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages
                 }
             })
         })

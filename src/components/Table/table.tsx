@@ -141,7 +141,7 @@ export default function Table ({head, body, action, extraStyle, currentPage, tot
                         } */}
                     </div>
 
-                :   <div children={emptyListMessage} />
+                :   <div children={emptyListMessage} className={styles.empty_table_message} />
             }
         </div>
     );

@@ -1,7 +1,7 @@
 import GridList from "src/components/GridList/GridList"
 import styles from "./compartmentslist.module.css"
 import CompartmentCard from "./CompartmentCard/CompartmentCard";
-import ServicesList from "../ServicesList/ServicesList";
+import ServicesList from "../Services/ServicesList/ServicesList";
 import SizedBox from "src/components/SizedBox";
 import AddNewNoBackgroundIconButton from "src/components/Buttons/AddNewNoBackgroundIconButton";
 import { useEffect, useState } from "react";
@@ -28,9 +28,6 @@ export default function CompartmentsList() {
     useEffect(()=> {
         setCompartmentState(state => ({
             ...state,
-            status: fetchCompartmentListReponse.error ? 'FAILED' :'SUCCESS', 
-            error: fetchCompartmentListReponse.error,
-            message: fetchCompartmentListReponse.message,
             compartmentsList: fetchCompartmentListReponse.list.compartments,
             currentListPage: fetchCompartmentListReponse.list.currentListPage,
             totalListPages: fetchCompartmentListReponse.list.totalListPages,
@@ -52,22 +49,26 @@ export default function CompartmentsList() {
             </div>
 
             <div className={styles.list}>
-                <GridList columnCount={3}>
-                    {
-                        compartmentState.compartmentsList.map(compartment => {
-                            return  <CompartmentCard
-                                        key={compartment.id}
-                                        id={compartment.id}
-                                        title={compartment.title}
-                                        image={compartment.image}
-                                        staffRolesCount={compartment.staffRolesCount}
-                                        assignedIndividualsCount={compartment.assignedIndividualsCount}
-                                        backgroundColor={compartment.meta.bgColor}
-                                        labelColor={compartment.meta.labelColor}
-                                    />
-                        })
-                    }
-                </GridList>
+                {
+                    compartmentState.compartmentsList.length
+                    ?   <GridList columnCount={3}>
+                            {
+                                compartmentState.compartmentsList.map(compartment => {
+                                    return  <CompartmentCard
+                                                key={compartment.id}
+                                                id={compartment.id}
+                                                title={compartment.title}
+                                                image={compartment.image}
+                                                staffRolesCount={compartment.staffRolesCount}
+                                                assignedIndividualsCount={compartment.assignedIndividualsCount}
+                                                backgroundColor={compartment.meta.bgColor}
+                                                labelColor={compartment.meta.labelColor}
+                                            />
+                                })
+                            }
+                        </GridList>
+                    :   <div className={styles.empty_list_message}>There are no compartments to show</div>
+                }
             </div>
 
             <SizedBox height="100px" />
