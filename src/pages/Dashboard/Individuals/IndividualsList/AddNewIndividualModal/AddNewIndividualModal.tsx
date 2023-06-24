@@ -11,6 +11,7 @@ import IndividualHealthInformationForm from "./IndividualHealthInformationForm"
 import { useIndividualState } from "src/features/Individual/state"
 import formatIndividuals from "src/features/Individual/utils/formatIndividuals"
 import { IndividualListResponseType, registerIndividualAction } from "src/features/Individual/action"
+import SizedBox from "src/components/SizedBox"
 
 export default function AddNewIndividualModal({
     closeModal
@@ -53,17 +54,25 @@ export default function AddNewIndividualModal({
     }
 
     function resetFormStateModel() {
-        return null
+        setIndividualState(state => ({
+            ...state,
+            status:'IDLE'
+        }))
     }
 
     function registerIndividual() {
         if(validateForm()) {
+
+            setIndividualState(state => ({
+                ...state,
+                status:'LOADING',
+                error:false,
+                message:''
+            }))
+            
             JSONToFormData(individualState.newIndividual)
             .then((formDataResult:FormData)=> {
-                for (const val of formDataResult.entries()) {
-                    console.log(val[0]+ ', ' + val[1]); 
-                }
-
+              
                 registerIndividualAction(formDataResult)
                 .then((response:IndividualListResponseType)=> {
                     setIndividualState(state => {
@@ -102,7 +111,7 @@ export default function AddNewIndividualModal({
                     status={individualState.status}
                     error={individualState.error}
                     message={individualState.message}
-                    dontShowSuccess={true}
+                    // dontShowSuccess={true}
                     reset={()=> resetFormStateModel()}
                 />
 
@@ -113,6 +122,7 @@ export default function AddNewIndividualModal({
 
                 <div className={styles.registration_form_section}>
                     <IndividualPersonalInformationForm />
+                    <SizedBox height="20px" />
                     <IndividualHealthInformationForm  />
                 </div>
 
@@ -127,9 +137,10 @@ export default function AddNewIndividualModal({
 
                     <PrimaryTextButton
                         disabled={!isFormValid}
+                        isLoading={individualState.status === 'LOADING'}
                         width={"20%"}
                         label={"Save"}
-                        clickAction={()=> {registerIndividual()}}
+                        clickAction={()=> registerIndividual()}
                     />
                 </div>
             </div>

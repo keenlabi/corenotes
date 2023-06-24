@@ -32,7 +32,8 @@ export const individualInitState:IndividualStateType = {
             food: [],
             med: [],
             other: []
-        }
+        },
+        compartment:''
     },
     profile: {
         id: '',

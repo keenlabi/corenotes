@@ -36,7 +36,7 @@ export default function IndividualDietInformationForm() {
     return (
         <FormWrapper extraStyles={styles.staff_personal_information_form}>
             <div className={styles.heading}>
-                <div className={styles.number_circle}>3</div>
+                <div className={styles.number_circle}>4</div>
                 <div className={styles.text}>Diet</div>
             </div>
 

@@ -56,7 +56,8 @@ export interface NewIndividualType {
         food: Array<string>,
         med: Array<string>,
         other: Array<string>
-    }
+    },
+    compartment:string
 }
 
 export interface IndividualProfileResponseType {

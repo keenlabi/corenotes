@@ -201,7 +201,7 @@ export default function IndividualRequestedServicesForm() {
     return (
         <FormWrapper extraStyles={styles.individual_requested_services_form}>
             <div className={styles.heading}>
-                <div className={styles.number_circle}>2</div>
+                <div className={styles.number_circle}>3</div>
                 <div className={styles.text}>Requested Services</div>
 
                 {
@@ -226,7 +226,7 @@ export default function IndividualRequestedServicesForm() {
                                 className={styles.requested_service}
                             >
                                 <DropDownField
-                                    width={"60%"}
+                                    width={"65%"}
                                     height={"60px"}
                                     label={service.label}
                                     placeholder={service.placeholder}
