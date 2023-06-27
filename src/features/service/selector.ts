@@ -28,7 +28,7 @@ const fetchServicesList = selectorFamily({
                     currentPage: serviceInitState.currentListPage,
                     totalPages: serviceInitState.totalListPages
                 },
-                code: error.code,
+                code: error.statusCode,
                 message: error.message,
                 error: true
             } satisfies IFetchServiceListType;

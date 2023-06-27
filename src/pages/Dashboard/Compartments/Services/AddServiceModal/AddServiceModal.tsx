@@ -119,7 +119,6 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
                 }))
             })
             .catch((error)=> {
-                console.log(error)
                 setServicesState(state => ({
                     ...state,
                     status: 'SUCCESS',

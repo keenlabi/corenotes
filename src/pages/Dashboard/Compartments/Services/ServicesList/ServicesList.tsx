@@ -37,7 +37,7 @@ export default function ServicesList() {
             </div>
 
             <div className={styles.services_table}>
-                <ServicesListTable 
+                <ServicesListTable
                     services={servicesState.servicesList}
                     currentPage={servicesState.currentListPage} 
                     totalPages={servicesState.totalListPages} 

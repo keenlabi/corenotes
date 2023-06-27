@@ -21,6 +21,7 @@ export default function ServicesListTable({
     const [tableBody, setTableBody] = useState<JSX.Element[][]|object[][]>([]);
     const tableHead = [
         'Title',
+        'Category',
         'Individuals',
         'Date created'
     ]
@@ -46,6 +47,7 @@ export default function ServicesListTable({
                     rowKey: service.id
                 },
                 <div className={styles.title}>{capitalize(service.title)}</div>,
+                <div className={styles.category}>{capitalize(service.category)}</div>,
                 <div className={styles.individuals}>{service.assignedIndividualsCount}</div>,
                 <div className={styles.date}>{formatDate(service.createdAt)} {formatTime(service.createdAt)} </div>
             ]

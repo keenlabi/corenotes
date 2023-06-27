@@ -10,5 +10,6 @@ export interface ServicesListItemType {
     id:string,
     title:string,
     assignedIndividualsCount:number,
-    createdAt:string
+    createdAt:string,
+    category:string
 }
