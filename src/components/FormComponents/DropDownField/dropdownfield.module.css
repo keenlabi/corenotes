@@ -2,7 +2,7 @@
     width: 100%;
 }
 .display {
-    border: 1px solid var(--grey-accent-600);
+    border: 1px solid var(--grey-accent-500);
     height: 60px;
     width: 100%;
     padding: 0 var(--input-field-padding);
@@ -13,6 +13,7 @@
     cursor: pointer;
 
     position: relative;
+    color: var(--grey-accent-800);
 }
 .is_open {
     border-color: var(--blue-accent-100);

@@ -9,6 +9,8 @@ import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton"
 import { useServicesState } from "src/features/service/state"
 import { newServiceData, postService } from "src/features/service/action"
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal"
+import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types"
+import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield"
 
 export default function AddCompartmentModal({ close }:{close:()=> void}) {
 
@@ -22,12 +24,38 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
         validated:false
     })
 
+    const [serviceCategory, setServiceCategory] = useState<DropDownFormData>({
+        placeholder:'Select service category',
+        name:'service-category',
+        options: [
+            {
+                id:'1',
+                label:'Requested',
+            },
+            {
+                id:'2',
+                label:'Provided',
+            },
+        ],
+        error:'',
+        selected:false,
+        selectedOptionIndex:0
+    })
+
     function setInput(value:string, model:formFieldType, setModel:setFormFieldType) {
         model.value = value;
         validateModel(model)
         setModel({...model});
 
         validateForm();
+    }
+
+    function selectOption(optionIndex:number, model:DropDownFormData, setModel:setDropDownFormData) {
+        model.value = model.options[optionIndex];
+        model.selected = true;
+        model.selectedOptionIndex = optionIndex;
+
+        setModel({...model})
     }
 
     function validateModel(updatedModel:formFieldType) {
@@ -66,7 +94,8 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
         if(isFormValidated) {
 
             const payload:newServiceData = {
-                title: serviceTitle.value
+                title: serviceTitle.value,
+                category: serviceCategory.value!.label
             }
             
             setServicesState(state => ({
@@ -123,6 +152,15 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
                         value={serviceTitle.value}
                         error={serviceTitle.error}
                         onInput={(value)=> setInput(value, serviceTitle, setserviceTitle)}
+                    />
+
+                    <DropDownField
+                        placeholder={serviceCategory.placeholder}
+                        options={serviceCategory.options}
+                        selected={serviceCategory.selected}
+                        selectedOptionIndex={serviceCategory.selectedOptionIndex}
+                        error={serviceCategory.error}
+                        onSelect={(optionIndex:number) => selectOption(optionIndex, serviceCategory, setServiceCategory)} 
                     />
                 </div>
 
