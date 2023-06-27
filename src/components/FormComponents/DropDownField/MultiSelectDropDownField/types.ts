@@ -7,6 +7,7 @@ export interface MultiSelectDropDownProps {
     placeholder?:string,
     // options:MultiSelectDropDownOption[],
     options:Array<string>,
+    info?:string,
     onSelect: (selections:Array<string>)=> void
 }
 
@@ -24,5 +25,6 @@ export interface MultiSelectDropDownFormData {
     error:string,
     // options:MultiSelectDropDownOption[],
     options:Array<string>
-    value:Array<string>
+    value:Array<string>,
+    info?:string
 }

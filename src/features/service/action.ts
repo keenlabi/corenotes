@@ -29,7 +29,8 @@ export function getServicesList(pageNumber:number) {
 
 export interface newServiceData {
     title:string,
-    category:string
+    category:string,
+    compartments?:Array<string>
 }
 
 export function postService(payload:newServiceData) {

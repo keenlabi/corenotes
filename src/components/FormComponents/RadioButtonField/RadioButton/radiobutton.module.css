@@ -27,8 +27,8 @@
     color: var(--grey-accent-800);
 }
 .radio.selected {
-    color: var(--dark-blue-accent-200);
+    color: var(--blue-accent-100);
 }
 .radio.selected::before {
-    background: var(--dark-blue-accent-200);
+    background: var(--blue-accent-100);
 }
