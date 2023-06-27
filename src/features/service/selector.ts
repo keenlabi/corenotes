@@ -1,5 +1,5 @@
 import { selectorFamily, useRecoilValue } from "recoil";
-import { GetServicesResponse, getServicesList } from "./action";
+import { GetServicesResponse, IGetServiceDetailsResponse, getServiceDetails, getServicesList } from "./action";
 import { serviceInitState } from "./state";
 
 interface IFetchServiceListType {
@@ -35,5 +35,35 @@ const fetchServicesList = selectorFamily({
         })
     }
 })
-
 export const useFetchServicesList = (pageNumber:number)=> useRecoilValue(fetchServicesList(pageNumber))
+
+interface IFetchServiceDetailsType {
+    service:Pick<IGetServiceDetailsResponse, 'data'>['data']['service'],
+    code:number,
+    message:string,
+    error:boolean
+}
+
+const fetchServiceDetails = selectorFamily({
+    key:'fetch_service_details',
+    get: (serviceId:number) => async ()=> {
+        return await getServiceDetails(serviceId)
+        .then(({ data }:IGetServiceDetailsResponse)=> {
+            return {
+                service: data.service,
+                code: 200,
+                message: '',
+                error: false
+            } satisfies IFetchServiceDetailsType;
+        })
+        .catch((error)=> {
+            return {
+                service: serviceInitState.service,
+                code: error.statusCode,
+                message: error.message,
+                error: false
+            } satisfies IFetchServiceDetailsType;
+        })
+    }
+})
+export const useFetchServiceDetails = (serviceId:number)=> useRecoilValue(fetchServiceDetails(serviceId))

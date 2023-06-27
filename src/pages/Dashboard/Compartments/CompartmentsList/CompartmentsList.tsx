@@ -1,7 +1,7 @@
 import GridList from "src/components/GridList/GridList"
 import styles from "./compartmentslist.module.css"
 import CompartmentCard from "./CompartmentCard/CompartmentCard";
-import ServicesList from "../Services/ServicesList/ServicesList";
+import ServicesList from "../../Services/ServicesList/ServicesList";
 import SizedBox from "src/components/SizedBox";
 import AddNewNoBackgroundIconButton from "src/components/Buttons/AddNewNoBackgroundIconButton";
 import { useEffect, useState } from "react";

@@ -49,3 +49,20 @@ export function postService(payload:newServiceData) {
         .catch((error)=> reject(error))
     })
 }
+
+export interface IGetServiceDetailsResponse extends successResponseType {
+    data: { service:ServicesListItemType }
+}
+
+export function getServiceDetails(serviceId:number) {
+    return new Promise<IGetServiceDetailsResponse>((resolve, reject)=> {
+        getFetch(`/services/details/${serviceId}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { service: response.data.service }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}

@@ -17,6 +17,8 @@ import Assessments from "src/pages/Dashboard/Assessments/Assessments";
 import CreateAssessment from "src/pages/Dashboard/Assessments/CreateAssessment/CreateAssessment";
 import Compartments from "src/pages/Dashboard/Compartments/Compartments";
 import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList";
+import Services from "src/pages/Dashboard/Services/Services";
+import ServiceDetails from "src/pages/Dashboard/Services/ServiceDetails";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -131,6 +133,17 @@ const DashboardRoutes:routerType[] = [
                         path:'',
                         title: 'Compartment list',
                         element: <CompartmentsList />,
+                    },
+                ]
+            },
+            {
+                path:'services',
+                element: <Services />,
+                children: [
+                    {
+                        path:':serviceId',
+                        title: 'Service Details',
+                        element: <ServiceDetails />,
                     },
                 ]
             },
