@@ -19,6 +19,7 @@ import Compartments from "src/pages/Dashboard/Compartments/Compartments";
 import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList";
 import Services from "src/pages/Dashboard/Services/Services";
 import ServiceDetails from "src/pages/Dashboard/Services/ServiceDetails";
+import CompartmentDetails from "src/pages/Dashboard/Compartments/CompartmentDetails";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -134,6 +135,11 @@ const DashboardRoutes:routerType[] = [
                         title: 'Compartment list',
                         element: <CompartmentsList />,
                     },
+                    {
+                        path:':compartmentId',
+                        title: 'Compartment Details',
+                        element: <CompartmentDetails />
+                    }
                 ]
             },
             {
