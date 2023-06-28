@@ -50,3 +50,20 @@ export function postCompartment(payload:FormData) {
         .catch((error)=> reject(error))
     })
 }
+
+export interface IGetCompartmentDetailsResponse extends successResponseType {
+    data: { compartment:CompartmentListItem }
+}
+
+export function getCompartmentDetails(compartmentId:number) {
+    return new Promise<IGetCompartmentDetailsResponse>((resolve, reject)=> {
+        getFetch(`/compartment/details/${compartmentId}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { compartment: response.data.compartment }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
