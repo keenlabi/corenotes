@@ -57,7 +57,7 @@ export interface IGetCompartmentDetailsResponse extends successResponseType {
 
 export function getCompartmentDetails(compartmentId:number) {
     return new Promise<IGetCompartmentDetailsResponse>((resolve, reject)=> {
-        getFetch(`/compartment/details/${compartmentId}`)
+        getFetch(`/compartments/details/${compartmentId}`)
         .then((response)=> {
             resolve({
                 ...response,
