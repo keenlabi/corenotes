@@ -57,6 +57,7 @@ export default function CompartmentsList() {
                                     return  <CompartmentCard
                                                 key={compartment.id}
                                                 id={compartment.id}
+                                                path={`${compartment.compartmentId}`}
                                                 title={compartment.title}
                                                 image={compartment.image}
                                                 staffRolesCount={compartment.staffRolesCount}

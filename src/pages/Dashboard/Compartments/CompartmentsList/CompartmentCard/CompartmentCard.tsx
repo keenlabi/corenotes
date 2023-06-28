@@ -1,6 +1,7 @@
 import ImageComponent from "src/components/ImageComponent";
 import styles from "./compartmentcard.module.css";
 import capitalize from "src/utils/capitalize";
+import { Link } from "react-router-dom";
 
 interface CompartmentCardProps {
     id:string;
@@ -9,7 +10,8 @@ interface CompartmentCardProps {
     staffRolesCount:number,
     assignedIndividualsCount:number,
     backgroundColor:string,
-    labelColor:string
+    labelColor:string,
+    path:string
 }
 
 export default function CompartmentCard({ 
@@ -17,13 +19,15 @@ export default function CompartmentCard({
     image, 
     assignedIndividualsCount,
     backgroundColor,
-    labelColor
+    labelColor,
+    path
 
 }:CompartmentCardProps) {
     return (
-        <div 
+        <Link 
             className={styles.compartment_card}
             style={{ backgroundColor }}
+            to={path}
         >
 
             <div className={styles.title} style={{ color: labelColor }} >{ capitalize(title) }</div>
@@ -35,6 +39,6 @@ export default function CompartmentCard({
                 width="100px"
                 extraStyles={styles.compartment_image}
             />
-        </div>
+        </Link>
     )
 }
