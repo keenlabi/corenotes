@@ -20,6 +20,8 @@ import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList"
 import Services from "src/pages/Dashboard/Services/Services";
 import ServiceDetails from "src/pages/Dashboard/Services/ServiceDetails";
 import CompartmentDetails from "src/pages/Dashboard/Compartments/CompartmentDetails";
+import RequestedServices from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServices";
+import CompartmentRequestedServiceOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServices/CompartmentRequestedServiceOutlet";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -138,7 +140,36 @@ const DashboardRoutes:routerType[] = [
                     {
                         path:':compartmentId',
                         title: 'Compartment Details',
-                        element: <CompartmentDetails />
+                        element: <CompartmentDetails />,
+                        children: [
+                            {
+                                path:'' || 'services',
+                                title: 'Compartment Services',
+                                element: <CompartmentRequestedServiceOutlet />,
+                                children: [
+                                    {
+                                        path:'',
+                                        title: 'Compartment Services',
+                                        element: <RequestedServices />
+                                    },
+                                    {
+                                        path:'individuals',
+                                        title: 'Compartment Individuals',
+                                        element: <div />
+                                    },
+                                    {
+                                        path:'assessments',
+                                        title: 'Comparment Assessments',
+                                        element: <div />,
+                                    },
+                                    {
+                                        path:'staffs',
+                                        title: 'Compartment Staffs',
+                                        element: <div />
+                                    }
+                                ]
+                            },
+                        ]
                     }
                 ]
             },
