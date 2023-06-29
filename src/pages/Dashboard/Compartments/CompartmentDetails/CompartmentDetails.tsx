@@ -1,11 +1,12 @@
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./compartmentdetails.module.css";
 import { FaAngleLeft } from "react-icons/fa";
 import capitalize from "src/utils/capitalize";
 import { useEffect } from "react";
 import { useCompartmentState } from "src/features/compartment/state";
 import { useFetchCompartmentDetails } from "src/features/compartment/selector";
-import CompartmentDetailsNavigation from "./CompartmentDetailsNavigation/CompartmentDetailsNavigation";
+import RequestedServices from "./RequestedServices";
+import SizedBox from "src/components/SizedBox";
 
 export default function CompartmentDetails() {
 
@@ -38,16 +39,9 @@ export default function CompartmentDetails() {
                 <div className={styles.heading}>{ capitalize(compartmentState.compartment.title) }</div>
             </div>
 
-            <div className={styles.nav_section}>
-                <CompartmentDetailsNavigation />
+            <SizedBox height="50px" />
 
-                <div className={styles.content}>
-                    <Outlet />
-                </div>
-            </div>
-
-            {/* display attached services */}
-            {/* display individuals */}
+            <RequestedServices />
         </div>
     )
 }

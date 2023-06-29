@@ -9,7 +9,7 @@
 
 .nav_item {
     height: max-content;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 25px;
     font-size: 1rem;
     color: var(--black-accent-200);

@@ -16,14 +16,9 @@ export default function CompartmentDetailsNavigation() {
 
     const [navItems, setNavItems] = useState([
         {
-            label: 'Sub compartments',
+            label: 'Services',
             path: '',
-            active: isCurrentPath('')
-        },
-        {
-            label: 'Requested services',
-            path: 'requested-services',
-            active: isCurrentPath('requested-services')
+            active: isCurrentPath(params.compartmentId!)
         },
         {
             label: 'Assessments',
@@ -47,7 +42,6 @@ export default function CompartmentDetailsNavigation() {
         const allPaths:string[] = locationWithoutTrailingSLash.split('/')
 
         const currentPath:string = allPaths[allPaths.length-1];
-
         if(currentPath === activePath) return true
         if(!activePath) return params.id === currentPath
 

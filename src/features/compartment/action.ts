@@ -1,6 +1,6 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { CompartmentListItem } from "./types"
+import { CompartmentDetails, CompartmentListItem } from "./types"
 
 export interface GetCompartmentsResponse extends successResponseType {
     data: {
@@ -52,7 +52,7 @@ export function postCompartment(payload:FormData) {
 }
 
 export interface IGetCompartmentDetailsResponse extends successResponseType {
-    data: { compartment:CompartmentListItem }
+    data: { compartment:CompartmentDetails }
 }
 
 export function getCompartmentDetails(compartmentId:number) {

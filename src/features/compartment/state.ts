@@ -13,12 +13,13 @@ export const compartmentInitState:CompartmentStateType = {
         compartmentId: 0,
         title: "",
         image: "",
-        staffRolesCount: 0,
-        assignedIndividualsCount: 0,
+        staffRoles: [],
+        assignedIndividuals: [],
         meta: {
             bgColor: "",
             labelColor: ""
-        }
+        },
+        services:[]
     }
 }
 
