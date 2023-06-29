@@ -8,7 +8,7 @@ import { useState, useEffect } from "react"
 import JSONToFormData from "src/utils/JSONToFormData"
 import IndividualPersonalInformationForm from "./IndividualPersonalInformationForm"
 import IndividualHealthInformationForm from "./IndividualHealthInformationForm"
-import { useIndividualState } from "src/features/Individual/state"
+import { individualInitState, useIndividualState } from "src/features/Individual/state"
 import formatIndividuals from "src/features/Individual/utils/formatIndividuals"
 import { IndividualListResponseType, registerIndividualAction } from "src/features/Individual/action"
 import SizedBox from "src/components/SizedBox"
@@ -36,6 +36,7 @@ export default function AddNewIndividualModal({
                 !individualState.newIndividual.contact.email ||
                 !individualState.newIndividual.contact.phoneNumber ||
                 !individualState.newIndividual.weight ||
+                !individualState.newIndividual.compartment ||
                 !individualState.newIndividual.medicaidNumber ||
                 !individualState.newIndividual.maritalStatus ||
                 !individualState.newIndividual.codeAlert.length ||
@@ -80,14 +81,13 @@ export default function AddNewIndividualModal({
                             ...state,
                             status: 'SUCCESS',
                             message: 'New individual added successfully',
-                            ...response.data,
                             list: formatIndividuals(response.data.individuals),
+                            newIndividual: individualInitState.newIndividual,
                             error: false
                         }
                     })
                 })
                 .catch((error)=> {
-                    console.log(error)
                     setIndividualState(state => {
                         return {
                             ...state,
@@ -105,18 +105,24 @@ export default function AddNewIndividualModal({
     }
 
     return (
-        <ModalContainer close={()=> individualState.status !== 'LOADING' ? closeModal() :null}>
+        <ModalContainer close={()=> {
+            individualState.status !== 'LOADING' 
+            ? ()=> {
+                resetFormStateModel();
+                closeModal();
+            }
+            :null
+        }}>
             <div className={styles.add_new_staff}>
                 <FormStateModal
                     status={individualState.status}
                     error={individualState.error}
                     message={individualState.message}
-                    // dontShowSuccess={true}
                     reset={()=> resetFormStateModel()}
                 />
 
                 <div className={styles.top_section}>
-                    <div className={styles.heading}>Add new staff</div>
+                    <div className={styles.heading}>Add new individual</div>
                     <IconCancel className={styles.icon_cancel} />
                 </div>
 

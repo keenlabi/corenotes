@@ -27,7 +27,8 @@ export default function IndividualCompartmentForm() {
             ...state,
             options: compartmentState.compartmentsList.map((compartment)=> ({
                 id:compartment.id,
-                label:compartment.title
+                label:compartment.title,
+                value: compartment.compartmentId.toString()
             }))
         }))
 
@@ -54,7 +55,8 @@ export default function IndividualCompartmentForm() {
             ...state,
             newIndividual: {
                 ...state.newIndividual,
-                compartment: model.value!.id
+                compartment: model.value!.id,
+                compartmentId: parseInt(model.value!.value!)
             }
         }))
     }

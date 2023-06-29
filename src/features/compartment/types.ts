@@ -32,6 +32,7 @@ export interface CompartmentDetails {
         labelColor:string;
     };
     services:Array<{
+        id:string;
         serviceId:number;
         title:string;
         description: string;

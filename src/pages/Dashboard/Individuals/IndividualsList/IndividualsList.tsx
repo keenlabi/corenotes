@@ -18,7 +18,6 @@ export default function IndividualsList() {
             setIndividualState((state)=> {
                 return {
                     ...state,
-                    status: 'SUCCESS',
                     error: false,
                     message: individualListResponse.message,
                     list: individualListResponse.individuals
@@ -28,9 +27,18 @@ export default function IndividualsList() {
             setIndividualState((state)=> {
                 return {
                     ...state,
-                    status: 'FAILED',
                     error: true,
                     message: individualListResponse.message
+                }
+            })
+        }
+
+        return ()=> {
+            setIndividualState((state)=> {
+                return {
+                    ...state,
+                    status: 'IDLE',
+                    error: false
                 }
             })
         }

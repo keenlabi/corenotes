@@ -57,7 +57,8 @@ export interface NewIndividualType {
         med: Array<string>,
         other: Array<string>
     },
-    compartment:string
+    compartment:string,
+    compartmentId:number
 }
 
 export interface IndividualProfileResponseType {

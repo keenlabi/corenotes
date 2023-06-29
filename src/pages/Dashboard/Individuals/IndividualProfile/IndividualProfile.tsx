@@ -94,6 +94,16 @@ export default function IndividualProfile() {
                 }
             })
         }
+
+        return ()=> {
+            setIndividualState((state)=> {
+                return {
+                    ...state,
+                    status: 'IDLE',
+                    error: false
+                }
+            })
+        }
     }, [setIndividualState, individualProfileResponse, individualState.profile])
 
     return (
