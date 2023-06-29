@@ -20,8 +20,9 @@ import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList"
 import Services from "src/pages/Dashboard/Services/Services";
 import ServiceDetails from "src/pages/Dashboard/Services/ServiceDetails";
 import CompartmentDetails from "src/pages/Dashboard/Compartments/CompartmentDetails";
-import RequestedServices from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServices";
-import CompartmentRequestedServiceOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServices/CompartmentRequestedServiceOutlet";
+import CompartmentRequestedServiceOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServicesList/CompartmentRequestedServiceOutlet";
+import CompartmentDetailsOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/CompartmentDetailsOutlet";
+import RequestedServiceDetails from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServiceDetails";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -140,33 +141,40 @@ const DashboardRoutes:routerType[] = [
                     {
                         path:':compartmentId',
                         title: 'Compartment Details',
-                        element: <CompartmentDetails />,
+                        element: <CompartmentDetailsOutlet />,
                         children: [
                             {
-                                path:'' || 'services',
-                                title: 'Compartment Services',
+                                path:'services',
+                                title: 'Compartment Services List',
                                 element: <CompartmentRequestedServiceOutlet />,
                                 children: [
                                     {
                                         path:'',
                                         title: 'Compartment Services',
-                                        element: <RequestedServices />
+                                        element: <CompartmentDetails />
                                     },
                                     {
-                                        path:'individuals',
-                                        title: 'Compartment Individuals',
-                                        element: <div />
+                                        path:':serviceId',
+                                        title: 'Compartment Service Details',
+                                        element: <RequestedServiceDetails />,
+                                        children: [
+                                            {
+                                                path:'individuals',
+                                                title: 'Compartment Individuals',
+                                                element: <div />
+                                            },
+                                            {
+                                                path:'assessments',
+                                                title: 'Comparment Assessments',
+                                                element: <div />,
+                                            },
+                                            {
+                                                path:'staffs',
+                                                title: 'Compartment Staffs',
+                                                element: <div />
+                                            }
+                                        ]
                                     },
-                                    {
-                                        path:'assessments',
-                                        title: 'Comparment Assessments',
-                                        element: <div />,
-                                    },
-                                    {
-                                        path:'staffs',
-                                        title: 'Compartment Staffs',
-                                        element: <div />
-                                    }
                                 ]
                             },
                         ]

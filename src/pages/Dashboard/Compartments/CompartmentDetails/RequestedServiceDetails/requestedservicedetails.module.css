@@ -1,0 +1,23 @@
+.back_btn {
+    font-size: 2rem;
+    cursor: pointer;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+.heading {
+    margin-left: 5%;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.main {
+    margin-top: 5%;
+    box-shadow: var(--shadow-container-100);
+    border-radius: 16px;
+    background: white;
+}
+.content {
+    padding: 5% 10%;
+}

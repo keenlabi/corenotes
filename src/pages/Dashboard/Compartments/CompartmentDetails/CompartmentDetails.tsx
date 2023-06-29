@@ -5,7 +5,7 @@ import capitalize from "src/utils/capitalize";
 import { useEffect } from "react";
 import { useCompartmentState } from "src/features/compartment/state";
 import { useFetchCompartmentDetails } from "src/features/compartment/selector";
-import RequestedServices from "./RequestedServices";
+import RequestedServices from "./RequestedServicesList";
 import SizedBox from "src/components/SizedBox";
 
 export default function CompartmentDetails() {

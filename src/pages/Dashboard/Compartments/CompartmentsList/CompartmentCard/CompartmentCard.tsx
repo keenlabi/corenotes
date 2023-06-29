@@ -27,7 +27,7 @@ export default function CompartmentCard({
         <Link 
             className={styles.compartment_card}
             style={{ backgroundColor }}
-            to={path}
+            to={`${path}/services/`}
         >
 
             <div className={styles.title} style={{ color: labelColor }} >{ capitalize(title) }</div>

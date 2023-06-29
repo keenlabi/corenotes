@@ -19,7 +19,7 @@ export const compartmentInitState:CompartmentStateType = {
             bgColor: "",
             labelColor: ""
         },
-        services:[]
+        services:[],
     }
 }
 

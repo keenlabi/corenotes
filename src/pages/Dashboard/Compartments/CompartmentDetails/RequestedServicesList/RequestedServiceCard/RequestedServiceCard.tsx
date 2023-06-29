@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./requestedservicecard.module.css";
 
 interface IRequestedServiceCardProps {
@@ -14,7 +15,7 @@ export default function RequestedServiceCard({
     individualsCount
 }:IRequestedServiceCardProps) {
     return (
-        <div className={styles.requested_service_card}>
+        <Link to={`${serviceId}`} className={styles.requested_service_card}>
             <div className={styles.title}>{title}</div>
             <div className={styles.desc}>
                 { description }
@@ -23,6 +24,6 @@ export default function RequestedServiceCard({
             </div>
 
             <div className={styles.individual_count}> {individualsCount} individuals </div>
-        </div>
+        </Link>
     )
 }

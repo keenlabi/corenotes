@@ -16,19 +16,14 @@ export default function CompartmentDetailsNavigation() {
 
     const [navItems, setNavItems] = useState([
         {
-            label: 'Services',
-            path: '',
-            active: isCurrentPath(params.compartmentId!)
+            label: 'Individuals',
+            path: 'individuals',
+            active: isCurrentPath(params.serviceId!)
         },
         {
             label: 'Assessments',
             path: 'assessments',
             active: isCurrentPath('assessments')
-        },
-        {
-            label: 'Individuals',
-            path: 'individuals',
-            active: isCurrentPath('individuals')
         },
         {
             label: 'Staffs',

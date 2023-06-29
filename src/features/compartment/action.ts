@@ -67,3 +67,20 @@ export function getCompartmentDetails(compartmentId:number) {
         .catch((error)=> reject(error))
     })
 }
+
+// export interface IGetCompartmentDetailsResponse extends successResponseType {
+//     data: { compartment:CompartmentDetails }
+// }
+
+// export function getCompartmentServiceDetails(serviceId:number) {
+//     return new Promise((resolve, reject)=> {
+//         getFetch(`/compartment/details/${serviceId}`)
+//         .then((response)=> {
+//             resolve({
+//                 ...response,
+//                 data: { service: response.data.service }
+//             })
+//         })
+//         .catch((error)=> reject(error))
+//     })
+// }

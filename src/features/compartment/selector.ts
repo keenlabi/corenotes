@@ -69,3 +69,10 @@ const fetchCompartmentDetails = selectorFamily({
     }
 })
 export const useFetchCompartmentDetails = (compartmentId:number)=> useRecoilValue(fetchCompartmentDetails(compartmentId))
+
+// const fetchCompartmentServiceDetails = selectorFamily({
+//     key:'fetch_compartment_service_details',
+//     get:(serviceId:number)=> async ()=> {
+        
+//     }
+// })

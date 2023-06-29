@@ -4,7 +4,7 @@ export interface IServiceStateType extends initStateType {
     servicesList:ServicesListItemType[],
     currentListPage:number,
     totalListPages:number,
-    service: ServicesListItemType
+    service: ServiceDetails
 }
 
 export interface ServicesListItemType {
@@ -13,5 +13,25 @@ export interface ServicesListItemType {
     title:string,
     assignedIndividualsCount:number,
     createdAt:string,
-    category:string
+    category:string,
+}
+
+export interface ServiceDetails {
+    id:string,
+    serviceId:string,
+    individuals: {
+        list:[],
+        currentPage:number,
+        totalPages:number
+    },
+    staffs: {
+        list:[],
+        currentPage:number,
+        totalPages:number
+    },
+    assessments:{
+        list:[],
+        currentPage:number,
+        totalPages:number
+    }
 }

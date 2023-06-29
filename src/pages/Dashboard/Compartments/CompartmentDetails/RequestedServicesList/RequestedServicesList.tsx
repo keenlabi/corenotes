@@ -1,11 +1,11 @@
-import styles from "./requestedservices.module.css";
+import styles from "./requestedserviceslist.module.css";
 import GridList from "src/components/GridList/GridList";
 import { useCompartmentStateValue } from "src/features/compartment/state";
 import RequestedServiceCard from "./RequestedServiceCard";
 
 export default function RequestedServices() {
 
-    const compartmentState = useCompartmentStateValue();
+    const compartmentState = useCompartmentStateValue()
 
     return (
         <div className={styles.requested_services_list}>
