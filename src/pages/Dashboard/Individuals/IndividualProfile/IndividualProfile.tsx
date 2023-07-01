@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./individualprofile.module.css";
 import { useEffect, useState } from "react";
-import { useIndividualState } from "src/features/Individual/state";
+import { useSetIndividualState } from "src/features/Individual/state";
 import { useFetchIndividualSelector } from "src/features/Individual/selector";
 import { IndividualProfileType } from "src/features/Individual/types";
 import IndividualProfileNavigation from "./IndividualProfileNavigation";
@@ -64,9 +64,9 @@ export default function IndividualProfile() {
         }
     }
 
-    const { id } = useParams();
+    const { individualId } = useParams();
 
-    const [individualState, setIndividualState] = useIndividualState();
+    const setIndividualState = useSetIndividualState();
 
     const individualProfileResponse:{
         code:number,
@@ -74,26 +74,17 @@ export default function IndividualProfile() {
         error: boolean,
         individual:IndividualProfileType
 
-    } = useFetchIndividualSelector(id!)
+    } = useFetchIndividualSelector(individualId!)
 
     useEffect(()=> {
-        if(!individualProfileResponse.error) {
-            setIndividualState((state)=> {
-                return {
-                    ...state,
-                    status: 'SUCCESS',
-                    profile: individualProfileResponse.individual
-                }
-            })
-        } else {
-            setIndividualState((state)=> {
-                return {
-                    ...state,
-                    status: 'FAILED',
-                    profile: individualProfileResponse.individual
-                }
-            })
-        }
+        setIndividualState((state)=> {
+            return {
+                ...state,
+                error: individualProfileResponse.error,
+                message: individualProfileResponse.message,
+                profile: individualProfileResponse.individual
+            }
+        })
 
         return ()=> {
             setIndividualState((state)=> {
@@ -104,7 +95,7 @@ export default function IndividualProfile() {
                 }
             })
         }
-    }, [setIndividualState, individualProfileResponse, individualState.profile])
+    }, [setIndividualState, individualProfileResponse])
 
     return (
         <div className={styles.staff_profile}>

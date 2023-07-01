@@ -27,6 +27,23 @@ export function getServicesList(pageNumber:number) {
     })
 }
 
+export function getAllProvidedServiceAction(pageNumber:number) {
+    return new Promise<GetServicesResponse>((resolve, reject)=> {
+        getFetch(`/services/provided/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { 
+                    services: response.data.services,
+                    currentPage: response.data.currentListPage,
+                    totalPages: response.data.totalListPages
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
 export interface newServiceData {
     title:string,
     category:string,

@@ -23,6 +23,7 @@ import CompartmentDetails from "src/pages/Dashboard/Compartments/CompartmentDeta
 import CompartmentRequestedServiceOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServicesList/CompartmentRequestedServiceOutlet";
 import CompartmentDetailsOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/CompartmentDetailsOutlet";
 import RequestedServiceDetails from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServiceDetails";
+import IndividualServices from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/IndividualServices";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -84,7 +85,7 @@ const DashboardRoutes:routerType[] = [
                         element: <IndividualsList />,
                     },
                     {
-                        path:':id',
+                        path:':individualId',
                         title: 'Individual profile',
                         element: <IndividualProfile />,
                         children: [
@@ -95,8 +96,8 @@ const DashboardRoutes:routerType[] = [
                             },
                             {
                                 path:'requested-services',
-                                title: '',
-                                element: <div></div>,
+                                title: 'Requested Services',
+                                element: <IndividualServices />,
                             },
                             {
                                 path:'assessments',

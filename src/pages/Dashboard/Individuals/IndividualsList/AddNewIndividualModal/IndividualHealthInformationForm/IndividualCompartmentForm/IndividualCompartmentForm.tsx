@@ -7,7 +7,7 @@ import DropDownField from "src/components/FormComponents/DropDownField/dropdownf
 import { useFetchCompartmentList } from "src/features/compartment/selector";
 import { useCompartmentState } from "src/features/compartment/state";
 
-export default function IndividualCompartmentForm() {
+export default function IndividualCompartmentForm({removeLabel}:{removeLabel:boolean}) {
 
     const setIndividualState = useSetIndividualState()
 
@@ -63,12 +63,16 @@ export default function IndividualCompartmentForm() {
 
     return (
         <FormWrapper extraStyles={styles.staff_personal_information_form}>
-            <div className={styles.heading}>
-                <div className={styles.number_circle}>2</div>
-                <div className={styles.text}>Compartment</div>
-            </div>
-
-            <div className={styles.form_content}>
+            {
+                removeLabel
+                ?   <div></div>
+                :   <div className={styles.heading}>
+                        <div className={styles.number_circle}>2</div>
+                        <div className={styles.text}>Compartment</div>
+                    </div>   
+            }
+            
+            <div className={removeLabel ?'' :styles.form_content}>
                 <div className={styles.row}>
                     <DropDownField
                         width={"100%"}

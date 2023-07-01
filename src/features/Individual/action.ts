@@ -1,6 +1,6 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IndividualListItemType, IndividualProfileResponseType } from "./types"
+import { IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
 import { AssessmentModelType } from "../assessment/types"
 
 export interface IndividualListItemResponseType extends Omit<IndividualListItemType, 'age'> {
@@ -91,8 +91,6 @@ export function fetchIndividualAssessmentSessionAction(assessmentId:string) {
     })
 }
 
-
-
 export function saveAssessmentSessionAction(assessmentId:string, payload:Pick<AssessmentModelType, 'questions'>) {
     return new Promise<IndividualAssessmentSessionResponseType>((resolve, reject)=> {
         patchFetch(`/individuals/assessments/${assessmentId}/session`, payload)
@@ -117,8 +115,42 @@ export function completeAssessmentSessionAction(assessmentId:string, payload:Pic
                 data: { assessmentDetails: response.data.individualAssessmentSession }
             })
         })
-        .catch((error)=> {
-            reject(error)
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface IndividualServicesSuccessResponseType extends successResponseType {
+    data: {
+        individualServices:IndividualServiceListItemType[]
+    }
+}
+
+export function fetchIndividualServicesAction(individualId:string) {
+    return new Promise<IndividualServicesSuccessResponseType>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/services`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { individualServices: response.data.individualServices }
+            })
         })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IAddServiceToIndividualPayload {
+    serviceId:string;
+}
+
+export function addServiceToIndividualAction(individualId:string, payload:IAddServiceToIndividualPayload) {
+    return new Promise<IndividualServicesSuccessResponseType>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/services`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { individualServices: response.data.individualServices }
+            })
+        })
+        .catch((error)=> reject(error))
     })
 }

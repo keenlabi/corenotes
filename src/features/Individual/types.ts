@@ -12,7 +12,8 @@ export interface IndividualStateType extends initStateType {
         currentPage:number,
         totalPages:number,
         session: AssessmentModelType
-    }
+    },
+    requestedServices:IndividualServiceListItemType[];
 }
 
 export interface IndividualListItemType {
@@ -138,6 +139,15 @@ export interface IndividualProfileType {
             others: Array<string>
         }
     }
+}
+
+export interface IndividualServiceListItemType {
+    id:string;
+    serviceId:number;
+    title:string;
+    category:string;
+    startDate:string;
+    // createdAt:string
 }
 
 // export interface IndividualAssessmentType {

@@ -1,6 +1,6 @@
 import ModalContainer from "src/components/Modal/ModalContainer"
 import styles from "./addnewindividualmodal.module.css"
-import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel.svg"
+import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel-circle.svg"
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton"
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton"
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal"
@@ -105,14 +105,13 @@ export default function AddNewIndividualModal({
     }
 
     return (
-        <ModalContainer close={()=> {
-            individualState.status !== 'LOADING' 
+        <ModalContainer close={individualState.status !== 'LOADING' 
             ? ()=> {
                 resetFormStateModel();
                 closeModal();
             }
-            :null
-        }}>
+            :()=> ({})
+        }>
             <div className={styles.add_new_staff}>
                 <FormStateModal
                     status={individualState.status}
@@ -123,7 +122,16 @@ export default function AddNewIndividualModal({
 
                 <div className={styles.top_section}>
                     <div className={styles.heading}>Add new individual</div>
-                    <IconCancel className={styles.icon_cancel} />
+                    <IconCancel 
+                        className={styles.icon_cancel} 
+                        onClick={individualState.status !== 'LOADING'
+                            ? ()=> {
+                                resetFormStateModel();
+                                closeModal();
+                            }
+                            :()=> ({})
+                        }
+                    />
                 </div>
 
                 <div className={styles.registration_form_section}>
