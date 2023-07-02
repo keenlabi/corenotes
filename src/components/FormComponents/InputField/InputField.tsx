@@ -7,7 +7,7 @@ interface inputFieldType {
     type?:"text" | "number" | "password" | "date",
     label?:string,
     placeholder?:string,
-    value:string,
+    value?:string,
     error:string,
     prefixIcon?:JSX.Element,
     suffixIcon?:JSX.Element,
