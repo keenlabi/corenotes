@@ -1,20 +1,48 @@
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import styles from "./staffworkinformationform.module.css"
 import InputField from "src/components/FormComponents/InputField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
 import { useStaffState } from "src/features/staff/state";
 import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField";
+import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
+import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
+import { useFetchStaffRoleSelector } from "src/features/staff/selector";
 
 export default function StaffWorkInformationForm() {
 
-    const [staffStateModel, setStaffModel] = useStaffState()
+    const [staffState, setStaffState] = useStaffState()
+
+    const staffRolesResponse = useFetchStaffRoleSelector(staffState.roles.currentPage);
+
+    useEffect(()=> {
+        setStaffState(state => ({
+            ...state,
+            error: staffRolesResponse.error,
+            message: staffRolesResponse.message,
+            roles: {
+                list: staffRolesResponse.data.staffRoles,
+                currentPage: staffRolesResponse.data.currentPage,
+                totalPages: staffRolesResponse.data.totalPages,
+            }
+        }))
+
+        setProviderRoleModel(state => ({
+            ...state,
+            options: [...staffRolesResponse.data.staffRoles.map(role => ({
+                id: role.id,
+                label: role.title,
+                value: role.id
+            }))],
+        }))
+
+    }, [setStaffState, staffRolesResponse])
 
     const [compartmentModel, setCompartmentModel] = useState<formFieldType>({
         type:'text',
         label: 'Compartment',
         placeholder:'Compartment',
-        value:staffStateModel.newStaff.compartment,
+        value: staffState.newStaff.compartment,
         error:'',
         validated:false
     })
@@ -23,25 +51,34 @@ export default function StaffWorkInformationForm() {
         type:'text',
         label: 'Staff title',
         placeholder:'Staff title',
-        value:staffStateModel.newStaff.title,
+        value: staffState.newStaff.title,
         error:'',
         validated:false
     })
 
-    const [providerRoleModel, setProviderRoleModel] = useState<formFieldType>({
-        type:'text',
-        label: 'Provider role',
+    const [providerRoleModel, setProviderRoleModel] = useState<DropDownFormData>({
+        name: "provider-role",
         placeholder:'Provider role',
-        value:staffStateModel.newStaff.providerRole,
-        error:'',
-        validated:false
+        options: [],
+        selected: false,
+        selectedOptionIndex: 0,
+        error: '',
     })
+
+    // const [providerRoleModel, setProviderRoleModel] = useState<formFieldType>({
+    //     type:'text',
+    //     label: 'Provider role',
+    //     placeholder:'Provider role',
+    //     value:staffState.newStaff.providerRole,
+    //     error:'',
+    //     validated:false
+    // })
 
     const [usernameModel, setUsernameModel] = useState<formFieldType>({
         type:'text',
         label: 'Username',
         placeholder:'Username',
-        value:staffStateModel.newStaff.username,
+        value:staffState.newStaff.username,
         error:'',
         validated:false
     })
@@ -50,7 +87,7 @@ export default function StaffWorkInformationForm() {
         type:'date',
         label: 'Employee ID',
         placeholder:'Employee ID',
-        value:staffStateModel.newStaff.employeeId,
+        value:staffState.newStaff.employeeId,
         error:'',
         validated:false
     })
@@ -59,7 +96,7 @@ export default function StaffWorkInformationForm() {
         type:'text',
         label: 'Schedule Type',
         placeholder:'Schedule Type',
-        value:staffStateModel.newStaff.jobSchedule,
+        value:staffState.newStaff.jobSchedule,
         error:'',
         validated:false
     })
@@ -68,16 +105,16 @@ export default function StaffWorkInformationForm() {
         type:'date',
         label: 'Hire date',
         placeholder:'Hire date',
-        value:staffStateModel.newStaff.hiredAt,
-        error:'',
-        validated:false
+        value: staffState.newStaff.hiredAt,
+        error: '',
+        validated: false
     })
 
     const [passwordModel, setPasswordModel] = useState<formFieldType>({
         type:'password',
         label: 'Password',
         placeholder:'Password',
-        value:staffStateModel.newStaff.password,
+        value:staffState.newStaff.password,
         error:'',
         validated:false
     })
@@ -102,15 +139,23 @@ export default function StaffWorkInformationForm() {
         return
     }
 
+    function selectOption(optionIndex:number, model:DropDownFormData, setModel:setDropDownFormData) {
+        model.value = model.options[optionIndex];
+        model.selected = true;
+        model.selectedOptionIndex = optionIndex;
+
+        setModel({...model})
+    }
+
     function submit() {
-        setStaffModel((state)=> {
+        setStaffState((state)=> {
             return {
                 ...state,
                 newStaff: {
                     ...state.newStaff,
                     compartment: compartmentModel.value,
                     title: staffTitleModel.value,
-                    providerRole: providerRoleModel.value,
+                    providerRole: providerRoleModel.value?.value ?? "",
                     hiredAt: hireDateModel.value,
                     username: usernameModel.value,
                     employeeId: employeeIdModel.value,
@@ -130,13 +175,13 @@ export default function StaffWorkInformationForm() {
 
             <div className={styles.form_content}>
                 <div className={styles.row}>
-                    <InputField 
+                    {/* <InputField 
                         type={compartmentModel.type}
                         placeholder={compartmentModel.placeholder}
                         value={compartmentModel.value}
                         error={compartmentModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, compartmentModel, setCompartmentModel)}
-                    />
+                    /> */}
 
                     <InputField 
                         type={staffTitleModel.type}
@@ -146,22 +191,13 @@ export default function StaffWorkInformationForm() {
                         onInput={(inputValue:string) => setInput(inputValue, staffTitleModel, setStaffTitleModel)}
                     />
 
-                    <InputField 
-                        type={providerRoleModel.type}
+                    <DropDownField 
                         placeholder={providerRoleModel.placeholder}
-                        value={providerRoleModel.value}
+                        options={providerRoleModel.options}
+                        selected={providerRoleModel.selected}
+                        selectedOptionIndex={providerRoleModel.selectedOptionIndex}
                         error={providerRoleModel.error}  
-                        onInput={(inputValue:string) => setInput(inputValue, providerRoleModel, setProviderRoleModel)}
-                    />
-                </div>
-
-                <div className={styles.row}>
-                    <InputField 
-                        type={usernameModel.type}
-                        placeholder={usernameModel.placeholder}
-                        value={usernameModel.value}
-                        error={usernameModel.error}  
-                        onInput={(inputValue:string) => setInput(inputValue, usernameModel, setUsernameModel)}
+                        onSelect={(optionIndex:number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
                     />
 
                     <InputField 
@@ -171,7 +207,9 @@ export default function StaffWorkInformationForm() {
                         error={employeeIdModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, employeeIdModel, setEmployeeIdModel)}
                     />
+                </div>
 
+                <div className={styles.row}>
                     <InputField 
                         type={scheduleTypeModel.type}
                         placeholder={scheduleTypeModel.placeholder}
@@ -179,9 +217,7 @@ export default function StaffWorkInformationForm() {
                         error={scheduleTypeModel.error}  
                         onInput={(inputValue:string) => setInput(inputValue, scheduleTypeModel, setScheduleTypeModel)}
                     />
-                </div>
 
-                <div className={styles.row}>
                     <InputField
                         type={hireDateModel.type}
                         placeholder={hireDateModel.placeholder}
@@ -190,6 +226,17 @@ export default function StaffWorkInformationForm() {
                         onInput={(inputValue:string) => setInput(inputValue, hireDateModel, setHireDateModel)}
                     />
 
+                    <InputField 
+                        type={usernameModel.type}
+                        placeholder={usernameModel.placeholder}
+                        value={usernameModel.value}
+                        error={usernameModel.error}  
+                        onInput={(inputValue:string) => setInput(inputValue, usernameModel, setUsernameModel)}
+                    />
+
+                </div>
+
+                <div className={styles.row}>
                     <PasswordInputField
                         placeholder={passwordModel.placeholder}
                         value={passwordModel.value}
@@ -197,8 +244,6 @@ export default function StaffWorkInformationForm() {
                         showPrefixIcon={false}
                         onInput={(inputValue:string) => setInput(inputValue, passwordModel, setPasswordModel)}
                     />
-
-                    <div></div>
                 </div>
             </div>
         </FormWrapper>

@@ -1,6 +1,6 @@
 import ModalContainer from "src/components/Modal/ModalContainer"
 import styles from "./addnewstaffmodal.module.css"
-import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel.svg"
+import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg"
 import StaffPersonalInformationForm from "./StaffPersonalInformationForm/StaffPersonalInformationForm"
 import StaffWorkInformationForm from "./StaffWorkInformationForm"
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton"
@@ -112,7 +112,10 @@ export default function AddNewStaffModal({
 
                 <div className={styles.top_section}>
                     <div className={styles.heading}>Add new staff</div>
-                    <IconCancel className={styles.icon_cancel} />
+                    <IconCancelCircle 
+                        className={styles.icon_cancel}
+                        onClick={()=> staffState.status === 'LOADING' ?()=>({}) :closeModal() }
+                    />
                 </div>
 
                 <div className={styles.registration_form_section}>

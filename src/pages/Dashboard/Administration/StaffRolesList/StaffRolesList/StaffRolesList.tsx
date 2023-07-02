@@ -9,21 +9,21 @@ export default function StaffRolesList() {
 
     const [staffState, setStaffState] = useStaffState();
 
-    const staffStateResponse = useFetchStaffRoleSelector(staffState.roles.currentPage)
+    const staffRolesResponse = useFetchStaffRoleSelector(staffState.roles.currentPage)
 
     useEffect(()=> {
         setStaffState(state => ({
             ...state,
-            error: staffStateResponse.error,
-            message: staffStateResponse.message,
+            error: staffRolesResponse.error,
+            message: staffRolesResponse.message,
             roles: {
-                list: staffStateResponse.data.staffRoles,
-                currentPage: staffStateResponse.data.currentPage,
-                totalPages: staffStateResponse.data.totalPages,
+                list: staffRolesResponse.data.staffRoles,
+                currentPage: staffRolesResponse.data.currentPage,
+                totalPages: staffRolesResponse.data.totalPages,
             }
         }))
 
-    }, [setStaffState, staffStateResponse])
+    }, [setStaffState, staffRolesResponse])
 
     return (
         <div className={styles.requested_services_list}>
