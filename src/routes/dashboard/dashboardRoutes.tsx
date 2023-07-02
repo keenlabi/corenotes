@@ -24,6 +24,8 @@ import CompartmentRequestedServiceOutlet from "src/pages/Dashboard/Compartments/
 import CompartmentDetailsOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/CompartmentDetailsOutlet";
 import RequestedServiceDetails from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServiceDetails";
 import IndividualServices from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/IndividualServices";
+import AdministrationOutlet from "src/pages/Dashboard/Administration/AdministrationOutlet";
+import StaffRolesList from "src/pages/Dashboard/Administration/StaffRolesList";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -190,6 +192,17 @@ const DashboardRoutes:routerType[] = [
                         path:':serviceId',
                         title: 'Service Details',
                         element: <ServiceDetails />,
+                    },
+                ]
+            },
+            {
+                path:'administration',
+                element: <AdministrationOutlet />,
+                children: [
+                    {
+                        path:'',
+                        title: 'Service Details',
+                        element: <StaffRolesList />,
                     },
                 ]
             },
