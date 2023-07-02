@@ -1,6 +1,6 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IActivity, IUser } from "./types"
+import { IActivity, IStaffRole, IUser } from "./types"
 
 export interface staffListType {
     id: string,
@@ -169,6 +169,52 @@ export function fetchStaffActivitiesAction(staffId:string, pageNumber:number, ac
                     currentPage:response.data.currentPage,
                     totalPages:response.data.totalPages,
                     activities: response.data.activities
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface fetchStaffRolesSuccessResponseType extends Omit<successResponseType, 'data'> {
+    data: {
+        currentPage:number,
+        totalPages:number,
+        staffRoles:IStaffRole[]
+    }
+}
+
+export interface IAddStaffRoleRequest {
+    title:string
+}
+
+export function addStaffRoleAction(payload:IAddStaffRoleRequest) {
+    return new Promise<fetchStaffRolesSuccessResponseType>((resolve, reject)=> {
+        postFetch(`/staffs/roles/`, payload)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage:response.data.currentPage,
+                    totalPages:response.data.totalPages,
+                    staffRoles: response.data.staffRoles
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function fetchStaffRolesAction(pageNumber:number) {
+    return new Promise<fetchStaffRolesSuccessResponseType>((resolve, reject)=> {
+        getFetch(`/staffs/roles/${pageNumber}`)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage:response.data.currentPage,
+                    totalPages:response.data.totalPages,
+                    staffRoles: response.data.staffRoles
                 }
             })
         })
