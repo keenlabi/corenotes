@@ -85,7 +85,7 @@ export default function Dashboard() {
 
     useEffect(()=> {
         const setActiveNav = (optionPosition:number)=> {
-            setNavOptions((navOptions:any)=> {
+            setNavOptions((navOptions)=> {
                 return [...navOptions.map((navOption:NavOptionsType, index:number)=> {
                     return (optionPosition)
                     ?   (index === optionPosition)
