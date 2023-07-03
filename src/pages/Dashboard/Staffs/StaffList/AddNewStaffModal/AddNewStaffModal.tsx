@@ -1,6 +1,6 @@
 import ModalContainer from "src/components/Modal/ModalContainer"
 import styles from "./addnewstaffmodal.module.css"
-import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel.svg"
+import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg"
 import StaffPersonalInformationForm from "./StaffPersonalInformationForm/StaffPersonalInformationForm"
 import StaffWorkInformationForm from "./StaffWorkInformationForm"
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton"
@@ -42,7 +42,7 @@ export default function AddNewStaffModal({
                 !staffState.newStaff.emergencyContact.relationship ||
                 !staffState.newStaff.emergencyContact.phoneNumber ||
                 !staffState.newStaff.email ||
-                !staffState.newStaff.compartment ||
+                // !staffState.newStaff.compartment ||
                 !staffState.newStaff.title ||
                 !staffState.newStaff.providerRole ||
                 !staffState.newStaff.hiredAt ||
@@ -53,18 +53,36 @@ export default function AddNewStaffModal({
                 setIsFormValid(false)
                 return false
             } else {
-                console.log('ERRO')
                 setIsFormValid(true)
                 return true
             }
     }
 
     function resetFormStateModel() {
-        return null
+        setStaffState((state)=> {
+            return {
+                ...state,
+                status: 'IDLE',
+                error: false,
+                message: ""
+            }
+        })
+
+        closeModal();
     }
 
     function registerStaff() {
         if(validateForm()) {
+
+            setStaffState((state)=> {
+                return {
+                    ...state,
+                    status: 'LOADING',
+                    error: false,
+                    message: ''
+                }
+            })
+
             JSONToFormData(staffState.newStaff)
             .then((formDataResult:FormData)=> {
                 for (const val of formDataResult.entries()) {
@@ -106,13 +124,15 @@ export default function AddNewStaffModal({
                     status={staffState.status}
                     error={staffState.error}
                     message={staffState.message}
-                    dontShowSuccess={true}
                     reset={()=> resetFormStateModel()}
                 />
 
                 <div className={styles.top_section}>
                     <div className={styles.heading}>Add new staff</div>
-                    <IconCancel className={styles.icon_cancel} />
+                    <IconCancelCircle 
+                        className={styles.icon_cancel}
+                        onClick={()=> staffState.status === 'LOADING' ?()=>({}) :closeModal() }
+                    />
                 </div>
 
                 <div className={styles.registration_form_section}>
@@ -130,6 +150,7 @@ export default function AddNewStaffModal({
                     />
 
                     <PrimaryTextButton
+                        isLoading={staffState.status === 'LOADING'}
                         disabled={!isFormValid}
                         width={"20%"}
                         label={"Save"}

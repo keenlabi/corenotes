@@ -1,6 +1,7 @@
 .staff_list_header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .heading {
     color: var(--black-accent-100);

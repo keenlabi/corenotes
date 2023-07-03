@@ -17,6 +17,15 @@ import Assessments from "src/pages/Dashboard/Assessments/Assessments";
 import CreateAssessment from "src/pages/Dashboard/Assessments/CreateAssessment/CreateAssessment";
 import Compartments from "src/pages/Dashboard/Compartments/Compartments";
 import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList";
+import Services from "src/pages/Dashboard/Services/Services";
+import ServiceDetails from "src/pages/Dashboard/Services/ServiceDetails";
+import CompartmentDetails from "src/pages/Dashboard/Compartments/CompartmentDetails";
+import CompartmentRequestedServiceOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServicesList/CompartmentRequestedServiceOutlet";
+import CompartmentDetailsOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/CompartmentDetailsOutlet";
+import RequestedServiceDetails from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServiceDetails";
+import IndividualServices from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/IndividualServices";
+import AdministrationOutlet from "src/pages/Dashboard/Administration/AdministrationOutlet";
+import StaffRolesList from "src/pages/Dashboard/Administration/StaffRolesList";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -78,7 +87,7 @@ const DashboardRoutes:routerType[] = [
                         element: <IndividualsList />,
                     },
                     {
-                        path:':id',
+                        path:':individualId',
                         title: 'Individual profile',
                         element: <IndividualProfile />,
                         children: [
@@ -89,8 +98,8 @@ const DashboardRoutes:routerType[] = [
                             },
                             {
                                 path:'requested-services',
-                                title: '',
-                                element: <div></div>,
+                                title: 'Requested Services',
+                                element: <IndividualServices />,
                             },
                             {
                                 path:'assessments',
@@ -131,6 +140,69 @@ const DashboardRoutes:routerType[] = [
                         path:'',
                         title: 'Compartment list',
                         element: <CompartmentsList />,
+                    },
+                    {
+                        path:':compartmentId',
+                        title: 'Compartment Details',
+                        element: <CompartmentDetailsOutlet />,
+                        children: [
+                            {
+                                path:'services',
+                                title: 'Compartment Services List',
+                                element: <CompartmentRequestedServiceOutlet />,
+                                children: [
+                                    {
+                                        path:'',
+                                        title: 'Compartment Services',
+                                        element: <CompartmentDetails />
+                                    },
+                                    {
+                                        path:':serviceId',
+                                        title: 'Compartment Service Details',
+                                        element: <RequestedServiceDetails />,
+                                        children: [
+                                            {
+                                                path:'individuals',
+                                                title: 'Compartment Individuals',
+                                                element: <div />
+                                            },
+                                            {
+                                                path:'assessments',
+                                                title: 'Comparment Assessments',
+                                                element: <div />,
+                                            },
+                                            {
+                                                path:'staffs',
+                                                title: 'Compartment Staffs',
+                                                element: <div />
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                        ]
+                    }
+                ]
+            },
+            {
+                path:'services',
+                element: <Services />,
+                children: [
+                    {
+                        path:':serviceId',
+                        title: 'Service Details',
+                        element: <ServiceDetails />,
+                    },
+                ]
+            },
+            {
+                path:'administration',
+                element: <AdministrationOutlet />,
+                children: [
+                    {
+                        path:'',
+                        title: 'Service Details',
+                        element: <StaffRolesList />,
                     },
                 ]
             },

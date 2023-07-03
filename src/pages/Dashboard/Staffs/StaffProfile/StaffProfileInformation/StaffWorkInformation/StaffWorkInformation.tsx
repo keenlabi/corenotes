@@ -8,10 +8,6 @@ export default function StaffWorkInformation() {
 
     const workInfo = [
         {
-            label:'Compartment',
-            value: staffState.details.work.compartment
-        },
-        {
             label:'Staff title',
             value: staffState.details.work.title
         },

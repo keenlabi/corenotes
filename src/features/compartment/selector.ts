@@ -1,5 +1,5 @@
 import { selectorFamily, useRecoilValue } from "recoil";
-import { GetCompartmentsResponse, getCompartmentList } from "./action";
+import { GetCompartmentsResponse, IGetCompartmentDetailsResponse, getCompartmentDetails, getCompartmentList } from "./action";
 import { compartmentInitState } from "./state";
 
 interface IFetchCompartmentListType {
@@ -37,3 +37,42 @@ const fetchCompartmentList = selectorFamily({
 })
 
 export const useFetchCompartmentList = (pageNumber:number)=> useRecoilValue(fetchCompartmentList(pageNumber))
+
+
+interface IFetchCompartmentDetailsType {
+    compartment:Pick<IGetCompartmentDetailsResponse, 'data'>['data']['compartment'],
+    code:number,
+    message:string,
+    error:boolean
+}
+
+const fetchCompartmentDetails = selectorFamily({
+    key:'fetch_compartment_details',
+    get: (compartmentId:number) => async ()=> {
+        return await getCompartmentDetails(compartmentId)
+        .then(({ data }:IGetCompartmentDetailsResponse)=> {
+            return {
+                compartment: data.compartment,
+                code: 200,
+                message: '',
+                error: false
+            } satisfies IFetchCompartmentDetailsType;
+        })
+        .catch((error)=> {
+            return {
+                compartment: compartmentInitState.compartment,
+                code: error.statusCode,
+                message: error.message,
+                error: false
+            } satisfies IFetchCompartmentDetailsType;
+        })
+    }
+})
+export const useFetchCompartmentDetails = (compartmentId:number)=> useRecoilValue(fetchCompartmentDetails(compartmentId))
+
+// const fetchCompartmentServiceDetails = selectorFamily({
+//     key:'fetch_compartment_service_details',
+//     get:(serviceId:number)=> async ()=> {
+        
+//     }
+// })

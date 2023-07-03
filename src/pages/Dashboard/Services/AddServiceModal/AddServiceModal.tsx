@@ -9,10 +9,17 @@ import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton"
 import { useServicesState } from "src/features/service/state"
 import { newServiceData, postService } from "src/features/service/action"
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal"
+import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types"
+import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield"
+import MultiSelectDropDownField from "src/components/FormComponents/DropDownField/MultiSelectDropDownField"
+import { MultiSelectDropDownFormData } from "src/components/FormComponents/DropDownField/MultiSelectDropDownField/types"
+import { useCompartmentStateValue } from "src/features/compartment/state"
 
 export default function AddCompartmentModal({ close }:{close:()=> void}) {
 
     const [servicesState, setServicesState] = useServicesState();
+
+    const compartmentStateValue = useCompartmentStateValue()
 
     const [serviceTitle, setserviceTitle] = useState<formFieldType>({
         type:'text',
@@ -22,12 +29,60 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
         validated:false
     })
 
+    const [serviceCategory, setServiceCategory] = useState<DropDownFormData>({
+        placeholder:'Select service category',
+        name:'service-category',
+        options: [
+            {
+                id:'1',
+                label:'Requested',
+            },
+            {
+                id:'2',
+                label:'Provided',
+            },
+        ],
+        error:'',
+        selected:false,
+        selectedOptionIndex:0
+    })
+    
+    const [serviceCompartments, setServiceCompartments] = useState<MultiSelectDropDownFormData>({
+        placeholder:'Select compartments',
+        options: compartmentStateValue.compartmentsList.map( compartment => compartment.title),
+        error:'',
+        value:[],
+        info: 'An empty selection means service is available to all compartments'
+    }) 
+
     function setInput(value:string, model:formFieldType, setModel:setFormFieldType) {
         model.value = value;
         validateModel(model)
         setModel({...model});
 
         validateForm();
+    }
+
+    function selectOption(optionIndex:number, model:DropDownFormData, setModel:setDropDownFormData) {
+        model.value = model.options[optionIndex];
+        model.selected = true;
+        model.selectedOptionIndex = optionIndex;
+
+        setModel({...model})
+        validateForm()
+    }
+
+    function selectCompartments(selectedOptions:Array<string>) {
+        const allSelectedOptionsId:Array<string> = [];
+
+        selectedOptions.forEach(option => {
+            compartmentStateValue.compartmentsList.forEach(compartment => {
+                if(compartment.title.toLowerCase() === option.toLowerCase())
+                allSelectedOptionsId.push(compartment.id);
+            })
+        })
+
+        setServiceCompartments(state => ({ ...state, value: allSelectedOptionsId }))
     }
 
     function validateModel(updatedModel:formFieldType) {
@@ -57,6 +112,11 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
             setIsFormValidated(false);
             return;
         }
+        if(!serviceCategory.selected) {
+            setIsFormValidated(false);
+            return;
+        }
+
 
         setIsFormValidated(true);
         return;
@@ -66,7 +126,9 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
         if(isFormValidated) {
 
             const payload:newServiceData = {
-                title: serviceTitle.value
+                title: serviceTitle.value,
+                category: serviceCategory.value!.label,
+                compartments: serviceCompartments.value
             }
             
             setServicesState(state => ({
@@ -90,7 +152,6 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
                 }))
             })
             .catch((error)=> {
-                console.log(error)
                 setServicesState(state => ({
                     ...state,
                     status: 'SUCCESS',
@@ -124,6 +185,28 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
                         error={serviceTitle.error}
                         onInput={(value)=> setInput(value, serviceTitle, setserviceTitle)}
                     />
+
+                    <DropDownField
+                        placeholder={serviceCategory.placeholder}
+                        options={serviceCategory.options}
+                        selected={serviceCategory.selected}
+                        selectedOptionIndex={serviceCategory.selectedOptionIndex}
+                        error={serviceCategory.error}
+                        onSelect={(optionIndex:number) => selectOption(optionIndex, serviceCategory, setServiceCategory)} 
+                    />
+
+                    {
+                        serviceCategory.value?.label.toLowerCase() === 'requested'
+                        ?   <MultiSelectDropDownField 
+                                label={""}
+                                placeholder={serviceCompartments.placeholder}
+                                options={serviceCompartments.options} 
+                                error={serviceCompartments.error} 
+                                info={serviceCompartments.info}
+                                onSelect={(selectedOptions)=> selectCompartments(selectedOptions)}
+                            />
+                        :   null
+                    }
                 </div>
 
                 <div className={styles.buttons}>

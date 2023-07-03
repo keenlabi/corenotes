@@ -8,6 +8,14 @@ export const serviceInitState:IServiceStateType = {
     servicesList: [],
     currentListPage: 1,
     totalListPages: 1,
+    service:{
+        id: "",
+        serviceId: "",
+        title: "",
+        assignedIndividualsCount: 0,
+        createdAt: "",
+        category: ""
+    }
 }
 
 export const serviceAtom = atom({

@@ -1,0 +1,21 @@
+.compartment_details_navigation {
+    border-bottom: 1px solid var(--table-row-line-color);
+    padding: 0 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.nav_item {
+    height: max-content;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    color: var(--black-accent-200);
+    cursor: pointer;
+}
+.nav_item.active {
+    color: var(--dark-blue-accent-100);
+    background: var(--dark-blue-faded-accent-100);
+}

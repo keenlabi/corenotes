@@ -7,7 +7,7 @@ import DropDownField from "src/components/FormComponents/DropDownField/dropdownf
 import { useFetchCompartmentList } from "src/features/compartment/selector";
 import { useCompartmentState } from "src/features/compartment/state";
 
-export default function IndividualCompartmentForm() {
+export default function IndividualCompartmentForm({removeLabel}:{removeLabel:boolean}) {
 
     const setIndividualState = useSetIndividualState()
 
@@ -27,7 +27,8 @@ export default function IndividualCompartmentForm() {
             ...state,
             options: compartmentState.compartmentsList.map((compartment)=> ({
                 id:compartment.id,
-                label:compartment.title
+                label:compartment.title,
+                value: compartment.compartmentId.toString()
             }))
         }))
 
@@ -54,19 +55,24 @@ export default function IndividualCompartmentForm() {
             ...state,
             newIndividual: {
                 ...state.newIndividual,
-                compartment: model.value!.id
+                compartment: model.value!.id,
+                compartmentId: parseInt(model.value!.value!)
             }
         }))
     }
 
     return (
         <FormWrapper extraStyles={styles.staff_personal_information_form}>
-            <div className={styles.heading}>
-                <div className={styles.number_circle}>2</div>
-                <div className={styles.text}>Compartment</div>
-            </div>
-
-            <div className={styles.form_content}>
+            {
+                removeLabel
+                ?   <div></div>
+                :   <div className={styles.heading}>
+                        <div className={styles.number_circle}>2</div>
+                        <div className={styles.text}>Compartment</div>
+                    </div>   
+            }
+            
+            <div className={removeLabel ?'' :styles.form_content}>
                 <div className={styles.row}>
                     <DropDownField
                         width={"100%"}

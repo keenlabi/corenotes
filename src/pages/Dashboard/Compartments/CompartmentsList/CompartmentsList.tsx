@@ -1,7 +1,7 @@
 import GridList from "src/components/GridList/GridList"
 import styles from "./compartmentslist.module.css"
 import CompartmentCard from "./CompartmentCard/CompartmentCard";
-import ServicesList from "../Services/ServicesList/ServicesList";
+import ServicesList from "../../Services/ServicesList/ServicesList";
 import SizedBox from "src/components/SizedBox";
 import AddNewNoBackgroundIconButton from "src/components/Buttons/AddNewNoBackgroundIconButton";
 import { useEffect, useState } from "react";
@@ -57,6 +57,7 @@ export default function CompartmentsList() {
                                     return  <CompartmentCard
                                                 key={compartment.id}
                                                 id={compartment.id}
+                                                path={`${compartment.compartmentId}`}
                                                 title={compartment.title}
                                                 image={compartment.image}
                                                 staffRolesCount={compartment.staffRolesCount}

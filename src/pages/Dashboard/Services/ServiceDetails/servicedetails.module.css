@@ -1,0 +1,21 @@
+.back_btn {
+    font-size: 2rem;
+    cursor: pointer;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+.heading {
+    margin-left: 5%;
+    font-weight: 600;
+    font-size: 2rem;
+}
+.category {
+    margin-left: 1rem;
+    background: var(--green-faded-accent-100);
+    color: var(--green-accent-100);
+    padding: 5px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}

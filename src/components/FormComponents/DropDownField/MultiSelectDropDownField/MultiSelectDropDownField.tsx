@@ -7,6 +7,7 @@ import FormInputError from "../../FormInputError";
 import { MultiSelectDropDownOption, MultiSelectDropDownProps } from "./types";
 import filterObjectList from "src/utils/filterObjectList";
 import RadioButton from "../../RadioButtonField/RadioButton";
+import { ReactComponent as IconInfo } from "src/assets/icons/icon-alert-circle.svg";
 
 export default function MultiSelectDropDownField({
     label,
@@ -16,6 +17,7 @@ export default function MultiSelectDropDownField({
     relative,
     error,
     placeholder,
+    info,
     onSelect
 }: MultiSelectDropDownProps) {
 
@@ -120,8 +122,8 @@ export default function MultiSelectDropDownField({
                                 <FaAngleDown />
                             </div>
                         :   <div className={styles.unselected} onClick={()=> dropOptions()}>
-                                <div className={styles.placeholder}>{placeholder}</div>
-                                <FaAngleDown />
+                                <div className={styles.placeholder} onClick={()=> dropOptions()}>{placeholder}</div>
+                                <FaAngleDown onClick={()=> dropOptions()} />
                             </div>
                 }
 
@@ -154,6 +156,10 @@ export default function MultiSelectDropDownField({
                         </div>
                     :   null
                 }
+            </div>
+            <div className={styles.info}>
+                <IconInfo className={styles.info_icon} />
+                <div className={styles.message}>{info}</div>
             </div>
             <FormInputError message={error} />
         </div>
