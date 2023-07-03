@@ -18,8 +18,8 @@ export default function StaffWorkInformationForm() {
     useEffect(()=> {
         setStaffState(state => ({
             ...state,
+            status:'IDLE',
             error: staffRolesResponse.error,
-            message: staffRolesResponse.message,
             roles: {
                 list: staffRolesResponse.data.staffRoles,
                 currentPage: staffRolesResponse.data.currentPage,
@@ -38,14 +38,14 @@ export default function StaffWorkInformationForm() {
 
     }, [setStaffState, staffRolesResponse])
 
-    const [compartmentModel, setCompartmentModel] = useState<formFieldType>({
-        type:'text',
-        label: 'Compartment',
-        placeholder:'Compartment',
-        value: staffState.newStaff.compartment,
-        error:'',
-        validated:false
-    })
+    // const [compartmentModel, setCompartmentModel] = useState<formFieldType>({
+    //     type:'text',
+    //     label: 'Compartment',
+    //     placeholder:'Compartment',
+    //     value: staffState.newStaff.compartment,
+    //     error:'',
+    //     validated:false
+    // })
 
     const [staffTitleModel, setStaffTitleModel] = useState<formFieldType>({
         type:'text',
@@ -84,7 +84,7 @@ export default function StaffWorkInformationForm() {
     })
 
     const [employeeIdModel, setEmployeeIdModel] = useState<formFieldType>({
-        type:'date',
+        type:'text',
         label: 'Employee ID',
         placeholder:'Employee ID',
         value:staffState.newStaff.employeeId,
@@ -153,7 +153,7 @@ export default function StaffWorkInformationForm() {
                 ...state,
                 newStaff: {
                     ...state.newStaff,
-                    compartment: compartmentModel.value,
+                    // compartment: compartmentModel.value,
                     title: staffTitleModel.value,
                     providerRole: providerRoleModel.value?.value ?? "",
                     hiredAt: hireDateModel.value,

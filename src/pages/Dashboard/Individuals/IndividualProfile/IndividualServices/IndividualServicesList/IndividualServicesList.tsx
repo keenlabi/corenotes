@@ -23,6 +23,13 @@ export default function IndividualServicesList() {
             requestedServices: individualServicesResponse.individualServices
         }))
 
+        return ()=> {
+            setIndividualState(state => ({
+                ...state,
+                requestedServices: []
+            }))
+        }
+
     }, [individualServicesResponse, setIndividualState])
 
     const [showAddServiceModal, setShowAddServiceModal] = useState(false);

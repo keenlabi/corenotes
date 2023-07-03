@@ -11,9 +11,9 @@ export default function RequestedServices() {
         <div className={styles.requested_services_list}>
             <GridList columnCount={3}>
                 {
-                    compartmentState.compartment.services?.map((service)=> {
+                    compartmentState.compartment.services?.map((service, index)=> {
                         return  <RequestedServiceCard
-                                    key={service.serviceId}
+                                    key={`service.serviceId_${index}`}
                                     serviceId={service.serviceId} 
                                     title={service.title}
                                     description={service.description}

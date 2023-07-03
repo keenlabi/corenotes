@@ -1,6 +1,6 @@
 import ModalContainer from "src/components/Modal/ModalContainer";
 import styles from "./uploaddocmodal.module.css"
-import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel.svg"
+import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg"
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { useState } from "react";
@@ -14,12 +14,14 @@ import DropDownField from "src/components/FormComponents/DropDownField/dropdownf
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import { useStaffState } from "src/features/staff/state";
 import formatStaffDocumentsList from "src/features/staff/utils/formatStaffDocuments";
+import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 
 export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
 
     const { id } = useParams()
 
     const [staffState, setStaffState] = useStaffState()
+    const [uploadStaffDocState, setUploadStaffDocState] = useState(staffState);
 
     const [isFormValid, setIsFormValid] = useState(false);
 
@@ -63,7 +65,8 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
         ],
         value: {
             id: 'pdf',
-            label: 'PDF'
+            label: 'PDF',
+            value: '.pdf'
         },
         selected: true,
         selectedOptionIndex: 0,
@@ -113,7 +116,7 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
                 }
             })
 
-            validateForm()
+            validateForm(file)
         }
     }
 
@@ -145,11 +148,12 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
         return
     }
 
-    function validateForm() {
+    function validateForm(file?:File) {
+        console.log(docFileModel.validated, file)
         if( !docTitleModel.validated ||
             !docTypeModel.selected ||
             !docDateModel.validated ||
-            !docFileModel.validated 
+            !docFileModel.validated && !file
         ) {
             setIsFormValid(false)
             return false
@@ -169,7 +173,7 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
                 docFileName: docFileNameModel.value
             }
 
-            setStaffState(state => {
+            setUploadStaffDocState(state => {
                 return {
                     ...state,
                     status: 'LOADING'
@@ -181,10 +185,18 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
                 uploadStaffDocumentAction(id!, payloadFormData)
                 .then((response)=> {
                     const newDocuments = formatStaffDocumentsList(response.data.documents)
-                    setStaffState(state => {
+                    setUploadStaffDocState(state => {
                         return {
                             ...state,
                             status: 'SUCCESS',
+                            message:"Staff document saved successfully",
+                            error: false
+                        }
+                    })
+
+                    setStaffState(state => {
+                        return {
+                            ...state,
                             currentDocumentsPage: response.data.currentPage,
                             totalDocumentsPage: response.data.totalPages,
                             details: {
@@ -194,12 +206,19 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
                         }
                     })
                 })
-                .catch((error)=> {
-                    console.log(error)
+                .catch(()=> {
+                    setUploadStaffDocState(state => {
+                        return {
+                            ...state,
+                            status: 'FAILED',
+                            error: true,
+                            message:"There was an error uploading staff document"
+                        }
+                    })
                 })
             })
             .catch((error)=> {
-                setStaffState(state => {
+                setUploadStaffDocState(state => {
                     return {
                         ...state,
                         status: 'FAILED'
@@ -213,9 +232,19 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
     return (
         <ModalContainer close={()=> staffState.status === 'LOADING' ?null :closeModal()}>
             <div className={styles.upload_doc_container}>
+                <FormStateModal 
+                    status={staffState.status}
+                    error={staffState.error}
+                    message={staffState.message}
+                    reset={()=> setStaffState(state => ({ ...state, status:'IDLE' }))} 
+                />
+
                 <div className={styles.top_section}>
                     <div className={styles.heading}>Add new staff</div>
-                    <IconCancel className={styles.icon_cancel} />
+                    <IconCancelCircle 
+                        className={styles.icon_cancel}
+                        onClick={()=> staffState.status === 'LOADING' ?()=>({}) :closeModal() }
+                    />
                 </div>
 
                 <div className={styles.form_section}>
@@ -263,7 +292,7 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
                     />
 
                     <PrimaryTextButton
-                        isLoading={staffState.status === 'LOADING'}
+                        isLoading={uploadStaffDocState.status === 'LOADING'}
                         disabled={!isFormValid}
                         width={"20%"}
                         label={"Save"}

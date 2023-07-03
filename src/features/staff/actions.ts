@@ -4,12 +4,12 @@ import { IActivity, IStaffRole, IUser } from "./types"
 
 export interface staffListType {
     id: string,
-    lastname: string,
-    firstname: string,
-    compartment: string,
-    role: string,
     profileImage: string,
+    firstname: string,
+    lastname: string,
+    role: string,
     phoneNumber: string
+    lastSeen:string,
 }
 
 export interface fetchStaffListSuccessResponseType extends Omit<successResponseType, 'data'> {

@@ -209,8 +209,8 @@ export default function StaffPersonalInformationForm() {
                     },
                     emergencyContact: {
                         name: emergencyContactModel.value,
-                        relationship: emergencyContactModel.value,
-                        phoneNumber: emergencyContactModel.value
+                        relationship: relWithContactModel.value,
+                        phoneNumber: contactCellPhoneModel.value
                     },
                     email: emailAddressModel.value
                 }

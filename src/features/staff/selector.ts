@@ -77,7 +77,7 @@ const fetchStaffDocumentsSelector = selectorFamily({
             return {
                 code: 500,
                 error: true,
-                message: error.response.message,
+                message: error.message,
                 documents: [],
                 currentPage: 0,
                 totalPages: 0,

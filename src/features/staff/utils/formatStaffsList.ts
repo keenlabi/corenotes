@@ -3,11 +3,11 @@ import { staffListType } from "../actions"
 
 export interface staffsListType {
     id:string,
-    profileImage: string,
-    fullname: string,
-    role: string,
-    phoneNumber: string,
-    compartment: string
+    profileImage:string,
+    fullname:string,
+    role:string,
+    phoneNumber:string,
+    lastSeen:string
 }
 
 export default function formatStaffList(staffs:staffListType[]):staffsListType[] {
@@ -20,7 +20,7 @@ export default function formatStaffList(staffs:staffListType[]):staffsListType[]
             fullname: `${capitalize(staff.firstname)}, ${staff.lastname.toUpperCase()}`,
             role: staff.role,
             phoneNumber: staff.phoneNumber,
-            compartment: staff.compartment || 'Test compartment'
+            lastSeen: staff.lastSeen
         }
     })
 }

@@ -6,7 +6,6 @@ import sortByDate from "src/utils/sortByDate";
 import { IndividualServiceListItemType } from "src/features/Individual/types";
 import formatDate from "src/utils/formatDate";
 import capitalize from "src/utils/capitalize";
-import AddNewNoBackgroundIconButton from "src/components/Buttons/AddNewNoBackgroundIconButton";
 
 export default function IndividualServicesListTable({
     services,
@@ -42,10 +41,10 @@ export default function IndividualServicesListTable({
     }, [services])
 
     function formatTransactionsTable (services:IndividualServiceListItemType[]) {
-        return services.map((service)=> {
+        return services.map((service, index)=> {
             return  [
                 {
-                    rowKey: service.id,
+                    rowKey: `service.id_${index}`,
                     actionEvent: 'row_click',
                     target:'blank_page'
                 },

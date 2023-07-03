@@ -42,7 +42,7 @@ export default function AddNewStaffModal({
                 !staffState.newStaff.emergencyContact.relationship ||
                 !staffState.newStaff.emergencyContact.phoneNumber ||
                 !staffState.newStaff.email ||
-                !staffState.newStaff.compartment ||
+                // !staffState.newStaff.compartment ||
                 !staffState.newStaff.title ||
                 !staffState.newStaff.providerRole ||
                 !staffState.newStaff.hiredAt ||
@@ -53,18 +53,36 @@ export default function AddNewStaffModal({
                 setIsFormValid(false)
                 return false
             } else {
-                console.log('ERRO')
                 setIsFormValid(true)
                 return true
             }
     }
 
     function resetFormStateModel() {
-        return null
+        setStaffState((state)=> {
+            return {
+                ...state,
+                status: 'IDLE',
+                error: false,
+                message: ""
+            }
+        })
+
+        closeModal();
     }
 
     function registerStaff() {
         if(validateForm()) {
+
+            setStaffState((state)=> {
+                return {
+                    ...state,
+                    status: 'LOADING',
+                    error: false,
+                    message: ''
+                }
+            })
+
             JSONToFormData(staffState.newStaff)
             .then((formDataResult:FormData)=> {
                 for (const val of formDataResult.entries()) {
@@ -106,7 +124,6 @@ export default function AddNewStaffModal({
                     status={staffState.status}
                     error={staffState.error}
                     message={staffState.message}
-                    dontShowSuccess={true}
                     reset={()=> resetFormStateModel()}
                 />
 
@@ -133,6 +150,7 @@ export default function AddNewStaffModal({
                     />
 
                     <PrimaryTextButton
+                        isLoading={staffState.status === 'LOADING'}
                         disabled={!isFormValid}
                         width={"20%"}
                         label={"Save"}
