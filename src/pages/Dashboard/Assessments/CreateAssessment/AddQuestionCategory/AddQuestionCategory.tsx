@@ -88,11 +88,11 @@ export default function AddQuestionCategoryModal({closeModal}:{closeModal:()=> v
     }
 
     return(
-        <ModalContainer close={assessmentState.status === 'LOADING' ? ()=>({}) :closeModal}>
+        <ModalContainer close={()=> assessmentState.status === 'LOADING' ? ()=>({}) :closeModal()}>
             <div className={styles.add_question_category_modal}>
                 <div className={styles.header}>
                     <div className={styles.titiel}>Add question category</div>
-                    <IconCancelCircle />
+                    <IconCancelCircle onClick={()=> assessmentState.status === 'LOADING' ? ()=>({}) :closeModal()} />
                 </div>
 
                 <div className={styles.content}>

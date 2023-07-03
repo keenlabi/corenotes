@@ -24,7 +24,7 @@ function postFetch (url:string, body:any){
         .catch((error)=> {
             if(typeof(error.response.data) === 'object') {
                 reject({
-                    code: error.response.data.code?.toString(),
+                    statusCode: error.response.data.statusCode,
                     message: error.response.data.message?.toString(),
                 })
             }
@@ -44,8 +44,8 @@ export const patchFetch = (url:string, body:bodyType)=> {
         .then((response)=> resolve(response.data))
         .catch((error)=> {
             if(typeof(error.response.data) === 'object') {
-                reject({
-                    code: error.response.data.code?.toString(),
+                reject({    
+                    statusCode: error.response.data.statusCode,
                     message: error.response.data.message?.toString(),
                 })
             }

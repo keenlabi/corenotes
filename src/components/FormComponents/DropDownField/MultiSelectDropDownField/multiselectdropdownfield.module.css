@@ -28,6 +28,7 @@
     justify-content: space-between;
     font-size: 1.1rem;
     text-transform: capitalize;
+    color: var(--blue-accent-100);
 }
 .unselected {
     width: 95%;
@@ -55,10 +56,10 @@
     border-radius: 5px;
 }
 .radio_options {
-    padding: 2%;
+    padding: 5%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-row: 10px;
+    gap: 1rem;
 }
 .bottom_offset .option {
     padding: 0.5rem;
@@ -99,4 +100,17 @@
 .disable_dropdown {
     background: var(--grey-accent-300);
     opacity: 0.7;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+.info_icon {
+    fill: var(--grey-accent-500);
+}
+.info .message {
+    color: var(--grey-accent-700);
 }

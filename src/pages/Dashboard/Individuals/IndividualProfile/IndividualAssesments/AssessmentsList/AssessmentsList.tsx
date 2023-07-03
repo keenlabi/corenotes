@@ -24,6 +24,16 @@ export default function AssessmentsList() {
                 }
             }))
         }
+
+        return ()=> {
+            setIndividualState((state)=> {
+                return {
+                    ...state,
+                    status: 'IDLE',
+                    error: false
+                }
+            })
+        }
     }, [assessmentsResponse, setIndividualState])
 
     const [isAssessmentModalVisible, setIsAssessmentModalVisible] = useState(false)

@@ -13,7 +13,7 @@ export const individualInitState:IndividualStateType = {
         middlename: '',
         lastname: '',
         nickname: '',
-        dob:'',
+        dob: '',
         gender: '',
         religion: '',
         ssn: '',
@@ -26,14 +26,15 @@ export const individualInitState:IndividualStateType = {
         medicaidNumber: 0,
         maritalStatus: '',
         codeAlert: [],
-        requestedServices:[],
+        requestedServices: [],
         diet: [],
         allergies: {
             food: [],
             med: [],
             other: []
         },
-        compartment:''
+        compartment: '',
+        compartmentId: 0
     },
     profile: {
         id: '',
@@ -66,18 +67,19 @@ export const individualInitState:IndividualStateType = {
             }
         }
     },
-    assessments:{
+    assessments: {
         list: [],
         currentPage: 1,
         totalPages: 1,
         session: {
-            id:'',
-            title:'',
-            category:'',
-            questions:[],
-            status:'PENDING'
+            id: '',
+            title: '',
+            category: '',
+            questions: [],
+            status: 'PENDING'
         }
-    }
+    },
+    requestedServices: []
 }
 
 export const IndividualAtom = atom({

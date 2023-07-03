@@ -50,6 +50,7 @@
     --shadow-container-100: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
     --shadow-sidebar-200: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
     --shadow-table-300: 0px 17px 42px -12px rgba(16, 24, 40, 0.14);
+    --shadow-card-100: 0px 32px 64px -12px rgba(16, 24, 40, 0.08);
 
     /* radii */
     --radius-container-100: 16px;

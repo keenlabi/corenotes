@@ -107,7 +107,12 @@ export interface staffStateType extends initStateType {
     totalActivitiesPage?: number,
     activities: staffActivityType[],
     activityType?: string
-    newStaff: NewStaffType
+    newStaff: NewStaffType,
+    roles:{
+        currentPage:number,
+        totalPages:number,
+        list:IStaffRole[]
+    }
 }
 
 export interface IActivity {
@@ -122,4 +127,9 @@ export interface IActivity {
     category: string,
     status: string,
     createdAt: string
+}
+
+export interface IStaffRole {
+    id:string,
+    title:string,
 }

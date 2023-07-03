@@ -42,6 +42,15 @@ export default function AssessmentSession({
 
         setIsAssessmentComplete(individualState.assessments.session.status === 'COMPLETED' ? true : false)
 
+        return ()=> {
+            setIndividualState((state)=> {
+                return {
+                    ...state,
+                    status: 'IDLE',
+                    error: false
+                }
+            })
+        }
     }, [assessmentSession, individualState.assessments.session.questions.length, individualState.assessments.session.status, setIndividualState])
 
     function saveOption (option:string, questionId:string) {

@@ -1,10 +1,11 @@
 import { selectorFamily, useRecoilValue } from "recoil";
-import {fetchStaffAction, fetchStaffActivitiesAction, fetchStaffActivitiesSuccessResponseType, fetchStaffDocumentsAction, fetchStaffDocumentsSuccessResponseType, fetchStaffListAction, fetchStaffSuccessResponseType } from "./actions";
+import {fetchStaffAction, fetchStaffActivitiesAction, fetchStaffActivitiesSuccessResponseType, fetchStaffDocumentsAction, fetchStaffDocumentsSuccessResponseType, fetchStaffListAction, fetchStaffRolesAction, fetchStaffSuccessResponseType } from "./actions";
 import formatStaffList from "./utils/formatStaffsList";
 import formatStaff from "./utils/formatStaff";
-import { staffState } from "./state";
+import { staffInitState } from "./state";
 import formatStaffDocumentsList from "./utils/formatStaffDocuments";
 import formatStaffActivitiesList from "./utils/formatStaffActivities";
+import { IStaffRole } from "./types";
 
 const fetchStaffsListSelector = selectorFamily({
     key: 'fetch_staffs_list_selector',
@@ -49,7 +50,7 @@ const fetchStaffSelector = selectorFamily({
                 code: 500,
                 error: true,
                 message: error.response.message,
-                staff: staffState.details
+                staff: staffInitState.details
             }
         })
     }
@@ -76,7 +77,7 @@ const fetchStaffDocumentsSelector = selectorFamily({
             return {
                 code: 500,
                 error: true,
-                message: error.response.message,
+                message: error.message,
                 documents: [],
                 currentPage: 0,
                 totalPages: 0,
@@ -114,3 +115,45 @@ const fetchStaffActivities = selectorFamily({
 })
 
 export const useFetchStaffActivities = (data:{id:string, pageNumber:number, activityType:string})=> useRecoilValue(fetchStaffActivities(data));
+
+interface IFetchStaffRolesList {
+    message:string;
+    code:number;
+    error:boolean;
+    data: {
+        currentPage:number;
+        totalPages:number;
+        staffRoles:Array<IStaffRole>;
+    };
+}
+
+const fetchStaffRolesSelector = selectorFamily({
+    key:'fetch_staff_roles_selector',
+    get: (pageNumber:number)=> async ()=> {
+        return await fetchStaffRolesAction(pageNumber)
+        .then((response)=> {
+            return {
+                message: response.message,
+                code: response.code,
+                error: false,
+                data: response.data
+
+            } satisfies IFetchStaffRolesList
+        })
+        .catch((error)=> {
+            console.log(error)
+            return {
+                code: error.statusCode,
+                message: error.message,
+                error: false,
+                data: {
+                    ...staffInitState.roles,
+                    staffRoles: staffInitState.roles.list
+                }
+                
+            } satisfies IFetchStaffRolesList
+        })
+    }
+})
+
+export const useFetchStaffRoleSelector = (pageNumber:number) => useRecoilValue(fetchStaffRolesSelector(pageNumber))

@@ -1,19 +1,22 @@
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import styles from "./individualrequestedservicesform.module.css";
-import { useState } from "react";
-import { DropDownFormData } from "src/components/FormComponents/DropDownField/types";
+import { useEffect, useState } from "react";
+import { DropDownFormData, DropDownOption } from "src/components/FormComponents/DropDownField/types";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import InputField from "src/components/FormComponents/InputField";
 import { formFieldType } from "src/components/FormComponents/FormWrapper/types";
 import { ReactComponent as IconAdd } from "src/assets/icons/icon-plus-circle.svg"
 import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel-circle.svg"
-import { useSetIndividualState } from "src/features/Individual/state";
+import { useIndividualState } from "src/features/Individual/state";
+import { useFetchCompartmentDetails } from "src/features/compartment/selector";
 
 export default function IndividualRequestedServicesForm() {
 
-    const setIndividualState = useSetIndividualState();
+    const [individualState, setIndividualState] = useIndividualState();
 
-    const serviceTemplate:{id:number, service:DropDownFormData, startDate:formFieldType} = {
+    const compartmentDetails = useFetchCompartmentDetails(individualState.newIndividual.compartmentId);
+
+    const [serviceTemplate, setServiceTemplate] = useState<{id:number, service:DropDownFormData, startDate:formFieldType}>({
         id: 1,
         service: {
             name:'all-services',
@@ -22,43 +25,7 @@ export default function IndividualRequestedServicesForm() {
             error:'',
             selected: false,
             selectedOptionIndex: 0,
-            options: [
-                {
-                    id:'1',
-                    label:'Service #1',
-                    value:'service-1'
-                },
-                {
-                    id:'2',
-                    label:'Service #2',
-                    value:'service-2'
-                },
-                {
-                    id:'3',
-                    label:'Service #3',
-                    value:'service-3'
-                },
-                {
-                    id:'4',
-                    label:'Service #4',
-                    value:'service-4'
-                },
-                {
-                    id:'5',
-                    label:'Service #5',
-                    value:'service-5'
-                },
-                {
-                    id:'6',
-                    label:'Service #6',
-                    value:'service-6'
-                }
-                ,{
-                    id:'7',
-                    label:'Service #7',
-                    value:'service-7'
-                }
-            ]
+            options:[]
         },
         startDate: {
             type: 'date',
@@ -67,7 +34,48 @@ export default function IndividualRequestedServicesForm() {
             error: '',
             validated: false
         }
-    }
+    })
+
+    useEffect(()=> {
+        setServiceTemplate(state => ({
+            ...state,
+            service: {
+                ...state.service,
+                options: compartmentDetails.compartment.services?.map(service => ({
+                    id:service.id,
+                    label:service.title,
+                    value:service.id
+                }))
+            }
+        }))
+
+        setRequestedServices(()=> ([
+            {
+                id: 1,
+                service: {
+                    name:'all-services',
+                    label: '',
+                    placeholder: 'Select a service',
+                    error:'',
+                    selected: false,
+                    selectedOptionIndex: 0,
+                    options: compartmentDetails.compartment.services?.map(service => ({
+                        id:service.id,
+                        label:service.title,
+                        value:service.id
+                    }))
+                },
+                startDate: {
+                    type: 'date',
+                    placeholder:'Start date',
+                    value: '',
+                    error: '',
+                    validated: false
+                }
+            }
+        ]))
+
+    }, [compartmentDetails.compartment.services])
 
     const [requestedServices, setRequestedServices] = useState<Array<{id:number, service:DropDownFormData, startDate:formFieldType}>>([
         {
@@ -79,43 +87,7 @@ export default function IndividualRequestedServicesForm() {
                 error:'',
                 selected: false,
                 selectedOptionIndex: 0,
-                options: [
-                    {
-                        id:'1',
-                        label:'Service #1',
-                        value:'service-1'
-                    },
-                    {
-                        id:'2',
-                        label:'Service #2',
-                        value:'service-2'
-                    },
-                    {
-                        id:'3',
-                        label:'Service #3',
-                        value:'service-3'
-                    },
-                    {
-                        id:'4',
-                        label:'Service #4',
-                        value:'service-4'
-                    },
-                    {
-                        id:'5',
-                        label:'Service #5',
-                        value:'service-5'
-                    },
-                    {
-                        id:'6',
-                        label:'Service #6',
-                        value:'service-6'
-                    }
-                    ,{
-                        id:'7',
-                        label:'Service #7',
-                        value:'service-7'
-                    }
-                ]
+                options:[]
             },
             startDate: {
                 type: 'date',
@@ -158,14 +130,41 @@ export default function IndividualRequestedServicesForm() {
     }
 
     function addNewRequestedService() {
-        if(requestedServices.length < 5) {
+        if(serviceTemplate.service.options.length && requestedServices.length < compartmentDetails.compartment.services.length) {
             serviceTemplate.id = requestedServices.length + 1;
+
+            // remove option[optionIndex] from serviceTemplate
+            const newOptions:DropDownOption[] = [];
+
+            serviceTemplate.service.options.forEach(option => {
+                requestedServices.forEach(requestedService => {
+                    if(requestedService.service.value?.value !== option.value) {
+                        newOptions.push(option)
+                    }
+                })
+            })
+
+            // reset all existing service fields that haven't been selected with new options
+
             setRequestedServices([...requestedServices, serviceTemplate])
         }
     }
 
     function removeRequestedService(id:number) {
         const currentRequestedServiceIndex:number = requestedServices.findIndex(requestedService => requestedService.id === id)
+        const currentRequestedServiceOptions = requestedServices[currentRequestedServiceIndex].service.options;
+
+        setServiceTemplate({
+            ...serviceTemplate,
+            service: {
+                ...serviceTemplate.service,
+                options: [...currentRequestedServiceOptions]
+            }
+        })
+
+        requestedServices.forEach(service => {
+            service.service.options = currentRequestedServiceOptions  
+        })
         requestedServices.splice(currentRequestedServiceIndex, 1);
         setRequestedServices([...requestedServices])
     }
@@ -178,7 +177,7 @@ export default function IndividualRequestedServicesForm() {
         .filter(service => service.service.selected && service.startDate.validated)
         .map((requestedService)=> {
             return {
-                service: requestedService.service.value?.label ?? "",
+                service: requestedService.service.value?.value ?? "",
                 startDate: requestedService.startDate.value
             }
         })
@@ -205,7 +204,8 @@ export default function IndividualRequestedServicesForm() {
                 <div className={styles.text}>Requested Services</div>
 
                 {
-                    requestedServices.length < 5
+                    serviceTemplate.service.options.length
+                    && requestedServices.length < compartmentDetails.compartment.services.length
                     ?   <div 
                             className={styles.add_new_service} 
                             onClick={()=> addNewRequestedService()}
@@ -219,7 +219,7 @@ export default function IndividualRequestedServicesForm() {
 
             <div className={styles.form_content}>
                 {
-                    requestedServices.map(({ id, service, startDate }, index)=> {
+                    requestedServices?.map(({ id, service, startDate }, index)=> {
                         return (
                             <div 
                                 key={id}
@@ -240,7 +240,7 @@ export default function IndividualRequestedServicesForm() {
                                 <InputField
                                     inputContainer={"30%"}
                                     type={startDate.type}
-                                    placeholder={startDate.value}
+                                    placeholder={startDate.placeholder}
                                     value={startDate.value}
                                     error={startDate.error}
                                     onInput={(value:string)=> setDate(value, id)}

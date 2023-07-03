@@ -1,5 +1,13 @@
 import { selectorFamily, useRecoilValue } from "recoil"
-import { IndividualAssessmentSessionResponseType, IndividualListResponseType, IndividualProfileSuccessResponseType, fetchIndividualAssessmentSessionAction, fetchIndividualListAction, fetchIndividualProfileAction } from "./action"
+import { 
+    IndividualAssessmentSessionResponseType, 
+    IndividualListResponseType, 
+    IndividualProfileSuccessResponseType, 
+    IndividualServicesSuccessResponseType, 
+    fetchIndividualAssessmentSessionAction, 
+    fetchIndividualListAction, 
+    fetchIndividualProfileAction, 
+    fetchIndividualServicesAction } from "./action"
 import formatIndividuals from "./utils/formatIndividuals"
 import formatIndividual from "./utils/formatIndividual"
 import { individualInitState } from "./state"
@@ -36,17 +44,16 @@ const fetchIndividualProfileSelector = selectorFamily({
         .then((response:IndividualProfileSuccessResponseType)=> {
             return {
                 individual: formatIndividual(response.data.individual),
-                code: 200,
+                code: response.code,
                 message: '',
                 error: false
             }
         })
         .catch((error)=> {
-            console.log(error)
             return {
-                code: 500,
+                code: error.code,
                 error: true,
-                message: error.response.message,
+                message: error.message,
                 individual: individualInitState.profile
             }
         })
@@ -75,3 +82,38 @@ const fetchIndividualAssessmentSessionSelector = selectorFamily({
     }
 })
 export const useFetchIndividualAssessmentSession = (assessmentId:string)=> useRecoilValue(fetchIndividualAssessmentSessionSelector(assessmentId))
+
+interface IFetchIndividualServicesList {
+    individualServices: Pick<IndividualServicesSuccessResponseType, 'data'>['data']['individualServices'];
+    code:number;
+    message:string;
+    error:boolean;
+}
+
+const fetchIndividualServicesListSelector = selectorFamily({
+    key:'fetch_individual_services_list_selector',
+    get: (individualId:string)=> async ()=> {
+        return await fetchIndividualServicesAction(individualId)
+        .then((response:IndividualServicesSuccessResponseType)=> {
+            return {
+                message: response.message,
+                code: response.code,
+                error: false,
+                individualServices: response.data.individualServices
+
+            } satisfies IFetchIndividualServicesList
+        })
+        .catch((error)=> {
+            console.log(error)
+            return {
+                code: error.statusCode,
+                message: error.message,
+                error: false,
+                individualServices: individualInitState.requestedServices
+                
+            } satisfies IFetchIndividualServicesList
+        })
+    }
+})
+
+export const useFetchIndividualServicesList = (individualId:string)=> useRecoilValue(fetchIndividualServicesListSelector(individualId))
