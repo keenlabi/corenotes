@@ -1,6 +1,6 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { CompartmentListItem } from "./types"
+import { CompartmentDetails, CompartmentListItem } from "./types"
 
 export interface GetCompartmentsResponse extends successResponseType {
     data: {
@@ -50,3 +50,37 @@ export function postCompartment(payload:FormData) {
         .catch((error)=> reject(error))
     })
 }
+
+export interface IGetCompartmentDetailsResponse extends successResponseType {
+    data: { compartment:CompartmentDetails }
+}
+
+export function getCompartmentDetails(compartmentId:number) {
+    return new Promise<IGetCompartmentDetailsResponse>((resolve, reject)=> {
+        getFetch(`/compartments/details/${compartmentId}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { compartment: response.data.compartment }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+// export interface IGetCompartmentDetailsResponse extends successResponseType {
+//     data: { compartment:CompartmentDetails }
+// }
+
+// export function getCompartmentServiceDetails(serviceId:number) {
+//     return new Promise((resolve, reject)=> {
+//         getFetch(`/compartment/details/${serviceId}`)
+//         .then((response)=> {
+//             resolve({
+//                 ...response,
+//                 data: { service: response.data.service }
+//             })
+//         })
+//         .catch((error)=> reject(error))
+//     })
+// }

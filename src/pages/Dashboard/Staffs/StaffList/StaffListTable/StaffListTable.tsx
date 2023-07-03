@@ -6,6 +6,8 @@ import sortByDate from "src/utils/sortByDate";
 import UserImage from "src/components/ImageComponent/UserImage";
 import { staffsListType } from "src/features/staff/utils/formatStaffsList";
 import StaffViewProfileButton from "./StaffViewProfileButton/StaffViewProfileButton";
+import formatDate from "src/utils/formatDate";
+import formatTime from "src/utils/formatTime";
 
 export default function StaffListTable({
     currentPage, 
@@ -23,7 +25,7 @@ export default function StaffListTable({
         'Name',
         'Role',
         'Cell phone',
-        'Compartment',
+        'Last seen',
         '',
     ]
 
@@ -53,7 +55,7 @@ export default function StaffListTable({
                 <div className={styles.fullname}>{staff.fullname}</div>,
                 <div>{staff.role}</div>,
                 <div>{staff.phoneNumber}</div>,
-                <div className={styles.compartment}>{staff.compartment}</div>,
+                <div className={styles.compartment}>{formatDate(staff.lastSeen)} - {formatTime(staff.lastSeen)}</div>,
                 <div className={styles.button}>
                     <StaffViewProfileButton id={staff.id} />
                 </div>

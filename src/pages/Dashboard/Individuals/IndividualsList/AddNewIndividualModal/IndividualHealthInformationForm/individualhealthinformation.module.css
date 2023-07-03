@@ -32,9 +32,9 @@
     display: flex;
     gap: 0.5rem;
 }
-.row > div {
+/* .row > div {
     width: calc(100% / 3);
-}
+} */
 
 .health_information {
     display: flex;

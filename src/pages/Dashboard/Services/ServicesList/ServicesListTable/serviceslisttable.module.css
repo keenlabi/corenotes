@@ -1,4 +1,5 @@
-th, td {
+.staff_list_table th, 
+.staff_list_table td {
     padding: 0 4rem;
 }
 

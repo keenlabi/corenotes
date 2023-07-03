@@ -87,11 +87,11 @@ export default function AddQuestionCategoryModal({closeModal}:{closeModal:()=> v
     }
 
     return(
-        <ModalContainer close={closeModal}>
+        <ModalContainer close={()=> closeModal()}>
             <div className={styles.add_question_category_modal}>
                 <div className={styles.header}>
                     <div className={styles.titiel}>Add question category</div>
-                    <IconCancelCircle />
+                    <IconCancelCircle onClick={()=> closeModal()} />
                 </div>
 
                 <div className={styles.content}>

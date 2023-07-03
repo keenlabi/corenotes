@@ -1,7 +1,7 @@
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { staffStateType } from "./types";
 
-export const staffState:staffStateType = {
+export const staffInitState:staffStateType = {
     status: 'IDLE',
     error: false,
     message: '',
@@ -89,12 +89,17 @@ export const staffState:staffStateType = {
         employeeId: '',
         jobSchedule: '',
         password:''
+    },
+    roles: {
+        list:[],
+        currentPage:1,
+        totalPages:1,
     }
 }
 
 export const staffAtom = atom({
     key: 'staffState',
-    default: staffState  
+    default: staffInitState  
 });
 
 export const useStaffValue = ()=> useRecoilValue(staffAtom);
