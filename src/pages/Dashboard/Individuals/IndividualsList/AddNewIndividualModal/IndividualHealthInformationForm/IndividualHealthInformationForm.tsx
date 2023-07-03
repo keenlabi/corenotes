@@ -10,7 +10,7 @@ export default function IndividualHealthInformationForm() {
 
     return (
         <div className={styles.health_information}>
-            <IndividualCompartmentForm />
+            <IndividualCompartmentForm removeLabel={false} />
             <Suspense fallback={<ComponentLoader />}>
                 <IndividualRequestedServicesForm />
             </Suspense>

@@ -65,7 +65,7 @@ export default function AddStaffRoleModal({ closeModal }:{ closeModal:()=> void 
                 }
             }))
         })
-        .catch((error)=> {
+        .catch(()=> {
             setStaffState(state => ({
                 ...state,
                 status: "FAILED",
