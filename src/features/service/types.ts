@@ -4,7 +4,7 @@ export interface IServiceStateType extends initStateType {
     servicesList:ServicesListItemType[],
     currentListPage:number,
     totalListPages:number,
-    service: ServiceDetails
+    service:ServicesListItemType
 }
 
 export interface ServicesListItemType {

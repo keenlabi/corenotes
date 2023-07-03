@@ -7,7 +7,6 @@ interface IStaffRoleCard {
 }
 
 export default function StaffRoleCard({
-    id, 
     title, 
 
 }:IStaffRoleCard) {
