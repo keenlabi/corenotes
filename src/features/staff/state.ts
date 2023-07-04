@@ -7,9 +7,7 @@ export const staffInitState:staffStateType = {
     message: '',
     list:[],
     currentPage:1,
-    currentDocumentsPage:1,
     totalPages:1,
-    totalDocumentsPage:1,
     details: {
         // ACCOUNT INFO
         id: '',
@@ -51,7 +49,11 @@ export const staffInitState:staffStateType = {
             employeeId: '',
             jobSchedule: '',
         },
-        documents: []
+    },
+    documents: {
+        list:[],
+        currentPage:1,
+        totalPages:1
     },
     currentActivitiesPage: 1,
     totalActivitiesPage: 1,

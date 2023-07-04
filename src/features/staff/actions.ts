@@ -1,15 +1,16 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IActivity, IStaffRole, IUser } from "./types"
+import { IActivity, IStaffDocument, IStaffRole, IStaffUser, IUser } from "./types"
 
 export interface staffListType {
-    id: string,
-    profileImage: string,
-    firstname: string,
-    lastname: string,
-    role: string,
-    phoneNumber: string
-    lastSeen:string,
+    id:string;
+    staffId:number;
+    profileImage:string;
+    firstname:string;
+    lastname:string;
+    role:string;
+    phoneNumber:string;
+    lastSeen:string;
 }
 
 export interface fetchStaffListSuccessResponseType extends Omit<successResponseType, 'data'> {
@@ -39,13 +40,13 @@ export function fetchStaffListAction(payload:{pageNumber:number}) {
 
 export interface fetchStaffSuccessResponseType extends Omit<successResponseType, 'data'> {
     data: {
-        staff: IUser
+        staff:IStaffUser
     }
 }
 
-export function fetchStaffAction(payload:{id:string}) {
+export function fetchStaffAction(staffId:string) {
     return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
-        getFetch(`/staffs/profile/${payload.id}`)
+        getFetch(`/staffs/profile/${staffId}`)
         .then((response:successResponseType)=> {
             resolve({
                 ...response, 
@@ -77,7 +78,7 @@ export interface fetchStaffDocumentsSuccessResponseType extends Omit<successResp
     data: {
         currentPage:number,
         totalPages:number,
-        documents: IUser['documents']
+        list:Array<IStaffDocument>
     }
 }
 
@@ -90,7 +91,7 @@ export function fetchStaffDocumentsAction(staffId:string, pageNumber:number) {
                 data: {
                     currentPage:response.data.currentPage,
                     totalPages:response.data.totalPages,
-                    documents: response.data.documents
+                    list: response.data.documents
                 }
             })
         })
@@ -106,7 +107,7 @@ export function uploadStaffDocumentAction(staffId:string, payload:FormData) {
             data: {
                 currentPage:response.data.currentPage,
                 totalPages:response.data.totalPages,
-                documents: response.data.documents
+                list: response.data.documents
             }
         }))
         .catch((error)=> reject(error))

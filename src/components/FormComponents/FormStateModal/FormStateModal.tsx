@@ -11,8 +11,9 @@ export interface formStateModalType {
 }
 
 export default function FormStateModal({ status, error, message, reset, dontShowSuccess }:formStateModalType) {
+
     if(["IDLE", "LOADING"].includes(status)) return null
-    if(dontShowSuccess && status === 'SUCCESS') return null
+    if(dontShowSuccess && status === 'SUCCESS' || !message) return null
     
     return (
         <div 

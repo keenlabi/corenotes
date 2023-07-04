@@ -5,6 +5,7 @@ import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import { staffsDocumentsListType } from "src/features/staff/utils/formatStaffDocuments";
 import DownloadStaffDocButton from "./DownloadStaffDocButton/DownloadStaffDocButton";
 import sortByDate from "src/utils/sortByDate";
+import { useStaffValue } from "src/features/staff/state";
 
 export default function StaffDocumentsTable({
     currentPage,
@@ -14,6 +15,9 @@ export default function StaffDocumentsTable({
     errorMessage
 
 }:{documents:staffsDocumentsListType[] ,currentPage:number, totalPages:number, errorMessage:string, goToPage:(pageNumber:number)=> void}) {
+
+    const staffState = useStaffValue();
+
     const [isLoading, setIsLoading] = useState(false);
 
     const [tableBody, setTableBody] = useState<JSX.Element[][]|object[][]>([]);
@@ -26,9 +30,10 @@ export default function StaffDocumentsTable({
     ]
 
     useEffect(()=> {
+        console.log(staffState.documents.list)
         setIsLoading(true)
 
-        sortByDate(documents)
+        sortByDate(staffState.documents.list)
         .then((result)=> {
             const newTransactions = formatTransactionsTable(result);
             setTableBody(newTransactions)
@@ -37,7 +42,7 @@ export default function StaffDocumentsTable({
         .catch((error)=> {
             console.log(error)
         })
-    }, [documents])
+    }, [documents, staffState.documents.list])
 
     function formatTransactionsTable (documents:staffsDocumentsListType[]) {
         return documents.map((document, index:number)=> {

@@ -47,7 +47,7 @@ export default function StaffListTable({
         return staffs.map((staff)=> {
             return  [
                 {
-                    rowKey: staff.id,
+                    rowKey: staff.staffId,
                     actionEvent: 'action_button_click',
                     actionButtonPosition: 6
                 },
@@ -57,7 +57,7 @@ export default function StaffListTable({
                 <div>{staff.phoneNumber}</div>,
                 <div className={styles.compartment}>{formatDate(staff.lastSeen)} - {formatTime(staff.lastSeen)}</div>,
                 <div className={styles.button}>
-                    <StaffViewProfileButton id={staff.id} />
+                    <StaffViewProfileButton id={ staff.staffId.toString() } />
                 </div>
             ]
         });

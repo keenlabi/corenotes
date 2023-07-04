@@ -6,55 +6,26 @@ import StaffDocumentsTable from "./StaffDocumentsTable";
 import { useFetchStaffDocumentsSelector } from "src/features/staff/selector";
 import { useParams } from "react-router-dom";
 import { useStaffState } from "src/features/staff/state";
-import { staffsDocumentsListType } from "src/features/staff/utils/formatStaffDocuments";
 
 export default function StaffDocuments() {
 
-    const { id } = useParams();
+    const params = useParams();
 
     const [staffState, setStaffState] = useStaffState();
-    const staffDocumentsRespose:{
-        documents: staffsDocumentsListType[],
-        currentPage: number,
-        totalPages: number,
-        code: number,
-        message: string,
-        error: boolean
-        
-    } = useFetchStaffDocumentsSelector(id!, staffState.currentDocumentsPage)
+
+    const staffDocumentsRespose = useFetchStaffDocumentsSelector(params.staffId!, staffState.documents.currentPage)
 
     useEffect(()=> {
-        if(!staffDocumentsRespose.error) {
-            setStaffState(state => {
-                return {
-                    ...state,
-                    details: {
-                        ...state.details,
-                        documents:  staffDocumentsRespose.documents.map(document => document)
-                    },
-                    status: 'SUCCESS',
-                    error: false,
-                    message: staffDocumentsRespose.message,
-                    currentDocumentsPage: staffDocumentsRespose.currentPage,
-                    totalDocumentsPage: staffDocumentsRespose.totalPages,
-                }
-            })
+        setStaffState(state => {
+            return {
+                ...state,
+                status:'IDLE',
+                error: staffDocumentsRespose.error,
+                documents: staffDocumentsRespose.data
+            }
+        })
 
-        } else {
-            setStaffState(state => {
-                return {
-                    ...state,
-                    status: 'FAILED',
-                    error: true,
-                    message: staffDocumentsRespose.message,
-                    details: {
-                        ...state.details,
-                        documents:  {...staffDocumentsRespose.documents}
-                    }
-                }
-            })
-        }
-    }, [staffState.details, staffDocumentsRespose, setStaffState, staffState.currentDocumentsPage])
+    }, [setStaffState, staffDocumentsRespose.data, staffDocumentsRespose.error])
 
     const [isUploadDocModalVisible, setIsUploadDocModalVisible] = useState(false)
 
@@ -66,10 +37,10 @@ export default function StaffDocuments() {
             />
 
             <StaffDocumentsTable
-                documents={staffState.details.documents?.length ?staffState.details.documents :staffDocumentsRespose.documents }
-                currentPage={staffState.currentDocumentsPage}
-                totalPages={staffState.totalDocumentsPage}
-                errorMessage={staffState.message} 
+                documents={staffState.documents.list}
+                currentPage={staffState.documents.currentPage}
+                totalPages={staffState.documents.totalPages}
+                errorMessage={staffState.error ?staffState.message :"No documents found"} 
                 goToPage={(pageNumber:number)=> console.log(pageNumber)}
             />
 
