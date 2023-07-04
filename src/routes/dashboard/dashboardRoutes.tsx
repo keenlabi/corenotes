@@ -44,7 +44,7 @@ const DashboardRoutes:routerType[] = [
                         element: <StaffList />,
                     },
                     {
-                        path:':id',
+                        path:':staffId',
                         title: 'Staff Profile',
                         element: <StaffProfile />,
                         children: [

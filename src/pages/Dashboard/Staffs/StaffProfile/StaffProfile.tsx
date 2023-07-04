@@ -3,8 +3,8 @@ import styles from "./staffprofile.module.css";
 import { useEffect, useState } from "react";
 import StaffProfileNavigation from "./StaffProfileNavigation/StaffProfileNavigation";
 import { useStaffState } from "src/features/staff/state";
-import { staffDetailsType } from "src/features/staff/utils/formatStaff";
 import { useFetchStaffSelector } from "src/features/staff/selector";
+import { FaAngleLeft } from "react-icons/fa";
 
 export default function StaffProfile() {
 
@@ -16,7 +16,7 @@ export default function StaffProfile() {
         {
             label: 'Profile Information',
             path: '',
-            active: isCurrentPath('')
+            active: isCurrentPath('' || params.staffId!)
         },
         {
             label: 'Documents',
@@ -64,18 +64,9 @@ export default function StaffProfile() {
         }
     }
 
-    const { id } = useParams();
-
     const [staffState, setStaffState] = useStaffState();
 
-    const staffDetailsResponse:{
-        code:number,
-        message:string,
-        error: boolean,
-        staff:staffDetailsType
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    } = useFetchStaffSelector(id!)
+    const staffDetailsResponse = useFetchStaffSelector(params.staffId!)
 
     useEffect(()=> {
         if(!staffDetailsResponse.error) {
@@ -99,18 +90,28 @@ export default function StaffProfile() {
 
     return (
         <div className={styles.staff_profile}>
+            
+            <FaAngleLeft 
+                className={styles.back_button} 
+                onClick={()=> navigate({pathname: '/dashboard/staffs'})}
+            />
+
             <div className={styles.heading}>Staff Profile</div>
 
-            <div className={styles.main}>
-                <StaffProfileNavigation 
-                    navItems={navItems} 
-                    changeNav={(index:number)=> changeNav(index)}  
-                />
+            {
+                staffDetailsResponse.error
+                ?   <div className={styles.network_error}>Staff profile not found</div>
+                :   <div className={styles.main}>
+                        <StaffProfileNavigation 
+                            navItems={navItems} 
+                            changeNav={(index:number)=> changeNav(index)}  
+                        />
 
-                <div className={styles.content}>
-                    <Outlet />
-                </div>
-            </div>
+                        <div className={styles.content}>
+                            <Outlet />
+                        </div>
+                    </div>
+            }
         </div>
     )
 }

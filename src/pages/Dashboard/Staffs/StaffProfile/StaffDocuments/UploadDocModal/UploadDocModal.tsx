@@ -13,12 +13,11 @@ import { useParams } from "react-router-dom";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import { useStaffState } from "src/features/staff/state";
-import formatStaffDocumentsList from "src/features/staff/utils/formatStaffDocuments";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 
 export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
 
-    const { id } = useParams()
+    const params = useParams()
 
     const [staffState, setStaffState] = useStaffState()
     const [uploadStaffDocState, setUploadStaffDocState] = useState(staffState);
@@ -149,7 +148,6 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
     }
 
     function validateForm(file?:File) {
-        console.log(docFileModel.validated, file)
         if( !docTitleModel.validated ||
             !docTypeModel.selected ||
             !docDateModel.validated ||
@@ -182,9 +180,8 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
 
             JSONToFormData(payload)
             .then((payloadFormData:FormData)=> {
-                uploadStaffDocumentAction(id!, payloadFormData)
+                uploadStaffDocumentAction(params.staffId!, payloadFormData)
                 .then((response)=> {
-                    const newDocuments = formatStaffDocumentsList(response.data.documents)
                     setUploadStaffDocState(state => {
                         return {
                             ...state,
@@ -197,12 +194,7 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
                     setStaffState(state => {
                         return {
                             ...state,
-                            currentDocumentsPage: response.data.currentPage,
-                            totalDocumentsPage: response.data.totalPages,
-                            details: {
-                                ...state.details,
-                                documents: newDocuments
-                            }
+                            documents: response.data
                         }
                     })
                 })
@@ -234,8 +226,8 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
             <div className={styles.upload_doc_container}>
                 <FormStateModal 
                     status={staffState.status}
-                    error={staffState.error}
-                    message={staffState.message}
+                    error={uploadStaffDocState.error}
+                    message={uploadStaffDocState.message}
                     reset={()=> setStaffState(state => ({ ...state, status:'IDLE' }))} 
                 />
 

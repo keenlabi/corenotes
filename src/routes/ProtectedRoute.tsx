@@ -33,41 +33,14 @@ export default function ProtectedRoute({children}:{children:JSX.Element}) {
                         personal: {
                             firstname: user.firstname,
                             lastname: user.lastname,
-                            nickname: user.nickname,
-                            initials: user.initials,
-                            dob: user.dob,
-                            gender: user.gender,
-                            address: user.address,
-                            city: user.city,
-                            state: user.state,
-                            zipCode: user.zipCode,
-                            phoneNumber: {
-                                work: user.phoneNumber.work,
-                                cell: user.phoneNumber.cell,
-                                other: user.phoneNumber.other
-                            },
-                            emergencyContact: {
-                                name: user.emergencyContact.name,
-                                relationship: user.emergencyContact.relationship,
-                                phoneNumber: user.emergencyContact.phoneNumber
-                            },
-                            email: user.email,
                             profileImage: user.profileImage,
-                        },
-                        work: {
-                            compartment: user.compartment,
-                            title: user.title,
-                            providerRole: user.providerRole,
-                            hiredAt: user.hiredAt,
-                            username: user.username,
-                            employeeId: user.employeeId,
-                            jobSchedule: user.jobSchedule,
                         }
                     }
                 }
             })
         })
-        .catch(()=> {
+        .catch((error)=> {
+            console.log(error)
             navigate({ pathname:'/' })
         })
         .finally(()=> setIsLoading(false))

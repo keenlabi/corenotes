@@ -3,9 +3,8 @@ import {fetchStaffAction, fetchStaffActivitiesAction, fetchStaffActivitiesSucces
 import formatStaffList from "./utils/formatStaffsList";
 import formatStaff from "./utils/formatStaff";
 import { staffInitState } from "./state";
-import formatStaffDocumentsList from "./utils/formatStaffDocuments";
 import formatStaffActivitiesList from "./utils/formatStaffActivities";
-import { IStaffRole } from "./types";
+import { IStaffDetails, IStaffRole, staffStateType } from "./types";
 
 const fetchStaffsListSelector = selectorFamily({
     key: 'fetch_staffs_list_selector',
@@ -31,57 +30,67 @@ const fetchStaffsListSelector = selectorFamily({
 })
 export const useFetchStaffListSelector = (pageNumber:number)=> useRecoilValue(fetchStaffsListSelector(pageNumber))
 
+interface IFetchStaffSelector {
+    staff:IStaffDetails
+    code:number,
+    message:string,
+    error: boolean,
+}
 
 const fetchStaffSelector = selectorFamily({
     key: 'fetch_staff_selector',
-    get: (id:string)=> async ()=> {
-        return await fetchStaffAction({id})
+    get: (staffId:string)=> async ()=> {
+        return await fetchStaffAction(staffId)
         .then((response:fetchStaffSuccessResponseType)=> {
             return {
                 staff: formatStaff(response.data.staff),
-                code: 200,
-                message: '',
+                code: response.code,
+                message: response.message,
                 error: false
-            }
+                
+            } satisfies IFetchStaffSelector
         })
         .catch((error)=> {
-            console.log(error)
             return {
                 code: 500,
                 error: true,
-                message: error.response.message,
+                message: error.message,
                 staff: staffInitState.details
-            }
+
+            } satisfies IFetchStaffSelector
         })
     }
 })
-export const useFetchStaffSelector = (id:string)=> useRecoilValue(fetchStaffSelector(id))
+export const useFetchStaffSelector = (staffId:string)=> useRecoilValue(fetchStaffSelector(staffId))
 
+interface IFetchStaffDocument {
+    data:Pick<staffStateType, 'documents'>['documents'];
+    code:number;
+    message:string;
+    error:boolean
+}
 
 const fetchStaffDocumentsSelector = selectorFamily({
     key: 'fetch_staff_documents_selector',
     get: ({id, pageNumber}:{id:string, pageNumber:number})=> async ()=> {
         return await fetchStaffDocumentsAction(id, pageNumber)
-        .then(({ data }:fetchStaffDocumentsSuccessResponseType)=> {
+        .then((response:fetchStaffDocumentsSuccessResponseType)=> {
             return {
-                documents: formatStaffDocumentsList(data.documents),
-                currentPage: data.currentPage,
-                totalPages: data.totalPages,
-                code: 200,
-                message: '',
+                data: response.data,
+                code: response.code,
+                message: response.message,
                 error: false
-            }
+
+            } satisfies IFetchStaffDocument
         })
         .catch((error)=> {
-            console.log(error)
             return {
-                code: 500,
+                code: error.code,
                 error: true,
                 message: error.message,
-                documents: [],
-                currentPage: 0,
-                totalPages: 0,
-            }
+                data: staffInitState.documents
+
+            } satisfies IFetchStaffDocument
         })
     }
 })

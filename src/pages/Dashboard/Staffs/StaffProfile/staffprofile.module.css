@@ -1,3 +1,8 @@
+.back_button {
+    font-weight: 600;
+    font-size: 2rem;
+    cursor: pointer;
+}
 .staff_profile {
     width: 90%;
     margin: 0 auto;
@@ -16,4 +21,11 @@
 }
 .content {
     padding: 5% 10%;
+}
+.network_error {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--grey-accent-600);
+    margin-top: 20vh;
+    text-align: center;
 }

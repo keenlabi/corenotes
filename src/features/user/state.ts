@@ -15,38 +15,8 @@ export const userInitState:userStateType = {
         personal: {
             firstname: '',
             lastname: '',
-            nickname: '',
-            initials: '',
-            dob:'',
-            gender: '',
-            address: '',
-            city: '',
-            state: '',
-            zipCode: '',
-            phoneNumber: {
-                work: '',
-                cell: '',
-                other: ''
-            },
-            emergencyContact: {
-                name: '',
-                relationship: '',
-                phoneNumber: ''
-            },
-            email: '',
-            profileImage: '',
-        },
-        // WORK INFORMATION
-        work: {
-            compartment: '',
-            title: '',
-            providerRole: '',
-            hiredAt: '',
-            username: '',
-            employeeId: '',
-            jobSchedule: '',
-        },
-        documents: []
+            profileImage: ''
+        }
     },
 }
 
