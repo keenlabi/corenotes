@@ -1,6 +1,6 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IActivity, IStaffDocument, IStaffRole, IStaffUser, IUser } from "./types"
+import { IActivity, IStaffDocument, IStaffRole, IStaffUser } from "./types"
 
 export interface staffListType {
     id:string;

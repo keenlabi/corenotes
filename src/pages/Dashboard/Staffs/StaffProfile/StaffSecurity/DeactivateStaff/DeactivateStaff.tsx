@@ -12,7 +12,7 @@ import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 
 export default function DeactivateStaff() {
     
-    const { id } = useParams();
+    const params = useParams();
 
     const [staffState, setStaffState] = useStaffState()
     const [activateStaffState, setActivateStaffState] = useState(staffState)
@@ -74,7 +74,7 @@ export default function DeactivateStaff() {
             }
         })
 
-        deactivateStaffPasswordAction(id!, payload)
+        deactivateStaffPasswordAction(params.staffId!, payload)
         .then((response:fetchStaffSuccessResponseType)=> {
             setActivateStaffState(state => {
                 return {
@@ -122,7 +122,7 @@ export default function DeactivateStaff() {
             }
         })
 
-        activateStaffPasswordAction(id!, payload)
+        activateStaffPasswordAction(params.staffId!, payload)
         .then((response:fetchStaffSuccessResponseType)=> {
             setActivateStaffState(state => {
                 return {
@@ -142,6 +142,8 @@ export default function DeactivateStaff() {
                     }
                 }
             })
+
+            setIsStaffActive(response.data.staff.active)
         })
         .catch((error)=> {
             setActivateStaffState(state => {
