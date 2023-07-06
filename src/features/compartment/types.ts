@@ -8,15 +8,16 @@ export interface CompartmentStateType extends initStateType {
 }
 
 export interface CompartmentListItem {
-    id:string,
-    compartmentId:number,
-    title:string,
-    image:string,
-    staffRolesCount:number,
-    assignedIndividualsCount:number,
+    id:string;
+    compartmentId:number;
+    title:string;
+    image:string;
+    servicesCount:number;
+    staffRolesCount:number;
+    assignedIndividualsCount:number;
     meta: {
-        bgColor:string,
-        labelColor:string,
+        bgColor:string;
+        labelColor:string;
     }
 }
 

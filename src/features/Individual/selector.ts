@@ -8,30 +8,38 @@ import {
     fetchIndividualListAction, 
     fetchIndividualProfileAction, 
     fetchIndividualServicesAction } from "./action"
-import formatIndividuals from "./utils/formatIndividuals"
 import formatIndividual from "./utils/formatIndividual"
 import { individualInitState } from "./state"
 import formatAssessmentSession from "./utils/formatAssessmentSession"
+
+interface IFetchIndividualList {
+    code:number;
+    error:boolean;
+    message:string;
+    individuals:Pick<IndividualListResponseType, 'data'>['data']
+}
 
 const fetchIndividualsListSelector = selectorFamily({
     key: 'fetch_individual_list_selector',
     get: (pageNumber:number)=> async ()=> {
         return await fetchIndividualListAction(pageNumber)
-        .then(({data}:IndividualListResponseType)=> {
+        .then((response)=> {
             return {
-                individuals: formatIndividuals(data.individuals),
-                code: 200,
-                message: '',
+                individuals: response.data,
+                code: response.code,
+                message: response.message,
                 error: false
-            }
+
+            } satisfies IFetchIndividualList
         })
         .catch((error)=> {
             return {
+                individuals: individualInitState.individuals,
                 code: error.code,
-                error: true,
                 message: error.message,
-                individuals: []
-            }
+                error: true,
+                
+            } satisfies IFetchIndividualList
         })
     }
 })

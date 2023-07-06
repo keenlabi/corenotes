@@ -9,29 +9,20 @@ import { useFetchIndividualListSelector } from "src/features/Individual/selector
 export default function IndividualsList() {
 
     const [individualState, setIndividualState] = useIndividualState();
-    const individualListResponse = useFetchIndividualListSelector(individualState.currentListPage);
+    const individualListResponse = useFetchIndividualListSelector(individualState.individuals.currentListPage);
 
     const [isNewIndividualModalVisible, setIsNewIndividualModalVisible] = useState(false)
 
     useEffect(()=> {
-        if(!individualListResponse.error) {
-            setIndividualState((state)=> {
-                return {
-                    ...state,
-                    error: false,
-                    message: individualListResponse.message,
-                    list: individualListResponse.individuals
-                }
-            })
-        } else {
-            setIndividualState((state)=> {
-                return {
-                    ...state,
-                    error: true,
-                    message: individualListResponse.message
-                }
-            })
-        }
+        setIndividualState((state)=> {
+            return {
+                ...state,
+                error: individualListResponse.error,
+                message: individualListResponse.message,
+                individuals: individualListResponse.individuals
+            }
+        })
+
 
         return ()=> {
             setIndividualState((state)=> {
@@ -49,13 +40,12 @@ export default function IndividualsList() {
             
             <IndividualsListHeader 
                 showNewStaffModal={()=> setIsNewIndividualModalVisible(true)}
-                // showNewAssessmentModal={()=> navigate({pathname: 'assessments/new'})}
             />
 
             <IndividualsListTable
-                individuals={individualState.list}
-                currentPage={0} 
-                totalPages={0} 
+                individuals={individualState.individuals.list}
+                currentPage={individualState.individuals.currentListPage} 
+                totalPages={individualState.individuals.totalListPages}
                 goToPage={(pageNumber:number)=> console.log(pageNumber)} 
                 errorMessage={individualState.message}
             />

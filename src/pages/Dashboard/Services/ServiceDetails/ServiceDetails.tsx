@@ -5,6 +5,8 @@ import capitalize from "src/utils/capitalize";
 import { useFetchServiceDetails } from "src/features/service/selector";
 import { useEffect } from "react";
 import { useServicesState } from "src/features/service/state";
+import ServiceDetailsNavigation from "./ServiceDetailsNavigation/ServiceDetailsNavigation";
+import CompartmentDetailsOutlet from "./CompartmentDetailsOutlet";
 
 export default function ServiceDetails () {
 
@@ -20,7 +22,10 @@ export default function ServiceDetails () {
             ...state,
             error: serviceDetailsResponse.error,
             message: serviceDetailsResponse.message,
-            service: serviceDetailsResponse.service,
+            service: {
+                ...state.service,
+                ...serviceDetailsResponse.service
+            },
         }))
 
     }, [serviceDetailsResponse, setServiceState])
@@ -35,6 +40,14 @@ export default function ServiceDetails () {
 
                 <div className={styles.heading}>{ capitalize(serviceState.service.title) }</div>
                 <div className={styles.category}>{ serviceState.service.category }</div>
+            </div>
+
+            <div className={styles.main}>
+                <ServiceDetailsNavigation />
+                
+                <div className={styles.content}>
+                    <CompartmentDetailsOutlet />
+                </div>
             </div>
         </div>
     )

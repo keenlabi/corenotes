@@ -96,6 +96,11 @@ export const staffInitState:staffStateType = {
         list:[],
         currentPage:1,
         totalPages:1,
+    },
+    roleDetails:{
+        id: "",
+        title: "",
+        privileges:{}
     }
 }
 

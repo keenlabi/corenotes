@@ -12,9 +12,23 @@ export const serviceInitState:IServiceStateType = {
         id: "",
         serviceId: "",
         title: "",
-        assignedIndividualsCount: 0,
-        createdAt: "",
-        category: ""
+        category: "",
+        individuals: {
+            list: [],
+            currentPage: 1,
+            totalPages: 1
+        },
+        staffs: {
+            list: [],
+            currentPage: 1,
+            totalPages: 1
+        },
+        assessments: {
+            list: [],
+            currentPage: 1,
+            totalPages: 1
+        },
+        createdAt:""
     }
 }
 

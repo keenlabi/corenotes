@@ -5,9 +5,11 @@ export const individualInitState:IndividualStateType = {
     status: 'IDLE',
     error: false,
     message: '',
-    list: [],
-    currentListPage: 1,
-    totalListPages: 1,
+    individuals: {
+        list: [],
+        currentListPage: 1,
+        totalListPages: 1
+    },
     newIndividual: {
         firstname: '',
         middlename: '',
@@ -79,7 +81,7 @@ export const individualInitState:IndividualStateType = {
             status: 'PENDING'
         }
     },
-    requestedServices: []
+    requestedServices: [],
 }
 
 export const IndividualAtom = atom({

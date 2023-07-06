@@ -1,6 +1,6 @@
-import { IStaffDetails, IUser } from "../types"
+import { IStaffDetails, IStaffUser } from "../types"
 
-export default function formatStaff(staff:IUser):IStaffDetails {
+export default function formatStaff(staff:IStaffUser):IStaffDetails {
     return {
         ...staff,
         id: staff.id ?? "",
@@ -42,10 +42,10 @@ export default function formatStaff(staff:IUser):IStaffDetails {
             employeeId: staff.employeeId,
             jobSchedule: staff.jobSchedule        
         },
-        documents:{
-            list:[],
-            currentPage:1,
-            totalPages:1
-        }
+        // documents:{
+        //     list:[],
+        //     currentPage:1,
+        //     totalPages:1
+        // }
     }
 }
