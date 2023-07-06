@@ -40,5 +40,6 @@ export interface CompartmentDetails {
         individuals:string;
         staffRoles:string;
         assessments:Array<string>;
+        category:string;
     }>
 }

@@ -36,6 +36,7 @@ const DashboardRoutes:routerType[] = [
             {
                 path:'staffs',
                 element: <Staffs />,
+                allowedRoles:['HR', 'DDP'],
                 children: [
                     {
                         path:'',
@@ -79,6 +80,7 @@ const DashboardRoutes:routerType[] = [
             {
                 path:'individuals',
                 element: <Individuals />,
+                allowedRoles:['DDP', 'ADMIN'],
                 children: [
                     {
                         path:'',
@@ -183,6 +185,7 @@ const DashboardRoutes:routerType[] = [
             {
                 path:'administration',
                 element: <AdministrationOutlet />,
+                allowedRoles:['HR', 'DDP'],
                 children: [
                     {
                         path:'',

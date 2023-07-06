@@ -32,7 +32,8 @@ export default function Dashboard() {
             path: "/dashboard",
             icon: iconOverview,
             activeIcon: iconOverview,
-            active: isCurrentNav(['/dashboard', '/dashboard/'])
+            active: isCurrentNav(['/dashboard', '/dashboard/']),
+            roles: ['HR', 'DSP', 'CNA', 'RN', 'DDP', 'SUPRT_COR', 'TEAM_LEAD_CNA', 'HOME_MAN', 'ADMIN_ASS', 'ADMIN']
         },
         {
             label: "staffs",
@@ -41,7 +42,8 @@ export default function Dashboard() {
             path: "/dashboard/staffs",    
             icon: iconBriefcase,
             activeIcon: iconBriefcase,
-            active: isCurrentNav(['/dashboard/staffs'])
+            active: isCurrentNav(['/dashboard/staffs']),
+            roles: ['HR', 'DDP']
         },
         {
             label: "individuals",
@@ -50,7 +52,8 @@ export default function Dashboard() {
             path: "/dashboard/individuals",
             icon: iconUsers,
             activeIcon: iconUsers,
-            active: isCurrentNav(['/dashboard/individuals'])
+            active: isCurrentNav(['/dashboard/individuals']),
+            roles: ['DDP', 'ADMIN']
         },
         {
             label: "Compartments",
@@ -59,7 +62,8 @@ export default function Dashboard() {
             path: "/dashboard/compartments",
             icon: iconFlag,
             activeIcon: iconFlag,
-            active: isCurrentNav(['/dashboard/compartments'])
+            active: isCurrentNav(['/dashboard/compartments']),
+            roles: ['HR', 'DDP', 'ADMIN']
         },
         {
             label: "Administration",
@@ -68,7 +72,8 @@ export default function Dashboard() {
             path: "/dashboard/administration",
             icon: iconAdminUser,
             activeIcon: iconAdminUser,
-            active: isCurrentNav(['/dashboard/administration'])
+            active: isCurrentNav(['/dashboard/administration']),
+            roles: ['HR', 'DDP', 'ADMIN']
         },
         {
             label: "Settings",
@@ -77,7 +82,8 @@ export default function Dashboard() {
             path: "/dashboard/settings",    
             icon: iconSettings,
             activeIcon: iconSettings,
-            active: isCurrentNav(['/dashboard/settings'])
+            active: isCurrentNav(['/dashboard/settings']),
+            roles: ['ADMIN']
         }
     ]);
 

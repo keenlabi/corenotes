@@ -18,8 +18,13 @@ export default function Router() {
                                 path={routeItem.path}
                                 element={
                                     routeItem.protected 
-                                    ?   <ProtectedRoute children={ routeItem.element } /> 
-                                    :   routeItem.element
+                                    ?   <ProtectedRoute children={routeItem.element} /> 
+                                    :   routeItem.allowedRoles!
+                                        ?   <Authorize 
+                                                roles={routeItem.allowedRoles!} 
+                                                child={ routeItem.element } 
+                                            />
+                                        :   routeItem.element
                                 }
                                 children={RouteItem(routeItem)}
                             />
@@ -35,7 +40,14 @@ function RouteItem(route:routerType) {
         return  <Route 
                     key={routeItem.path}
                     path={routeItem.path}
-                    element={routeItem.element}
+                    element={
+                        routeItem.allowedRoles!
+                        ?   <Authorize 
+                                roles={routeItem.allowedRoles!} 
+                                child={ routeItem.element } 
+                            />
+                        :   routeItem.element
+                    }
                     children={ RouteItem(routeItem) }
                 />
     })

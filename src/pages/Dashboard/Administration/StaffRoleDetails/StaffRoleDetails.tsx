@@ -29,36 +29,37 @@ export default function StaffRoleDetails() {
             }))
         })
 
-
     }, [params.roleId, setStaffState])
 
     return (
         <div className={styles.staff_role_details}>
-            <FaAngleLeft 
-                className={styles.back_btn} 
-                onClick={()=> navigate({ pathname: '/dashboard/administration' }) }
-            />
+            <div className={styles.header}>
+                <FaAngleLeft
+                    className={styles.back_btn} 
+                    onClick={()=> navigate({ pathname: '/dashboard/administration' }) }
+                />
 
-            <div className={styles.title}>{staffState.roleDetails?.title}</div>
+                <div className={styles.heading}>{staffState.roleDetails?.title}</div>
+            </div>
 
             <div className={styles.priviledges}>
-                <div>Privileges</div>
+                <div className={styles.section_title}>Privileges</div>
 
-                <div className="group">
-                    <div className={styles.heading}>Staff management</div>
+                <div className={styles.group}>
+                    <div className={styles.group_title}>Staff management</div>
                     {
                         staffState.roleDetails.privileges.staff_profile_view
-                        ?   <div className={styles.label}>Staff Profile: View</div>
+                        ?   <div className={styles.privilege}>Staff Profile: View</div>
                         :   null
                     }
                     {
                         staffState.roleDetails.privileges.staff_registration
-                        ?   <div className={styles.label}>Staff Registration</div>
+                        ?   <div className={styles.privilege}>Staff Registration</div>
                         :   null
                     }
                     {
                         staffState.roleDetails.privileges.staff_document_upload
-                        ?   <div className={styles.label}>Staff Document: Upload</div>
+                        ?   <div className={styles.privilege}>Staff Document: Upload</div>
                         :   null
                     }
                 </div>

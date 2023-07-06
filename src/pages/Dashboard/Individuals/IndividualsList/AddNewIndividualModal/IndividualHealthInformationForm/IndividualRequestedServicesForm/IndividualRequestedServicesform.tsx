@@ -37,15 +37,18 @@ export default function IndividualRequestedServicesForm() {
     })
 
     useEffect(()=> {
+       
+        const requestedServicesRepsonse = compartmentDetails.compartment.services?.filter( service => service.category.toLowerCase() === 'requested')
+
         setServiceTemplate(state => ({
             ...state,
             service: {
                 ...state.service,
-                options: compartmentDetails.compartment.services?.map(service => ({
-                    id:service.id,
-                    label:service.title,
-                    value:service.id
-                }))
+                options: requestedServicesRepsonse.map( service => ({
+                            id:service.id,
+                            label:service.title,
+                            value:service.id
+                        }))
             }
         }))
 
@@ -59,7 +62,7 @@ export default function IndividualRequestedServicesForm() {
                     error:'',
                     selected: false,
                     selectedOptionIndex: 0,
-                    options: compartmentDetails.compartment.services?.map(service => ({
+                    options: requestedServicesRepsonse.map(service => ({
                         id:service.id,
                         label:service.title,
                         value:service.id
