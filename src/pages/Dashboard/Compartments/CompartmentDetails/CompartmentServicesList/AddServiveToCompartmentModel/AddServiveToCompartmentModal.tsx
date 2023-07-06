@@ -1,6 +1,6 @@
 import ModalContainer from "src/components/Modal/ModalContainer";
 import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg";
-import { compartmentInitState, useCompartmentState } from "src/features/compartment/state";
+import { useCompartmentState } from "src/features/compartment/state";
 import styles from "./addservicetocompartmentmodal.module.css";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
