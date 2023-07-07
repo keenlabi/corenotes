@@ -68,19 +68,15 @@ export function getCompartmentDetails(compartmentId:number) {
     })
 }
 
-// export interface IGetCompartmentDetailsResponse extends successResponseType {
-//     data: { compartment:CompartmentDetails }
-// }
-
-// export function getCompartmentServiceDetails(serviceId:number) {
-//     return new Promise((resolve, reject)=> {
-//         getFetch(`/compartment/details/${serviceId}`)
-//         .then((response)=> {
-//             resolve({
-//                 ...response,
-//                 data: { service: response.data.service }
-//             })
-//         })
-//         .catch((error)=> reject(error))
-//     })
-// }
+export function postCompartmentServiceDetails(payload:{compartmentId:number, serviceId:string}) {
+    return new Promise<IGetCompartmentDetailsResponse>((resolve, reject)=> {
+        postFetch(`/compartments/services`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { compartment: response.data.compartment }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}

@@ -1,5 +1,5 @@
 import { initStateType } from "../types";
-import { staffDetailsType } from "./utils/formatStaff";
+import { staffListType } from "./actions";
 import { staffActivityType } from "./utils/formatStaffActivities";
 import { staffsListType } from "./utils/formatStaffsList";
 
@@ -8,7 +8,14 @@ export interface IUser {
     id: string,
     active: boolean,
     // ACCOUNT INFO
-    role: string,
+    role: {
+        title:string,
+        privileges:{
+            staff_profile_view:boolean;
+            staff_registration:boolean;
+            staff_document_upload:boolean;
+        }
+    },
     lastSeen: string,
     
     // PERSONAL INFORMATION
@@ -60,6 +67,132 @@ export interface IUser {
     }>
 }
 
+export interface IStaffUser {
+    createdAt: string;
+    id: string,
+    active: boolean,
+    // ACCOUNT INFO
+    role:{
+        title:string,
+        privileges:{
+            staff_profile_view:boolean;
+            staff_registration:boolean;
+            staff_document_upload:boolean;
+        }
+    },
+    lastSeen: string,
+    
+    // PERSONAL INFORMATION
+    firstname: string,
+    lastname: string,
+    nickname: string,
+    initials: string,
+    dob:string,
+    gender: string,
+    address: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    phoneNumber: {
+        work: string,
+        cell: string,
+        other: string
+    },
+    emergencyContact: {
+        name: string,
+        relationship: string,
+        phoneNumber: string
+    },
+    email: string,
+    profileImage: string,
+    
+    // WORK INFORMATION
+    compartment: string,
+    title: string,
+    providerRole: string,
+    hiredAt: string,
+    username: string,
+    employeeId: string,
+    jobSchedule: string,
+    documents: Array<{
+        _id:string,
+        docTitle: string,
+        docType: string,
+        docDate: string,
+        docFileLink: string,
+        docFileName: string,
+        createdAt:string
+    }>|[],
+    activities: Array<{
+        _id:string,
+        activityHost:string,
+        activityTitle:string,
+        activityDateTime:string
+    }>
+}
+
+export interface IStaffDocument {
+    id:string,
+    docTitle: string,
+    docType: string,
+    docDate: string,
+    docFileLink: string,
+    docFileName: string,
+    createdAt:string
+}
+
+export interface IStaffDetails {
+    id: string,
+    // ACCOUNT INFO
+    role:{
+        title:string,
+        privileges:{
+            staff_profile_view:boolean;
+            staff_registration:boolean;
+            staff_document_upload:boolean;
+        }
+    },
+    active: boolean,
+    lastSeen: string,
+    
+    // PERSONAL INFORMATION
+    personal: {
+        firstname: string,
+        lastname: string,
+        nickname: string,
+        initials: string,
+        dob:string,
+        gender: string,
+        address: string,
+        city: string,
+        state: string,
+        zipCode: string,
+        phoneNumber: {
+            work: string,
+            cell: string,
+            other: string
+        },
+        emergencyContact: {
+            name: string,
+            relationship: string,
+            phoneNumber: string
+        },
+        email: string,
+        profileImage: string,
+    },
+    
+    work: {
+        // WORK INFORMATION
+        compartment: string,
+        title: string,
+        providerRole: string,
+        hiredAt: string,
+        username: string,
+        employeeId: string,
+        jobSchedule: string
+    }
+}
+
 export interface NewStaffType {
     // PERSONAL INFORMATION
     firstname: string,
@@ -99,10 +232,8 @@ export interface NewStaffType {
 export interface staffStateType extends initStateType {
     currentPage:number,
     totalPages:number,
-    currentDocumentsPage:number,
-    totalDocumentsPage:number,
-    list:staffsListType[],
-    details: staffDetailsType,
+    list:staffListType[],
+    details: IStaffDetails,
     currentActivitiesPage?: number,
     totalActivitiesPage?: number,
     activities: staffActivityType[],
@@ -112,6 +243,12 @@ export interface staffStateType extends initStateType {
         currentPage:number,
         totalPages:number,
         list:IStaffRole[]
+    },
+    roleDetails:IStaffRoleDetails,
+    documents:{
+        list:Array<IStaffDocument>;
+        currentPage:number;
+        totalPages:number;
     }
 }
 
@@ -130,6 +267,17 @@ export interface IActivity {
 }
 
 export interface IStaffRole {
-    id:string,
-    title:string,
+    id:string;
+    title:string;
+    staffCount:number;
+}
+
+export interface IStaffRoleDetails {
+    id:string;
+    title:string;
+    privileges:{
+        staff_profile_view:boolean;
+        staff_registration:boolean;
+        staff_document_upload:boolean;
+    };
 }

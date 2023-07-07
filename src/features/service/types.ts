@@ -1,10 +1,11 @@
+import { IndividualListItemType } from "../Individual/types";
 import { initStateType } from "../types";
 
 export interface IServiceStateType extends initStateType {
     servicesList:ServicesListItemType[],
     currentListPage:number,
     totalListPages:number,
-    service:ServicesListItemType
+    service:ServiceDetails
 }
 
 export interface ServicesListItemType {
@@ -18,9 +19,12 @@ export interface ServicesListItemType {
 
 export interface ServiceDetails {
     id:string,
+    title:string
     serviceId:string,
+    createdAt:string,
+    category:string,
     individuals: {
-        list:[],
+        list:IndividualListItemType[],
         currentPage:number,
         totalPages:number
     },

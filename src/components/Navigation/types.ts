@@ -5,5 +5,6 @@ export interface NavOptionsType {
     path: string,    
     icon: any,
     activeIcon: any,
-    active: boolean
+    active: boolean,
+    roles?: string[]
 }

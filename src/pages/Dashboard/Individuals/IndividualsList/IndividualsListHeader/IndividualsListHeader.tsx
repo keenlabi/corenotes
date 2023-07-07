@@ -14,7 +14,7 @@ export default function IndividualsListHeader({
     return (
         <div className={styles.staff_list_header}>
             <div className={styles.heading}>
-                { individualState.list.length } individual{individualState.list.length > 1 ?"s" :""} total
+                { individualState.individuals.list.length } individual{individualState.individuals.list.length > 1 ?"s" :""} total
             </div>
 
             <AddNewNoBackgroundIconButton 

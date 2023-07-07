@@ -7,6 +7,7 @@ import { useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
 import InputField from "src/components/FormComponents/InputField";
 import {addStaffRoleAction} from "src/features/staff/actions";
+import SelectRolePrivileges from "./SelectRolePrivileges";
 
 export default function AddStaffRoleModal({ closeModal }:{ closeModal:()=> void } ) {
 
@@ -20,6 +21,8 @@ export default function AddStaffRoleModal({ closeModal }:{ closeModal:()=> void 
         error:'',
         validated: false
     })
+
+    const [selectedPrivileges, setSelectedPrivileges] = useState<any>({})
 
     function setInput(value:string, model:formFieldType, setModel:setFormFieldType) {
         model.value = value;
@@ -41,7 +44,8 @@ export default function AddStaffRoleModal({ closeModal }:{ closeModal:()=> void 
 
     function submitRole() {
         const payload = {
-            title: roleTitle.value
+            title: roleTitle.value,
+            privileges: selectedPrivileges
         }
 
         setStaffState(state => ({
@@ -90,6 +94,10 @@ export default function AddStaffRoleModal({ closeModal }:{ closeModal:()=> void 
                         placeholder={roleTitle.placeholder}
                         error={roleTitle.error}
                         onInput={(value) => setInput(value, roleTitle, setRoleTitle)} 
+                    />
+
+                    <SelectRolePrivileges 
+                        submit={(privileges)=> setSelectedPrivileges(privileges)}
                     />
                 </div>
 

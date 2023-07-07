@@ -1,6 +1,7 @@
 import { useState } from "react";
-import styles from "./compartmentdetailsnavigation.module.css";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import styles from "./servicedetailsnavigation.module.css";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import CompartmentDetailsOutlet from "../CompartmentDetailsOutlet";
 
 interface navItemsType {
     label:string, 
@@ -8,7 +9,7 @@ interface navItemsType {
     active:boolean
 }
 
-export default function CompartmentDetailsNavigation() {
+export default function ServiceDetailsNavigation() {
 
     const location = useLocation();
     const params = useParams();
@@ -18,7 +19,7 @@ export default function CompartmentDetailsNavigation() {
         {
             label: 'Individuals',
             path: 'individuals',
-            active: isCurrentPath(params.serviceId!)
+            active: isCurrentPath(params.serviceId!) || isCurrentPath('individuals')
         },
         {
             label: 'Assessments',
@@ -37,6 +38,7 @@ export default function CompartmentDetailsNavigation() {
         const allPaths:string[] = locationWithoutTrailingSLash.split('/')
 
         const currentPath:string = allPaths[allPaths.length-1];
+
         if(currentPath === activePath) return true
         if(!activePath) return params.id === currentPath
 

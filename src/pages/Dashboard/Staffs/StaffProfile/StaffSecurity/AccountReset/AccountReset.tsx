@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 
 export default function AccountReset() {
 
-    const { id } = useParams();
+    const params = useParams();
 
     const [staffState] = useStaffState()
     const [updatePasswordState, setUpdatePasswordState] = useState(staffState)
@@ -94,7 +94,7 @@ export default function AccountReset() {
             }
         })
 
-        updateStaffPasswordAction(id!, payload)
+        updateStaffPasswordAction(params.staffId!, payload)
         .then((response:successResponseType)=> {
             setUpdatePasswordState(state => {
                 return {

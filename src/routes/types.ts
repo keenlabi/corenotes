@@ -3,5 +3,6 @@ export interface routerType {
     path:string,
     element: JSX.Element,
     children?: routerType[],
-    protected?: boolean
+    protected?: boolean,
+    allowedRoles?:Array<string>
 }

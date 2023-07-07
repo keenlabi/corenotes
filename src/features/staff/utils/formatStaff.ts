@@ -1,55 +1,6 @@
-import { IUser } from "../types"
-import { staffsDocumentsListType } from "./formatStaffDocuments"
+import { IStaffDetails, IStaffUser } from "../types"
 
-
-export interface staffDetailsType {
-    id: string,
-    // ACCOUNT INFO
-    role: string,
-    active: boolean,
-    lastSeen: string,
-    
-    // PERSONAL INFORMATION
-    personal: {
-        firstname: string,
-        lastname: string,
-        nickname: string,
-        initials: string,
-        dob:string,
-        gender: string,
-        address: string,
-        city: string,
-        state: string,
-        zipCode: string,
-        phoneNumber: {
-            work: string,
-            cell: string,
-            other: string
-        },
-        emergencyContact: {
-            name: string,
-            relationship: string,
-            phoneNumber: string
-        },
-        email: string,
-        profileImage: string,
-    },
-    
-    work: {
-        // WORK INFORMATION
-        compartment: string,
-        title: string,
-        providerRole: string,
-        hiredAt: string,
-        username: string,
-        employeeId: string,
-        jobSchedule: string
-    },
-
-    documents?: Array<staffsDocumentsListType>|[]
-}
-
-export default function formatStaff(staff:IUser):staffDetailsType {
+export default function formatStaff(staff:IStaffUser):IStaffDetails {
     return {
         ...staff,
         id: staff.id ?? "",
@@ -91,6 +42,10 @@ export default function formatStaff(staff:IUser):staffDetailsType {
             employeeId: staff.employeeId,
             jobSchedule: staff.jobSchedule        
         },
-        documents: []
+        // documents:{
+        //     list:[],
+        //     currentPage:1,
+        //     totalPages:1
+        // }
     }
 }

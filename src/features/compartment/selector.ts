@@ -1,4 +1,4 @@
-import { selectorFamily, useRecoilValue } from "recoil";
+import { selector, selectorFamily, useRecoilValue } from "recoil";
 import { GetCompartmentsResponse, IGetCompartmentDetailsResponse, getCompartmentDetails, getCompartmentList } from "./action";
 import { compartmentInitState } from "./state";
 
@@ -35,7 +35,6 @@ const fetchCompartmentList = selectorFamily({
         })
     }
 })
-
 export const useFetchCompartmentList = (pageNumber:number)=> useRecoilValue(fetchCompartmentList(pageNumber))
 
 
@@ -69,10 +68,3 @@ const fetchCompartmentDetails = selectorFamily({
     }
 })
 export const useFetchCompartmentDetails = (compartmentId:number)=> useRecoilValue(fetchCompartmentDetails(compartmentId))
-
-// const fetchCompartmentServiceDetails = selectorFamily({
-//     key:'fetch_compartment_service_details',
-//     get:(serviceId:number)=> async ()=> {
-        
-//     }
-// })
