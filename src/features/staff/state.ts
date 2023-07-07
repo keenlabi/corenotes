@@ -12,7 +12,6 @@ export const staffInitState:staffStateType = {
         // ACCOUNT INFO
         id: '',
         active: true,
-        role: '',
         lastSeen: '',
         // PERSONAL INFORMATION
         personal: {
@@ -20,7 +19,7 @@ export const staffInitState:staffStateType = {
             lastname: '',
             nickname: '',
             initials: '',
-            dob:'',
+            dob: '',
             gender: '',
             address: '',
             city: '',
@@ -49,6 +48,14 @@ export const staffInitState:staffStateType = {
             employeeId: '',
             jobSchedule: '',
         },
+        role: {
+            title: "",
+            privileges: {
+                staff_profile_view: false,
+                staff_registration: false,
+                staff_document_upload: false
+            }
+        }
     },
     documents: {
         list:[],
@@ -96,6 +103,15 @@ export const staffInitState:staffStateType = {
         list:[],
         currentPage:1,
         totalPages:1,
+    },
+    roleDetails:{
+        id: "",
+        title: "",
+        privileges:{
+            staff_profile_view: false,
+            staff_registration: false,
+            staff_document_upload: false
+        }
     }
 }
 

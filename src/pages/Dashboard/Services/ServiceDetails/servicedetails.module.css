@@ -19,3 +19,13 @@
     border-radius: 5px;
     text-transform: capitalize;
 }
+
+.main {
+    margin-top: 5%;
+    box-shadow: var(--shadow-container-100);
+    border-radius: 16px;
+    background: white;
+}
+.content {
+    padding: 5% 10%;
+}

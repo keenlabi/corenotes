@@ -34,6 +34,7 @@ export default function StaffRolesList() {
                                     key={role.id}
                                     id={role.id} 
                                     title={role.title}
+                                    staffCount={role.staffCount}
                                 />
                     })
                 }

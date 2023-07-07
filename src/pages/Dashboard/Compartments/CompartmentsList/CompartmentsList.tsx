@@ -60,6 +60,7 @@ export default function CompartmentsList() {
                                                 path={`${compartment.compartmentId}`}
                                                 title={compartment.title}
                                                 image={compartment.image}
+                                                servicesCount={compartment.servicesCount}
                                                 staffRolesCount={compartment.staffRolesCount}
                                                 assignedIndividualsCount={compartment.assignedIndividualsCount}
                                                 backgroundColor={compartment.meta.bgColor}

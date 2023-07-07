@@ -1,6 +1,7 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { ServicesListItemType } from "./types"
+import { ServiceDetails, ServicesListItemType } from "./types"
+import { IndividualListItemType } from "../Individual/types"
 
 export interface GetServicesResponse extends successResponseType {
     data: {
@@ -68,16 +69,66 @@ export function postService(payload:newServiceData) {
 }
 
 export interface IGetServiceDetailsResponse extends successResponseType {
-    data: { service:ServicesListItemType }
+    data: { service:ServiceDetails }
 }
 
 export function getServiceDetails(serviceId:number) {
     return new Promise<IGetServiceDetailsResponse>((resolve, reject)=> {
-        getFetch(`/services/details/${serviceId}`)
+        getFetch(`/services/${serviceId}/details`)
         .then((response)=> {
             resolve({
                 ...response,
                 data: { service: response.data.service }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface IGetServiceIndividualsResponse extends Omit<successResponseType, 'data'> {
+    data: {
+        list:IndividualListItemType[];
+        currentPage:number;
+        totalPages:number;
+    }
+}
+
+export function getServiceIndividuals(serviceId:number, pageNumber:number) {
+    return new Promise<IGetServiceIndividualsResponse>((resolve, reject)=> {
+        getFetch(`/services/${serviceId}/individuals/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { 
+                    list: response.data.individuals,
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface IGetServiceListByCategoryResponse extends successResponseType {
+    data: {
+        list:ServicesListItemType[];
+        currentPage:number;
+        totalPages:number;
+    }
+}
+
+export function getServicesListByCategory(category:string, pageNumber:number) {
+    return new Promise<IGetServiceListByCategoryResponse>((resolve, reject)=> {
+        getFetch(`/services/category/${category}/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { 
+                    list: response.data.services,
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages
+                }
             })
         })
         .catch((error)=> reject(error))

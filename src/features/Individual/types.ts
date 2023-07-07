@@ -2,29 +2,32 @@ import { AssessmentModelType } from "../assessment/types";
 import { initStateType } from "../types";
 
 export interface IndividualStateType extends initStateType {
-    list:IndividualListItemType[],
-    currentListPage:number,
-    totalListPages:number,
-    newIndividual:NewIndividualType,
-    profile: IndividualProfileType,
-    assessments: {
-        list: AssessmentModelType[],
-        currentPage:number,
-        totalPages:number,
-        session: AssessmentModelType
+    individuals:{
+        list:IndividualListItemType[];
+        currentListPage:number;
+        totalListPages:number;
     },
-    requestedServices:IndividualServiceListItemType[];
+    newIndividual:NewIndividualType;
+    profile: IndividualProfileType;
+    assessments: {
+        list: AssessmentModelType[];
+        currentPage:number;
+        totalPages:number;
+        session: AssessmentModelType;
+    },
+    services:IndividualServiceListItemType[];
 }
 
 export interface IndividualListItemType {
-    id:string,
-    profileImage: string,
-    firstName: string,
-    lastName: string,
-    age: number,
-    gender: string,
-    medicaidNumber: string,
-    compartment: string
+    id:string;
+    individualId:number;
+    profileImage:string;
+    firstname:string;
+    lastname:string;
+    age:number;
+    gender:string;
+    medicaidNumber:string;
+    compartment:string;
 }
 
 export interface NewIndividualType {

@@ -150,7 +150,7 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
             }
         }
         
-    }, [compartmentState.compartment.services, individualId, individualState.newIndividual.compartmentId, serviceTypeModel.value?.value, setCompartmentState, setIndividualState])
+    }, [compartmentState.compartment.services, individualId, individualState.newIndividual.compartmentId, serviceTypeModel.value?.value, servicesPages.currentPage, setCompartmentState, setIndividualState])
 
     const [isFormValidated, setIsFormValidated] = useState(false);
 

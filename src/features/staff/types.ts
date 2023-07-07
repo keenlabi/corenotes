@@ -1,4 +1,5 @@
 import { initStateType } from "../types";
+import { staffListType } from "./actions";
 import { staffActivityType } from "./utils/formatStaffActivities";
 import { staffsListType } from "./utils/formatStaffsList";
 
@@ -7,7 +8,14 @@ export interface IUser {
     id: string,
     active: boolean,
     // ACCOUNT INFO
-    role: string,
+    role: {
+        title:string,
+        privileges:{
+            staff_profile_view:boolean;
+            staff_registration:boolean;
+            staff_document_upload:boolean;
+        }
+    },
     lastSeen: string,
     
     // PERSONAL INFORMATION
@@ -64,7 +72,14 @@ export interface IStaffUser {
     id: string,
     active: boolean,
     // ACCOUNT INFO
-    role: string,
+    role:{
+        title:string,
+        privileges:{
+            staff_profile_view:boolean;
+            staff_registration:boolean;
+            staff_document_upload:boolean;
+        }
+    },
     lastSeen: string,
     
     // PERSONAL INFORMATION
@@ -129,7 +144,14 @@ export interface IStaffDocument {
 export interface IStaffDetails {
     id: string,
     // ACCOUNT INFO
-    role: string,
+    role:{
+        title:string,
+        privileges:{
+            staff_profile_view:boolean;
+            staff_registration:boolean;
+            staff_document_upload:boolean;
+        }
+    },
     active: boolean,
     lastSeen: string,
     
@@ -210,7 +232,7 @@ export interface NewStaffType {
 export interface staffStateType extends initStateType {
     currentPage:number,
     totalPages:number,
-    list:staffsListType[],
+    list:staffListType[],
     details: IStaffDetails,
     currentActivitiesPage?: number,
     totalActivitiesPage?: number,
@@ -222,6 +244,7 @@ export interface staffStateType extends initStateType {
         totalPages:number,
         list:IStaffRole[]
     },
+    roleDetails:IStaffRoleDetails,
     documents:{
         list:Array<IStaffDocument>;
         currentPage:number;
@@ -244,6 +267,17 @@ export interface IActivity {
 }
 
 export interface IStaffRole {
-    id:string,
-    title:string,
+    id:string;
+    title:string;
+    staffCount:number;
+}
+
+export interface IStaffRoleDetails {
+    id:string;
+    title:string;
+    privileges:{
+        staff_profile_view:boolean;
+        staff_registration:boolean;
+        staff_document_upload:boolean;
+    };
 }

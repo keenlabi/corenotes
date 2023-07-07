@@ -1,6 +1,6 @@
-import { getFetch, postFetch } from "src/lib/fetch"
+import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IActivity, IStaffDocument, IStaffRole, IStaffUser, IUser } from "./types"
+import { IActivity, IStaffDetails, IStaffDocument, IStaffRole, IStaffRoleDetails, IStaffUser } from "./types"
 
 export interface staffListType {
     id:string;
@@ -40,7 +40,7 @@ export function fetchStaffListAction(payload:{pageNumber:number}) {
 
 export interface fetchStaffSuccessResponseType extends Omit<successResponseType, 'data'> {
     data: {
-        staff:IStaffUser
+        staff:IStaffDetails
     }
 }
 
@@ -186,7 +186,8 @@ export interface fetchStaffRolesSuccessResponseType extends Omit<successResponse
 }
 
 export interface IAddStaffRoleRequest {
-    title:string
+    title:string,
+    privileges:{unknown:any}
 }
 
 export function addStaffRoleAction(payload:IAddStaffRoleRequest) {
@@ -216,6 +217,42 @@ export function fetchStaffRolesAction(pageNumber:number) {
                     currentPage:response.data.currentPage,
                     totalPages:response.data.totalPages,
                     staffRoles: response.data.staffRoles
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface fetchStaffRolesDetailsSuccessResponseType extends Omit<successResponseType, 'data'> {
+    data: {
+        staffRoleDetails:IStaffRoleDetails
+    }
+}
+
+export function fetchStaffRoleDetailsAction(roleId:string) {
+    return new Promise<fetchStaffRolesDetailsSuccessResponseType>((resolve, reject)=> {
+        getFetch(`/staffs/roles/details/${roleId}`)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: {
+                    staffRoleDetails: response.data.staffRoleDetails
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function updateStaffProfileAction(payload:{ staffId:string, providerRole:string }) {
+    return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
+        patchFetch('/staffs/update', payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { 
+                    staff: response.data.staff,
                 }
             })
         })

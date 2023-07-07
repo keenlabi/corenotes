@@ -20,12 +20,11 @@ import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList"
 import Services from "src/pages/Dashboard/Services/Services";
 import ServiceDetails from "src/pages/Dashboard/Services/ServiceDetails";
 import CompartmentDetails from "src/pages/Dashboard/Compartments/CompartmentDetails";
-import CompartmentRequestedServiceOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServicesList/CompartmentRequestedServiceOutlet";
-import CompartmentDetailsOutlet from "src/pages/Dashboard/Compartments/CompartmentDetails/CompartmentDetailsOutlet";
-import RequestedServiceDetails from "src/pages/Dashboard/Compartments/CompartmentDetails/RequestedServiceDetails";
 import IndividualServices from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/IndividualServices";
 import AdministrationOutlet from "src/pages/Dashboard/Administration/AdministrationOutlet";
 import StaffRolesList from "src/pages/Dashboard/Administration/StaffRolesList";
+import StaffRoleDetails from "src/pages/Dashboard/Administration/StaffRoleDetails";
+import ServiceIndividuals from "src/pages/Dashboard/Services/ServiceDetails/ServiceIndividuals/ServiceIndividuals";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -37,6 +36,7 @@ const DashboardRoutes:routerType[] = [
             {
                 path:'staffs',
                 element: <Staffs />,
+                allowedRoles:['HR', 'DDP'],
                 children: [
                     {
                         path:'',
@@ -80,6 +80,7 @@ const DashboardRoutes:routerType[] = [
             {
                 path:'individuals',
                 element: <Individuals />,
+                allowedRoles:['DDP', 'ADMIN'],
                 children: [
                     {
                         path:'',
@@ -97,23 +98,23 @@ const DashboardRoutes:routerType[] = [
                                 element: <IndividualProfileInformation />,
                             },
                             {
-                                path:'requested-services',
-                                title: 'Requested Services',
+                                path:'services',
+                                title: 'Services',
                                 element: <IndividualServices />,
                             },
                             {
                                 path:'assessments',
-                                title: '',
+                                title: 'Assessments',
                                 element: <IndividualAssessments />,
                             },
                             {
                                 path:'documents',
-                                title: '',
+                                title: 'Documents',
                                 element: <div />,
                             },
                             {
                                 path:'reports',
-                                title: '',
+                                title: 'Reports',
                                 element: <div />,
                             },
                         ]
@@ -144,43 +145,7 @@ const DashboardRoutes:routerType[] = [
                     {
                         path:':compartmentId',
                         title: 'Compartment Details',
-                        element: <CompartmentDetailsOutlet />,
-                        children: [
-                            {
-                                path:'services',
-                                title: 'Compartment Services List',
-                                element: <CompartmentRequestedServiceOutlet />,
-                                children: [
-                                    {
-                                        path:'',
-                                        title: 'Compartment Services',
-                                        element: <CompartmentDetails />
-                                    },
-                                    {
-                                        path:':serviceId',
-                                        title: 'Compartment Service Details',
-                                        element: <RequestedServiceDetails />,
-                                        children: [
-                                            {
-                                                path:'individuals',
-                                                title: 'Compartment Individuals',
-                                                element: <div />
-                                            },
-                                            {
-                                                path:'assessments',
-                                                title: 'Comparment Assessments',
-                                                element: <div />,
-                                            },
-                                            {
-                                                path:'staffs',
-                                                title: 'Compartment Staffs',
-                                                element: <div />
-                                            }
-                                        ]
-                                    },
-                                ]
-                            },
-                        ]
+                        element: <CompartmentDetails />
                     }
                 ]
             },
@@ -192,18 +157,46 @@ const DashboardRoutes:routerType[] = [
                         path:':serviceId',
                         title: 'Service Details',
                         element: <ServiceDetails />,
+                        children: [
+                            {
+                                path:'',
+                                title: 'Service Individuals',
+                                element: <ServiceIndividuals />,
+                            },
+                            {
+                                path:'individuals',
+                                title: 'Service Individuals',
+                                element: <ServiceIndividuals />,
+                            },
+                            {
+                                path:'staffs',
+                                title: 'Service Staffs',
+                                element: <div />,
+                            },
+                            {
+                                path:'assessments',
+                                title: 'Service Assessments',
+                                element: <div />,
+                            },
+                        ]
                     },
                 ]
             },
             {
                 path:'administration',
                 element: <AdministrationOutlet />,
+                allowedRoles:['HR', 'DDP'],
                 children: [
                     {
                         path:'',
-                        title: 'Service Details',
+                        title: 'Administration Roles',
                         element: <StaffRolesList />,
                     },
+                    {
+                        path: ':roleId',
+                        title: 'Role Details',
+                        element: <StaffRoleDetails />
+                    }
                 ]
             },
         ]

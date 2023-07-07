@@ -3,15 +3,11 @@ import { successResponseType } from "src/lib/types"
 import { IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
 import { AssessmentModelType } from "../assessment/types"
 
-export interface IndividualListItemResponseType extends Omit<IndividualListItemType, 'age'> {
-    dob: string
-}
-
 export interface IndividualListResponseType extends Omit<successResponseType, 'data'> {
     data: { 
-        individuals:IndividualListItemResponseType[],
+        list:IndividualListItemType[],
         currentListPage:number
-        totalListPage:number
+        totalListPages:number
     }
 }
 
@@ -28,9 +24,9 @@ export function registerIndividualAction(payload:FormData) {
             resolve({
                 ...response,
                 data: {
-                    individuals: response.data.individuals,
+                    list: response.data.individuals,
                     currentListPage: response.data.currentListPage,
-                    totalListPage: response.data.totalListPages
+                    totalListPages: response.data.totalListPages
                 }
             })
         })
@@ -41,17 +37,17 @@ export function registerIndividualAction(payload:FormData) {
 export function fetchIndividualListAction(pageNumber:number) {
     return new Promise<IndividualListResponseType>((resolve, reject)=> {
         getFetch(`/individuals/${pageNumber}`)
-        .then((response:successResponseType)=> resolve({
-            ...response, 
-            data: { 
-                currentListPage: response.data.currentListPage,
-                totalListPage: response.data.totalListPages,
-                individuals: response.data.individuals
-            }
-        }))
-        .catch((error)=> {
-            reject(error)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response, 
+                data: { 
+                    currentListPage: response.data.currentListPage,
+                    totalListPages: response.data.totalListPages,
+                    list: response.data.individuals
+                }
+            })
         })
+        .catch((error)=> reject(error.response.data))
     })
 }
 

@@ -18,7 +18,7 @@ export default function UserProfileCard({extraStyles}:{extraStyles:string}) {
 
             <div className={styles.info}>
                 <div className={styles.name}>{capitalize(userState.details.personal.firstname)}, {capitalize(userState.details.personal.lastname)}</div>
-                <div className={styles.role}>{ capitalize(userState.details.role) }</div>
+                <div className={styles.role}>{ capitalize(userState.details.role.title) }</div>
             </div>
 
             <IconAngleDown className={styles.arrow} />

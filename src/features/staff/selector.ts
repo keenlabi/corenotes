@@ -150,7 +150,6 @@ const fetchStaffRolesSelector = selectorFamily({
             } satisfies IFetchStaffRolesList
         })
         .catch((error)=> {
-            console.log(error)
             return {
                 code: error.statusCode,
                 message: error.message,

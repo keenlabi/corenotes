@@ -3,6 +3,7 @@ import AuthRoutes from "./auth/authRoutes";
 import DashboardRoutes from "./dashboard/dashboardRoutes";
 import { routerType } from "./types";
 import ProtectedRoute from "src/routes/ProtectedRoute";
+import Authorize from "./Authorize";
 
 export default function Router() {
 
@@ -15,7 +16,16 @@ export default function Router() {
                     return  <Route
                                 key={routeItem.path}
                                 path={routeItem.path}
-                                element={routeItem.protected ?<ProtectedRoute children={routeItem.element} /> :routeItem.element}
+                                element={
+                                    routeItem.protected 
+                                    ?   <ProtectedRoute children={routeItem.element} /> 
+                                    :   routeItem.allowedRoles!
+                                        ?   <Authorize 
+                                                roles={routeItem.allowedRoles!} 
+                                                child={ routeItem.element } 
+                                            />
+                                        :   routeItem.element
+                                }
                                 children={RouteItem(routeItem)}
                             />
                 })
@@ -30,7 +40,14 @@ function RouteItem(route:routerType) {
         return  <Route 
                     key={routeItem.path}
                     path={routeItem.path}
-                    element={routeItem.element}
+                    element={
+                        routeItem.allowedRoles!
+                        ?   <Authorize 
+                                roles={routeItem.allowedRoles!} 
+                                child={ routeItem.element } 
+                            />
+                        :   routeItem.element
+                    }
                     children={ RouteItem(routeItem) }
                 />
     })

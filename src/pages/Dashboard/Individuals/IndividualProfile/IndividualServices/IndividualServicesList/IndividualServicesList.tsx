@@ -20,13 +20,13 @@ export default function IndividualServicesList() {
             ...state,
             message: individualServicesResponse.message,
             error: individualServicesResponse.error,
-            requestedServices: individualServicesResponse.individualServices
+            services: individualServicesResponse.individualServices
         }))
 
         return ()=> {
             setIndividualState(state => ({
                 ...state,
-                requestedServices: []
+                services: []
             }))
         }
 
@@ -44,7 +44,7 @@ export default function IndividualServicesList() {
             </div>
 
             <IndividualServicesListTable 
-                services={individualState.requestedServices}
+                services={individualState.services}
                 currentPage={0}
                 totalPages={0} 
                 errorMessage={"There are no services to show"} 

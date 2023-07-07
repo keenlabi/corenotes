@@ -7,8 +7,13 @@ import {ReactComponent as IconUploadDoc} from "src/assets/icons/icon-folder-plus
 
 export default function StaffProfileHeader({
     actionType, 
+    editProfileAction,
     clickAction
-}:{ actionType?:'edit-profile'|'upload-doc', clickAction?: ()=> void }) {
+}:{ 
+    actionType?:'edit-profile'|'upload-doc';
+    editProfileAction?: ()=> void;
+    clickAction?: ()=> void;
+}) {
 
     const staffState = useStaffValue();
     
@@ -28,7 +33,7 @@ export default function StaffProfileHeader({
                         extraStyle={styles.edit_profile_button}
                         label="Edit info"
                         suffixIcon={<IconEditProfile />}
-                        onClick={()=> clickAction?.()}
+                        onClick={()=> editProfileAction?.()}
                     />
                 :   actionType === 'upload-doc'
                     ?   <IconButton

@@ -1,0 +1,2 @@
+import AddServiveToCompartmentModal from "./AddServiveToCompartmentModal";
+export default AddServiveToCompartmentModal

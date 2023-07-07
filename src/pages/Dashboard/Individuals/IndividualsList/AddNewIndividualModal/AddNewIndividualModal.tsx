@@ -9,14 +9,13 @@ import JSONToFormData from "src/utils/JSONToFormData"
 import IndividualPersonalInformationForm from "./IndividualPersonalInformationForm"
 import IndividualHealthInformationForm from "./IndividualHealthInformationForm"
 import { individualInitState, useIndividualState } from "src/features/Individual/state"
-import formatIndividuals from "src/features/Individual/utils/formatIndividuals"
 import { IndividualListResponseType, registerIndividualAction } from "src/features/Individual/action"
 import SizedBox from "src/components/SizedBox"
 
 export default function AddNewIndividualModal({
     closeModal
+    
 }:{closeModal: ()=> void}) {
-
     const [individualState, setIndividualState] = useIndividualState();
 
     const [isFormValid, setIsFormValid] = useState(false)
@@ -81,7 +80,7 @@ export default function AddNewIndividualModal({
                             ...state,
                             status: 'SUCCESS',
                             message: 'New individual added successfully',
-                            list: formatIndividuals(response.data.individuals),
+                            individuals: response.data,
                             newIndividual: individualInitState.newIndividual,
                             error: false
                         }
@@ -93,7 +92,7 @@ export default function AddNewIndividualModal({
                             ...state,
                             status: 'FAILED',
                             message: error.message ?? 'There was an error creating new user',
-                            error: true
+                            error: true,
                         }
                     })
                 })
