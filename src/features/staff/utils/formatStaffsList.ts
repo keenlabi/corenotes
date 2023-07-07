@@ -14,15 +14,13 @@ export interface staffsListType {
 export default function formatStaffList(staffs:staffListType[]):staffsListType[] {
     if(!staffs.length) return []
 
-    return staffs.map((staff:staffListType)=> {
-        return {
-            id: staff.id,
-            staffId: staff.staffId,
-            profileImage:staff.profileImage,
-            fullname: `${capitalize(staff.firstname)}, ${staff.lastname.toUpperCase()}`,
-            role: staff.role,
-            phoneNumber: staff.phoneNumber,
-            lastSeen: staff.lastSeen
-        }
-    })
+    return staffs.map((staff:staffListType)=> ({
+        id: staff.id,
+        staffId: staff.staffId,
+        profileImage:staff.profileImage,
+        fullname: `${capitalize(staff.firstname)}, ${staff.lastname.toUpperCase()}`,
+        role: staff.role,
+        phoneNumber: staff.phoneNumber,
+        lastSeen: staff.lastSeen
+    }))
 }

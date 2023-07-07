@@ -25,7 +25,7 @@ export default function CreateAssessment() {
 
     const [assessmentState, setAssessmentState] = useAssessmentState();
 
-    const individualListResponse = useFetchIndividualListSelector(individualState.currentListPage);
+    const individualListResponse = useFetchIndividualListSelector(individualState.individuals.currentListPage);
 
     const assessmentCategories = useFetchAssessmentCategories();   
 
@@ -395,10 +395,10 @@ export default function CreateAssessment() {
 
                         <div className={`${styles.select_all} ${styles.selection}`}>
                             {
-                                individualState.list.map(individual => {
+                                individualState.individuals.list.map(individual => {
                                     return  <div key={individual.id} className={styles.container}>
                                                 <RadioButton
-                                                    label={`${individual.firstName} ${individual.lastName}`}
+                                                    label={`${individual.firstname} ${individual.lastname}`}
                                                     selected={assignedIndividuals.assigneesList.includes(individual.id)}
                                                     onSelect={()=> selectSpecificIndividual(individual.id)}       
                                                 />

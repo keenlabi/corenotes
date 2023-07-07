@@ -9,13 +9,20 @@ export const userInitState:userStateType = {
         // ACCOUNT INFO
         id: '',
         active: true,
-        role: '',
         lastSeen: '',
         // PERSONAL INFORMATION
         personal: {
             firstname: '',
             lastname: '',
             profileImage: ''
+        },
+        role: {
+            title: "",
+            privileges: {
+                staff_profile_view: false,
+                staff_registration: false,
+                staff_document_upload: false
+            }
         }
     },
 }

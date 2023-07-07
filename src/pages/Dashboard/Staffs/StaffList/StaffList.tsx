@@ -5,6 +5,7 @@ import { useFetchStaffListSelector } from "src/features/staff/selector";
 import { useStaffState } from "src/features/staff/state";
 import StaffListHeader from "./StaffListHeader/StaffListHeader";
 import AddNewStaffModal from "./AddNewStaffModal";
+import formatStaffList from "src/features/staff/utils/formatStaffsList";
 
 export default function StaffList() {
 
@@ -21,7 +22,9 @@ export default function StaffList() {
                     status: 'SUCCESS',
                     error: false,
                     message: staffsListResponse.message,
-                    list: staffsListResponse.staffs
+                    list: staffsListResponse.staffs.staffs,
+                    currentPage: staffsListResponse.staffs.currentPage,
+                    currentActivitiesPage: staffsListResponse.staffs.totalPages
                 }
             })
         } else {
@@ -44,7 +47,7 @@ export default function StaffList() {
             />
 
             <StaffListTable
-                staffs={staffState.list}
+                staffs={formatStaffList(staffState.list)}
                 currentPage={0} 
                 totalPages={0} 
                 goToPage={(pageNumber:number)=> console.log(pageNumber)} 

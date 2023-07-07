@@ -11,7 +11,6 @@ interface ICompartmentServiceCardProps {
 export default function CompartmentServiceCard({
     serviceId, 
     title, 
-    description,
     individualsCount
 }:ICompartmentServiceCardProps) {
     return (

@@ -9,7 +9,6 @@ import { useStaffState } from "src/features/staff/state"
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal"
 import { useState, useEffect } from "react"
 import { fetchStaffListSuccessResponseType, registerStaffAction } from "src/features/staff/actions"
-import formatStaffList from "src/features/staff/utils/formatStaffsList"
 import JSONToFormData from "src/utils/JSONToFormData"
 
 export default function AddNewStaffModal({
@@ -96,7 +95,7 @@ export default function AddNewStaffModal({
                             status: 'SUCCESS',
                             error: false,
                             message: 'Staff registered successfully',
-                            list: formatStaffList(data.staffs)
+                            list: data.staffs
                         }
                     })
                 })
