@@ -1,6 +1,5 @@
 import { selectorFamily, useRecoilValue } from "recoil";
 import {fetchStaffAction, fetchStaffActivitiesAction, fetchStaffActivitiesSuccessResponseType, fetchStaffDocumentsAction, fetchStaffDocumentsSuccessResponseType, fetchStaffListAction, fetchStaffListSuccessResponseType, fetchStaffRolesAction, fetchStaffSuccessResponseType } from "./actions";
-import formatStaffList from "./utils/formatStaffsList";
 import formatStaff from "./utils/formatStaff";
 import { staffInitState } from "./state";
 import formatStaffActivitiesList from "./utils/formatStaffActivities";
