@@ -40,7 +40,7 @@ export function fetchStaffListAction(payload:{pageNumber:number}) {
 
 export interface fetchStaffSuccessResponseType extends Omit<successResponseType, 'data'> {
     data: {
-        staff:IStaffDetails
+        staff:IStaffUser
     }
 }
 

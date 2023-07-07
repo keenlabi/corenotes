@@ -1,4 +1,4 @@
-import { selector, selectorFamily, useRecoilValue } from "recoil";
+import { selectorFamily, useRecoilValue } from "recoil";
 import { GetCompartmentsResponse, IGetCompartmentDetailsResponse, getCompartmentDetails, getCompartmentList } from "./action";
 import { compartmentInitState } from "./state";
 
