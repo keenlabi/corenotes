@@ -81,7 +81,7 @@ export const individualInitState:IndividualStateType = {
             status: 'PENDING'
         }
     },
-    requestedServices: [],
+    services: [],
 }
 
 export const IndividualAtom = atom({

@@ -1,30 +1,43 @@
 import { selectorFamily, useRecoilValue } from "recoil";
-import {fetchStaffAction, fetchStaffActivitiesAction, fetchStaffActivitiesSuccessResponseType, fetchStaffDocumentsAction, fetchStaffDocumentsSuccessResponseType, fetchStaffListAction, fetchStaffRolesAction, fetchStaffSuccessResponseType } from "./actions";
+import {fetchStaffAction, fetchStaffActivitiesAction, fetchStaffActivitiesSuccessResponseType, fetchStaffDocumentsAction, fetchStaffDocumentsSuccessResponseType, fetchStaffListAction, fetchStaffListSuccessResponseType, fetchStaffRolesAction, fetchStaffSuccessResponseType } from "./actions";
 import formatStaffList from "./utils/formatStaffsList";
 import formatStaff from "./utils/formatStaff";
 import { staffInitState } from "./state";
 import formatStaffActivitiesList from "./utils/formatStaffActivities";
 import { IStaffDetails, IStaffRole, staffStateType } from "./types";
 
+interface IFetchStaffList {
+    staffs: Pick<fetchStaffListSuccessResponseType, 'data'>['data'];
+    code:number;
+    message:string;
+    error:boolean;
+}
+
 const fetchStaffsListSelector = selectorFamily({
     key: 'fetch_staffs_list_selector',
     get: (pageNumber:number)=> async ()=> {
         return await fetchStaffListAction({pageNumber})
-        .then(({data})=> {
+        .then((response)=> {
             return {
-                staffs: formatStaffList(data.staffs),
+                staffs: response.data,
                 code: 200,
                 message: '',
                 error: false
-            }
+
+            } satisfies IFetchStaffList
         })
         .catch((error)=> {
             return {
                 code: error.code,
                 error: true,
                 message: error.message,
-                staffs: []
-            }
+                staffs: {
+                    staffs: staffInitState.list,
+                    currentPage: staffInitState.currentPage,
+                    totalPages: staffInitState.totalPages
+                }
+
+            } satisfies IFetchStaffList
         })
     }
 })

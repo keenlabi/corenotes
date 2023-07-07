@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./servicedetailsnavigation.module.css";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
-import CompartmentDetailsOutlet from "../CompartmentDetailsOutlet";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface navItemsType {
     label:string, 

@@ -1,7 +1,6 @@
 import { initStateType } from "../types";
 import { staffListType } from "./actions";
 import { staffActivityType } from "./utils/formatStaffActivities";
-import { staffsListType } from "./utils/formatStaffsList";
 
 export interface IUser {
     createdAt: string;
