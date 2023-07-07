@@ -15,18 +15,19 @@ export interface IndividualStateType extends initStateType {
         totalPages:number;
         session: AssessmentModelType;
     },
-    requestedServices:IndividualServiceListItemType[];
+    services:IndividualServiceListItemType[];
 }
 
 export interface IndividualListItemType {
-    id:string,
-    profileImage: string,
-    firstName: string,
-    lastName: string,
-    age: number,
-    gender: string,
-    medicaidNumber: string,
-    compartment: string
+    id:string;
+    individualId:number;
+    profileImage:string;
+    firstname:string;
+    lastname:string;
+    age:number;
+    gender:string;
+    medicaidNumber:string;
+    compartment:string;
 }
 
 export interface NewIndividualType {

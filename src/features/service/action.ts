@@ -118,7 +118,7 @@ export interface IGetServiceListByCategoryResponse extends successResponseType {
     }
 }
 
-export default function getServicesListByCategory(category:string, pageNumber:number) {
+export function getServicesListByCategory(category:string, pageNumber:number) {
     return new Promise<IGetServiceListByCategoryResponse>((resolve, reject)=> {
         getFetch(`/services/category/${category}/${pageNumber}`)
         .then((response)=> {

@@ -47,8 +47,8 @@ export const useFetchIndividualListSelector = (pageNumber:number)=> useRecoilVal
 
 const fetchIndividualProfileSelector = selectorFamily({
     key: 'fetch_individual_profile_selector',
-    get: (id:string)=> async ()=> {
-        return await fetchIndividualProfileAction(id)
+    get: (individualId:string)=> async ()=> {
+        return await fetchIndividualProfileAction(individualId)
         .then((response:IndividualProfileSuccessResponseType)=> {
             return {
                 individual: formatIndividual(response.data.individual),
@@ -67,7 +67,7 @@ const fetchIndividualProfileSelector = selectorFamily({
         })
     }
 })
-export const useFetchIndividualSelector = (id:string)=> useRecoilValue(fetchIndividualProfileSelector(id))
+export const useFetchIndividualSelector = (individualId:string)=> useRecoilValue(fetchIndividualProfileSelector(individualId))
 
 const fetchIndividualAssessmentSessionSelector = selectorFamily({
     key: 'fetch_assessments_details_selector',
@@ -117,7 +117,7 @@ const fetchIndividualServicesListSelector = selectorFamily({
                 code: error.statusCode,
                 message: error.message,
                 error: false,
-                individualServices: individualInitState.requestedServices
+                individualServices: individualInitState.services
                 
             } satisfies IFetchIndividualServicesList
         })

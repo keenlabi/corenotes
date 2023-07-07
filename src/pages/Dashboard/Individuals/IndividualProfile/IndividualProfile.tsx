@@ -3,7 +3,6 @@ import styles from "./individualprofile.module.css";
 import { useEffect, useState } from "react";
 import { useSetIndividualState } from "src/features/Individual/state";
 import { useFetchIndividualSelector } from "src/features/Individual/selector";
-import { IndividualProfileType } from "src/features/Individual/types";
 import IndividualProfileNavigation from "./IndividualProfileNavigation";
 
 export default function IndividualProfile() {
@@ -16,12 +15,12 @@ export default function IndividualProfile() {
         {
             label: 'Profile Information',
             path: '',
-            active: isCurrentPath('')
+            active: isCurrentPath('' || params.individualId!)
         },
         {
-            label: 'Requested services',
-            path: 'requested-services',
-            active: isCurrentPath('requested-services')
+            label: 'Services',
+            path: 'services',
+            active: isCurrentPath('services')
         },
         {
             label: 'Assessments',
@@ -68,14 +67,8 @@ export default function IndividualProfile() {
 
     const setIndividualState = useSetIndividualState();
 
-    const individualProfileResponse:{
-        code:number,
-        message:string,
-        error: boolean,
-        individual:IndividualProfileType
-
-    } = useFetchIndividualSelector(individualId!)
-
+    const individualProfileResponse = useFetchIndividualSelector(individualId!)
+ 
     useEffect(()=> {
         setIndividualState((state)=> {
             return {

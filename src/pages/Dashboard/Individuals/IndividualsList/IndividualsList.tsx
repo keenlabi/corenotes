@@ -19,7 +19,7 @@ export default function IndividualsList() {
                 ...state,
                 error: individualListResponse.error,
                 message: individualListResponse.message,
-                individuals: individualListResponse.individuals
+                individuals: individualListResponse.individuals,
             }
         })
 

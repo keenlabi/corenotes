@@ -93,7 +93,6 @@ export default function AddNewIndividualModal({
                             status: 'FAILED',
                             message: error.message ?? 'There was an error creating new user',
                             error: true,
-                            individuals: individualInitState.individuals
                         }
                     })
                 })

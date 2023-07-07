@@ -1,4 +1,5 @@
 import { initStateType } from "../types";
+import { staffListType } from "./actions";
 import { staffActivityType } from "./utils/formatStaffActivities";
 import { staffsListType } from "./utils/formatStaffsList";
 
@@ -231,7 +232,7 @@ export interface NewStaffType {
 export interface staffStateType extends initStateType {
     currentPage:number,
     totalPages:number,
-    list:staffsListType[],
+    list:staffListType[],
     details: IStaffDetails,
     currentActivitiesPage?: number,
     totalActivitiesPage?: number,

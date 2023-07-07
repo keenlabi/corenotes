@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import NoBackgroundButton from "src/components/Buttons/NoBackgroundButton/NoBackgroundButton";
 
-export default function IndividualViewProfileButton({id}:{id:string}) {
+export default function IndividualViewProfileButton({individualId}:{individualId:number}) {
     const navigate = useNavigate();
 
     return  <NoBackgroundButton 
@@ -9,6 +9,6 @@ export default function IndividualViewProfileButton({id}:{id:string}) {
                 height="30px"
                 fontSize="16px"
                 label="View profile" 
-                clickAction={()=> navigate({ pathname: id })}  
+                clickAction={()=> navigate({ pathname: `${individualId}` })}  
             />
 }

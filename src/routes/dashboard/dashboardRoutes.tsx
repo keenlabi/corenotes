@@ -98,23 +98,23 @@ const DashboardRoutes:routerType[] = [
                                 element: <IndividualProfileInformation />,
                             },
                             {
-                                path:'requested-services',
-                                title: 'Requested Services',
+                                path:'services',
+                                title: 'Services',
                                 element: <IndividualServices />,
                             },
                             {
                                 path:'assessments',
-                                title: '',
+                                title: 'Assessments',
                                 element: <IndividualAssessments />,
                             },
                             {
                                 path:'documents',
-                                title: '',
+                                title: 'Documents',
                                 element: <div />,
                             },
                             {
                                 path:'reports',
-                                title: '',
+                                title: 'Reports',
                                 element: <div />,
                             },
                         ]

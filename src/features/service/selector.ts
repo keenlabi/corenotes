@@ -1,5 +1,5 @@
 import { selectorFamily, useRecoilValue } from "recoil";
-import getServicesListByCategory, { GetServicesResponse, IGetServiceDetailsResponse, IGetServiceIndividualsResponse, IGetServiceListByCategoryResponse, getServiceDetails, getServiceIndividuals, getServicesList } from "./action";
+import { GetServicesResponse, IGetServiceDetailsResponse, IGetServiceIndividualsResponse, IGetServiceListByCategoryResponse, getServiceDetails, getServiceIndividuals, getServicesList, getServicesListByCategory } from "./action";
 import { serviceInitState } from "./state";
 
 interface IFetchServiceListType {

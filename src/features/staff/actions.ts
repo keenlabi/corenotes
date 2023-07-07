@@ -1,6 +1,6 @@
-import { getFetch, postFetch } from "src/lib/fetch"
+import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IActivity, IStaffDocument, IStaffRole, IStaffRoleDetails, IStaffUser } from "./types"
+import { IActivity, IStaffDetails, IStaffDocument, IStaffRole, IStaffRoleDetails, IStaffUser } from "./types"
 
 export interface staffListType {
     id:string;
@@ -40,7 +40,7 @@ export function fetchStaffListAction(payload:{pageNumber:number}) {
 
 export interface fetchStaffSuccessResponseType extends Omit<successResponseType, 'data'> {
     data: {
-        staff:IStaffUser
+        staff:IStaffDetails
     }
 }
 
@@ -238,6 +238,21 @@ export function fetchStaffRoleDetailsAction(roleId:string) {
                 ...response,
                 data: {
                     staffRoleDetails: response.data.staffRoleDetails
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function updateStaffProfileAction(payload:{ staffId:string, providerRole:string }) {
+    return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
+        patchFetch('/staffs/update', payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { 
+                    staff: response.data.staff,
                 }
             })
         })
