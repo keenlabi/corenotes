@@ -6,7 +6,7 @@ export default function TextField({
     return(
         <textarea 
             className={styles.text_field}
-            style={{width, height}}
+            style={{width, height, resize:'none'}}
             placeholder={placeholder}
             value={value}
             onChange={(e)=> onInput?.(e.target.value)}

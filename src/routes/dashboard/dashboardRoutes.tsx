@@ -13,7 +13,7 @@ import StaffSecurity from "src/pages/Dashboard/Staffs/StaffProfile/StaffSecurity
 import IndividualProfile from "src/pages/Dashboard/Individuals/IndividualProfile";
 import IndividualProfileInformation from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualProfileInformation";
 import IndividualAssessments from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualAssesments";
-import Assessments from "src/pages/Dashboard/Assessments/Assessments";
+import Assessments from "src/pages/Dashboard/Assessments/AssessmentsOutlet";
 import CreateAssessment from "src/pages/Dashboard/Assessments/CreateAssessment/CreateAssessment";
 import Compartments from "src/pages/Dashboard/Compartments/Compartments";
 import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList";
@@ -25,6 +25,8 @@ import AdministrationOutlet from "src/pages/Dashboard/Administration/Administrat
 import StaffRolesList from "src/pages/Dashboard/Administration/StaffRolesList";
 import StaffRoleDetails from "src/pages/Dashboard/Administration/StaffRoleDetails";
 import ServiceIndividuals from "src/pages/Dashboard/Services/ServiceDetails/ServiceIndividuals/ServiceIndividuals";
+import AssessmentsOutlet from "src/pages/Dashboard/Assessments/AssessmentsOutlet";
+import AssessmentsList from "src/pages/Dashboard/Assessments/AssessmentsList";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -122,8 +124,13 @@ const DashboardRoutes:routerType[] = [
                     {
                         path:'assessments',
                         title: 'Assessments',
-                        element: <Assessments />,
+                        element: <AssessmentsOutlet />,
                         children: [
+                            {
+                                path:'',
+                                title: 'Assessments',
+                                element: <AssessmentsList />,
+                            },
                             {
                                 path:'create',
                                 title: 'Create Assessment',

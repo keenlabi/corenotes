@@ -6,18 +6,18 @@ import { useEffect, useState } from "react";
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import TextField from "src/components/FormComponents/TextField";
 import { FaMinus } from "react-icons/fa";
-import RadioButton from "src/components/FormComponents/RadioButtonField/RadioButton";
 import { useIndividualState } from "src/features/Individual/state";
 import { useFetchIndividualListSelector } from "src/features/Individual/selector";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { AssessmentInitState, useAssessmentState } from "src/features/assessment/state";
-import { AssessmentListResponseType, createAssessmentAction } from "src/features/assessment/action";
+import { AssessmentListResponseType, ICreateAssessmentPayload, createAssessmentAction } from "src/features/assessment/action";
 import SizedBox from "src/components/SizedBox";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import { useFetchAssessmentCategories } from "src/features/assessment/selector";
 import AddQuestionCategoryModal from "./AddQuestionCategory/AddQuestionCategory";
 import AddAssessmentCategoryModal from "./AddAssessmentCategory";
+import GoBackButton from "src/components/Buttons/GoBackButton";
 
 export default function CreateAssessment() {
 
@@ -114,8 +114,36 @@ export default function CreateAssessment() {
         selectedOptionIndex: 0,
     })
 
+    const [assessmentAssignToModel, setAssessmentAssignToModel] = useState<DropDownFormData>({
+        placeholder: 'Assign to',
+        options:[
+            {
+                id:'1',
+                label:'Individuals',
+                value:'individuals'
+            },
+            {
+                id:'2',
+                label:'Service',
+                value:'service'
+            }
+        ],
+        name:'',
+        error: '',
+        selected: false,
+        selectedOptionIndex: 0,
+    })
+
     const [assignedIndividuals, setAssignedIndividuals] = useState<{
-        assigneesType:'ALL'|'SPECIFIC',
+        assigneesType:string,
+        assigneesList:Array<string>
+    }>({
+        assigneesType:assessmentState.newAssessment.assignees.assigneesType ?? 'ALL',
+        assigneesList:assessmentState.newAssessment.assignees.assigneesList ?? []
+    })
+
+    const [assignedServices, setAssignedServices] = useState<{
+        assigneesType:string,
         assigneesList:Array<string>
     }>({
         assigneesType:assessmentState.newAssessment.assignees.assigneesType ?? 'ALL',
@@ -209,6 +237,7 @@ export default function CreateAssessment() {
         if(!category.selected) return false;
         if(questionsModel.questions.filter(question => question.model.value === undefined).length) return false;
         if(!questionsModel.questions.filter(question => question.question !== '').length) return false;
+        if(!assessmentAssignToModel.selected) return false;
 
         return true;
     }
@@ -219,17 +248,31 @@ export default function CreateAssessment() {
     }
 
     function submitAssessment() {
-        const payload = {
-            title:assessmentTitle.value,
-            category: category.value?.value ?? '',
-            questions: questionsModel.questions
-            .filter(question => question.question !== '')
-            .map(question => ({ 
-                category: question.category,
-                question: question.question
-            })),
-            assignees: assignedIndividuals
+        const payload:ICreateAssessmentPayload = {
+            title:  assessmentTitle.value,
+            category:   category.value?.value ?? '',
+            questions:  questionsModel.questions
+                        .filter(question => question.question !== '')
+                        .map(question => ({ 
+                            category: question.category,
+                            question: question.question
+                        })),
+            assignedTo: assessmentAssignToModel.value!.value!,
+            assignees:{
+                assigneesType:'ALL',
+                assigneesList:[]
+            }
         }
+
+        if(payload.assignedTo === 'services') {
+            payload.assignees = assignedServices;
+        }
+
+        if(payload.assignedTo === 'individuals') {
+            payload.assignees = assignedIndividuals;
+        }
+
+        console.log(payload)
 
         setAssessmentState(state => ({
             ...state,
@@ -239,13 +282,13 @@ export default function CreateAssessment() {
         }))
 
         createAssessmentAction(payload)
-        .then(({data}:AssessmentListResponseType)=> {
+        .then((response:AssessmentListResponseType)=> {
             setAssessmentState(state => ({
                 ...state,
                 status:'SUCCESS',
                 error: false,
                 message: 'Assessment created successfully',
-                list: data.assessments,
+                list: response.data,
                 newAssessment: AssessmentInitState.newAssessment
             }))
 
@@ -273,15 +316,18 @@ export default function CreateAssessment() {
 
     return (
         <div className={styles.create_assessment}>
+
+            <GoBackButton path={"/dashboard/individuals/assessments"} />
+            
             <div className={styles.heading}>
-                <div className={styles.title}>Create assessment</div>
+                <div className={styles.section_title}>Create assessment</div>
             
                 <PrimaryTextButton
                     disabled={!isFormValid}
                     isLoading={assessmentState.status === 'LOADING'}
                     width={"20%"}
                     label={"Save"}
-                    clickAction={()=> {submitAssessment()}}
+                    clickAction={()=> submitAssessment()}
                 />
             </div>
 
@@ -320,7 +366,7 @@ export default function CreateAssessment() {
                     </div>
 
                     <div className={styles.section}>
-                        <div className={styles.section_heading}>Questions</div>
+                        <div className={styles.section_title}>Assessment questions</div>
 
                         <div className={styles.questions}>
                             {
@@ -380,9 +426,23 @@ export default function CreateAssessment() {
                             Add question
                         </div>
                     </div>
+                    
+                    <div>
+                        <div className={styles.section_title}>Assign to</div>
+                        <SizedBox height="20px" />
+                        <DropDownField
+                            label={assessmentAssignToModel.label}
+                            // placeholder={assessmentAssignToModel.placeholder}
+                            options={assessmentAssignToModel.options}
+                            selectedOptionIndex={assessmentAssignToModel.selectedOptionIndex}
+                            selected={assessmentAssignToModel.selected} 
+                            error={assessmentAssignToModel.error}
+                            onSelect={(optionIndex:number)=> selectOption(optionIndex, assessmentAssignToModel, setAssessmentAssignToModel)}
+                        />
+                    </div>
                 </FormWrapper>
 
-                <div className={styles.assignee}>
+                {/* <div className={styles.assignee}>
                     <div className={styles.title}>Individuals</div>
                     <div className={styles.selection_pane}>
                         <div className={styles.select_all}>
@@ -407,7 +467,9 @@ export default function CreateAssessment() {
                             }
                         </div>
                     </div>
-                </div>
+                </div> */}
+
+
             </div>
             
             {

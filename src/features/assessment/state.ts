@@ -5,9 +5,11 @@ export const AssessmentInitState:AssessmentStateType = {
     status: 'IDLE',
     error: false,
     message: '',
-    list: [],
-    currentListPage: 1,
-    totalListPages: 1,
+    assessments: {
+        list: [],
+        currentPage: 1,
+        totalPages: 1,
+    },
     assessmentCategories:[],
     questionCategories:[],
     newAssessment: {

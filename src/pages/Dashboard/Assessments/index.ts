@@ -1,2 +1,2 @@
-import Assessments from "./Assessments";
-export default Assessments
+import AssessmentsOutlet from "./AssessmentsOutlet";
+export default AssessmentsOutlet
