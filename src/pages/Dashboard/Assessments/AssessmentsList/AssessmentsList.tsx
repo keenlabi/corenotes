@@ -51,8 +51,7 @@ export default function AssessmentsList() {
                                             title={assessment.title}
                                             category={assessment.category} 
                                             questionsCount={assessment.questionsCount}
-                                            assignedTo={assessment.assignedTo}
-                                            openAction={()=> ({})}                         
+                                            assignedTo={assessment.assignedTo}                        
                                         />
                             })
                         :   <DataLoadingError message="There are no assessments to show" />

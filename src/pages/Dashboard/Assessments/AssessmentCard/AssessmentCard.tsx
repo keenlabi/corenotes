@@ -1,15 +1,10 @@
-import RoundedIconButton from "src/components/Buttons/RoundedIconButton";
 import styles from "./assessmentcard.module.css";
-import { FaArrowRight } from "react-icons/fa";
-import AssessmentStatusCapsule from "../../Individuals/IndividualProfile/IndividualAssesments/AssessmentSession/AssessmentStatusCapsule";
-import SizedBox from "src/components/SizedBox";
 
 interface AssessmentCardProps {
     title:string, 
     category:string, 
     questionsCount:number,
     assignedTo:string,
-    openAction:()=> void
 }
 
 export default function AssessmentCard({
@@ -17,7 +12,6 @@ export default function AssessmentCard({
     category,
     questionsCount,
     assignedTo,
-    openAction
 
 }:AssessmentCardProps) {
 

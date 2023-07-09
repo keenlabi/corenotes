@@ -116,6 +116,7 @@ export default function CreateAssessment() {
 
     const [assessmentAssignToModel, setAssessmentAssignToModel] = useState<DropDownFormData>({
         placeholder: 'Assign to',
+        name:'assign-to',
         options:[
             {
                 id:'1',
@@ -125,10 +126,9 @@ export default function CreateAssessment() {
             {
                 id:'2',
                 label:'Service',
-                value:'service'
+                value:'services'
             }
         ],
-        name:'',
         error: '',
         selected: false,
         selectedOptionIndex: 0,
@@ -178,6 +178,15 @@ export default function CreateAssessment() {
         model.selected = true;
         model.value = model.options[optionIndex];
 
+        if(model.name === 'assign-to') {
+            if(model.value.value === 'individuals') {
+                selectAllIndividuals()
+            }
+            if(model.value.value === 'services') {
+                selectAllServices()
+            }
+        }
+
         setModel({...model})
         enableButton()
     }
@@ -224,11 +233,11 @@ export default function CreateAssessment() {
         enableButton()
     }
 
-    function selectSpecificIndividual(individualId:string) {
-        setAssignedIndividuals(state => ({
-            assigneesType:'SPECIFIC',
-            assigneesList:[...state.assigneesList, individualId]
-        }))
+    function selectAllServices() {
+        setAssignedServices({
+            assigneesType:'ALL',
+            assigneesList:[]
+        })
         enableButton()
     }
 
@@ -432,7 +441,6 @@ export default function CreateAssessment() {
                         <SizedBox height="20px" />
                         <DropDownField
                             label={assessmentAssignToModel.label}
-                            // placeholder={assessmentAssignToModel.placeholder}
                             options={assessmentAssignToModel.options}
                             selectedOptionIndex={assessmentAssignToModel.selectedOptionIndex}
                             selected={assessmentAssignToModel.selected} 

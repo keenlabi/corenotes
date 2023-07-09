@@ -13,7 +13,6 @@ import StaffSecurity from "src/pages/Dashboard/Staffs/StaffProfile/StaffSecurity
 import IndividualProfile from "src/pages/Dashboard/Individuals/IndividualProfile";
 import IndividualProfileInformation from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualProfileInformation";
 import IndividualAssessments from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualAssesments";
-import Assessments from "src/pages/Dashboard/Assessments/AssessmentsOutlet";
 import CreateAssessment from "src/pages/Dashboard/Assessments/CreateAssessment/CreateAssessment";
 import Compartments from "src/pages/Dashboard/Compartments/Compartments";
 import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList";
