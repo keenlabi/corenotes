@@ -1,11 +1,13 @@
 import { selectorFamily, useRecoilValue } from "recoil"
 import { 
+    IIndividualMedicationsSuccessResponse,
     IndividualAssessmentSessionResponseType, 
     IndividualListResponseType, 
     IndividualProfileSuccessResponseType, 
     IndividualServicesSuccessResponseType, 
     fetchIndividualAssessmentSessionAction, 
     fetchIndividualListAction, 
+    fetchIndividualMedicationsAction, 
     fetchIndividualProfileAction, 
     fetchIndividualServicesAction } from "./action"
 import formatIndividual from "./utils/formatIndividual"
@@ -125,3 +127,40 @@ const fetchIndividualServicesListSelector = selectorFamily({
 })
 
 export const useFetchIndividualServicesList = (individualId:string)=> useRecoilValue(fetchIndividualServicesListSelector(individualId))
+
+interface IFetchIndividualMedicationsList {
+    medications: Pick<IIndividualMedicationsSuccessResponse, 'data'>['data'];
+    code:number;
+    message:string;
+    error:boolean;
+}
+
+const fetchIndividualMedicationsListSelector = selectorFamily({
+    key:'fetch_individual_medications_list_selector',
+    get: ({individualId, pageNumber}:{individualId:number, pageNumber:number})=> async ()=> {
+        return await fetchIndividualMedicationsAction(individualId, pageNumber)
+        .then((response)=> {
+            return {
+                message: response.message,
+                code: response.code,
+                error: false,
+                medications: response.data
+
+            } satisfies IFetchIndividualMedicationsList
+        })
+        .catch((error)=> {
+            console.log(error)
+            return {
+                code: error.statusCode,
+                message: error.message,
+                error: false,
+                medications: individualInitState.medications
+                
+            } satisfies IFetchIndividualMedicationsList
+        })
+    }
+})
+
+export const useFetchIndividualMedicationsList = (individualId:number, pageNumber:number)=> useRecoilValue(fetchIndividualMedicationsListSelector({individualId, pageNumber}))
+
+// useFetchIndividualMedicationsSelector

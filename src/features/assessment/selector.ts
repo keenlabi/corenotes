@@ -1,6 +1,7 @@
 import { selector, selectorFamily, useRecoilValue } from "recoil"
-import { AssessmentCategoriesResponseType, AssessmentListResponseType, fetchAssessmentCategoriesAction, fetchAssessmentsAction } from "./action"
+import { AssessmentCategoriesResponseType, AssessmentListResponseType, fetchAssessmentCategoriesAction, fetchAssessmentsAction, getAssessmentDetailsAction } from "./action"
 import { AssessmentInitState } from "./state";
+import { AssessmentModelType } from "./types";
 
 interface IFetchAssessments {
     assessments:Pick<AssessmentListResponseType, 'data'>['data'];
@@ -84,3 +85,36 @@ const fetchAssessmentCategoriesSelector = selector({
     }
 })
 export const useFetchAssessmentCategories = ()=> useRecoilValue(fetchAssessmentCategoriesSelector)
+
+interface IFetchAssessmentDetails {
+    assessment:AssessmentModelType;
+    message:string;
+    code:number;
+    error:boolean;
+}
+
+const fetchAssessmentDetailsSelector = selectorFamily({
+    key: 'fetch_assessment_details_selector',
+    get: (assessmentId:string)=> async ()=> {
+        return getAssessmentDetailsAction(assessmentId)
+        .then((response)=> {
+            return {
+                assessment: response.data.assessment,
+                message: response.message,
+                code: response.code,
+                error: false
+
+            } satisfies IFetchAssessmentDetails
+        })
+        .catch((error)=> {
+            return {
+                assessment: AssessmentInitState.assessmentDetails,
+                message: error.message,
+                code: error.code,
+                error: true
+
+            } satisfies IFetchAssessmentDetails
+        })
+    }
+})
+export const useFetchAssessmentDetailsResponse = (assessmentId:string)=> useRecoilValue(fetchAssessmentDetailsSelector(assessmentId))

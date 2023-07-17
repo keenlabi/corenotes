@@ -1,6 +1,6 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { AssessmentListItemType } from "./types";
+import { AssessmentListItemType, AssessmentModelType } from "./types";
 
 export interface AssessmentListResponseType extends Omit<successResponseType, 'data'> {
     data: {
@@ -54,6 +54,27 @@ export function fetchAssessmentsAction(pageNumber:number) {
         })
         .catch((error)=> reject({error}))
     })
+}
+
+export interface IGetAssessmentDetailsActionResponse extends successResponseType {
+    data:{
+        assessment:AssessmentModelType
+    }
+}
+
+export function getAssessmentDetailsAction(assessmentId:string) {
+    return new Promise<IGetAssessmentDetailsActionResponse>((resolve, reject)=> {
+        getFetch(`/assessments/details/${assessmentId}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    assessment: response.data.assessment
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    });
 }
 
 export interface AssessmentCategoriesResponseType extends Omit<successResponseType, 'data'> {

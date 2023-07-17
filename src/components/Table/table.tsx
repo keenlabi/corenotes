@@ -1,6 +1,7 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import styles from "./table.module.css";
+import DataLoadingError from "../DataLoadingError";
 
 export default function Table ({head, body, action, extraStyle, currentPage, totalPages, goToPage, emptyListMessage}:{
     head?:string[], 
@@ -141,7 +142,9 @@ export default function Table ({head, body, action, extraStyle, currentPage, tot
                         } */}
                     </div>
 
-                :   <div children={emptyListMessage} className={styles.empty_table_message} />
+                :   <div className={styles.empty_table_message}>
+                        <DataLoadingError message={emptyListMessage} />
+                    </div>
             }
         </div>
     );

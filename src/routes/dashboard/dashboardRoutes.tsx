@@ -26,6 +26,14 @@ import StaffRoleDetails from "src/pages/Dashboard/Administration/StaffRoleDetail
 import ServiceIndividuals from "src/pages/Dashboard/Services/ServiceDetails/ServiceIndividuals/ServiceIndividuals";
 import AssessmentsOutlet from "src/pages/Dashboard/Assessments/AssessmentsOutlet";
 import AssessmentsList from "src/pages/Dashboard/Assessments/AssessmentsList";
+import AssessmentDetails from "src/pages/Dashboard/Assessments/AssessmentDetails";
+import MedicationsOutlet from "src/pages/Dashboard/Medications/MedicationsOutlet";
+import MedicationsList from "src/pages/Dashboard/Medications/MedicationsList";
+import MedicationDetails from "src/pages/Dashboard/Medications/MedicationDetails";
+import IndividualMedications from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualMedications";
+import TasksOutlet from "src/pages/Dashboard/Tasks";
+import TasksList from "src/pages/Dashboard/Tasks/TasksList";
+import TaskDetails from "src/pages/Dashboard/Tasks/TaskDetails";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -34,6 +42,22 @@ const DashboardRoutes:routerType[] = [
         protected: true,
         element: <Dashboard />,
         children: [
+            {
+                path:'tasks',
+                element: <TasksOutlet />,
+                children: [
+                    {
+                        path:'',
+                        title: 'Tasks',
+                        element: <TasksList />,
+                    },
+                    {
+                        path: ':taskId',
+                        title: 'Task Details',
+                        element: <TaskDetails />
+                    }
+                ]
+            },
             {
                 path:'staffs',
                 element: <Staffs />,
@@ -104,6 +128,11 @@ const DashboardRoutes:routerType[] = [
                                 element: <IndividualServices />,
                             },
                             {
+                                path:'medications',
+                                title: 'Medications',
+                                element: <IndividualMedications />,
+                            },
+                            {
                                 path:'assessments',
                                 title: 'Assessments',
                                 element: <IndividualAssessments />,
@@ -128,7 +157,12 @@ const DashboardRoutes:routerType[] = [
                             {
                                 path:'',
                                 title: 'Assessments',
-                                element: <AssessmentsList />,
+                                element: <AssessmentsList />
+                            },
+                            {
+                                path:':assessmentId',
+                                title: 'Assessment Details',
+                                element: <AssessmentDetails />,
                             },
                             {
                                 path:'create',
@@ -186,6 +220,23 @@ const DashboardRoutes:routerType[] = [
                             },
                         ]
                     },
+                ]
+            },
+            {
+                path:'medications',
+                element: <MedicationsOutlet />,
+                allowedRoles:['HR', 'DDP', 'ADMIN'],
+                children: [
+                    {
+                        path:'',
+                        title: 'Medications List',
+                        element: <MedicationsList />,
+                    },
+                    {
+                        path: ':medicationId',
+                        title: 'Medication Details',
+                        element: <MedicationDetails />
+                    }
                 ]
             },
             {

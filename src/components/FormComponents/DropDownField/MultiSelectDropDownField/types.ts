@@ -26,5 +26,8 @@ export interface MultiSelectDropDownFormData {
     // options:MultiSelectDropDownOption[],
     options:Array<string>
     value:Array<string>,
-    info?:string
+    info?:string,
+    validated:boolean
 }
+
+export interface setMultiSelectDropDownFormData extends React.Dispatch<React.SetStateAction<MultiSelectDropDownFormData>> {}

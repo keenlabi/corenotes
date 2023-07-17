@@ -9,10 +9,10 @@ export interface AssessmentModelType {
     questions:Array<{
         id:string;
         question:string;
+        category:string;
         answer:'YES'|'NO';
         comment:string;
     }>;
-    status:string;
 }
 
 export interface AssessmentListItemType {
@@ -49,6 +49,7 @@ export interface AssessmentStateType extends initStateType {
         currentPage:number,
         totalPages:number
     },
+    assessmentDetails:AssessmentModelType;
     newAssessment:NewAssessmentType,
     assessmentCategories:{id:string, name:string}[]
     questionCategories:{id:string, name:string}[]

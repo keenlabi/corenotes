@@ -10,6 +10,13 @@ export const AssessmentInitState:AssessmentStateType = {
         currentPage: 1,
         totalPages: 1,
     },
+    assessmentDetails:{
+        id: "",
+        assessmentId: "",
+        title: "",
+        category: "",
+        questions: []
+    },
     assessmentCategories:[],
     questionCategories:[],
     newAssessment: {
