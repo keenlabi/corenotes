@@ -1,54 +1,81 @@
 .input_field_container {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
 }
 
 .input_component {
-    border: 1px solid var(--grey-accent-500);
-    border-radius: var(--radius-input-field-100);
-    height: 60px;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
+  border: 1px solid var(--grey-accent-500);
+  border-radius: var(--radius-input-field-100);
+  height: 60px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
 }
 .input_icon {
-    min-width: 45px;
-    width: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  min-width: 45px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .input {
-    height: 95%;
-    width: calc(100% - 90px);
-    flex-grow: 1;
-    margin: auto 0;
-    background: 0;
-    border: 0;
-    padding: 0;
-    padding: 0 10px;
-    outline: none;
-    font-family: 'Source Sans Pro';
-    font-size: 1rem;
-    /* border: 1px solid; */
+  height: 95%;
+  width: calc(100% - 90px);
+  flex-grow: 1;
+  margin: auto 0;
+  background: 0;
+  border: 0;
+  padding: 0;
+  padding: 0 10px;
+  outline: none;
+  font-family: "Source Sans Pro";
+  font-size: 1rem;
+}
+.input::-webkit-input-placeholder {
+  color: var(--grey-accent-900);
+  font-size: 1rem;
+}
+.input::-moz-placeholder {
+  color: var(--grey-accent-900);
+  font-size: 1rem;
+}
+.input:-ms-input-placeholder {
+  color: var(--grey-accent-900);
+  font-size: 1rem;
+}
+.input::-ms-input-placeholder {
+  color: var(--grey-accent-900);
+  font-size: 1rem;
 }
 .input::placeholder {
-    color: var(--grey-accent-900);
-    font-size: 1rem;
+  color: var(--grey-accent-900);
+  font-size: 1rem;
 }
 .input_component.disabled,
 .input_component.disabled input {
-    background-color: var(--grey-accent-200);
+  background-color: var(--grey-accent-200);
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-    color: rgba(0, 0, 0, 0);
-    opacity: 1;
-    display: block;
-    background: url("src/assets/icons/icon-calendar.svg") no-repeat;
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background: url("src/assets/icons/icon-calendar.svg") no-repeat;
+  width: 20px;
+  height: 20px;
+  border-width: thin;
+}
+
+@media screen and (max-width: 414px) {
+  .input_component {
+    height: 50px;
+  }
+
+  .input_icon {
+    min-width: 20px;
     width: 20px;
-    height: 20px;
-    border-width: thin;
+    padding: 0.8em;
+  }
 }

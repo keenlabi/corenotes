@@ -1,33 +1,33 @@
 .header {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .heading {
-    margin-left: 5%;
-    font-weight: 600;
-    font-size: 2rem;
+  margin-left: 5%;
+  font-weight: 600;
+  font-size: 2rem;
 }
 .back_btn {
-    font-size: 2rem;
-    cursor: pointer;
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 .priviledges {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 .section_title {
-    font-size: 1.5rem;
-    font-weight: 500;
-} 
+  font-size: 1.5rem;
+  font-weight: 500;
+}
 
 .group_title {
-    text-transform: capitalize;
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 2% 0;
+  text-transform: capitalize;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 2% 0;
 }
 .privilege {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--grey-accent-900);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--grey-accent-900);
 }

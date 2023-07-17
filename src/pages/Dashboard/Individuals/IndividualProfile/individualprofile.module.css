@@ -1,19 +1,19 @@
 .staff_profile {
-    width: 90%;
-    margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 }
 .heading {
-    font-size: 28px;
-    font-weight: 600;
-    margin-top: 2%;
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 2%;
 }
 
 .main {
-    margin-top: 5%;
-    box-shadow: var(--shadow-container-100);
-    border-radius: 16px;
-    background: white;
+  margin-top: 5%;
+  box-shadow: var(--shadow-container-100);
+  border-radius: 16px;
+  background: white;
 }
 .content {
-    padding: 5% 10%;
+  padding: 5% 10%;
 }
