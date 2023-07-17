@@ -63,6 +63,8 @@
     --absolute-z-index-modal: 0;
 
     --absolute-z-index-dropdown: 100;
+
+    --mobile-dashboard-navbar-header-height: 60px;
 }
 
 html {

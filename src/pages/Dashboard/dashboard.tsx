@@ -11,6 +11,7 @@ import {ReactComponent as iconSettings} from "src/assets/icons/icon-setting.svg"
 import { NavOptionsType } from "src/components/Navigation/types.ts";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import PageHeader from "./components/PageHeader";
+import MobileSidebar from "src/components/Navigation/MobileSidebar";
 
 export default function Dashboard() {
 
@@ -139,6 +140,11 @@ export default function Dashboard() {
                 <Sidebar 
                     navOptions={NavOptions} 
                     navigateTo={setActiveNavPosition} 
+                />
+
+                <MobileSidebar 
+                    navOptions={NavOptions}
+                    navigateTo={setActiveNavPosition}
                 />
                 
                 <div className={styles.main}>
