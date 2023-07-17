@@ -44,14 +44,14 @@ export default function AssessmentsList() {
                 <GridList columnCount={2}>
                     {
                         assessmentState.assessments.list.length
-                        ?   assessmentState.assessments.list.map( (assessment, index) => {
-                                console.log(assessment.id, index)
+                        ?   assessmentState.assessments.list.map( (assessment) => {
                                 return  <AssessmentCard
-                                            key={assessment.id + index}
+                                            key={assessment.id}
                                             title={assessment.title}
                                             category={assessment.category} 
                                             questionsCount={assessment.questionsCount}
-                                            assignedTo={assessment.assignedTo}                        
+                                            assignedTo={assessment.assignedTo}
+                                            path={assessment.assessmentId}                     
                                         />
                             })
                         :   <DataLoadingError message="There are no assessments to show" />
