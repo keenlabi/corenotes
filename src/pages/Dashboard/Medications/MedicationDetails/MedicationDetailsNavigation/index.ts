@@ -1,0 +1,2 @@
+import MedicationDetailsNavigation from "./MedicationDetailsNavigation";
+export default MedicationDetailsNavigation
