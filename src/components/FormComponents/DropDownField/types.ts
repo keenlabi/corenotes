@@ -15,7 +15,9 @@ export interface DropDownProps {
     relative?: boolean,
     extraStyle?: string,
     width?:string,
-    height?:string
+    height?:string,
+    bottomOffset?:string,
+    validated?:boolean
 }
 
 export interface DropDownOption {

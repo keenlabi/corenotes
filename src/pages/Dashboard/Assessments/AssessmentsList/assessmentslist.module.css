@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+.header .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.assessments_list {
+    margin-top: 50px;
+}

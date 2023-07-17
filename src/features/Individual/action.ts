@@ -1,6 +1,6 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
+import { IIndividualMedicationsListItem, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
 import { AssessmentModelType } from "../assessment/types"
 
 export interface IndividualListResponseType extends Omit<successResponseType, 'data'> {
@@ -145,6 +145,59 @@ export function addServiceToIndividualAction(individualId:string, payload:IAddSe
             resolve({
                 ...response,
                 data: { individualServices: response.data.individualServices }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface IIndividualMedicationsSuccessResponse extends Omit<successResponseType, 'data'> {
+    data: { 
+        list:IIndividualMedicationsListItem[],
+        currentPage:number
+        totalPages:number
+    }
+}
+
+export function fetchIndividualMedicationsAction(individualId:number, pageNumber:number) {
+    return new Promise<IIndividualMedicationsSuccessResponse>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/medications/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.medications 
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IAddMedicationToIndividualPayload {
+    medicationId:string;
+    schedule:{
+        startDate:string;
+        frequency:string;
+        frequencyAttr:number;
+        time:string;
+    },
+    amountAllocated:number;
+}
+
+export function addMedicationToIndividualAction(individualId:number, payload:IAddMedicationToIndividualPayload) {
+    return new Promise<IIndividualMedicationsSuccessResponse>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/medications`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.medications 
+                }
             })
         })
         .catch((error)=> reject(error))

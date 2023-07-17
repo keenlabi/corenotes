@@ -1,0 +1,45 @@
+.assessment_card {
+    box-shadow: var(--shadow-card-100);
+    background: white;
+    width: 460px;
+    padding: 32px;
+
+    border-left: 3px solid var(--blue-accent-200);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.category {
+    background: var(--grey-accent-200-b);
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    border-radius: 1000px;
+    padding: 10px;
+    text-align: center;
+    width: max-content;
+    font-weight: 600;
+}
+
+.title {
+    text-transform: capitalize;
+    font-size: 2rem;
+    margin-top: 10px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.questions_count {
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-top: 16px;
+}
+
+.assigned_to {
+    color: var(--dark-blue-faded-accent-200);
+    text-transform: capitalize;
+    font-size: 1rem;
+    margin-top: 16px;
+}

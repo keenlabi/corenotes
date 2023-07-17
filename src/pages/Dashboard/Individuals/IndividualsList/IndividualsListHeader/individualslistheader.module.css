@@ -8,3 +8,14 @@
     font-weight: 600;
     margin-right: auto;
 }
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.nav_link {
+    color: var(--dark-blue-accent-200);
+    font-weight: 400;
+    font-size: 1.1rem;
+}

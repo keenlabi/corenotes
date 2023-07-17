@@ -1,0 +1,15 @@
+.tasks_list_header {
+    display: flex;
+    align-items: center;
+}
+.heading {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+}
+.number_of_tasks {
+    font-weight: 600;
+}
+.actions {
+    margin-left: auto;
+}

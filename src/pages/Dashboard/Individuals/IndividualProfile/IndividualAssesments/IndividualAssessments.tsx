@@ -1,6 +1,5 @@
 import SizedBox from "src/components/SizedBox"
 import IndividualProfileHeader from "../IndividualProfileHeader"
-import AssessmentsList from "./AssessmentsList/AssessmentsList"
 import styles from "./individualassessments.module.css"
 
 export default function IndividualAssessments () {
@@ -9,7 +8,7 @@ export default function IndividualAssessments () {
         <div className={styles.individual_assessments}>
             <IndividualProfileHeader />
             <SizedBox height={"50px"} />
-            <AssessmentsList />
+            {/* <AssessmentsList /> */}
         </div>
     )
 }

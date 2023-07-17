@@ -21,12 +21,12 @@ export default function MultiSelectDropDownField({
     onSelect
 }: MultiSelectDropDownProps) {
 
-    const [localOptions, setLocalOptions] = useState(options.map((option, index:number) => ({ 
-        id:index.toString(), 
-        label: option, 
-        value:option.toLowerCase().split(' ').join('-'),
-        selected: false
-    })))
+    const [localOptions, setLocalOptions] = useState<Array<{
+        id:string;
+        label:string; 
+        value:string;
+        selected:boolean;
+    }>> ([])
 
     const [selectedOptions, setSelectedOptions] = useState<{label:Array<string>, value:Array<string>}>({
         label:[],
@@ -38,7 +38,18 @@ export default function MultiSelectDropDownField({
     useEffect(()=> {
         if(selectedOptions.label.length) setSelected(true);
         else setSelected(false);
-    }, [selectedOptions])
+
+        if(!localOptions.length) {
+            setLocalOptions(() => (options.map((option, index:number) => ({ 
+                    id:index.toString(),
+                    label: option,
+                    value:option.toLowerCase().split(' ').join('-'),
+                    selected: false
+                })
+            )))
+        }
+
+    }, [localOptions.length, options, selectedOptions])
 
     const domNode = useClickOutside(()=> {
         setIsOpen(false);
@@ -157,10 +168,14 @@ export default function MultiSelectDropDownField({
                     :   null
                 }
             </div>
-            <div className={styles.info}>
-                <IconInfo className={styles.info_icon} />
-                <div className={styles.message}>{info}</div>
-            </div>
+            {
+                info
+                ?   <div className={styles.info}>
+                        <IconInfo className={styles.info_icon} />
+                        <div className={styles.message}>{info}</div>
+                    </div>
+                :   null
+            }
             <FormInputError message={error} />
         </div>
     );

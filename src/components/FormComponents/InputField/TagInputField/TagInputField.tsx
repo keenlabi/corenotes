@@ -4,6 +4,17 @@ import { formFieldType, setFormFieldType } from "../../FormWrapper/types";
 import styles from "./taginputfield.module.css"
 import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel.svg";
 
+export interface ITagsInputFormData {
+    name:string;
+    label?:string;
+    placeholder:string;
+    value:Array<string>;
+    error:string;
+    validated:boolean;
+}
+
+export interface ISetTagsInputFormData extends React.Dispatch<React.SetStateAction<ITagsInputFormData>> {}
+
 export default function TagInputField({
     label, placeholder, value, error, onTagAdded
 }:{label:string, placeholder:string, value:Array<string>, error:string, onTagAdded:(tags:Array<string>)=> void}) {
@@ -37,7 +48,7 @@ export default function TagInputField({
             updatedModel.validated = false
             return
         }
-
+        
         updatedModel.error = ''
         updatedModel.validated = true
         return
@@ -50,7 +61,6 @@ export default function TagInputField({
             setTags(tags => ([tagInputModel.value, ...tags]))
         }
         onTagAdded([tagInputModel.value, ...tags])
-    
     }
 
     function deleteTag(tagToRemove:string) {
@@ -58,7 +68,7 @@ export default function TagInputField({
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <InputField 
                 type={tagInputModel.type}
                 label={tagInputModel.label}
@@ -69,16 +79,20 @@ export default function TagInputField({
                 onInput={(value:string)=> setInput(value, tagInputModel, setTagInputModel)}
             />
 
-            <div className={styles.tags}>
-                {
-                    tags.map(tag => (
-                        <div key={tag} className={styles.tag} onClick={()=> deleteTag(tag)}>
-                            <div className={styles.text}>{tag}</div>
-                            <IconCancel />
-                        </div>
-                    ))
-                }
-            </div>
+            {
+                tags.length
+                ?   <div className={styles.tags}>
+                        {
+                            tags.map(tag => (
+                                <div key={tag} className={styles.tag} onClick={()=> deleteTag(tag)}>
+                                    <div className={styles.text}>{tag}</div>
+                                    <IconCancel />
+                                </div>
+                            ))
+                        }
+                    </div>
+                :   null
+            }
         </div>
     )
 }

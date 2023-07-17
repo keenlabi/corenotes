@@ -1,33 +1,54 @@
 import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { AssessmentModelType } from "./types"
+import { AssessmentListItemType, AssessmentModelType } from "./types";
 
 export interface AssessmentListResponseType extends Omit<successResponseType, 'data'> {
     data: {
-        assessments: AssessmentModelType[],
-        currentListPage: string,
-        totalListPage: string
+        list:AssessmentListItemType[];
+        currentPage:number;
+        totalPages:number;
     }
 }
 
-export function createAssessmentAction(payload: {
+export interface ICreateAssessmentPayload {
     title:string,
     category:string,
     questions:Array<{category:string, question:string}>,
-    assignees: {
-        assigneesType:'ALL'|'SPECIFIC',
+    assignedTo:string,
+    assignees:{
+        assigneesType:string,
         assigneesList:Array<string>
     }
-}) {
+}
+
+export function createAssessmentAction(payload:ICreateAssessmentPayload) {
     return new Promise<AssessmentListResponseType>((resolve, reject)=> {
         postFetch('/assessments', payload)
         .then((response:successResponseType)=> {
             resolve({
                 ...response,
                 data: {
-                    assessments: response.data.assessments,
-                    currentListPage: response.data.currentListPage,
-                    totalListPage: response.data.totalListPages
+                    list: response.data.assessments,
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function fetchAssessmentsAction(pageNumber:number) {
+    return new Promise<AssessmentListResponseType>((resolve, reject)=> {
+        getFetch(`/assessments/${pageNumber}`)
+        .then((response:successResponseType)=> {
+            
+            resolve({
+                ...response,
+                data: {
+                    list: response.data.assessments,
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages
                 }
             })
         })
@@ -35,22 +56,25 @@ export function createAssessmentAction(payload: {
     })
 }
 
-export function fetchAssessmentsAction({pageNumber, individualId}:{pageNumber:number, individualId:string}) {
-    return new Promise<AssessmentListResponseType>((resolve, reject)=> {
-        getFetch(`/assessments/${individualId}/${pageNumber}`)
-        .then((response:successResponseType)=> {
-            
+export interface IGetAssessmentDetailsActionResponse extends successResponseType {
+    data:{
+        assessment:AssessmentModelType
+    }
+}
+
+export function getAssessmentDetailsAction(assessmentId:string) {
+    return new Promise<IGetAssessmentDetailsActionResponse>((resolve, reject)=> {
+        getFetch(`/assessments/details/${assessmentId}`)
+        .then((response)=> {
             resolve({
                 ...response,
                 data: {
-                    assessments: response.data.assessments,
-                    currentListPage: response.data.currentListPage,
-                    totalListPage: response.data.totalListPages
+                    assessment: response.data.assessment
                 }
             })
         })
-        .catch((error)=> reject({error}))
-    })
+        .catch((error)=> reject(error))
+    });
 }
 
 export interface AssessmentCategoriesResponseType extends Omit<successResponseType, 'data'> {
