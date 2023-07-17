@@ -16,6 +16,11 @@ export interface IndividualStateType extends initStateType {
         session: AssessmentModelType;
     },
     services:IndividualServiceListItemType[];
+    medications: {
+        list:Array<IIndividualMedicationsListItem>;
+        currentPage:number,
+        totalPages:number
+    }
 }
 
 export interface IndividualListItemType {
@@ -151,6 +156,20 @@ export interface IndividualServiceListItemType {
     category:string;
     startDate:string;
     // createdAt:string
+}
+
+export interface IIndividualMedicationsListItem {
+    id:string;
+    medicationId:string;
+    name:string;
+    strength:string;
+    amount:{
+        current:number;
+        allocated:number;
+        administered:number;
+    },
+    frequency:string;
+    time:string;
 }
 
 // export interface IndividualAssessmentType {

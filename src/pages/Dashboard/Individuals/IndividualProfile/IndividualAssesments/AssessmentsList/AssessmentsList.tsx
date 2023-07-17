@@ -2,7 +2,7 @@ import styles from "./assessmentslist.module.css";
 import { useFetchAssessmentsListSelector } from "src/features/assessment/selector";
 import { useEffect, useState } from "react";
 import { useIndividualState } from "src/features/Individual/state";
-import AssessmentCard from "./AssessmentCard";
+import AssessmentCard from "../../../../Assessments/AssessmentCard";
 import GridList from "src/components/GridList/GridList";
 import AssessmentSession from "../AssessmentSession/AssessmentSession";
 

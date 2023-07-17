@@ -78,10 +78,15 @@ export const individualInitState:IndividualStateType = {
             title: '',
             category: '',
             questions: [],
-            status: 'PENDING'
+            assessmentId: ""
         }
     },
     services: [],
+    medications: {
+        list:[],
+        currentPage:1,
+        totalPages:1
+    }
 }
 
 export const IndividualAtom = atom({

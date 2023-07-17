@@ -1,0 +1,67 @@
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.button {
+    width: max-content;
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    padding: 5px 15px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+.green_button {
+    background-color: var(--green-accent-100);
+}
+.red_button {
+    background-color: rgb(217, 62, 62);
+}
+
+.title {
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+}
+.todo {
+    border-radius: 100px;
+    background: var(--blue-accent-100);
+    color: white;
+    width: max-content;
+    padding: 3px 20px;
+}
+
+.desc {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.medication {
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+.desc .info {
+    display: flex;
+    gap: 1rem;
+}
+.info .label {
+    width: 100px;
+}
+
+.item {
+    font-weight: 500;
+    font-size: 15px;
+    padding: 3px 10px;
+    text-transform: capitalize;
+    border-radius: 1000px;
+    background-color: var(--blue-accent-200);
+    width: fit-content;
+    color: white;
+}
+.indications {
+    display: flex;
+    gap: 1rem;
+}

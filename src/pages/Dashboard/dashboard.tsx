@@ -11,6 +11,7 @@ import {ReactComponent as iconSettings} from "src/assets/icons/icon-setting.svg"
 import { NavOptionsType } from "src/components/Navigation/types.ts";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import PageHeader from "./components/PageHeader";
+import MobileSidebar from "src/components/Navigation/MobileSidebar";
 
 export default function Dashboard() {
 
@@ -33,6 +34,16 @@ export default function Dashboard() {
             icon: iconOverview,
             activeIcon: iconOverview,
             active: isCurrentNav(['/dashboard', '/dashboard/']),
+            roles: ['HR', 'DSP', 'CNA', 'RN', 'DDP', 'SUPRT_COR', 'TEAM_LEAD_CNA', 'HOME_MAN', 'ADMIN_ASS', 'ADMIN']
+        },
+        {
+            label: "tasks",
+            pageTitle: "tasks",
+            pageSubtitle: "",
+            path: "/dashboard/tasks",
+            icon: iconOverview,
+            activeIcon: iconOverview,
+            active: isCurrentNav(['/dashboard/tasks']),
             roles: ['HR', 'DSP', 'CNA', 'RN', 'DDP', 'SUPRT_COR', 'TEAM_LEAD_CNA', 'HOME_MAN', 'ADMIN_ASS', 'ADMIN']
         },
         {
@@ -63,6 +74,16 @@ export default function Dashboard() {
             icon: iconFlag,
             activeIcon: iconFlag,
             active: isCurrentNav(['/dashboard/compartments']),
+            roles: ['HR', 'DDP', 'ADMIN']
+        },
+        {
+            label: "Medications",
+            pageTitle: "Medications",
+            pageSubtitle: "",
+            path: "/dashboard/medications",
+            icon: iconFlag,
+            activeIcon: iconFlag,
+            active: isCurrentNav(['/dashboard/medications']),
             roles: ['HR', 'DDP', 'ADMIN']
         },
         {
@@ -119,6 +140,11 @@ export default function Dashboard() {
                 <Sidebar 
                     navOptions={NavOptions} 
                     navigateTo={setActiveNavPosition} 
+                />
+
+                <MobileSidebar 
+                    navOptions={NavOptions}
+                    navigateTo={setActiveNavPosition}
                 />
                 
                 <div className={styles.main}>

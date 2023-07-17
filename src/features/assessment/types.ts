@@ -2,16 +2,30 @@ import { initStateType } from "../types"
 
 // Type for response data from api
 export interface AssessmentModelType {
-    id:string,
+    id:string;
+    assessmentId:string;
     title:string
-    category:string,
+    category:string;
     questions:Array<{
-        id:string,
-        question:string,
-        answer:'YES'|'NO',
-        comment:string
-    }>,
-    status:string
+        id:string;
+        question:string;
+        category:string;
+        answer:'YES'|'NO';
+        comment:string;
+    }>;
+}
+
+export interface AssessmentListItemType {
+    id:string;
+    assessmentId:string;
+    title:string;
+    category:string;
+    questionsCount:number;
+    assignedTo:string;
+    assignees: {
+        assigneesType:string;
+        assigneesList:Array<string>;
+    };
 }
 
 // Type for creating new assessment
@@ -30,9 +44,12 @@ export interface NewAssessmentType {
 
 // Type for the assessment state object
 export interface AssessmentStateType extends initStateType {
-    list:AssessmentModelType[],
-    currentListPage:number,
-    totalListPages:number,
+    assessments:{
+        list:AssessmentListItemType[],
+        currentPage:number,
+        totalPages:number
+    },
+    assessmentDetails:AssessmentModelType;
     newAssessment:NewAssessmentType,
     assessmentCategories:{id:string, name:string}[]
     questionCategories:{id:string, name:string}[]
