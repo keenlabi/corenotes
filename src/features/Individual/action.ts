@@ -203,3 +203,25 @@ export function addMedicationToIndividualAction(individualId:number, payload:IAd
         .catch((error)=> reject(error))
     })
 }
+
+interface IAllocateMedicationPillsPayload {
+    medicationId:string;
+    newAmountAllocated:number;
+}
+
+export function addNewAllocationAction(individualId:number, payload:IAllocateMedicationPillsPayload) {
+    return new Promise<IIndividualMedicationsSuccessResponse>((resolve, reject)=> {
+        patchFetch(`/individuals/${individualId}/medications/pills-allocation`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.medications 
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}

@@ -1,0 +1,76 @@
+.individual_medication_review {
+    padding-bottom: 5%;
+    position: relative;
+}
+.header {
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    border-bottom: 1px solid var(--grey-accent-400);
+    height: 80px;
+    color: var(--black-accent-100);
+}
+.heading {
+    font-weight: 600;
+    font-size: 22px;
+}
+.icon_cancel {
+    margin-left: auto;
+}
+
+.body {
+    width: 90%;
+    margin: 5% auto;
+}
+.title {
+    font-weight: 700;
+    font-size: 22px;
+}
+.schedule {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.schedule > div {
+    font-weight: 700;
+    color: var(--blue-accent-100);
+    padding: 5px 10px;
+    background: var(--grey-accent-300);
+    border-radius: 30px;
+    height: max-content;
+    width: max-content;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+}
+
+.pills_count {
+    display: flex;
+    margin-left: auto;
+    gap: 2rem;
+}
+.pills_count > div {
+    display: flex;
+    flex-direction: column;
+}
+.pills_count .digit {
+    font-weight: 800;
+    font-size: 3rem;
+}
+.pills_count .label {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.action_buttons {
+    border-top: 1px solid var(--grey-accent-400);
+    background: white;
+    margin-top: 5%;
+    bottom: 0;
+    padding: 20px 5% 0;
+    gap: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+

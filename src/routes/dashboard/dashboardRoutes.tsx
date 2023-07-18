@@ -130,7 +130,7 @@ const DashboardRoutes:routerType[] = [
                             {
                                 path:'medications',
                                 title: 'Medications',
-                                element: <IndividualMedications />,
+                                element: <IndividualMedications />
                             },
                             {
                                 path:'assessments',

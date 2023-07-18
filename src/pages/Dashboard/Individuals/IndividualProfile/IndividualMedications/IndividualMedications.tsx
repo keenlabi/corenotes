@@ -36,6 +36,7 @@ export default function IndividualMedications() {
                     </Suspense>
                 :   null
             }
+
         </div>
     )
 }
