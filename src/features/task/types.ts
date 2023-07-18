@@ -38,6 +38,7 @@ export interface ITaskDetails {
         strength:string;
         route:string;
         indications:Array<string>;
+        amountLeft:number;
     };
     individual:{
         firstname:string;

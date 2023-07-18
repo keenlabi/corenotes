@@ -1,3 +1,9 @@
+.content {
+    display: flex;
+}
+.details {
+    width: 60%;
+}
 .actions {
     display: flex;
     gap: 0.5rem;
@@ -64,4 +70,11 @@
 .indications {
     display: flex;
     gap: 1rem;
+}
+
+.med_actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 40%;
 }

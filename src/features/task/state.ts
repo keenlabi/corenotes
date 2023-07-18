@@ -1,5 +1,6 @@
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { SetterOrUpdater, atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { ITaskState } from "./types";
+import { InitState } from "../state";
 
 export const taskInitState:ITaskState = {
     status: 'IDLE',
@@ -36,3 +37,10 @@ export const TaskState = atom({
 export const useTaskSetState = ()=> useSetRecoilState(TaskState);
 export const useTaskStateValue = ()=> useRecoilValue(TaskState);
 export const useTaskState = ()=> useRecoilState(TaskState);
+
+export function resetTaskState(setState:SetterOrUpdater<ITaskState>) {
+    setState(state => ({
+        ...state,
+        ...InitState
+    }))
+}

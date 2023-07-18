@@ -1,4 +1,4 @@
-import { getFetch } from "src/lib/fetch"
+import { getFetch, patchFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { ITask, ITaskDetails } from "./types";
 
@@ -34,15 +34,46 @@ export interface IFetchTaskDetailsResponse extends Omit<successResponseType, 'da
     }
 }
 
-export function fetchTaskDetailsAction(medicationId:number) {
+export function fetchTaskDetailsAction(taskId:number) {
     return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
-        getFetch(`/tasks/${medicationId}/details`)
+        getFetch(`/tasks/${taskId}/details`)
         .then((response)=> {
             resolve({
                 ...response,
                 data: {
                     task: response.data.task,
                 }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IAdministerMedTask {
+    amountAdministered:number;
+    amountLeft:number;
+}
+
+export function administerMedTaskAction(taskId:string, payload:IAdministerMedTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        patchFetch(`/tasks/${taskId}/administer`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function delineMedAdministrationTaskAction(taskId:string) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        patchFetch(`/tasks/${taskId}/decline`, {})
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
             })
         })
         .catch((error)=> reject(error))
