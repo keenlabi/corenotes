@@ -10,3 +10,12 @@
   background-color: var(--teal-accent-100);
   color: #ffffff;
 }
+
+@media screen and (max-width: 414px) {
+  .image {
+    border-radius: 50%;
+  }
+  .image_placeholder {
+    border-radius: 50%;
+  }
+}

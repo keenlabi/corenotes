@@ -29,3 +29,38 @@
   margin-top: 20vh;
   text-align: center;
 }
+
+@media screen and (max-width: 414px) {
+  .staff_profile {
+    width: 100%;
+    position: absolute;
+    padding: 0 5px !important;
+    box-sizing: border-box;
+    background: white;
+    margin-top: var(--mobile-dashboard-navbar-header-height);
+  }
+
+  .heading {
+    font-size: 24px;
+    font-weight: 600;
+    display: inline;
+    margin: 20px;
+  }
+
+  .back_button {
+    display: inline;
+    top: 10px;
+    transform: translateY(25%);
+  }
+
+  .content {
+    padding: 5%;
+    /* border: 1px solid red; */
+  }
+
+  .main {
+    box-shadow: none;
+    /* background-color: green; */
+    border-radius: 0;
+  }
+}

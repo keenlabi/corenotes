@@ -1,1 +1,14 @@
+@media screen and (max-width: 414px) {
+  .staffs {
+    /* border: 1px solid green; */
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
+  .staffs > div {
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 20px;
+  }
+}

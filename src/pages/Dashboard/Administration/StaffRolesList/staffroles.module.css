@@ -1,5 +1,5 @@
-.staff_offices_list {
-}
+/* .staff_offices_list {
+} */
 .heading {
   display: flex;
   align-items: center;
@@ -8,4 +8,11 @@
 .title {
   font-weight: 600;
   font-size: 1.2rem;
+}
+
+@media screen and (max-width: 414px) {
+  .heading {
+    padding: 5px 0;
+    margin-bottom: 10px;
+  }
 }

@@ -11,6 +11,9 @@
 }
 
 @media screen and (max-width: 414px) {
+  .staff_list_header {
+    padding: 15px;
+  }
   .heading {
     font-size: 1.1rem;
   }

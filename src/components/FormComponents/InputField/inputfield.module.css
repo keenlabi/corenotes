@@ -78,4 +78,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 20px;
     padding: 0.8em;
   }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url("src/assets/icons/icon-calendar.svg") no-repeat;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+  }
 }

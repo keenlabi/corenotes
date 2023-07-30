@@ -17,3 +17,37 @@
 .content {
   padding: 5% 10%;
 }
+
+@media screen and (max-width: 414px) {
+  .staff_profile {
+    margin-top: 15px;
+    width: 100%;
+    position: absolute;
+    padding: 0 10px;
+    width: 100vw;
+    box-sizing: border-box;
+    background: white;
+    margin-top: var(--mobile-dashboard-navbar-header-height);
+  }
+
+  .heading {
+    font-size: 24px;
+    font-weight: 600;
+    display: inline;
+    margin: 20px;
+  }
+
+  .back_button {
+    display: inline;
+    top: 10px;
+    transform: translateY(25%);
+  }
+
+  .content {
+    padding: 5% 5%;
+  }
+
+  .main {
+    box-shadow: none;
+  }
+}
