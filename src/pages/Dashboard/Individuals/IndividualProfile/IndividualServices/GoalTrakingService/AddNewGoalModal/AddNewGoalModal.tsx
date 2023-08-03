@@ -22,6 +22,7 @@ export default function AddNewGoalModal({ closeModal }:{ closeModal:()=> void })
     const [goalObjModel, setGoalObjModel] = useState<formFieldType>({
         type: "text",
         placeholder: "Goal objective",
+        value:"",
         error: "",
         validated: false
     })
