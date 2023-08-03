@@ -1,0 +1,32 @@
+.user_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+tbody td {
+    color: var(--black-accent-200);
+    font-weight: 400;
+}
+
+.name, 
+.strength, 
+.med_type,
+.category,
+.current_amount,
+.bar_code {
+    text-transform: capitalize;
+}
+
+.name {
+    color: var(--black-accent-100);
+    font-weight: 600;
+}
+.compartment {
+    text-transform: capitalize;
+}

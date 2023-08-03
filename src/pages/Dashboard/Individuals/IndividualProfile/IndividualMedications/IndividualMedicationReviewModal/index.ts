@@ -1,0 +1,2 @@
+import IndividualMedicationReviewModal from "./IndividualMedicationReviewModal";
+export default IndividualMedicationReviewModal;

@@ -1,7 +1,7 @@
 import SizedBox from "src/components/SizedBox"
 import IndividualProfileHeader from "../IndividualProfileHeader"
-import AssessmentsList from "./AssessmentsList/AssessmentsList"
 import styles from "./individualassessments.module.css"
+import AssessmentsList from "./AssessmentsList"
 
 export default function IndividualAssessments () {
 

@@ -17,6 +17,7 @@
     --grey-accent-100-a: #FEFEFE;
     --grey-accent-100-b: #F3F3F3;
     --grey-accent-200: #f5f5f5;
+    --grey-accent-200-b: #E0E0E0;
     --grey-accent-300: #EDEDED;
     --grey-accent-400: rgba(230, 230, 230, 0.957);
     --grey-accent-500: #C5C5C5;
@@ -32,7 +33,7 @@
 
     /* black pallete */
     --black-accent-100: #212121;
-    --black-accent-200: #4F4F4F;
+    --black-accent-200: #4F4F4F;    
 
     /* green pallete */
     --green-accent-100: #388909;
@@ -62,6 +63,8 @@
     --absolute-z-index-modal: 0;
 
     --absolute-z-index-dropdown: 100;
+
+    --mobile-dashboard-navbar-header-height: 60px;
 }
 
 html {

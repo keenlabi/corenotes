@@ -2,6 +2,7 @@ import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { ServiceDetails, ServicesListItemType } from "./types"
 import { IndividualListItemType } from "../Individual/types"
+import { IFetchMedicationListResponse } from "../medication/action"
 
 export interface GetServicesResponse extends successResponseType {
     data: {
@@ -134,3 +135,21 @@ export function getServicesListByCategory(category:string, pageNumber:number) {
         .catch((error)=> reject(error))
     })
 }
+
+
+// export function fetchMedicationsListAction(pageNumber:number) {
+//     return new Promise<IFetchMedicationListResponse>((resolve, reject)=> {
+//         getFetch(`/services/${serviceObjectId}/medications/${pageNumber}`)
+//         .then((response)=> {
+//             resolve({
+//                 ...response,
+//                 data: { 
+//                     list: response.data.medications,
+//                     currentPage: response.data.currentPage,
+//                     totalPages: response.data.totalPages
+//                 }
+//             })
+//         })
+//         .catch((error)=> reject(error))
+//     })
+// }

@@ -4,7 +4,7 @@ import FormLabel from "../FormLabel";
 import { useEffect, useState } from "react";
 
 interface inputFieldType {
-    type?:"text" | "number" | "password" | "date",
+    type?:"text" | "number" | "password" | "date" | "time",
     label?:string,
     placeholder?:string,
     value?:string,
@@ -38,10 +38,10 @@ export default function InputField({
     onEnterKeyPressed
 }:inputFieldType) {
 
-    const [internalType, setInternalType] = useState<string>(type === "date" || type === 'text' ?'text' :type!);
+    const [internalType, setInternalType] = useState<string>(type === "date" || type === "time" || type === 'text' ?'text' :type!);
 
     useEffect(()=> {
-        if(internalType !== type) setInternalType(type === "date" || type === 'text' ?'text' :type!)
+        if(internalType !== type) setInternalType(type === "date" || type === "time"  || type === 'text' ?'text' :type!)
     }, [internalType, type])
 
     function handleKeyDown(e:any) {
@@ -53,7 +53,7 @@ export default function InputField({
     return (
         <div className={`${styles.input_field_container}`} style={{width:inputContainer}}>
             <FormLabel text={label ?? ""} />
-
+            
             <div 
                 className={`${extraInputContainerStyle} ${styles.input_component} ${readonly ?styles.disabled :null}`}
             >
@@ -72,10 +72,22 @@ export default function InputField({
                     type={internalType}
                     className={`${styles.input}`}
                     placeholder={placeholder}
-                    // value={value}
+                    value={value}
                     readOnly={readonly}
-                    onFocus={()=> { type === 'date' ?setInternalType('date') :null}}
-                    onBlur={()=> { (type === 'date' && !value) ?setInternalType('text') :null}}
+                    onFocus={()=> { 
+                        type === 'date' 
+                        ?   setInternalType('date') 
+                        :   type === 'time'
+                            ?   setInternalType('time')
+                            :   null
+                    }}
+                    onBlur={()=> { 
+                        type === 'date' 
+                        ?   setInternalType('text') 
+                        :   type === 'time'
+                            ?   setInternalType('text')
+                            :   null
+                    }}
                     onChange={(e)=> onInput?.(e.target.value)}
                     onKeyDown={handleKeyDown}
                 />

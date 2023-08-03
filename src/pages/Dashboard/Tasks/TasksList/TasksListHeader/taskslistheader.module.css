@@ -1,0 +1,73 @@
+.tasks_list_header {
+    display: flex;
+    flex-direction: column;
+}
+.task_categories {
+    display: flex;
+    height: 30px;
+    gap: 1rem;
+}
+.task_category {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    width: max-content;
+    padding: 5px 10px;
+    color: var(--grey-accent-800);
+    cursor: pointer;
+}
+.active_category {
+    border-radius: 10px;
+    background-color: var(--dark-blue-faded-accent-100);
+    color: var(--blue-accent-100);
+}
+.cat_label {
+    font-size: 1.2rem;
+    text-transform: capitalize;
+}
+
+
+.task_list_sub_header {
+    display: flex;
+    align-items: center;
+}
+.heading {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+}
+.number_of_tasks {
+    font-weight: 600;
+}
+.actions {
+    margin-left: auto;
+    display: flex;
+    gap: 1rem;
+}
+.open_barcode_scanner_btn,
+.administer_prn  {
+    overflow: hidden;
+    border-radius: 5px;
+    
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    gap: 0.5rem;
+    background: var(--blue-accent-100);
+    cursor: pointer;
+}   
+.open_barcode_scanner_btn svg,
+.btn_icon {
+    width: 25px;
+    height: 25px;
+    fill: white;
+}
+.open_barcode_scanner_btn svg path {
+    fill: white;
+}
+.open_barcode_scanner_btn .label,
+.administer_prn .label {
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 600;
+}

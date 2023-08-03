@@ -23,6 +23,11 @@ export default function IndividualProfile() {
             active: isCurrentPath('services')
         },
         {
+            label: 'Medications',
+            path: 'medications',
+            active: isCurrentPath('medications')
+        },
+        {
             label: 'Assessments',
             path: 'assessments',
             active: isCurrentPath('assessments')

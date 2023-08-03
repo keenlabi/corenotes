@@ -1,0 +1,8 @@
+.tasks_list_page {
+    
+}
+.tasks_list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

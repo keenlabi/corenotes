@@ -1,4 +1,4 @@
-import { AssessmentModelType } from "../assessment/types";
+import { AssessmentListItemType, AssessmentModelType } from "../assessment/types";
 import { initStateType } from "../types";
 
 export interface IndividualStateType extends initStateType {
@@ -10,12 +10,29 @@ export interface IndividualStateType extends initStateType {
     newIndividual:NewIndividualType;
     profile: IndividualProfileType;
     assessments: {
-        list: AssessmentModelType[];
+        list: AssessmentListItemType[];
         currentPage:number;
         totalPages:number;
-        session: AssessmentModelType;
+        session: IAssessmentSession;
     },
     services:IndividualServiceListItemType[];
+    medications: {
+        list:Array<IIndividualMedicationsListItem>;
+        currentPage:number,
+        totalPages:number
+    },
+    supervisoryMedicationReviews:{
+        medicationId:string;
+        lastMonthReviewed?:number;
+        list: ISupervisoryMedicationReviews[];
+        currentPage:number;
+        totalPages:number;
+    };
+    goalServices:{
+        list:IGoalService[];
+        currentPage:number;
+        totalPages:number;
+    }
 }
 
 export interface IndividualListItemType {
@@ -150,18 +167,61 @@ export interface IndividualServiceListItemType {
     title:string;
     category:string;
     startDate:string;
+    time:string;
+    frequency:string;
     // createdAt:string
 }
 
-// export interface IndividualAssessmentType {
-//     id:string,
-//     assessmentId:string,
-//     status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
-//     questions:Array<{
-//         id:string,
-//         question:string,
-//         answer:'YES'|'NO',
-//         comment:string
-//     }>,
-//     createdAt:string
-// }
+export interface IIndividualMedicationsListItem {
+    id:string;
+    active:boolean;
+    medicationId:number;
+    barcode:string;
+    name:string;
+    category:string;
+    strength:string;
+    amount:{
+        current:number;
+        allocated:number;
+        administered:number;
+    },
+    frequency:string;
+    time:string;
+}
+
+export interface IAssessmentSession {
+    id:string,
+    assessmentId:string,
+    status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
+    questions:Array<{
+        id:string,
+        question:string,
+        answer:'YES'|'NO',
+        comment:string
+    }>,
+    createdAt:string
+}
+
+export interface IGoalService {
+    id:string;
+    objective:string;
+    method:string;
+    frequency:string;
+    time:string;
+    endDate:string;
+    comments:{
+        createAt:string;
+        message:string;
+    };
+}
+
+export interface ISupervisoryMedicationReviews {
+    id:string;
+    month:number;
+    signedBy:{
+        firstname:string;
+        lastname:string;
+        profilePicture:string;
+    },
+    reviewedAt:Date
+}

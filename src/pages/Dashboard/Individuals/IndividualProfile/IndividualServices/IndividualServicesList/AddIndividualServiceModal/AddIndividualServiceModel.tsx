@@ -16,6 +16,8 @@ import FormStateModal from "src/components/FormComponents/FormStateModal/FormSta
 import InputField from "src/components/FormComponents/InputField";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
 import { getAllProvidedServiceAction } from "src/features/service/action";
+import RowContainer from "src/components/Layout/RowContainer";
+import formatTime from "src/utils/formatTime";
 
 export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()=> void }) {
 
@@ -62,6 +64,60 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
         validated: false
     })
 
+    const [serviceTimeModel, setServiceTimeModel] = useState<formFieldType>({
+        type: 'time',
+        placeholder:'Time',
+        value: '',
+        error: '',
+        validated: false
+    })
+
+    const [serviceFrequencyModel, setServiceFrequencyModel] = useState<DropDownFormData>({
+        name: "service-freq",
+        placeholder: "How often?",
+        options: [
+            {
+                id:'1',
+                label:'Daily',
+                value:'daily'
+            },
+            {
+                id:'2',
+                label:'Every X Days',
+                value:'every-x-days'
+            },
+            {
+                id:'3',
+                label:'Weekly',
+                value:'weekly'
+            },
+            {
+                id:'4',
+                label:'Every X Weeks',
+                value:'every-x-weeks'
+            },
+            {
+                id:'5',
+                label:'Monthly',
+                value:'monthly'
+            },
+        ],
+        selected: false,
+        selectedOptionIndex: 0,
+        error: ""
+    })
+
+    const [serviceFrequencyAttrModel, setServiceFrequencyAttrModel] = useState<formFieldType>({
+        readonly: true,
+        type: "number",
+        label: "",
+        placeholder: "",
+        prefixIcon: <div children={"Every"} />,
+        value:'',
+        error: "",
+        validated: false
+    })
+
     function setInput(value:string, model:formFieldType, setModel:setFormFieldType) {
         model.value = value;
         model.validated = true;
@@ -73,6 +129,53 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
         model.value = model.options[optionIndex];
         model.selected = true;
         model.selectedOptionIndex = optionIndex;
+
+        if(model.name === 'requested-service') {
+            if(model.value?.label.toLowerCase().split(' ').join('-') === 'medication-administration') {
+                serviceFrequencyModel.selected = true;
+                setServiceFrequencyModel({...serviceFrequencyModel})
+
+                serviceFrequencyAttrModel.validated = true;
+                setServiceFrequencyAttrModel({...serviceFrequencyAttrModel})
+
+                serviceTimeModel.validated = true;
+                setServiceTimeModel({...serviceTimeModel})
+
+                serviceStartDateModel.validated = true;
+                setServiceStartDateModel({...serviceStartDateModel})
+
+            } else {
+                serviceFrequencyModel.selected = false;
+                setServiceFrequencyModel({...serviceFrequencyModel})
+
+                serviceFrequencyAttrModel.validated = false;
+                setServiceFrequencyAttrModel({...serviceFrequencyAttrModel})
+
+                serviceTimeModel.validated = false;
+                setServiceTimeModel({...serviceTimeModel})
+
+                serviceStartDateModel.validated = false;
+                setServiceStartDateModel({...serviceStartDateModel})
+            }
+        }
+
+        if(model.name === 'service-freq') {
+            if(model.value.value === 'every-x-days') {
+                serviceFrequencyAttrModel.readonly = false;
+                serviceFrequencyAttrModel.suffixIcon = <div className={styles.prefix_label} children={"days"} />
+            }
+            if(model.value.value === 'every-x-weeks') {
+                serviceFrequencyAttrModel.readonly = false;
+                serviceFrequencyAttrModel.suffixIcon = <div className={styles.prefix_label} children={"weeks"} />
+            }
+            if(!['every-x-weeks', 'every-x-days'].includes(model.value.value!)) {
+                serviceFrequencyAttrModel.readonly = true;
+                serviceFrequencyAttrModel.suffixIcon = undefined
+                serviceFrequencyAttrModel.error = "";
+            }
+
+            setServiceFrequencyAttrModel(serviceFrequencyAttrModel);
+        }
 
         setModel({...model});
         validateForm();
@@ -159,11 +262,26 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
             setIsFormValidated(false)
             return false;
         }
+
+        if(!serviceFrequencyModel.selected) {
+            setIsFormValidated(false)
+            return false;
+        }
+
+        if(['every-x-days', 'every-x-weeks', 'every-x-days'].includes(serviceFrequencyModel.value?.value ?? "")) {
+            if(!serviceFrequencyAttrModel.validated) {
+                setIsFormValidated(false)
+                return false;
+            }
+        }
+
         if(!requestedServiceModel.selected) {
             setIsFormValidated(false)
             return false;
         }
+
         if(!serviceStartDateModel.validated) {
+            console.log('HERE')
             setIsFormValidated(false)
             return false;
         }
@@ -174,9 +292,15 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
 
     function submitForm() {
         if(validateForm()) {
+
             const payload = {
                 serviceId: requestedServiceModel.value!.value!,
-                startDate: serviceStartDateModel.value
+                schedule: {
+                    startDate: serviceStartDateModel.value ?? "",
+                    time: formatTime(serviceTimeModel.value ?? "") ?? "",
+                    frequency: serviceFrequencyModel.value?.value ?? "",
+                    frequencyAttr: parseInt(serviceFrequencyAttrModel.value ?? "")
+                }
             }
 
             setIndividualState(state => ({
@@ -258,15 +382,51 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
                         error={requestedServiceModel.error}
                         onSelect={(optionIndex:number)=> selectOption(optionIndex, requestedServiceModel, setRequestedServiceModel)}
                     />
+                {
+                    requestedServiceModel.value?.label.toLowerCase().split(' ').join('-') !== 'medication-administration'
+                    ?   <div>
+                            <RowContainer alignment={"top"}>
+                                <DropDownField
+                                    placeholder={serviceFrequencyModel.placeholder}
+                                    options={serviceFrequencyModel.options}
+                                    selected={serviceFrequencyModel.selected} 
+                                    selectedOptionIndex={serviceFrequencyModel.selectedOptionIndex}
+                                    error={serviceFrequencyModel.error} 
+                                    onSelect={(optionIndex: number) => selectOption(optionIndex, serviceFrequencyModel, setServiceFrequencyModel)} 
+                                />
 
-                    <InputField
-                        type={serviceStartDateModel.type}
-                        placeholder={serviceStartDateModel.placeholder}
-                        value={serviceStartDateModel.value}
-                        error={serviceStartDateModel.error}
-                        onInput={(value:string)=> setInput(value, serviceStartDateModel, setServiceStartDateModel)}
-                    />
+                                <InputField
+                                    readonly={serviceFrequencyAttrModel.readonly}
+                                    extraInputContainerStyle={styles.side_padding}
+                                    type={serviceFrequencyAttrModel.type}
+                                    placeholder={serviceFrequencyAttrModel.placeholder}
+                                    prefixIcon={serviceFrequencyAttrModel.prefixIcon}
+                                    suffixIcon={serviceFrequencyAttrModel.suffixIcon}
+                                    error={serviceFrequencyAttrModel.error}
+                                    onInput={(value:string)=> setInput(value, serviceFrequencyAttrModel, setServiceFrequencyAttrModel)}
+                                />
+                            </RowContainer>
 
+                            <RowContainer>
+                                <InputField
+                                    type={serviceStartDateModel.type}
+                                    placeholder={serviceStartDateModel.placeholder}
+                                    value={serviceStartDateModel.value}
+                                    error={serviceStartDateModel.error}
+                                    onInput={(value:string)=> setInput(value, serviceStartDateModel, setServiceStartDateModel)}
+                                />
+
+                                <InputField
+                                    type={serviceTimeModel.type}
+                                    placeholder={serviceTimeModel.placeholder}
+                                    value={serviceTimeModel.value}
+                                    error={serviceTimeModel.error}
+                                    onInput={(value:string)=> setInput(value, serviceTimeModel, setServiceTimeModel)}
+                                />
+                            </RowContainer>
+                        </div>
+                    :   null
+                }
                 </div>
 
                 <div className={styles.buttons}>

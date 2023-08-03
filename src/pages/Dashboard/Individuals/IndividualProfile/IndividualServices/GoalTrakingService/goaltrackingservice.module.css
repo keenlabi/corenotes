@@ -1,0 +1,15 @@
+.goal_tracking_service {
+
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+.title {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.actions {
+    margin-left: auto;
+}

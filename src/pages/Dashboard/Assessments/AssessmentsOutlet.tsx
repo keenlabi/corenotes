@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
-import styles from "./assessments.module.css"
+import styles from "./assessmentsoutlet.module.css"
 
-export default function Assessments() {
+export default function AssessmentsOutlet() {
     return (
         <div className={styles.assessments}>
             <Outlet />

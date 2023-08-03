@@ -1,0 +1,65 @@
+.medication_service_card {
+    border-left: 2px solid var(--blue-accent-100);
+    border-radius: 5px;
+    height: 6rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-card-100);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.in_active {
+    width: max-content;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--red-accent-faded-100);
+    color: var(--red-accent-100);
+    margin-left: auto;
+}
+.title {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--black-accent-100);
+    text-transform: capitalize;
+}
+
+.dets {
+    display: flex;
+}
+.schedule {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    gap: 5px;
+}
+.schedule > div {
+    font-weight: 700;
+    color: var(--blue-accent-100);
+    padding: 5px 10px;
+    background: var(--grey-accent-300);
+    border-radius: 30px;
+    height: max-content;
+    width: max-content;
+    text-transform: capitalize;
+}
+
+.pills_count {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+.pills_count > div {
+    display: flex;
+    flex-direction: column;
+}
+.pills_count .digit {
+    font-weight: 800;
+    font-size: 2rem;
+}
+.pills_count .label {
+    font-weight: 600;
+    font-size: 1.1rem;
+}

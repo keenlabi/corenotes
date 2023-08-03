@@ -13,7 +13,6 @@ import StaffSecurity from "src/pages/Dashboard/Staffs/StaffProfile/StaffSecurity
 import IndividualProfile from "src/pages/Dashboard/Individuals/IndividualProfile";
 import IndividualProfileInformation from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualProfileInformation";
 import IndividualAssessments from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualAssesments";
-import Assessments from "src/pages/Dashboard/Assessments/Assessments";
 import CreateAssessment from "src/pages/Dashboard/Assessments/CreateAssessment/CreateAssessment";
 import Compartments from "src/pages/Dashboard/Compartments/Compartments";
 import CompartmentsList from "src/pages/Dashboard/Compartments/CompartmentsList";
@@ -25,6 +24,18 @@ import AdministrationOutlet from "src/pages/Dashboard/Administration/Administrat
 import StaffRolesList from "src/pages/Dashboard/Administration/StaffRolesList";
 import StaffRoleDetails from "src/pages/Dashboard/Administration/StaffRoleDetails";
 import ServiceIndividuals from "src/pages/Dashboard/Services/ServiceDetails/ServiceIndividuals/ServiceIndividuals";
+import AssessmentsOutlet from "src/pages/Dashboard/Assessments/AssessmentsOutlet";
+import AssessmentsList from "src/pages/Dashboard/Assessments/AssessmentsList";
+import AssessmentDetails from "src/pages/Dashboard/Assessments/AssessmentDetails";
+import MedicationsOutlet from "src/pages/Dashboard/Medications/MedicationsOutlet";
+import MedicationsList from "src/pages/Dashboard/Medications/MedicationsList";
+import MedicationDetails from "src/pages/Dashboard/Medications/MedicationDetails";
+import IndividualMedications from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualMedications";
+import TasksOutlet from "src/pages/Dashboard/Tasks";
+import TasksList from "src/pages/Dashboard/Tasks/TasksList";
+import TaskDetails from "src/pages/Dashboard/Tasks/TaskDetails";
+import { Outlet } from "react-router-dom";
+import GoalTrackingService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/GoalTrakingService";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -33,6 +44,22 @@ const DashboardRoutes:routerType[] = [
         protected: true,
         element: <Dashboard />,
         children: [
+            {
+                path:'tasks',
+                element: <TasksOutlet />,
+                children: [
+                    {
+                        path:'',
+                        title: 'Tasks',
+                        element: <TasksList />,
+                    },
+                    {
+                        path: ':taskId',
+                        title: 'Task Details',
+                        element: <TaskDetails />
+                    }
+                ]
+            },
             {
                 path:'staffs',
                 element: <Staffs />,
@@ -99,8 +126,25 @@ const DashboardRoutes:routerType[] = [
                             },
                             {
                                 path:'services',
-                                title: 'Services',
-                                element: <IndividualServices />,
+                                title: '',
+                                element: <Outlet />,
+                                children: [
+                                    {
+                                        path:'',
+                                        title: 'Individual Services',
+                                        element: <IndividualServices />,
+                                    },
+                                    {
+                                        path:'goal-tracking',
+                                        title: 'Goal Tracking Service',
+                                        element: <GoalTrackingService />,
+                                    },
+                                ]
+                            },
+                            {
+                                path:'medications',
+                                title: 'Medications',
+                                element: <IndividualMedications />
                             },
                             {
                                 path:'assessments',
@@ -122,8 +166,18 @@ const DashboardRoutes:routerType[] = [
                     {
                         path:'assessments',
                         title: 'Assessments',
-                        element: <Assessments />,
+                        element: <AssessmentsOutlet />,
                         children: [
+                            {
+                                path:'',
+                                title: 'Assessments',
+                                element: <AssessmentsList />
+                            },
+                            {
+                                path:':assessmentId',
+                                title: 'Assessment Details',
+                                element: <AssessmentDetails />,
+                            },
                             {
                                 path:'create',
                                 title: 'Create Assessment',
@@ -180,6 +234,23 @@ const DashboardRoutes:routerType[] = [
                             },
                         ]
                     },
+                ]
+            },
+            {
+                path:'medications',
+                element: <MedicationsOutlet />,
+                allowedRoles:['HR', 'DDP', 'ADMIN'],
+                children: [
+                    {
+                        path:'',
+                        title: 'Medications List',
+                        element: <MedicationsList />,
+                    },
+                    {
+                        path: ':medicationId',
+                        title: 'Medication Details',
+                        element: <MedicationDetails />
+                    }
                 ]
             },
             {

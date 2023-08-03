@@ -19,7 +19,8 @@ export default function DropDownField({
     relative,
     extraStyle,
     width,
-    height
+    height,
+    bottomOffset
 }: DropDownProps) {
 
     useEffect(()=> {
@@ -54,10 +55,11 @@ export default function DropDownField({
     return (
         <div style={{width}} className={`${extraStyle} ${styles.container}`} ref={domNode}>
             <FormLabel text={label ?? ""} />
-            <div style={{height}} className={`
+            <div 
+                style={{ height, marginBottom: isOpen ?relative ?bottomOffset :undefined :undefined }} 
+                className={`
                     ${styles.display}
                     ${isOpen ?styles.is_open :null}
-                    ${isOpen ?relative ?styles.bottom_offset :null :null}
                     ${error ?styles.field_error :null}
                     ${!options.length ?styles.disable_dropdown :null}
                 `}
@@ -92,20 +94,20 @@ export default function DropDownField({
                                 ?   filteredOptions.map((option, index:number)=> {
                                         if(option.type === 'action-option' && options.length === 1) {
                                             return  <div 
-                                                key={index} 
-                                                className={styles.action_option} 
-                                            >
-                                                <div 
-                                                    className={`
-                                                        ${(searchKeyword) ?null : styles.disabled_btn}
-                                                        ${styles.action_option_btn}
-                                                    `}
-                                                    onClick={()=> action?.(searchKeyword)}
-                                                >
-                                                    { option.actionIcon }
-                                                    { option.label }
-                                                </div>
-                                            </div>         
+                                                        key={index} 
+                                                        className={styles.action_option} 
+                                                    >
+                                                        <div 
+                                                            className={`
+                                                                ${(searchKeyword) ?null : styles.disabled_btn}
+                                                                ${styles.action_option_btn}
+                                                            `}
+                                                            onClick={()=> action?.(searchKeyword)}
+                                                        >
+                                                            { option.actionIcon }
+                                                            { option.label }
+                                                        </div>
+                                                    </div>         
                                         } 
                                         
                                         

@@ -1,0 +1,15 @@
+.data_loading_error {
+    display: flex;
+    gap: 1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--grey-accent-900);
+
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.icon path {
+    stroke: var(--grey-accent-900);
+}

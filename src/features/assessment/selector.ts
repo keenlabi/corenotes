@@ -1,29 +1,65 @@
 import { selector, selectorFamily, useRecoilValue } from "recoil"
-import { AssessmentCategoriesResponseType, AssessmentListResponseType, fetchAssessmentCategoriesAction, fetchAssessmentsAction } from "./action"
+import { AssessmentCategoriesResponseType, AssessmentListResponseType, fetchAssessmentCategoriesAction, fetchAssessmentsAction, getAssessmentDetailsAction } from "./action"
+import { AssessmentInitState } from "./state";
+import { AssessmentModelType } from "./types";
+
+interface IFetchAssessments {
+    assessments:Pick<AssessmentListResponseType, 'data'>['data'];
+    message:string;
+    code:number;
+    error:boolean;
+}
 
 const fetchAssessmentsListSelector = selectorFamily({
     key: 'fetch_assessments_list_selector',
-    get: (payload:{pageNumber:number, individualId:string})=> async ()=> {
-        return await fetchAssessmentsAction(payload)
-        .then(({data}:AssessmentListResponseType)=> {
+    get: ({ pageNumber, individualId }:{ pageNumber:number, individualId:string })=> async ()=> {
+        return await fetchAssessmentsAction(pageNumber, individualId)
+        .then((response:AssessmentListResponseType)=> {
             return {
-                assessments: data.assessments,
-                code: 200,
-                message: '',
+                assessments: response.data,
+                code: response.code,
+                message: response.message,
                 error: false
-            }
+
+            } satisfies IFetchAssessments
         })
         .catch((error)=> {
             return {
+                assessments: AssessmentInitState.assessments,
                 code: error.code,
-                error: true,
                 message: error.message,
-                assessments: []
-            }
+                error: true,
+
+            } satisfies IFetchAssessments
         })
     }
 })
 export const useFetchAssessmentsListSelector = (pageNumber:number, individualId:string)=> useRecoilValue(fetchAssessmentsListSelector({pageNumber, individualId}))
+
+
+// const fetchAssessmentsListSelector = selectorFamily({
+//     key: 'fetch_assessments_list_selector',
+//     get: (payload:{pageNumber:number, individualId:string})=> async ()=> {
+//         return await fetchAssessmentsAction(payload)
+//         .then(({data}:AssessmentListResponseType)=> {
+//             return {
+//                 assessments: data.assessments,
+//                 code: 200,
+//                 message: '',
+//                 error: false
+//             }
+//         })
+//         .catch((error)=> {
+//             return {
+//                 code: error.code,
+//                 error: true,
+//                 message: error.message,
+//                 assessments: []
+//             }
+//         })
+//     }
+// })
+// export const useFetchAssessmentsListSelector = (pageNumber:number, individualId:string)=> useRecoilValue(fetchAssessmentsListSelector({pageNumber, individualId}))
 
 const fetchAssessmentCategoriesSelector = selector({
     key: 'fetch_assessments_category_selector',
@@ -49,3 +85,36 @@ const fetchAssessmentCategoriesSelector = selector({
     }
 })
 export const useFetchAssessmentCategories = ()=> useRecoilValue(fetchAssessmentCategoriesSelector)
+
+interface IFetchAssessmentDetails {
+    assessment:AssessmentModelType;
+    message:string;
+    code:number;
+    error:boolean;
+}
+
+const fetchAssessmentDetailsSelector = selectorFamily({
+    key: 'fetch_assessment_details_selector',
+    get: (assessmentId:string)=> async ()=> {
+        return getAssessmentDetailsAction(assessmentId)
+        .then((response)=> {
+            return {
+                assessment: response.data.assessment,
+                message: response.message,
+                code: response.code,
+                error: false
+
+            } satisfies IFetchAssessmentDetails
+        })
+        .catch((error)=> {
+            return {
+                assessment: AssessmentInitState.assessmentDetails,
+                message: error.message,
+                code: error.code,
+                error: true
+
+            } satisfies IFetchAssessmentDetails
+        })
+    }
+})
+export const useFetchAssessmentDetailsResponse = (assessmentId:string)=> useRecoilValue(fetchAssessmentDetailsSelector(assessmentId))

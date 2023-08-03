@@ -1,17 +1,18 @@
 export interface formFieldType {
-    type?:"text" | "number" | "password" | "date",
+    type?:"text" | "number" | "password" | "date" | "time",
     optional?:boolean,
     name?:string,
     label?: string,
     placeholder?: string,
-    value: string,
+    value?: string,
     error: string,
     validated: boolean,
     prefixIcon?: JSX.Element,
     suffixIcon?: JSX.Element,
     suffixIconAlt?: JSX.Element,
     readonly?: boolean,
-    file?:File
+    file?:File,
+    image?:Blob|MediaSource
 }
 
 export interface setFormFieldType extends React.Dispatch<React.SetStateAction<formFieldType>> {}
@@ -23,3 +24,4 @@ export interface formStateType {
 
 export interface setFormStateType extends React.Dispatch<React.SetStateAction<formStateType>> {}
 
+export 
