@@ -1,4 +1,4 @@
-import { AssessmentListItemType, AssessmentModelType } from "../assessment/types";
+import { AssessmentListItemType } from "../assessment/types";
 import { initStateType } from "../types";
 
 export interface IndividualStateType extends initStateType {
@@ -191,6 +191,7 @@ export interface IIndividualMedicationsListItem {
 
 export interface IAssessmentSession {
     id:string,
+    title:string;
     assessmentId:string,
     status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
     questions:Array<{

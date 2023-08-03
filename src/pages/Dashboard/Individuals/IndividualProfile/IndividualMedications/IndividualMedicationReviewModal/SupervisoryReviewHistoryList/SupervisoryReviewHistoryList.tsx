@@ -9,10 +9,7 @@ import GoBackButton from "src/components/Buttons/GoBackButton";
 export default function SupervisoryReviewHistoryList({ closeHistory }:{closeHistory:()=> void}) {
     
     const individualState = useIndividualStateValue();
-
-    const months = ['january', 'feburary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-
-    
+        
     return (
         <div className={styles.supervisory_review_history}>
 

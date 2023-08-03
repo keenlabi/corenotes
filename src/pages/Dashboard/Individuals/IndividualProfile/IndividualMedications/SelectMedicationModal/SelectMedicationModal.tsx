@@ -309,7 +309,7 @@ export default function SelectMedicationModal({ individualId, individualMedicati
             }
 
             administerPRNMedicationToIndividualAction(individualId!, payload)
-            .then((response)=> {
+            .then(()=> {
                 setIndividualState(state => ({
                     ...state,
                     status: "SUCCESS",
@@ -317,7 +317,7 @@ export default function SelectMedicationModal({ individualId, individualMedicati
                     message: "PRN medication administered to individual successfully"
                 }))
             })
-            .catch((error)=> {
+            .catch(()=> {
                 setIndividualState(state => ({
                     ...state,
                     status: "FAILED",

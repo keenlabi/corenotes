@@ -6,7 +6,6 @@ import { useFetchMedicationDetailsSelector } from "src/features/medication/selec
 import GoBackButton from "src/components/Buttons/GoBackButton";
 import SizedBox from "src/components/SizedBox";
 import AddMedicationToServiceModal from "./AddMedicationToServiceModal/AddMedicationToServiceModal";
-import MedicationBarcode from "../../Individuals/IndividualProfile/IndividualMedications/IndividualMedicationBarcode";
 
 export default function MedicationDetails() {
     
