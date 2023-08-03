@@ -65,7 +65,6 @@ export default function TasksList() {
                 isScannerVisible
                 ?   <MedicationCodeScannerModal 
                         close={()=> setIsScannerVisible(false)}
-                        action={()=> ({})} 
                     />
                 :   null
             }

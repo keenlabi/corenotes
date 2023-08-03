@@ -1,4 +1,4 @@
-export default function convertBase64toBlob(b64Data:string, contentType='') {
+export default function convertBase64toBlob(b64Data:string) {
     return new Promise<Blob>((resolve, reject)=> {
         fetch(b64Data)
         .then((res)=> resolve(res.blob()))

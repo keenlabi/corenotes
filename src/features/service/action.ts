@@ -2,7 +2,6 @@ import { getFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { ServiceDetails, ServicesListItemType } from "./types"
 import { IndividualListItemType } from "../Individual/types"
-import { IFetchMedicationListResponse } from "../medication/action"
 
 export interface GetServicesResponse extends successResponseType {
     data: {

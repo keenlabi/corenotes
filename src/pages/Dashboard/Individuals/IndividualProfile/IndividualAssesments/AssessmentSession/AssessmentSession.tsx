@@ -29,6 +29,7 @@ export default function AssessmentSession({
                     assessments: {
                         ...state.assessments,
                         session: {
+                            ...assessmentSession.assessmentDetails,
                             id: assessmentSession.assessmentDetails.id,
                             title: assessmentSession.assessmentDetails.title,
                             category: assessmentSession.assessmentDetails.category,

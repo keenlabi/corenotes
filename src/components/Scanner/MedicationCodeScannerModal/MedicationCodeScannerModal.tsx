@@ -1,5 +1,5 @@
 import styles from "./medicationcodescannermodal.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg"
 import RoundedIconButton from "src/components/Buttons/RoundedIconButton";
 import { FaAngleRight } from "react-icons/fa";
@@ -9,7 +9,7 @@ import FormStateModal from "src/components/FormComponents/FormStateModal/FormSta
 import { resetTaskState, useTaskState } from "src/features/task/state";
 import QRCodeScanner from "../BarcodeScanner/QRCodeScanner";
 
-export default function MedicationCodeScannerModal({ close, action }:{ close:()=> void, action:(code:any)=> void}) {
+export default function MedicationCodeScannerModal({ close }:{ close:()=> void}) {
 
     const navigate = useNavigate();
 
@@ -17,17 +17,7 @@ export default function MedicationCodeScannerModal({ close, action }:{ close:()=
 
     const cameraSpaceRef = useRef<HTMLDivElement>(null);
 
-    const [screenHeight, setScreenHeight] = useState(window.screen.height);
-    
-    const [screenWidth, setScreenWidth] = useState(window.screen.width);
-
     const [extractedCode, setExtractedCode] = useState('');
-
-    useEffect(()=> {
-        const cameraSectionDiv = document.getElementById('camera-section')
-        setScreenHeight(cameraSectionDiv!.offsetHeight)
-        setScreenWidth(cameraSectionDiv!.offsetWidth)
-    }, [])
 
     function extractCode (code:string) {
         setExtractedCode(code)
@@ -40,7 +30,6 @@ export default function MedicationCodeScannerModal({ close, action }:{ close:()=
                 navigate({ pathname: response.data.task.taskId.toString() })
             })
             .catch((error)=> {
-                console.log(error)
                 setTaskState(state => ({
                     ...state,
                     status: 'FAILED',

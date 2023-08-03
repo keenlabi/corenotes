@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { useFetchServicesList } from "src/features/service/selector";
-import { useStaffState } from "src/features/staff/state";
+import { useStaffValue } from "src/features/staff/state";
 import { addMedicationToServiceAction } from "src/features/medication/action";
 
 export default function AddMedicationToServiceModal({ 
@@ -18,7 +18,7 @@ export default function AddMedicationToServiceModal({
 
     const params = useParams();
 
-    const [staffState, setStaffState] = useStaffState();
+    const staffState = useStaffValue();
 
     const [medicationState, setMedicationState] = useMedicationState();
 

@@ -1,6 +1,4 @@
-import { AssessmentModelType } from "src/features/assessment/types";
-
-export default function formatAssessmentSession(assessmentSession:AssessmentModelType) {
+export default function formatAssessmentSession(assessmentSession:any) {
     if(!assessmentSession) return assessmentSession;
 
     return ({
