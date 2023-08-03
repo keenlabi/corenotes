@@ -77,8 +77,8 @@ export default function Dashboard() {
             roles: ['HR', 'DDP', 'ADMIN']
         },
         {
-            label: "Medications",
-            pageTitle: "Medications",
+            label: "Med Catalogue",
+            pageTitle: "Medications Catalogue",
             pageSubtitle: "",
             path: "/dashboard/medications",
             icon: iconFlag,
@@ -135,25 +135,25 @@ export default function Dashboard() {
 
     }, [activeNavPosition, location])
 
-        return (
-            <div className={styles.body}>
-                <Sidebar 
-                    navOptions={NavOptions} 
-                    navigateTo={setActiveNavPosition} 
-                />
+    return (
+        <div className={styles.body}>
+            <Sidebar 
+                navOptions={NavOptions} 
+                navigateTo={setActiveNavPosition} 
+            />
 
-                <MobileSidebar 
-                    navOptions={NavOptions}
-                    navigateTo={setActiveNavPosition}
-                />
+            <MobileSidebar 
+                navOptions={NavOptions}
+                navigateTo={setActiveNavPosition}
+            />
+            
+            <div className={styles.main}>
+                <PageHeader />
                 
-                <div className={styles.main}>
-                    <PageHeader />
-                    
-                    <Suspense fallback={<ComponentLoader />}>
-                        <Outlet />
-                    </Suspense>
-                </div>
+                <Suspense fallback={<ComponentLoader />}>
+                    <Outlet />
+                </Suspense>
             </div>
-        )
+        </div>
+    )
 }

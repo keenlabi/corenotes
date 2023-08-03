@@ -1,0 +1,8 @@
+.print_text_button {
+    background: var(--green-faded-accent-100);
+    color: var(--green-accent-100);
+    width: max-content;
+    padding: 3px 15px;
+    border-radius: 1000px;
+    cursor: pointer;
+}

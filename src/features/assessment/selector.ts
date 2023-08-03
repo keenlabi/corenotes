@@ -12,8 +12,8 @@ interface IFetchAssessments {
 
 const fetchAssessmentsListSelector = selectorFamily({
     key: 'fetch_assessments_list_selector',
-    get: (pageNumber:number)=> async ()=> {
-        return await fetchAssessmentsAction(pageNumber)
+    get: ({ pageNumber, individualId }:{ pageNumber:number, individualId:string })=> async ()=> {
+        return await fetchAssessmentsAction(pageNumber, individualId)
         .then((response:AssessmentListResponseType)=> {
             return {
                 assessments: response.data,
@@ -34,7 +34,7 @@ const fetchAssessmentsListSelector = selectorFamily({
         })
     }
 })
-export const useFetchAssessmentsListSelector = (pageNumber:number)=> useRecoilValue(fetchAssessmentsListSelector(pageNumber))
+export const useFetchAssessmentsListSelector = (pageNumber:number, individualId:string)=> useRecoilValue(fetchAssessmentsListSelector({pageNumber, individualId}))
 
 
 // const fetchAssessmentsListSelector = selectorFamily({

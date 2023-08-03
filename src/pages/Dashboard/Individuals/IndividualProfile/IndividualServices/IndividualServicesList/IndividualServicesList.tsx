@@ -16,6 +16,7 @@ export default function IndividualServicesList() {
     const individualServicesResponse = useFetchIndividualServicesList(individualId!)
 
     useEffect(()=> {
+        console.log(individualServicesResponse.individualServices)
         setIndividualState(state => ({
             ...state,
             message: individualServicesResponse.message,

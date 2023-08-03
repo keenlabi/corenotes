@@ -6,6 +6,7 @@ import UserImage from "src/components/ImageComponent/UserImage";
 
 interface ITaskCardProps {
     taskId:number;
+    status:string;
     service:string;
     description:string;
     individual:{
@@ -21,6 +22,7 @@ interface ITaskCardProps {
 
 export default function TaskCard({
     taskId,
+    status,
     description,
     service,
     individual,
@@ -40,16 +42,19 @@ export default function TaskCard({
                 </div>
 
                 <div className={styles.individual}>
-                    <div className={styles.image}>
-                        { UserImage(individual.profileImage, individual.firstname, "25px") }
-                    </div>
+                    <UserImage 
+                        imageUrl={individual.profileImage}
+                        fullname={individual.firstname}
+                        size={"25px"}
+                    />
+
                     <div className={styles.name}>
                         { individual.firstname + ' ' + individual.lastname }
                     </div>
                 </div>
             </div>
 
-            <div className={`${styles.status} ${styles.todo}`}>Todo</div>
+            <div className={`${styles.status} ${styles.todo}`}> { status } </div>
         </Link>
     )
 }

@@ -7,6 +7,7 @@ interface AssessmentCardProps {
     questionsCount:number;
     assignedTo:string;
     path?:string;
+    openAction?:()=> void
 }
 
 export default function AssessmentCard({
@@ -14,7 +15,8 @@ export default function AssessmentCard({
     category,
     questionsCount,
     assignedTo,
-    path
+    path,
+    openAction
 
 }:AssessmentCardProps) {
     return (

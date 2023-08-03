@@ -10,7 +10,7 @@ export default function AssessmentsList() {
 
     const [individualState, setIndividualState] = useIndividualState();
 
-    const assessmentsResponse = useFetchAssessmentsListSelector(individualState.assessments.currentPage, individualState.profile.id || '')
+    const assessmentsResponse = useFetchAssessmentsListSelector(individualState.assessments.currentPage, individualState.profile.id)
 
     useEffect(()=> {
         if(!assessmentsResponse.error) {
@@ -18,7 +18,7 @@ export default function AssessmentsList() {
                 ...state,
                 assessments: {
                     ...state.assessments,
-                    list: assessmentsResponse.assessments,
+                    list: assessmentsResponse.assessments.list,
                     currentPage: 1,
                     totalPages: 1
                 }
@@ -40,19 +40,19 @@ export default function AssessmentsList() {
 
     function toggleTakeAssessmentModal(assessmentId:string) {
         if(individualState.assessments.session.id !== assessmentId) {
-            setIndividualState(state => ({
-                ...state,
-                assessments:{
-                    ...state.assessments,
-                    session: {
-                        id: assessmentId,
-                        status:'',
-                        questions:[],
-                        category:'',
-                        title:''
-                    }
-                }
-            }))
+            // setIndividualState(state => ({
+            //     ...state,
+            //     assessments:{
+            //         ...state.assessments,
+            //         session: {
+            //             id: assessmentId,
+            //             status: "IN-PROGRESS",
+            //             questions:,
+            //             category:'',
+            //             title:''
+            //         }
+            //     }
+            // }))
         }
         setIsAssessmentModalVisible(!isAssessmentModalVisible)
     }
@@ -67,9 +67,9 @@ export default function AssessmentsList() {
                                     key={assessment.id}
                                     category={assessment.category}
                                     title={assessment.title}
-                                    questionsCount={assessment.questions.length}
-                                    status={assessment.status}
-                                    openAction={()=> toggleTakeAssessmentModal(assessment.id)}
+                                    questionsCount={assessment.questionsCount}
+                                    openAction={() => toggleTakeAssessmentModal(assessment.id)} 
+                                    assignedTo={""}
                                 />
                     })
                 }

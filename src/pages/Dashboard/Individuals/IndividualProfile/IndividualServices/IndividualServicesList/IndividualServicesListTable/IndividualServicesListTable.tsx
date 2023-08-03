@@ -22,6 +22,8 @@ export default function IndividualServicesListTable({
     const tableHead = [
         'Title',
         'Category',
+        'Frequency',
+        'Time',
         'Start date'
     ]
 
@@ -41,15 +43,17 @@ export default function IndividualServicesListTable({
     }, [services])
 
     function formatTransactionsTable (services:IndividualServiceListItemType[]) {
-        return services.map((service, index)=> {
+        return services.map((service)=> {
             return  [
                 {
-                    rowKey: `service.id_${index}`,
+                    rowKey: `${service.title.toLowerCase().split(" ").join("-")}`,
                     actionEvent: 'row_click',
-                    target:'blank_page'
+                    target:'new_page'
                 },
                 <div className={styles.title}>{capitalize(service.title)}</div>,
                 <div className={styles.compartment}>{service.category}</div>,
+                <div className={styles.start_date}>{capitalize(service.frequency)}</div>,
+                <div className={styles.start_date}>{service.time}</div>,
                 <div className={styles.start_date}>{formatDate(service.startDate)}</div>,
             ]
         });

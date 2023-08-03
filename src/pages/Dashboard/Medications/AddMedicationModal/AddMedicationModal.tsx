@@ -472,15 +472,15 @@ export default function CreateMedicationModal({ closeModal }:{ closeModal:()=> v
     function submitMedicationModel() {
         if(validateForm()) {
             const payload:INewMedication = {
-                name: medNameModel.value,
-                strength: medStrengthModel.value,
+                name: medNameModel.value!,
+                strength: medStrengthModel.value!,
                 route: medRouteModel.value!.value!,
                 medType: medTypeModel.value!.value!,
                 indications: medIndicationsModel.value,
                 providers: medProvidersModel.value,
-                pharmarcy: medPharmarcyModel.value,
-                prescriber: medPrescriberModel.value,
-                instructions: medInstructionsModel.value,
+                pharmarcy: medPharmarcyModel.value!,
+                prescriber: medPrescriberModel.value!,
+                instructions: medInstructionsModel.value!,
                 category: medCategoryModel.value!.value!
             }
 

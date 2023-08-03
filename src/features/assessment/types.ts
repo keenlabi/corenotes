@@ -21,6 +21,7 @@ export interface AssessmentListItemType {
     title:string;
     category:string;
     questionsCount:number;
+    status:string;
     assignedTo:string;
     assignees: {
         assigneesType:string;

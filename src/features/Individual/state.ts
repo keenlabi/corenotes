@@ -83,9 +83,21 @@ export const individualInitState:IndividualStateType = {
     },
     services: [],
     medications: {
-        list:[],
-        currentPage:1,
-        totalPages:1
+        list: [],
+        currentPage: 1,
+        totalPages: 1
+    },
+    goalServices: {
+        list: [],
+        currentPage: 1,
+        totalPages: 1
+    },
+    supervisoryMedicationReviews: {
+        medicationId: "",
+        lastMonthReviewed: undefined,
+        list: [],
+        currentPage: 1,
+        totalPages: 1
     }
 }
 
