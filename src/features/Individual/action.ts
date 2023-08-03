@@ -87,7 +87,7 @@ export function fetchIndividualAssessmentSessionAction(assessmentId:string) {
     })
 }
 
-export function saveAssessmentSessionAction(assessmentId:string, payload:Pick<AssessmentModelType, 'questions'>) {
+export function saveAssessmentSessionAction(assessmentId:string, payload:any) {
     return new Promise<IndividualAssessmentSessionResponseType>((resolve, reject)=> {
         patchFetch(`/individuals/assessments/${assessmentId}/session`, payload)
         .then((response:successResponseType)=> {
@@ -102,7 +102,7 @@ export function saveAssessmentSessionAction(assessmentId:string, payload:Pick<As
     })
 }
 
-export function completeAssessmentSessionAction(assessmentId:string, payload:Pick<AssessmentModelType, 'questions'>) {
+export function completeAssessmentSessionAction(assessmentId:string, payload:any) {
     return new Promise<IndividualAssessmentSessionResponseType>((resolve, reject)=> {
         postFetch(`/individuals/assessments/${assessmentId}/session`, payload)
         .then((response:successResponseType)=> {

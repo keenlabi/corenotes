@@ -38,7 +38,7 @@ export function createAssessmentAction(payload:ICreateAssessmentPayload) {
     })
 }
 
-export function fetchAssessmentsAction(pageNumber:number, individualId:string) {
+export function fetchAssessmentsAction(pageNumber:number) {
     return new Promise<AssessmentListResponseType>((resolve, reject)=> {
         getFetch(`/assessments/${pageNumber}`)
         .then((response:successResponseType)=> {

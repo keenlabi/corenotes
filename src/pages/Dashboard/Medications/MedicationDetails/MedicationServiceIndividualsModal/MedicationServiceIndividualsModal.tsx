@@ -7,9 +7,6 @@ import DataLoadingError from "src/components/DataLoadingError";
 
 export default function MedicationServiceIndividualsModal({ 
     individuals,
-    currentPage,
-    totalPages,
-    message,
     closeModal
 }:{ 
     individuals:Array<IndividualListItemType>;

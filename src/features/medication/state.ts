@@ -26,7 +26,9 @@ export const medicationInitState:IMedicationState = {
             current: 0,
             startWith: 0,
             administered: 0
-        }
+        },
+        barcode: 0,
+        services: []
     }
 }
 

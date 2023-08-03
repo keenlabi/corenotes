@@ -5,13 +5,13 @@ import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
-import { useIndividualState } from "src/features/Individual/state";
+import { useIndividualStateValue } from "src/features/Individual/state";
 import SelectMedicationModal from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualMedications/SelectMedicationModal";
 import { useFetchIndividualListSelector } from "src/features/Individual/selector";
 
 export default function AddPRNMedicationModal({closeModal}:{closeModal:()=> void}) {
 
-    const [individualState, setIndividualState] = useIndividualState();
+    const individualState = useIndividualStateValue();
 
     const individualList = useFetchIndividualListSelector(individualState.individuals.currentListPage);
 
@@ -45,8 +45,6 @@ export default function AddPRNMedicationModal({closeModal}:{closeModal:()=> void
         setModel({ ...model });
     }
 
-    const [isFormValid, setIsFormValid] = useState(false);
-
     const [showSelectMedicationModal, setShowSelectMedicationModal] = useState(false);
 
     function nextStep() {
@@ -78,7 +76,6 @@ export default function AddPRNMedicationModal({closeModal}:{closeModal:()=> void
                     <div className={styles.buttons}>
                         <PrimaryTextButton
                             isLoading={individualState.status === 'LOADING'}
-                            disabled={isFormValid}
                             width={"20%"}
                             label="Submit"
                             clickAction={()=> nextStep()}

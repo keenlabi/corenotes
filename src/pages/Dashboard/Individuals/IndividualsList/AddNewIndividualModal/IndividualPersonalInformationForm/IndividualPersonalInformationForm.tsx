@@ -128,6 +128,7 @@ export default function IndividualPersonalInformationForm() {
         options: ['DNR', 'CPR', 'Seizure'],
         error: '',
         value: [],
+        validated: false
     })
 
     const [weightModel, setWeightModel] = useState<formFieldType>({

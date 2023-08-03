@@ -16,7 +16,6 @@ export default function AssessmentCard({
     questionsCount,
     assignedTo,
     path,
-    openAction
 
 }:AssessmentCardProps) {
     return (

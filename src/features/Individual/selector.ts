@@ -17,7 +17,6 @@ import {
 import formatIndividual from "./utils/formatIndividual"
 import { individualInitState } from "./state"
 import formatAssessmentSession from "./utils/formatAssessmentSession"
-import { ISupervisoryMedicationReviews } from "./types"
 
 interface IFetchIndividualList {
     code:number;

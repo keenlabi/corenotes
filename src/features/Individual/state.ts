@@ -76,9 +76,10 @@ export const individualInitState:IndividualStateType = {
         session: {
             id: '',
             title: '',
-            category: '',
             questions: [],
-            assessmentId: ""
+            assessmentId: "",
+            status: "PENDING",
+            createdAt: ""
         }
     },
     services: [],

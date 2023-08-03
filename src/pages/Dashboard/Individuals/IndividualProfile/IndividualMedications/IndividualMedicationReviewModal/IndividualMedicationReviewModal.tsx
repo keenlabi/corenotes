@@ -276,7 +276,7 @@ export default function IndividualMedicationReviewModal({
                 medications: response.data
             }))
         })
-        .catch((error)=> {
+        .catch(()=> {
             setIndividualState(state => ({
                 ...state,
                 status: "FAILED",
