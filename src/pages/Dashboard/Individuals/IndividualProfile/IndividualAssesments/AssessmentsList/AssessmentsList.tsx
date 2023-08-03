@@ -10,7 +10,7 @@ export default function AssessmentsList() {
 
     const [individualState, setIndividualState] = useIndividualState();
 
-    const assessmentsResponse = useFetchAssessmentsListSelector(individualState.assessments.currentPage, individualState.profile.id)
+    const assessmentsResponse = useFetchAssessmentsListSelector(individualState.assessments.currentPage)
 
     useEffect(()=> {
         if(!assessmentsResponse.error) {

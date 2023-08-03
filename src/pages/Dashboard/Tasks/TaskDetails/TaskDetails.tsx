@@ -66,6 +66,7 @@ export default function TaskDetails() {
     })
 
     const [topicalPhotoModel, setTopicalPhotoModel] = useState<formFieldType>({
+        value: "",
         error: "",
         validated: false
     })
