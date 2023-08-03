@@ -44,6 +44,8 @@ export default function IndividualMedicationsList() {
                             return  <IndividualMedicationCard
                                         key={medication.id}
                                         name={medication.name}
+                                        active={medication.active}
+                                        category={medication.category}
                                         strength={medication.strength}
                                         amount={medication.amount}
                                         frequency={medication.frequency}
@@ -59,7 +61,10 @@ export default function IndividualMedicationsList() {
                 medReviewModal.visible
                 ?   <IndividualMedicationReviewModal
                         medId={individualState.medications.list[medReviewModal.index].medicationId}
+                        active={individualState.medications.list[medReviewModal.index].active}
+                        barcode={individualState.medications.list[medReviewModal.index].barcode}
                         name={individualState.medications.list[medReviewModal.index].name}
+                        category={individualState.medications.list[medReviewModal.index].category}
                         strength={individualState.medications.list[medReviewModal.index].strength}
                         amount={individualState.medications.list[medReviewModal.index].amount}
                         frequency={individualState.medications.list[medReviewModal.index].frequency}

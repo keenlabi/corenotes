@@ -34,6 +34,8 @@ import IndividualMedications from "src/pages/Dashboard/Individuals/IndividualPro
 import TasksOutlet from "src/pages/Dashboard/Tasks";
 import TasksList from "src/pages/Dashboard/Tasks/TasksList";
 import TaskDetails from "src/pages/Dashboard/Tasks/TaskDetails";
+import { Outlet } from "react-router-dom";
+import GoalTrackingService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/GoalTrakingService";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -124,8 +126,20 @@ const DashboardRoutes:routerType[] = [
                             },
                             {
                                 path:'services',
-                                title: 'Services',
-                                element: <IndividualServices />,
+                                title: '',
+                                element: <Outlet />,
+                                children: [
+                                    {
+                                        path:'',
+                                        title: 'Individual Services',
+                                        element: <IndividualServices />,
+                                    },
+                                    {
+                                        path:'goal-tracking',
+                                        title: 'Goal Tracking Service',
+                                        element: <GoalTrackingService />,
+                                    },
+                                ]
                             },
                             {
                                 path:'medications',

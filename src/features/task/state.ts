@@ -20,12 +20,14 @@ export const taskInitState:ITaskState = {
         individual: {
             firstname: "",
             lastname: "",
-            profileImage: ""
+            profileImage: "",
+            id: ""
         },
         schedule: {
             startAt: new Date,
             endAt: new Date
-        }
+        },
+        status: ""
     }
 }
 

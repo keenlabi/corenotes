@@ -31,6 +31,7 @@ export default function IndividualMedications() {
                 showSelectMedicationModal
                 ?   <Suspense>
                         <SelectMedicationModal 
+                            medType={""}
                             closeModal={()=> setShowSelectMedicationModal(false)} 
                         />
                     </Suspense>

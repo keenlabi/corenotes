@@ -1,6 +1,6 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IIndividualMedicationsListItem, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
+import { IGoalService, IIndividualMedicationsListItem, ISupervisoryMedicationReviews, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
 import { AssessmentModelType } from "../assessment/types"
 
 export interface IndividualListResponseType extends Omit<successResponseType, 'data'> {
@@ -136,6 +136,12 @@ export function fetchIndividualServicesAction(individualId:string) {
 
 interface IAddServiceToIndividualPayload {
     serviceId:string;
+    schedule: {
+        startDate:string;
+        time:string;
+        frequency:string;
+        frequencyAttr:number;
+    }
 }
 
 export function addServiceToIndividualAction(individualId:string, payload:IAddServiceToIndividualPayload) {
@@ -204,14 +210,26 @@ export function addMedicationToIndividualAction(individualId:number, payload:IAd
     })
 }
 
-interface IAllocateMedicationPillsPayload {
-    medicationId:string;
-    newAmountAllocated:number;
+interface IAddPRNMedicationToIndividualPayload {
+    individualMedicationId:string;
+    selectedMedicationId:string;
+    note:string;
+    amountAdministered:number;
 }
 
-export function addNewAllocationAction(individualId:number, payload:IAllocateMedicationPillsPayload) {
+export function administerPRNMedicationToIndividualAction(individualId:string, payload:IAddPRNMedicationToIndividualPayload){
+    return new Promise<successResponseType>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/medications/prn-medication`, payload)
+        .then((response)=> resolve({
+            ...response
+        }))
+        .catch((error)=> reject(error))
+    })
+}
+
+export function discontinueIndividualMedicationAction(individualId:number, payload:{medicationId:number, active:boolean, currentPage:number}) {
     return new Promise<IIndividualMedicationsSuccessResponse>((resolve, reject)=> {
-        patchFetch(`/individuals/${individualId}/medications/pills-allocation`, payload)
+        patchFetch(`/individuals/${individualId}/medications/toggle`, payload)
         .then((response)=> {
             resolve({
                 ...response,
@@ -219,6 +237,130 @@ export function addNewAllocationAction(individualId:number, payload:IAllocateMed
                     currentPage: response.data.currentPage,
                     totalPages: response.data.totalPages,
                     list: response.data.medications 
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IAllocateMedicationPillsPayload {
+    medicationId:number;
+    newAmountAllocated:number;
+    newPharmacy:string;
+}
+
+// export function addNewAllocationAction(individualId:number, payload:IAllocateMedicationPillsPayload) {
+//     return new Promise<IIndividualMedicationsSuccessResponse>((resolve, reject)=> {
+//         patchFetch(`/individuals/${individualId}/medications/pills-allocation`, payload)
+//         .then((response)=> {
+//             resolve({
+//                 ...response,
+//                 data: {
+//                     currentPage: response.data.currentPage,
+//                     totalPages: response.data.totalPages,
+//                     list: response.data.medications 
+//                 }
+//             })
+//         })
+//         .catch((error)=> reject(error))
+//     })
+// }
+
+export interface IIndividualSupervisoryReviewsListResponse extends Omit<successResponseType, 'data'> {
+    data: {
+        medicationId:string;
+        currentPage:number;
+        totalPages:number;
+        list:ISupervisoryMedicationReviews[];
+        lastMonthReviewed?:number;
+    }
+}
+
+export function submitSupervisoryMedReviewAction(individualId:number, payload:IAllocateMedicationPillsPayload) {
+    return new Promise<IIndividualSupervisoryReviewsListResponse>((resolve, reject)=> {
+        patchFetch(`/individuals/${individualId}/medications/supervisory-medication-review`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { 
+                    medicationId: response.data.medicationId,
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.supervisoryReviews,
+                    lastMonthReviewed: response.data.lastMonthReviewed
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function fetchIndividualSupervisoryReviewHistoryAction(individualId:number, medId:number, pageNumber:number) {
+    return new Promise<IIndividualSupervisoryReviewsListResponse>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/medications/${medId}/supervisory-medication-review/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    medicationId: response.data.medicationId,
+                    list: response.data.supervisoryReviews,
+                    lastMonthReviewed: response.data.lastMonthReviewed
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface IIndividualGoalServicesSuccessResponse extends Omit<successResponseType, 'data'> {
+    data: { 
+        list:IGoalService[],
+        currentPage:number
+        totalPages:number
+    }
+}
+
+interface IAddGoalServiceToIndividualPayload {
+    objective:string;
+    method:string;
+    schedule: {
+        startDate:string;
+        time:string;
+        frequency:string;
+        frequencyAttr:number;
+    }
+}
+
+export function addGoalToIndividualAction(individualId:string, payload:IAddGoalServiceToIndividualPayload) {
+    return new Promise<IIndividualGoalServicesSuccessResponse>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/services/goal-tracking`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.goals 
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+} 
+
+export function fetchIndividualGoalsAction(individualId:number, pageNumber:number) {
+    return new Promise<IIndividualGoalServicesSuccessResponse>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/services/goal-tracking/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.goals 
                 }
             })
         })

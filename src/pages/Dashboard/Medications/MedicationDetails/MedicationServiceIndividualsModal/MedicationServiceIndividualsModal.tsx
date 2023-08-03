@@ -32,9 +32,11 @@ export default function MedicationServiceIndividualsModal({
                         individuals.length
                         ?   individuals.map(individual => {
                                 return  <div className={styles.medication_individual}>
-                                            <div>
-                                                { UserImage(individual.profileImage, `${individual.firstname}`) }
-                                            </div>
+                                            <UserImage 
+                                                imageUrl={individual.profileImage} 
+                                                fullname={individual.firstname}
+                                                size={"60px"}
+                                            />
                                             <div className={styles.full_name}>{ individual.firstname + " " + individual.lastname }</div>
                                         </div>
                             })

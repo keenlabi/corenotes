@@ -22,9 +22,73 @@
     width: 90%;
     margin: 5% auto;
 }
+
+.history_link {
+    margin-left: auto;
+    width: max-content;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--dark-blue-accent-100);
+    cursor: pointer;
+}
+.title_header {
+    display: flex;
+    align-items: center;
+}
+.history_link  {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.icon_open_link {
+    width: 15px;
+    height: 15px;
+}
+.icon_open_link path {
+    stroke: var(--dark-blue-accent-100);
+    font-weight: 900;
+}
+.icon_open_link {
+    stroke: var(--dark-blue-accent-100);
+}
+.signature {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-left: auto;
+    width: max-content;
+    align-items: flex-end;
+}
+.sign_label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--grey-accent-900);
+}
+
+.user_dets  {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: capitalize;
+    background: var(--grey-accent-300);
+    width: max-content;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 .title {
     font-weight: 700;
     font-size: 22px;
+}
+
+.metrics {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 215px;
+}
+.barcode {
+    margin-left: auto;
 }
 .schedule {
     display: flex;
@@ -61,6 +125,19 @@
     font-size: 1.5rem;
 }
 
+.note {
+    width: 60%;
+    border-radius: 10px;
+    padding: 10px;
+    background: var(--red-accent-faded-100);
+    color: var(--red-accent-100);
+}
+.note.valid {
+    background: var(--blue-accent-faded-100);
+    color: var(--blue-accent-100);
+}
+
+
 .action_buttons {
     border-top: 1px solid var(--grey-accent-400);
     background: white;
@@ -73,4 +150,3 @@
     align-items: center;
     justify-content: flex-end;
 }
-

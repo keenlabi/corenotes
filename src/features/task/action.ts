@@ -50,11 +50,12 @@ export function fetchTaskDetailsAction(taskId:number) {
 }
 
 interface IAdministerMedTask {
-    amountAdministered:number;
-    amountLeft:number;
+    amountAdministered?:number;
+    amountLeft?:number;
 }
 
-export function administerMedTaskAction(taskId:string, payload:IAdministerMedTask) {
+export function administerMedTaskAction(taskId:number, payload:IAdministerMedTask) {
+    console.log(taskId)
     return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
         patchFetch(`/tasks/${taskId}/administer`, payload)
         .then((response)=> {
@@ -77,5 +78,31 @@ export function delineMedAdministrationTaskAction(taskId:string) {
             })
         })
         .catch((error)=> reject(error))
+    })
+}
+
+export function adminiterUncontrolledMedTask(taskId:string, payload:FormData) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        patchFetch(`/tasks/${taskId}/administer-uncontrolled`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function findMedicationTaskWithCodeAction(medicationBarcode:string) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        getFetch(`/tasks/medications/search-by-barcode/${medicationBarcode}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
     })
 }

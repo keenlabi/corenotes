@@ -15,7 +15,11 @@ export default function IndividualProfileHeader({
     return (
         <div className={styles.section_identity}>
             <div className={styles.user_info}>
-                { UserImage(individualState.profile.personalInformation.profileImage, individualState.profile.personalInformation.profileImage, "100px") }
+                <UserImage 
+                    imageUrl={individualState.profile.personalInformation.profileImage} 
+                    fullname={individualState.profile.personalInformation.firstName}
+                    size={"60px"}
+                />
                 <div className={styles.info}>
                     <div className={styles.fullname}>{ individualState.profile.personalInformation.firstName }, {individualState.profile.personalInformation.lastName}</div>
                     <div className={styles.last_update}>Updated: 04/04/2023 01:00pm</div>
