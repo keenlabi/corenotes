@@ -1,4 +1,4 @@
-import { getFetch, patchFetch } from "src/lib/fetch"
+import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { ITask, ITaskDetails } from "./types";
 
@@ -97,6 +97,38 @@ export function adminiterUncontrolledMedTask(taskId:string, payload:FormData) {
 export function findMedicationTaskWithCodeAction(medicationBarcode:string) {
     return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
         getFetch(`/tasks/medications/search-by-barcode/${medicationBarcode}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+interface ICompleteGoalTrackingTask {
+    timeTaken:number;
+    wasGoalMet:string;
+    note:string;
+}
+
+export function completeGoalTrackingTaskAction(taskId:number, payload:ICompleteGoalTrackingTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-goal-tracking`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export function declineGoalTrackingTaskAction(taskId:number) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-goal-tracking`, {})
         .then((response)=> {
             resolve({
                 ...response,
