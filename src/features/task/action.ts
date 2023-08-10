@@ -138,3 +138,34 @@ export function declineGoalTrackingTaskAction(taskId:number) {
         .catch((error)=> reject(error.response.data))
     })
 }
+
+interface ICompleteSkinIntegrityTask {
+    timeTaken:number;
+    note:string;
+}
+
+export function completeSkinIntegrityTaskAction(taskId:number, payload:ICompleteSkinIntegrityTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-skin-integrity`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export function declineSkinIntegrityTaskAction(taskId:number) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-skin-integrity`, {})
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}

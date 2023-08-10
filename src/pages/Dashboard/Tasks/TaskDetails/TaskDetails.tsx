@@ -21,6 +21,7 @@ import UploadPhoto from "src/components/UploadPhoto";
 import convertBase64toBlob from "src/utils/convertBase64ToBlob";
 import JSONToFormData from "src/utils/JSONToFormData";
 import GoalTrackingTaskDetails from "./GoalTrackingTaskDetails";
+import SkinIntegrityTaskDetails from "./SkinIntegrityTaskDetails";
 
 export default function TaskDetails() {
     
@@ -251,8 +252,8 @@ export default function TaskDetails() {
     }
 
     return (
-        taskState.taskDetails.service.title === "goal tracking"
-        ?   <GoalTrackingTaskDetails />
+        taskState.taskDetails.service.title === "goal tracking" ?   <GoalTrackingTaskDetails />
+        :   taskState.taskDetails.service.title === "skin integrity" ?  <SkinIntegrityTaskDetails />
         :   <div className={styles.task_details}>
 
                 <FormStateModal 
