@@ -138,12 +138,7 @@ const DashboardRoutes:routerType[] = [
                                         path:'goal-tracking',
                                         title: 'Goal Tracking Service',
                                         element: <GoalTrackingService />,
-                                    },
-                                    {
-                                        path:'skin-integrity',
-                                        title: 'Skin Integrity Service',
-                                        element: <GoalTrackingService />,
-                                    },
+                                    }
                                 ]
                             },
                             {

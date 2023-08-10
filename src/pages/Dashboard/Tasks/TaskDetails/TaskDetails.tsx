@@ -22,6 +22,7 @@ import convertBase64toBlob from "src/utils/convertBase64ToBlob";
 import JSONToFormData from "src/utils/JSONToFormData";
 import GoalTrackingTaskDetails from "./GoalTrackingTaskDetails";
 import SkinIntegrityTaskDetails from "./SkinIntegrityTaskDetails";
+import BowelMovementTaskDetails from "./BowelMovementTaskDetails";
 
 export default function TaskDetails() {
     
@@ -254,6 +255,7 @@ export default function TaskDetails() {
     return (
         taskState.taskDetails.service.title === "goal tracking" ?   <GoalTrackingTaskDetails />
         :   taskState.taskDetails.service.title === "skin integrity" ?  <SkinIntegrityTaskDetails />
+        :   taskState.taskDetails.service.title === "bowel movement" ?  <BowelMovementTaskDetails />
         :   <div className={styles.task_details}>
 
                 <FormStateModal 

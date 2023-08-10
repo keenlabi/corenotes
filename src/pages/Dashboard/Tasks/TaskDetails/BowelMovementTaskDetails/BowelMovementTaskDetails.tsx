@@ -1,5 +1,5 @@
 import GoBackButton from "src/components/Buttons/GoBackButton";
-import styles from "./skinintegritytaskdetails.module.css";
+import styles from "./bowelmovementtaskdetails.module.css";
 import { resetTaskState, useTaskState } from "src/features/task/state";
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import InputField from "src/components/FormComponents/InputField";
@@ -10,10 +10,10 @@ import SizedBox from "src/components/SizedBox";
 import DeleteTextButton from "src/components/Buttons/DeleteTextButton";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { useParams } from "react-router-dom";
-import { completeSkinIntegrityTaskAction, declineSkinIntegrityTaskAction } from "src/features/task/action";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
+import { completeBowelMovementTaskAction, declineBowelMovementTaskAction } from "src/features/task/action";
 
-export default function SkinIntegrityTaskDetails() {
+export default function BowelMovementTaskDetails() {
 
     const params = useParams();
 
@@ -25,7 +25,7 @@ export default function SkinIntegrityTaskDetails() {
     
     const [timeTakenModel, setTimeTakenModel] = useState<formFieldType>({
         type: "number",
-        label: "Time taken in minutes",
+        label: "Amount",
         value: "",
         error: "",
         validated: false
@@ -76,7 +76,7 @@ export default function SkinIntegrityTaskDetails() {
     function completeTask() {
         if(validateForm()) {
             const payload = {
-                timeTaken: parseInt(timeTakenModel.value),
+                amount: parseInt(timeTakenModel.value),
                 note: notesModel.value
             }
 
@@ -87,7 +87,7 @@ export default function SkinIntegrityTaskDetails() {
                 error: false
             }))
 
-            completeSkinIntegrityTaskAction(parseInt(params.taskId!), payload)
+            completeBowelMovementTaskAction(parseInt(params.taskId!), payload)
             .then((response)=> {
                 setCompleteTaskState(state => ({
                     ...state,
@@ -120,7 +120,7 @@ export default function SkinIntegrityTaskDetails() {
             error: false
         }))
 
-        declineSkinIntegrityTaskAction(parseInt(params.taskId!))
+        declineBowelMovementTaskAction(parseInt(params.taskId!))
         .then((response)=> {
             setDeclineTaskState(state => ({
                 ...state,
@@ -167,7 +167,7 @@ export default function SkinIntegrityTaskDetails() {
             <GoBackButton path={"/dashboard/tasks"} />
 
             <div className={styles.heading}>
-                <div className={styles.title}>Skin Integrity</div>
+                <div className={styles.title}>Bowel movement</div>
                 <div className={styles.task_status}>{ taskState.taskDetails.status }</div>
             </div>
 

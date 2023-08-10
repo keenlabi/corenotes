@@ -169,3 +169,34 @@ export function declineSkinIntegrityTaskAction(taskId:number) {
         .catch((error)=> reject(error.response.data))
     })
 }
+
+interface ICompleteBowelMovementTask {
+    amount:number;
+    note:string;
+}
+
+export function completeBowelMovementTaskAction(taskId:number, payload:ICompleteBowelMovementTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-bowel-movement`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export function declineBowelMovementTaskAction(taskId:number) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-bowel-movement`, {})
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
