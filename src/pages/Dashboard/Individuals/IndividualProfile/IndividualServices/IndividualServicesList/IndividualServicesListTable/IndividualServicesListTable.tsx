@@ -42,11 +42,19 @@ export default function IndividualServicesListTable({
 
     }, [services])
 
+    
     function formatTransactionsTable (services:IndividualServiceListItemType[]) {
+        
+        const servicesToNavigate = ['goal-tracking'];
+        
         return services.map((service)=> {
+            const serviceRoute = `${service.title.toLowerCase().split(" ").join("-")}`;
             return  [
                 {
-                    rowKey: `${service.title.toLowerCase().split(" ").join("-")}`,
+                    rowKey: service.title,
+                    path: servicesToNavigate.includes(serviceRoute)
+                            ? serviceRoute
+                            : '',
                     actionEvent: 'row_click',
                     target:'new_page'
                 },

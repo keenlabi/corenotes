@@ -51,7 +51,11 @@ export default function IndividualsListTable({
                     actionButtonPosition: 7
                 },
                 <div className={styles.user_image}>
-                    <UserImage imageUrl={individual.profileImage} fullname={individual?.firstname} />
+                    <UserImage 
+                        imageUrl={individual.profileImage} 
+                        fullname={individual?.firstname}
+                        size="50px"
+                    />
                 </div>,
                 <div className={styles.fullname}>
                     <div className={styles.first_name}>{individual.firstname + ","}</div> 
