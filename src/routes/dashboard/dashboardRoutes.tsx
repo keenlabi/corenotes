@@ -35,7 +35,7 @@ import TasksOutlet from "src/pages/Dashboard/Tasks";
 import TasksList from "src/pages/Dashboard/Tasks/TasksList";
 import TaskDetails from "src/pages/Dashboard/Tasks/TaskDetails";
 import { Outlet } from "react-router-dom";
-import GoalTrackingService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/GoalTrakingService";
+import GoalTrackingService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/GoalTrackingService";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -137,6 +137,11 @@ const DashboardRoutes:routerType[] = [
                                     {
                                         path:'goal-tracking',
                                         title: 'Goal Tracking Service',
+                                        element: <GoalTrackingService />,
+                                    },
+                                    {
+                                        path:'skin-integrity',
+                                        title: 'Skin Integrity Service',
                                         element: <GoalTrackingService />,
                                     },
                                 ]

@@ -46,6 +46,11 @@ export interface ITaskDetails {
         category:string;
         PRN:Array<IPRNMedication>;
     };
+    goalTracking:{
+        id:string;
+        objective:string;
+        method:string;
+    },
     individual:{
         id:string;
         firstname:string;

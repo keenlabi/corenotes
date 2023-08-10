@@ -102,7 +102,7 @@ export default function Table ({head, body, action, extraStyle, currentPage, tot
                                                     style={{cursor: (row[0].actionEvent === 'row_click') ? "pointer": "auto"}} 
                                                     onClick={()=> {
                                                         if(row[0].actionEvent === 'row_click') {
-                                                            if(row[0].target === 'new_page') navigate({pathname: row[0].rowKey})
+                                                            if(row[0].target === 'new_page') navigate({pathname: row[0].path})
                                                             if(row[0].target === 'show_modal') action?.(row[0].rowKey)
                                                         } 
                                                     }} 

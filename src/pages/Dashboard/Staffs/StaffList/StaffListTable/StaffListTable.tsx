@@ -52,7 +52,11 @@ export default function StaffListTable({
                     actionButtonPosition: 6
                 },
                 <div className={styles.user_image}>
-                    <UserImage imageUrl={staff.profileImage} fullname={staff?.fullname} />
+                    <UserImage 
+                        imageUrl={staff.profileImage} 
+                        fullname={staff?.fullname} 
+                        size="50px"
+                    />
                 </div>,
                 <div className={styles.fullname}>{staff.fullname}</div>,
                 <div>{staff.role}</div>,
