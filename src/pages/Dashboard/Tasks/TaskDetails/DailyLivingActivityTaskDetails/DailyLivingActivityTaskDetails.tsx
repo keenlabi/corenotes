@@ -10,7 +10,7 @@ import DeleteTextButton from "src/components/Buttons/DeleteTextButton";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
-import { completeBowelMovementTaskAction, completeDailyLivingActivityTaskAction, declineBowelMovementTaskAction, declineDailyLivingActivityTaskAction } from "src/features/task/action";
+import { completeDailyLivingActivityTaskAction, declineDailyLivingActivityTaskAction } from "src/features/task/action";
 
 export default function DailyLivingActivityTaskDetails() {
 

@@ -32,6 +32,11 @@ export const taskInitState:ITaskState = {
             id: "",
             objective: "",
             method: ""
+        },
+        dailyLivingActivity: {
+            id: "",
+            title: "",
+            instructions: ""
         }
     }
 }
