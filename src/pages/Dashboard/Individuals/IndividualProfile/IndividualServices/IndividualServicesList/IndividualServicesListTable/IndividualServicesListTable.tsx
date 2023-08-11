@@ -42,10 +42,9 @@ export default function IndividualServicesListTable({
 
     }, [services])
 
-    
     function formatTransactionsTable (services:IndividualServiceListItemType[]) {
         
-        const servicesToNavigate = ['goal-tracking'];
+        const servicesToNavigate = ['goal-tracking', 'daily-living-activity'];
         
         return services.map((service)=> {
             const serviceRoute = `${service.title.toLowerCase().split(" ").join("-")}`;
