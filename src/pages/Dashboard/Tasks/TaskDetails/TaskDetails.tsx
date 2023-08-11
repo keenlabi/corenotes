@@ -23,6 +23,9 @@ import JSONToFormData from "src/utils/JSONToFormData";
 import GoalTrackingTaskDetails from "./GoalTrackingTaskDetails";
 import SkinIntegrityTaskDetails from "./SkinIntegrityTaskDetails";
 import BowelMovementTaskDetails from "./BowelMovementTaskDetails";
+import DailyLivingActivityTaskDetails from "./DailyLivingActivityTaskDetails/DailyLivingActivityTaskDetails";
+import ShiftNotesTaskDetails from "./ShiftNotesTaskDetails";
+import BloodGlucoseCheckTaskDetails from "./BloodGlucoseCheckTaskDetails";
 
 export default function TaskDetails() {
     
@@ -256,6 +259,9 @@ export default function TaskDetails() {
         taskState.taskDetails.service.title === "goal tracking" ?   <GoalTrackingTaskDetails />
         :   taskState.taskDetails.service.title === "skin integrity" ?  <SkinIntegrityTaskDetails />
         :   taskState.taskDetails.service.title === "bowel movement" ?  <BowelMovementTaskDetails />
+        :   taskState.taskDetails.service.title === "daily living activity" ?  <DailyLivingActivityTaskDetails />
+        :   taskState.taskDetails.service.title === "shift notes" ?  <ShiftNotesTaskDetails />
+        :   taskState.taskDetails.service.title === "blood glucose check" ?  <BloodGlucoseCheckTaskDetails />
         :   <div className={styles.task_details}>
 
                 <FormStateModal 

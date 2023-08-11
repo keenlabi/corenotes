@@ -99,6 +99,11 @@ export const individualInitState:IndividualStateType = {
         list: [],
         currentPage: 1,
         totalPages: 1
+    },
+    dailyLivingActivities: {
+        list: [],
+        currentPage: 1,
+        totalPages: 0
     }
 }
 

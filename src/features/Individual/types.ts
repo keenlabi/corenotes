@@ -32,7 +32,25 @@ export interface IndividualStateType extends initStateType {
         list:IGoalService[];
         currentPage:number;
         totalPages:number;
+    },
+    dailyLivingActivities:{
+        list:IDailyLivingActivity[];
+        currentPage:number;
+        totalPages:number;
     }
+}
+
+export interface IDailyLivingActivity {
+    id:string;
+    title:string;
+    goals:Array<string>;
+    frequency:string;
+    time:string;
+    endDate:string;
+    comments:{
+        createAt:string;
+        message:string;
+    };
 }
 
 export interface IndividualListItemType {

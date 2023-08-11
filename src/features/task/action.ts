@@ -14,7 +14,6 @@ export function fetchTasksListAction(pageNumber:number) {
     return new Promise<IFetchTasksListResponse>((resolve, reject)=> {
         getFetch(`/tasks/${pageNumber}`)
         .then((response)=> {
-            console.log(response)
             resolve({
                 ...response,
                 data: {
@@ -29,9 +28,7 @@ export function fetchTasksListAction(pageNumber:number) {
 }
 
 export interface IFetchTaskDetailsResponse extends Omit<successResponseType, 'data'> {
-    data:{
-        task:ITaskDetails
-    }
+    data:{ task:ITaskDetails }
 }
 
 export function fetchTaskDetailsAction(taskId:number) {
@@ -40,9 +37,7 @@ export function fetchTaskDetailsAction(taskId:number) {
         .then((response)=> {
             resolve({
                 ...response,
-                data: {
-                    task: response.data.task,
-                }
+                data: { task: response.data.task }
             })
         })
         .catch((error)=> reject(error))
@@ -191,6 +186,93 @@ export function completeBowelMovementTaskAction(taskId:number, payload:IComplete
 export function declineBowelMovementTaskAction(taskId:number) {
     return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
         postFetch(`/tasks/${taskId}/decline-bowel-movement`, {})
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export interface ICompleteDailyLivingActivityTask {
+    note:string;
+}
+
+export function completeDailyLivingActivityTaskAction(taskId:number, payload:ICompleteDailyLivingActivityTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-daily-living-activity`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export function declineDailyLivingActivityTaskAction(taskId:number) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-daily-living-activity`, {})
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+interface ICompleteShiftNotesTask {
+    note:string;
+}
+
+
+export function completeShiftNotesTaskAction(taskId:number, payload:ICompleteShiftNotesTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-shift-notes`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export function declineShiftNotesTaskAction(taskId:number) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-shift-notes`, {})
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export function completeBloodGlucoseCheckTaskAction(taskId:number, payload:ICompleteShiftNotesTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-blood-glucose-check`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export function declineBloodGlucoseCheckTaskAction(taskId:number) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-blood-glucose-check`, {})
         .then((response)=> {
             resolve({
                 ...response,

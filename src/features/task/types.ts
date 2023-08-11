@@ -60,6 +60,11 @@ export interface ITaskDetails {
     schedule:{
         startAt:Date;
         endAt:Date;
+    },
+    dailyLivingActivity:{
+        id:string;
+        title:string;
+        instructions:string;
     }
 }
 

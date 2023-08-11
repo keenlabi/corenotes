@@ -35,3 +35,9 @@
     width: 90%;
     bottom: 0;
 }
+
+.schedule_label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--grey-accent-800);
+}
