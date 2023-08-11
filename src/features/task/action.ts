@@ -29,9 +29,7 @@ export function fetchTasksListAction(pageNumber:number) {
 }
 
 export interface IFetchTaskDetailsResponse extends Omit<successResponseType, 'data'> {
-    data:{
-        task:ITaskDetails
-    }
+    data:{ task:ITaskDetails }
 }
 
 export function fetchTaskDetailsAction(taskId:number) {
@@ -40,9 +38,7 @@ export function fetchTaskDetailsAction(taskId:number) {
         .then((response)=> {
             resolve({
                 ...response,
-                data: {
-                    task: response.data.task,
-                }
+                data: { task: response.data.task }
             })
         })
         .catch((error)=> reject(error))
@@ -191,6 +187,36 @@ export function completeBowelMovementTaskAction(taskId:number, payload:IComplete
 export function declineBowelMovementTaskAction(taskId:number) {
     return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
         postFetch(`/tasks/${taskId}/decline-bowel-movement`, {})
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export interface ICompleteDailyLivingActivityTask {
+    note:string;
+}
+
+export function completeDailyLivingActivityTaskAction(taskId:number, payload:ICompleteDailyLivingActivityTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-daily-living-activity`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+export function declineDailyLivingActivityTaskAction(taskId:number) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-daily-living-activity`, {})
         .then((response)=> {
             resolve({
                 ...response,

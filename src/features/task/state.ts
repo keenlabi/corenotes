@@ -27,7 +27,12 @@ export const taskInitState:ITaskState = {
             startAt: new Date,
             endAt: new Date
         },
-        status: ""
+        status: "",
+        goalTracking: {
+            id: "",
+            objective: "",
+            method: ""
+        }
     }
 }
 

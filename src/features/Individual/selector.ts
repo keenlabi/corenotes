@@ -1,5 +1,6 @@
 import { selectorFamily, useRecoilValue } from "recoil"
-import { 
+import {
+    IIndividualDailyLivingActivityServicesSuccessResponse,
     IIndividualGoalServicesSuccessResponse,
     IIndividualMedicationsSuccessResponse,
     IIndividualSupervisoryReviewsListResponse,
@@ -8,6 +9,7 @@ import {
     IndividualProfileSuccessResponseType, 
     IndividualServicesSuccessResponseType, 
     fetchIndividualAssessmentSessionAction, 
+    fetchIndividualDailyLivingActivitiesListAction, 
     fetchIndividualGoalsAction, 
     fetchIndividualListAction, 
     fetchIndividualMedicationsAction, 
@@ -198,6 +200,38 @@ const fetchIndividualGoalsListSelector = selectorFamily({
     }
 })
 export const useFetchIndividualGoalsList = (individualId:number, pageNumber:number)=> useRecoilValue(fetchIndividualGoalsListSelector({individualId, pageNumber}))
+
+interface IFetchIndividualDailyActivityList {
+    dailyLivingActivities: Pick<IIndividualDailyLivingActivityServicesSuccessResponse, 'data'>['data'];
+    code:number;
+    message:string;
+    error:boolean;
+}
+const fetchIndividualDailyActivitiesSelector = selectorFamily({
+    key:'fetch_individual_daily_living_activities_list_selector',
+    get: ({individualId, pageNumber}:{individualId:number, pageNumber:number})=> async ()=> {
+        return await fetchIndividualDailyLivingActivitiesListAction(individualId, pageNumber)
+        .then((response)=> {
+            return {
+                message: response.message,
+                code: response.code,
+                error: false,
+                dailyLivingActivities: response.data
+
+            } satisfies IFetchIndividualDailyActivityList
+        })
+        .catch((error)=> {
+            return {
+                code: error.statusCode,
+                message: error.message,
+                error: false,
+                dailyLivingActivities: individualInitState.dailyLivingActivities
+                
+            } satisfies IFetchIndividualDailyActivityList
+        })
+    }
+})
+export const useFetchIndividualDailyLivingActivitiesList = (individualId:number, pageNumber:number)=> useRecoilValue(fetchIndividualDailyActivitiesSelector({individualId, pageNumber}))
 
 interface IFetchIndividualSupervisoryReviewsList {
     supervisoryReviews:Pick<IIndividualSupervisoryReviewsListResponse, 'data'>['data'];

@@ -1,6 +1,6 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IGoalService, IIndividualMedicationsListItem, ISupervisoryMedicationReviews, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
+import { IDailyLivingActivity, IGoalService, IIndividualMedicationsListItem, ISupervisoryMedicationReviews, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
 import { AssessmentModelType } from "../assessment/types"
 
 export interface IndividualListResponseType extends Omit<successResponseType, 'data'> {
@@ -134,14 +134,14 @@ export function fetchIndividualServicesAction(individualId:string) {
     })
 }
 
-interface IAddServiceToIndividualPayload {
+export interface IAddServiceToIndividualPayload {
     serviceId:string;
     schedule: {
         startDate:string;
         time:string;
         frequency:string;
         frequencyAttr:number;
-    }
+    }|null
 }
 
 export function addServiceToIndividualAction(individualId:string, payload:IAddServiceToIndividualPayload) {
@@ -361,6 +361,59 @@ export function fetchIndividualGoalsAction(individualId:number, pageNumber:numbe
                     currentPage: response.data.currentPage,
                     totalPages: response.data.totalPages,
                     list: response.data.goals 
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+    
+export interface IIndividualDailyLivingActivityServicesSuccessResponse extends Omit<successResponseType, 'data'> {
+    data: { 
+        list:IDailyLivingActivity[];
+        currentPage:number;
+        totalPages:number;
+    }
+}
+
+export function fetchIndividualDailyLivingActivitiesListAction(individualId:number, pageNumber:number) {
+    return new Promise<IIndividualDailyLivingActivityServicesSuccessResponse>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/services/daily-living-activity/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.dailyLivingActivities
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IAddActivityServiceToIndividualPayload {
+    title:string;
+    instructions:string;
+    schedule: {
+        startDate:string;
+        time:string;
+        frequency:string;
+        frequencyAttr:number;
+    }
+}
+
+export function addDailyLivingActivityToIndividualAction(individualId:string, payload:IAddActivityServiceToIndividualPayload) {
+    return new Promise<IIndividualDailyLivingActivityServicesSuccessResponse>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/services/daily-living-activity`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.dailyLivingActivities
                 }
             })
         })
