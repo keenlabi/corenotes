@@ -191,8 +191,6 @@ export default function GoalTrackingTaskDetails() {
                 reset={()=> resetTaskState(setCompleteTaskState)}
             />
 
-            <GoBackButton path={"/dashboard/tasks"} />
-
             <div className={styles.heading}>
                 <div className={styles.title}>Goal tracking</div>
                 <div className={styles.task_status}>{ taskState.taskDetails.status }</div>
@@ -242,7 +240,7 @@ export default function GoalTrackingTaskDetails() {
 
                 <div className={styles.actions}>
                     <DeleteTextButton
-                        label={"Declined"}
+                        label={"Decline"}
                         clickAction={declineTask}
                         isLoading={declineTaskState.status === "LOADING"}
                     />

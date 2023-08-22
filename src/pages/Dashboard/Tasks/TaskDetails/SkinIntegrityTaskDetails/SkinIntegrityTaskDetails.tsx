@@ -164,8 +164,6 @@ export default function SkinIntegrityTaskDetails() {
                 reset={()=> resetTaskState(setCompleteTaskState)}
             />
 
-            <GoBackButton path={"/dashboard/tasks"} />
-
             <div className={styles.heading}>
                 <div className={styles.title}>Skin Integrity</div>
                 <div className={styles.task_status}>{ taskState.taskDetails.status }</div>
@@ -188,7 +186,7 @@ export default function SkinIntegrityTaskDetails() {
 
                 <div className={styles.actions}>
                     <DeleteTextButton
-                        label={"Declined"}
+                        label={"Decline"}
                         clickAction={declineTask}
                         isLoading={declineTaskState.status === "LOADING"}
                     />

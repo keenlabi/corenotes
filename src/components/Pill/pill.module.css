@@ -1,0 +1,9 @@
+.pill_container {
+    font-weight: 500;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 1000px;
+    background-color: var(--blue-accent-200);
+    width: fit-content;
+    color: white;
+}

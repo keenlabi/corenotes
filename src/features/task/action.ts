@@ -282,3 +282,239 @@ export function declineBloodGlucoseCheckTaskAction(taskId:number) {
         .catch((error)=> reject(error.response.data))
     })
 }
+
+interface IDeclineBehaviorManagementTask {
+    note:string;
+}
+
+export function declineBehaviorManagementTaskAction(taskId:number, payload:IDeclineBehaviorManagementTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-behavior-management`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+interface ICompleteBehaviorManagementTask {
+    note:string;
+}
+
+export function completeBehaviorManagementTaskAction(taskId:number, payload:ICompleteBehaviorManagementTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-behavior-management`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+// seizure tracking task actions ***************
+
+interface ICompleteSeizureTrackingTask {
+    seizureStartDate:string,
+    seizureEndModel:string,
+    note:string;
+}
+
+export function completeSeizureTrackingTaskAction(taskId:number, payload:ICompleteSeizureTrackingTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-seizure-tracking`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+interface IDeclineSeizureTrackingTask {
+    note:string;
+}
+
+export function declineSeizureTrackingTaskAction(taskId:number, payload:IDeclineSeizureTrackingTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-seizure-tracking`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+// ***************************************
+
+// fire drill task actions ***************
+
+interface ICompleteFireDrillTask {
+    noOfIndividuals:string;
+    lengthOfDrill:string;
+    fireExtinguisherDate:string;
+    smokeDetectorDate:string;
+    whatToDo:string;
+    howToAlarm:string;
+    whatToDoBeforeFireDept:string;
+    howToConfirmEvacuation:string;
+}
+
+export function completeFireDrillTaskAction(taskId:number, payload:ICompleteFireDrillTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-fire-drill`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IDeclineFireDrillTask {
+    note:string;
+}
+
+export function declineFireDrillTaskAction(taskId:number, payload:IDeclineFireDrillTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-fire-drill`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+// ***************************************
+
+// tornado drill task actions ***************
+
+interface ICompleteTornadoDrillTask {
+    noOfIndividuals:number;
+    didStaffAnnounce:string;
+    didIndividualsEvacuate:string;
+    note:string;
+}
+
+export function completeTornadoDrillTaskAction(taskId:number, payload:ICompleteTornadoDrillTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-tornado-drill`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IDeclineTornadoDrillTask {
+    note:string;
+}
+
+export function declineTornadoDrillTaskAction(taskId:number, payload:IDeclineTornadoDrillTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-tornado-drill`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+// ***************************************
+
+// chore drill task actions **************
+
+interface ICompleteChoreTask {
+    note:string;
+}
+
+export function completeChoreTaskAction(taskId:number, payload:ICompleteChoreTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-chore`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+interface IDeclineChoreTask {
+    note:string;
+}
+
+export function declineChoreTaskAction(taskId:number, payload:IDeclineChoreTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-chore`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error.response.data))
+    })
+}
+
+// ***************************************
+
+// prn medication review task actions **************
+
+interface ICompletePRNMedicationReviewTask {
+    note:string;
+}
+
+export function completePRNMedicationReviewTaskAction(taskId:number, payload:ICompletePRNMedicationReviewTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/complete-prn-medication-review`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IDeclinePRNMedicationReviewTask {
+    note:string;
+}
+
+export function declinePRNMedicationReviewTaskAction(taskId:number, payload:IDeclinePRNMedicationReviewTask) {
+    return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        postFetch(`/tasks/${taskId}/decline-prn-medication-review`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { task: response.data.task }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+// ***************************************
