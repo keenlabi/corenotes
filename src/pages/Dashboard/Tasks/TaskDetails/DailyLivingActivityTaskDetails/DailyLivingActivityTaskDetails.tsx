@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styles from "./dailylivingactivitytaskdetails.module.css";
-import GoBackButton from "src/components/Buttons/GoBackButton";
 import { resetTaskState, useTaskState } from "src/features/task/state";
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";

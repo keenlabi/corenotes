@@ -37,6 +37,16 @@ export const taskInitState:ITaskState = {
             id: "",
             title: "",
             instructions: ""
+        },
+        behaviorManagement: {
+            id: "",
+            description: "",
+            goals: []
+        },
+        chore: {
+            id: "",
+            title: "",
+            description: ""
         }
     }
 }

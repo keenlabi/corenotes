@@ -9,7 +9,7 @@ import { MultiSelectDropDownFormData, setMultiSelectDropDownFormData } from "src
 import RowContainer from "src/components/Layout/RowContainer";
 import InputField from "src/components/FormComponents/InputField";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
-import TagInputField, { ISetTagsInputFormData, ITagsInputFormData } from "src/components/FormComponents/InputField/TagInputField/TagInputField";
+import TagInputField from "src/components/FormComponents/InputField/TagInputField/TagInputField";
 import MultiSelectDropDownField from "src/components/FormComponents/DropDownField/MultiSelectDropDownField";
 import TextField from "src/components/FormComponents/TextField";
 import { INewMedication } from "src/features/medication/types";
@@ -18,6 +18,7 @@ import FormStateModal from "src/components/FormComponents/FormStateModal/FormSta
 import { useFetchStaffRoleSelector } from "src/features/staff/selector";
 import { useStaffState } from "src/features/staff/state";
 import { createMedicationAction } from "src/features/medication/action";
+import { ISetTagsInputFormData, ITagsInputFormData } from "src/components/FormComponents/InputField/TagInputField/types";
 
 export default function CreateMedicationModal({ closeModal }:{ closeModal:()=> void }) {
 
