@@ -1,0 +1,2 @@
+import PRNMedicationReviewDetails from "./PRNMedicationReviewDetails";
+export default PRNMedicationReviewDetails

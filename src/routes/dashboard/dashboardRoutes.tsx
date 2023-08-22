@@ -37,6 +37,9 @@ import TaskDetails from "src/pages/Dashboard/Tasks/TaskDetails";
 import { Outlet } from "react-router-dom";
 import GoalTrackingService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/GoalTrackingService";
 import DailyLivingActivitiesService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/DailyLivingActivitiesService/DailyLivingActivitiesService";
+import BehaviorManagementService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/BehaviorManagementService/BehaviorManagementService";
+import ChoreService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/ChoreService";
+// import MedicationServiceIndividualsModal from "src/pages/Dashboard/Medications/MedicationDetails/MedicationServiceIndividualsModal";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -46,7 +49,7 @@ const DashboardRoutes:routerType[] = [
         element: <Dashboard />,
         children: [
             {
-                path:'tasks',
+                path:'',
                 element: <TasksOutlet />,
                 children: [
                     {
@@ -136,6 +139,11 @@ const DashboardRoutes:routerType[] = [
                                         element: <IndividualServices />,
                                     },
                                     {
+                                        path:'medication-administration',
+                                        title: 'Medication Administration Service',
+                                        element: <IndividualMedications />,
+                                    },
+                                    {
                                         path:'goal-tracking',
                                         title: 'Goal Tracking Service',
                                         element: <GoalTrackingService />,
@@ -144,6 +152,16 @@ const DashboardRoutes:routerType[] = [
                                         path:'daily-living-activity',
                                         title: 'Daily Living Activity',
                                         element: <DailyLivingActivitiesService />,
+                                    },
+                                    {
+                                        path:'behavior-management',
+                                        title: 'Behavior Management',
+                                        element: <BehaviorManagementService />,
+                                    },
+                                    {
+                                        path:'chore',
+                                        title: 'Chore',
+                                        element: <ChoreService />,
                                     }
                                 ]
                             },

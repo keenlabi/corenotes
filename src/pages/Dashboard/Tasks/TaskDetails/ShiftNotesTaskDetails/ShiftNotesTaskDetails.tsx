@@ -1,5 +1,4 @@
 import { useState } from "react";
-import GoBackButton from "src/components/Buttons/GoBackButton";
 import styles from "./shiftnotestaskdetails.module.css";
 import { resetTaskState, useTaskState } from "src/features/task/state";
 import FormWrapper from "src/components/FormComponents/FormWrapper";
@@ -150,8 +149,6 @@ export default function ShiftNotesTaskDetails() {
                 reset={()=> resetTaskState(setCompleteTaskState)}
             />
 
-            <GoBackButton path={"/dashboard/tasks"} />
-
             <div className={styles.heading}>
                 <div className={styles.title}>Shift Notes</div>
                 <div className={styles.task_status}>{ taskState.taskDetails.status }</div>
@@ -169,7 +166,7 @@ export default function ShiftNotesTaskDetails() {
 
                 <div className={styles.actions}>
                     <DeleteTextButton
-                        label={"Declined"}
+                        label={"Decline"}
                         clickAction={declineTask}
                         isLoading={declineTaskState.status === "LOADING"}
                     />

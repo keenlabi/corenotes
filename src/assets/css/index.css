@@ -47,6 +47,9 @@
     --yellow-accent-100: #dd9d44;
     --yellow-faded-accent-100: #fcf5ec;
 
+    --purple-accent-100: #7605A3;
+    --purple-accent-faded-100: #FBF1FF;
+
     /* shadows */
     --shadow-container-100: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
     --shadow-sidebar-200: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);

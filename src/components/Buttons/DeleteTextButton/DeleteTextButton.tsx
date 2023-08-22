@@ -5,7 +5,8 @@ export default function DeleteTextButton({
     width,
     isLoading,
     clickAction,
-}:{ label:string, width?:string, isLoading?:boolean, clickAction:()=> void }) {
+    disabled
+}:{ label:string, width?:string, isLoading?:boolean, disabled?:boolean, clickAction:()=> void }) {
     return (
         <PrimaryTextButton
             label={label}
@@ -14,6 +15,7 @@ export default function DeleteTextButton({
             backgroundColor={"var(--red-accent-faded-100)"}
             labelColor={"var(--red-accent-100)"}
             clickAction={clickAction}
+            disabled={disabled}
         />
     )
 }

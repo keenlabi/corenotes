@@ -46,6 +46,7 @@ export interface ITaskDetails {
         category:string;
         PRN:Array<IPRNMedication>;
     };
+    prnMedicationReview?:IPRNMedication;
     goalTracking:{
         id:string;
         objective:string;
@@ -65,6 +66,16 @@ export interface ITaskDetails {
         id:string;
         title:string;
         instructions:string;
+    },
+    behaviorManagement:{
+        id:string;
+        description:string;
+        goals:string[];
+    },
+    chore:{
+        id:string;
+        title:string;
+        description:string;
     }
 }
 

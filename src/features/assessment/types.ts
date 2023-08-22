@@ -1,3 +1,4 @@
+import { IIndividualAssessmentSession } from "../Individual/types";
 import { initStateType } from "../types"
 
 // Type for response data from api
@@ -6,6 +7,21 @@ export interface AssessmentModelType {
     assessmentId:string;
     title:string
     category:string;
+    questions:Array<{
+        id:string;
+        question:string;
+        category:string;
+        answer:'YES'|'NO';
+        comment:string;
+    }>;
+}
+
+export interface IAssessmentSession {
+    id:string;
+    assessmentId:string;
+    title:string
+    category:string;
+    status:string;
     questions:Array<{
         id:string;
         question:string;
@@ -53,5 +69,6 @@ export interface AssessmentStateType extends initStateType {
     assessmentDetails:AssessmentModelType;
     newAssessment:NewAssessmentType,
     assessmentCategories:{id:string, name:string}[]
-    questionCategories:{id:string, name:string}[]
+    questionCategories:{id:string, name:string}[],
+    assessmentSession:IIndividualAssessmentSession
 }

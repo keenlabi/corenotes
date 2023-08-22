@@ -26,6 +26,12 @@ import BowelMovementTaskDetails from "./BowelMovementTaskDetails";
 import DailyLivingActivityTaskDetails from "./DailyLivingActivityTaskDetails/DailyLivingActivityTaskDetails";
 import ShiftNotesTaskDetails from "./ShiftNotesTaskDetails";
 import BloodGlucoseCheckTaskDetails from "./BloodGlucoseCheckTaskDetails";
+import BehaviorManagementTaskDetails from "./BehaviorManagementTaskDetails";
+import SeizureTrackingDetails from "./SeizureTrackingDetails";
+import TornadoDrillTaskDetails from "./TornadoDrillTaskDetails";
+import FireDrillTaskDetails from "./FireDrillTaskDetails";
+import ChoreTaskDetails from "./ChoreTaskDetails";
+import PRNMedicationReviewDetails from "./PRNMedicationReviewDetails/PRNMedicationReviewDetails";
 
 export default function TaskDetails() {
     
@@ -36,6 +42,7 @@ export default function TaskDetails() {
     const taskDetailsResponse = useFetchTaskDetailsSelector(parseInt(params.taskId!))
     
     useEffect(()=> {
+        console.log(taskDetailsResponse.task)
         setTaskState(state => ({
             ...state,
             error: taskDetailsResponse.error,
@@ -256,175 +263,183 @@ export default function TaskDetails() {
     }
 
     return (
-        taskState.taskDetails.service.title === "goal tracking" ?   <GoalTrackingTaskDetails />
-        :   taskState.taskDetails.service.title === "skin integrity" ?  <SkinIntegrityTaskDetails />
-        :   taskState.taskDetails.service.title === "bowel movement" ?  <BowelMovementTaskDetails />
-        :   taskState.taskDetails.service.title === "daily living activity" ?  <DailyLivingActivityTaskDetails />
-        :   taskState.taskDetails.service.title === "shift notes" ?  <ShiftNotesTaskDetails />
-        :   taskState.taskDetails.service.title === "blood glucose check" ?  <BloodGlucoseCheckTaskDetails />
-        :   <div className={styles.task_details}>
+        <div className={styles.task_details}>
+            
+            <GoBackButton path={"/dashboard"} />
 
-                <FormStateModal 
-                    status={taskState.status} 
-                    error={taskState.error} 
-                    message={taskState.message}
-                    reset={()=>resetTaskState(setTaskState)}
-                />
-
-                <SizedBox height="30px" />
-
-                <GoBackButton path={"/dashboard/tasks"} />
-
-                <SizedBox height="30px" />
-
-                <div className={styles.prn_med}>
-                    <FadedBackgroundButton
-                        label="Attach PRN Medication"
-                        width={"max-content"}
-                        backgroundColor={"var(--blue-accent-100)"}
-                        labelColor={"white"}
-                        action={()=> setShowAddPRNMedicationModal(true)}
-                    />
-                </div>
-
-                {
-                    showAddPRNMedicationModal
-                    ?   <SelectMedicationModal
-                            individualId={taskState.taskDetails.individual.id}
-                            individualMedicationId={taskState.taskDetails.medication!.id}
-                            medType={"PRN"}
-                            closeModal={()=> setShowAddPRNMedicationModal(false)} 
+            {
+                taskState.taskDetails.service.title === "goal tracking" ?   <GoalTrackingTaskDetails />
+                :   taskState.taskDetails.service.title === "skin integrity" ?  <SkinIntegrityTaskDetails />
+                :   taskState.taskDetails.service.title === "bowel movement" ?  <BowelMovementTaskDetails />
+                :   taskState.taskDetails.service.title === "daily living activity" ?  <DailyLivingActivityTaskDetails />
+                :   taskState.taskDetails.service.title === "shift notes" ?  <ShiftNotesTaskDetails />
+                :   taskState.taskDetails.service.title === "blood glucose check" ?  <BloodGlucoseCheckTaskDetails />
+                :   taskState.taskDetails.service.title === "behavior management" ?  <BehaviorManagementTaskDetails />
+                :   taskState.taskDetails.service.title === "seizure tracking" ?  <SeizureTrackingDetails />
+                :   taskState.taskDetails.service.title === "fire drill" ?  <FireDrillTaskDetails />
+                :   taskState.taskDetails.service.title === "tornado drill" ?  <TornadoDrillTaskDetails />
+                :   taskState.taskDetails.service.title === "chore" ?  <ChoreTaskDetails />
+                :   taskState.taskDetails.service.title.toLowerCase() === "prn medication review" ?  <PRNMedicationReviewDetails />
+                :   <div className={styles.generic_task_details}>
+                        <FormStateModal 
+                            status={taskState.status} 
+                            error={taskState.error} 
+                            message={taskState.message}
+                            reset={()=>resetTaskState(setTaskState)}
                         />
-                    :   null
-                }
 
-                <div className={styles.title}>{ taskState.taskDetails?.service.title }</div>
+                        <SizedBox height="30px" />
 
-
-                <div className={styles.content}>
-
-                    <div className={styles.details}> 
-                        <div className={styles.meta}>
-                            <div className={styles.todo}>{ taskState.taskDetails.status }</div>
+                        <div className={styles.prn_med}>
+                            <FadedBackgroundButton
+                                label="Attach PRN Medication"
+                                width={"max-content"}
+                                backgroundColor={"var(--blue-accent-100)"}
+                                labelColor={"white"}
+                                action={()=> setShowAddPRNMedicationModal(true)}
+                            />
                         </div>
 
-                        <div className={styles.desc}>
-                            <div className={styles.medication}>{ taskState.taskDetails.medication?.name }</div>
-                            
-                            <div className={styles.info}>
-                                <div className={styles.label}>Strength</div>
-                                <div className={styles.digit}>{ taskState.taskDetails.medication?.strength }</div>
-                            </div>
+                        {
+                            showAddPRNMedicationModal
+                            ?   <SelectMedicationModal
+                                    individualId={taskState.taskDetails.individual.id}
+                                    individualMedicationId={taskState.taskDetails.medication!.id}
+                                    medType={"PRN"}
+                                    closeModal={()=> setShowAddPRNMedicationModal(false)} 
+                                />
+                            :   null
+                        }
 
-                            <div className={styles.info}>
-                                <div className={styles.label}>Route</div>
-                                <div className={styles.digit}>{ taskState.taskDetails.medication?.route }</div>
-                            </div>
+                        <div className={styles.title}>{ taskState.taskDetails?.service.title }</div>
 
-                            <div className={styles.info}>
-                                <div className={styles.label}>indications</div>
-                                <div className={styles.indications}>
-                                    {
-                                        taskState.taskDetails.medication?.indications.map( indication => (
-                                            <div key={indication} className={styles.item}>{ indication }</div>
-                                        ))
-                                    }
+
+                        <div className={styles.content}>
+
+                            <div className={styles.details}> 
+                                <div className={styles.meta}>
+                                    <div className={styles.todo}>{ taskState.taskDetails.status }</div>
+                                </div>
+
+                                <div className={styles.desc}>
+                                    <div className={styles.medication}>{ taskState.taskDetails.medication?.name }</div>
+                                    
+                                    <div className={styles.info}>
+                                        <div className={styles.label}>Strength</div>
+                                        <div className={styles.digit}>{ taskState.taskDetails.medication?.strength }</div>
+                                    </div>
+
+                                    <div className={styles.info}>
+                                        <div className={styles.label}>Route</div>
+                                        <div className={styles.digit}>{ taskState.taskDetails.medication?.route }</div>
+                                    </div>
+
+                                    <div className={styles.info}>
+                                        <div className={styles.label}>indications</div>
+                                        <div className={styles.indications}>
+                                            {
+                                                taskState.taskDetails.medication?.indications.map( indication => (
+                                                    <div key={indication} className={styles.item}>{ indication }</div>
+                                                ))
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.info}>
+                                        <div className={styles.label}>Category</div>
+                                        <div className={`${styles.digit} ${styles.category}`}>{ taskState.taskDetails.medication?.category }</div>
+                                    </div>
+
+                                    <SizedBox height={"100px"} />
                                 </div>
                             </div>
 
-                            <div className={styles.info}>
-                                <div className={styles.label}>Category</div>
-                                <div className={`${styles.digit} ${styles.category}`}>{ taskState.taskDetails.medication?.category }</div>
-                            </div>
+                            {
+                                taskState.taskDetails.status !== "COMPLETED"
+                                ?   <div className={styles.med_actions}>
+                                        {
+                                            taskState.taskDetails.medication?.category === "controlled"
+                                            ?   <div>
+                                                    <InputField
+                                                        type={medAmountTakenAdminModel.type}
+                                                        label={medAmountTakenAdminModel.label}
+                                                        value={medAmountTakenAdminModel.value}
+                                                        readonly={medAmountTakenAdminModel.readonly}
+                                                        error={medAmountTakenAdminModel.error}
+                                                        onInput={(value:string)=> setInput(value, medAmountTakenAdminModel, setMedAmountTakenAdminModel)}
+                                                    />
 
-                            <SizedBox height={"100px"} />
-                        </div>
-                    </div>
+                                                    <InputField
+                                                        type={medAmountLeftAdminModel.type}
+                                                        label={medAmountLeftAdminModel.label}
+                                                        value={medAmountLeftAdminModel.value}
+                                                        readonly={medAmountLeftAdminModel.readonly}
+                                                        error={medAmountLeftAdminModel.error}
+                                                        onInput={(value:string)=> setInput(value, medAmountLeftAdminModel, setMedAmountLeftAdminModel)}
+                                                    />
+                                                </div>
+                                            :   null
+                                        }
 
-                    {
-                        taskState.taskDetails.status !== "COMPLETED"
-                        ?   <div className={styles.med_actions}>
-                                {
-                                    taskState.taskDetails.medication?.category === "controlled"
-                                    ?   <div>
-                                            <InputField
-                                                type={medAmountTakenAdminModel.type}
-                                                label={medAmountTakenAdminModel.label}
-                                                value={medAmountTakenAdminModel.value}
-                                                readonly={medAmountTakenAdminModel.readonly}
-                                                error={medAmountTakenAdminModel.error}
-                                                onInput={(value:string)=> setInput(value, medAmountTakenAdminModel, setMedAmountTakenAdminModel)}
+                                        {
+                                            taskState.taskDetails.medication?.route === "topical"
+                                            ?   <UploadPhoto savePhoto={(imageSrc:string)=> setTopicalPhoto(imageSrc)} />
+                                            :   null
+                                        }
+
+                                        <TextField
+                                            placeholder={medAdminNoteModel.placeholder}
+                                            error={medAdminNoteModel.error}
+                                            onInput={(value:string)=> setInput(value, medAdminNoteModel, setMedAdminNoteModel)}
+                                        />
+
+                                        <div className={styles.actions}>
+                                            <DeleteTextButton
+                                                label={"Decline"}
+                                                clickAction={declineMedAdministration}
                                             />
 
-                                            <InputField
-                                                type={medAmountLeftAdminModel.type}
-                                                label={medAmountLeftAdminModel.label}
-                                                value={medAmountLeftAdminModel.value}
-                                                readonly={medAmountLeftAdminModel.readonly}
-                                                error={medAmountLeftAdminModel.error}
-                                                onInput={(value:string)=> setInput(value, medAmountLeftAdminModel, setMedAmountLeftAdminModel)}
+                                            <PrimaryTextButton
+                                                label={"Administered"}
+                                                clickAction={taskState.taskDetails.medication?.category === "controlled" ?administerMed :administerOtherMed }
+                                                isLoading={taskState.status === 'LOADING'}
+                                                disabled={!isFormValid && !isOtherFormValid}
                                             />
                                         </div>
-                                    :   null
-                                }
-
-                                {
-                                    taskState.taskDetails.medication?.route === "topical"
-                                    ?   <UploadPhoto savePhoto={(imageSrc:string)=> setTopicalPhoto(imageSrc)} />
-                                    :   null
-                                }
-
-                                <TextField
-                                    placeholder={medAdminNoteModel.placeholder}
-                                    error={medAdminNoteModel.error}
-                                    onInput={(value:string)=> setInput(value, medAdminNoteModel, setMedAdminNoteModel)}
-                                />
-
-                                <div className={styles.actions}>
-                                    <DeleteTextButton
-                                        label={"Declined"}
-                                        clickAction={declineMedAdministration}
-                                    />
-
-                                    <PrimaryTextButton
-                                        label={"Administered"}
-                                        clickAction={taskState.taskDetails.medication?.category === "controlled" ?administerMed :administerOtherMed }
-                                        isLoading={taskState.status === 'LOADING'}
-                                        disabled={!isFormValid && !isOtherFormValid}
-                                    />
-                                </div>
-                            </div>
-                        :   null
-                    }
-                </div>
-
-                {
-                    taskState.taskDetails.medication?.PRN?.length
-                    ?   <div className={styles.prn_medications}>
-                            <GridList columnCount={3}>
-                                {
-                                    taskState.taskDetails.medication?.PRN.map(prnMedication => {
-                                        return  <div 
-                                                    key={prnMedication.id}
-                                                    className={styles.prn_details}
-                                                >
-                                                    <div className={styles.item_title}>{ prnMedication.title }</div>
-                                                    <div className={styles.medication_dets}> 
-                                                        <div className={styles.prn_med_name}>{prnMedication.name}</div>
-                                                        <div className={styles.prn_med_amount}>x{ prnMedication.amountAdministered } </div>
-                                                    </div>
-                                                    <div className={styles.prn_date_time}>
-                                                        <div className={styles.date}>{formatDate(prnMedication.createdAt.toString())}</div>
-                                                        <div className={styles.time}>{formatTime(prnMedication.createdAt.toString())}</div>
-                                                    </div>
-                                                </div>
-                                    })
-                                }
-                            </GridList>
+                                    </div>
+                                :   null
+                            }
                         </div>
-                    :   null
-                }
-            </div>
+
+                        {
+                            taskState.taskDetails.medication?.PRN?.length
+                            ?   <div className={styles.prn_medications}>
+                                    <GridList columnCount={3}>
+                                        {
+                                            taskState.taskDetails.medication?.PRN.map(prnMedication => {
+                                                return  <div 
+                                                            key={prnMedication.id}
+                                                            className={styles.prn_details}
+                                                        >
+                                                            <div className={styles.item_title}>{ prnMedication.title }</div>
+                                                            <div className={styles.medication_dets}> 
+                                                                <div className={styles.prn_med_name}>{prnMedication.name}</div>
+                                                                <div className={styles.prn_med_amount}>x{ prnMedication.amountAdministered } </div>
+                                                            </div>
+                                                            <div className={styles.prn_date_time}>
+                                                                <div className={styles.date}>{formatDate(prnMedication.createdAt.toString())}</div>
+                                                                <div className={styles.time}>{formatTime(prnMedication.createdAt.toString())}</div>
+                                                            </div>
+                                                        </div>
+                                            })
+                                        }
+                                    </GridList>
+                                </div>
+                            :   null
+                        }
+                    </div>
+            }
+        </div>
     )
 }
 

@@ -1,7 +1,6 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IDailyLivingActivity, IGoalService, IIndividualMedicationsListItem, ISupervisoryMedicationReviews, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
-import { AssessmentModelType } from "../assessment/types"
+import { IDailyLivingActivity, IGoalService, IIndividualAssessmentSession, IIndividualAssessmentSessionQuestion, IIndividualAssessmentsList, IIndividualBehaviorService, IIndividualChoreService, IIndividualMedicationsListItem, ISupervisoryMedicationReviews, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
 
 export interface IndividualListResponseType extends Omit<successResponseType, 'data'> {
     data: { 
@@ -66,24 +65,45 @@ export function fetchIndividualProfileAction(id:string) {
     })
 }
 
-export interface IndividualAssessmentSessionResponseType extends Omit<successResponseType, 'data'> {
-    data: {
-        assessmentDetails: AssessmentModelType
+export interface IFetchIndividualAssessmentsResponse extends Omit<successResponseType, 'data'> {
+    data: { 
+        individualAssessments: {
+            list: IIndividualAssessmentsList[],
+            currentPage:number;
+            totalPages:number;
+        }
     }
 }
 
-export function fetchIndividualAssessmentSessionAction(assessmentId:string) {
+export function fetchIndividualAssessmentsList(individualId:number, pageNumber:number) {
+    return new Promise<IFetchIndividualAssessmentsResponse>((resolve, reject)=> {
+        getFetch(`individuals/${individualId}/assessments/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { individualAssessments: response.data.individualAssessments }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface IndividualAssessmentSessionResponseType extends Omit<successResponseType, 'data'> {
+    data: {
+        assessmentSession:IIndividualAssessmentSession
+    }
+}
+
+export function fetchIndividualAssessmentSessionAction(individualId:number, assessmentId:string) {
     return new Promise<IndividualAssessmentSessionResponseType>((resolve, reject)=> {
-        getFetch(`/individuals/assessments/${assessmentId}/session`)
+        getFetch(`/individuals/${individualId}/assessments/${assessmentId}/session`)
         .then((response:successResponseType)=> {
             resolve({
                 ...response,
-                data: { assessmentDetails: response.data.individualAssessmentSession }
+                data: { assessmentSession: response.data.assessmentSession }
             })
         })
-        .catch((error)=> {
-            reject(error)
-        })
+        .catch((error)=> reject(error))
     })
 }
 
@@ -93,7 +113,7 @@ export function saveAssessmentSessionAction(assessmentId:string, payload:any) {
         .then((response:successResponseType)=> {
             resolve({
                 ...response,
-                data: { assessmentDetails: response.data.individualAssessmentSession }
+                data: { assessmentSession: response.data.individualAssessmentSession }
             })
         })
         .catch((error)=> {
@@ -102,13 +122,17 @@ export function saveAssessmentSessionAction(assessmentId:string, payload:any) {
     })
 }
 
-export function completeAssessmentSessionAction(assessmentId:string, payload:any) {
+interface ICompleteAssessmentSession {
+    questions:Array<IIndividualAssessmentSessionQuestion>
+}
+
+export function completeAssessmentSessionAction(individualId:number, assessmentId:string, payload:ICompleteAssessmentSession) {
     return new Promise<IndividualAssessmentSessionResponseType>((resolve, reject)=> {
-        postFetch(`/individuals/assessments/${assessmentId}/session`, payload)
+        postFetch(`/individuals/${individualId}/assessments/${assessmentId}/session`, payload)
         .then((response:successResponseType)=> {
             resolve({
                 ...response,
-                data: { assessmentDetails: response.data.individualAssessmentSession }
+                data: { assessmentSession: response.data.assessmentSession }
             })
         })
         .catch((error)=> reject(error))
@@ -420,3 +444,111 @@ export function addDailyLivingActivityToIndividualAction(individualId:string, pa
         .catch((error)=> reject(error))
     })
 }
+
+export interface IIndividualBehaviorManagementServicesSuccessResponse extends Omit<successResponseType, 'data'> {
+    data: { 
+        list:IIndividualBehaviorService[];
+        currentPage:number;
+        totalPages:number;
+    }
+}
+
+export function fetchIndividualBehaviorManagementServicesListAction(individualId:number, pageNumber:number) {
+    return new Promise<IIndividualBehaviorManagementServicesSuccessResponse>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/services/behavior-management/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.behaviorManagementServices
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IAddbehaviorServiceToIndividualPayload {
+    description:string;
+    goals:Array<string>;
+    schedule: {
+        startDate:string;
+        time:string;
+        frequency:string;
+        frequencyAttr:number;
+    }
+}
+
+export function addBehaviorToIndividualAction(individualId:string, payload:IAddbehaviorServiceToIndividualPayload) {
+    return new Promise<IIndividualBehaviorManagementServicesSuccessResponse>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/services/behavior-management`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.behaviorManagementServices
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+
+// Chore services *************************************
+export interface IIndividualChoreServicesSuccessResponse extends Omit<successResponseType, 'data'> {
+    data: { 
+        list:IIndividualChoreService[];
+        currentPage:number;
+        totalPages:number;
+    }
+}
+
+export function fetchIndividualChoreServicesListAction(individualId:number, pageNumber:number) {
+    return new Promise<IIndividualChoreServicesSuccessResponse>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/services/chore/${pageNumber}`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.choreServices
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IAddChoreServiceToIndividualPayload {
+    description:string;
+    schedule: {
+        startDate:string;
+        time:string;
+        frequency:string;
+        frequencyAttr:number;
+    }
+}
+
+export function addChoreToIndividualAction(individualId:string, payload:IAddChoreServiceToIndividualPayload) {
+    return new Promise<IIndividualChoreServicesSuccessResponse>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/services/chore`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.choreServices
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+// ****************************************************

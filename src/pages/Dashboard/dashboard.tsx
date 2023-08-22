@@ -26,24 +26,24 @@ export default function Dashboard() {
     }
 
     const [NavOptions, setNavOptions] = useState<NavOptionsType[]>([
-        {
-            label: "overview",
-            pageTitle: "overview",
-            pageSubtitle: "",
-            path: "/dashboard",
-            icon: iconOverview,
-            activeIcon: iconOverview,
-            active: isCurrentNav(['/dashboard', '/dashboard/']),
-            roles: ['HR', 'DSP', 'CNA', 'RN', 'DDP', 'SUPRT_COR', 'TEAM_LEAD_CNA', 'HOME_MAN', 'ADMIN_ASS', 'ADMIN']
-        },
+        // {
+        //     label: "overview",
+        //     pageTitle: "overview",
+        //     pageSubtitle: "",
+        //     path: "/dashboard",
+        //     icon: iconOverview,
+        //     activeIcon: iconOverview,
+        //     active: isCurrentNav(['/dashboard', '/dashboard/']),
+        //     roles: ['HR', 'DSP', 'CNA', 'RN', 'DDP', 'SUPRT_COR', 'TEAM_LEAD_CNA', 'HOME_MAN', 'ADMIN_ASS', 'ADMIN']
+        // },
         {
             label: "tasks",
             pageTitle: "tasks",
             pageSubtitle: "",
-            path: "/dashboard/tasks",
+            path: "/dashboard",
             icon: iconOverview,
             activeIcon: iconOverview,
-            active: isCurrentNav(['/dashboard/tasks']),
+            active: isCurrentNav(['/dashboard']),
             roles: ['HR', 'DSP', 'CNA', 'RN', 'DDP', 'SUPRT_COR', 'TEAM_LEAD_CNA', 'HOME_MAN', 'ADMIN_ASS', 'ADMIN']
         },
         {
@@ -86,26 +86,26 @@ export default function Dashboard() {
             active: isCurrentNav(['/dashboard/medications']),
             roles: ['HR', 'DDP', 'ADMIN']
         },
-        {
-            label: "Administration",
-            pageTitle: "Administration",
-            pageSubtitle: "",
-            path: "/dashboard/administration",
-            icon: iconAdminUser,
-            activeIcon: iconAdminUser,
-            active: isCurrentNav(['/dashboard/administration']),
-            roles: ['HR', 'DDP', 'ADMIN']
-        },
-        {
-            label: "Settings",
-            pageTitle: "settings",
-            pageSubtitle: "",
-            path: "/dashboard/settings",    
-            icon: iconSettings,
-            activeIcon: iconSettings,
-            active: isCurrentNav(['/dashboard/settings']),
-            roles: ['ADMIN']
-        }
+        // {
+        //     label: "Administration",
+        //     pageTitle: "Administration",
+        //     pageSubtitle: "",
+        //     path: "/dashboard/administration",
+        //     icon: iconAdminUser,
+        //     activeIcon: iconAdminUser,
+        //     active: isCurrentNav(['/dashboard/administration']),
+        //     roles: ['HR', 'DDP', 'ADMIN']
+        // },
+        // {
+        //     label: "Settings",
+        //     pageTitle: "settings",
+        //     pageSubtitle: "",
+        //     path: "/dashboard/settings",    
+        //     icon: iconSettings,
+        //     activeIcon: iconSettings,
+        //     active: isCurrentNav(['/dashboard/settings']),
+        //     roles: ['ADMIN']
+        // }
     ]);
 
     const [activeNavPosition, setActiveNavPosition] = useState(0);

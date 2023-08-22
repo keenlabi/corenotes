@@ -1,16 +1,19 @@
 import styles from "./assessmentslist.module.css";
-import { useFetchAssessmentsListSelector } from "src/features/assessment/selector";
 import { useEffect, useState } from "react";
 import { useIndividualState } from "src/features/Individual/state";
 import AssessmentCard from "../../../../Assessments/AssessmentCard";
 import GridList from "src/components/GridList/GridList";
-import AssessmentSession from "../AssessmentSession/AssessmentSession";
+import AssessmentSession from "../AssessmentSession/AssessmentSessionModal";
+import { useFetchIndividualAssessmentsList } from "src/features/Individual/selector";
+import { useParams } from "react-router-dom";
 
 export default function AssessmentsList() {
 
+    const params = useParams();
+
     const [individualState, setIndividualState] = useIndividualState();
 
-    const assessmentsResponse = useFetchAssessmentsListSelector(individualState.assessments.currentPage)
+    const assessmentsResponse = useFetchIndividualAssessmentsList(parseInt(params.individualId!), individualState.assessments.currentPage)
 
     useEffect(()=> {
         if(!assessmentsResponse.error) {
@@ -18,9 +21,7 @@ export default function AssessmentsList() {
                 ...state,
                 assessments: {
                     ...state.assessments,
-                    list: assessmentsResponse.assessments.list,
-                    currentPage: 1,
-                    totalPages: 1
+                    ...assessmentsResponse.individualAssessments
                 }
             }))
         }
@@ -37,24 +38,12 @@ export default function AssessmentsList() {
     }, [assessmentsResponse, setIndividualState])
 
     const [isAssessmentModalVisible, setIsAssessmentModalVisible] = useState(false)
+    const [assessmentSessionId, setAssessmentSessionId] = useState("")
 
-    function toggleTakeAssessmentModal(assessmentId:string) {
-        if(individualState.assessments.session.id !== assessmentId) {
-            // setIndividualState(state => ({
-            //     ...state,
-            //     assessments:{
-            //         ...state.assessments,
-            //         session: {
-            //             id: assessmentId,
-            //             status: "IN-PROGRESS",
-            //             questions:,
-            //             category:'',
-            //             title:''
-            //         }
-            //     }
-            // }))
-        }
-        setIsAssessmentModalVisible(!isAssessmentModalVisible)
+    function toggleTakeAssessmentModal(assessmentObjId:string) {
+        setAssessmentSessionId(assessmentObjId)
+
+        setIsAssessmentModalVisible(true)
     }
   
 
@@ -67,9 +56,10 @@ export default function AssessmentsList() {
                                     key={assessment.id}
                                     category={assessment.category}
                                     title={assessment.title}
-                                    questionsCount={assessment.questionsCount}
-                                    openAction={() => toggleTakeAssessmentModal(assessment.id)} 
+                                    questionsCount={assessment.questionCount}
                                     assignedTo={""}
+                                    status={""}
+                                    openAction={() => toggleTakeAssessmentModal(assessment.id)} 
                                 />
                     })
                 }
@@ -77,10 +67,7 @@ export default function AssessmentsList() {
 
             {
                 isAssessmentModalVisible
-                ?   <AssessmentSession 
-                        assessmentId={individualState.assessments.session!.id}
-                        closeAssessment={() => toggleTakeAssessmentModal('')} 
-                    />
+                ?   <AssessmentSession assessmentSessionId={assessmentSessionId} closeModal={()=> setIsAssessmentModalVisible(false)} />
                 :   null
             }
         </div>
