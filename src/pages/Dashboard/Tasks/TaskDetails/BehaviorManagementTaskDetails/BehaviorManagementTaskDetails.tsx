@@ -1,6 +1,5 @@
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import styles from "./behaviormanagementtaskdetails.module.css";
-import GoBackButton from "src/components/Buttons/GoBackButton";
 import SizedBox from "src/components/SizedBox";
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import TextField from "src/components/FormComponents/TextField";
@@ -9,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { resetTaskState, useTaskState } from "src/features/task/state";
 import { useState } from "react";
 import { formFieldType, setInput } from "src/components/FormComponents/FormWrapper/types";
-import { completeBehaviorManagementTaskAction, completeDailyLivingActivityTaskAction, declineBehaviorManagementTaskAction, declineDailyLivingActivityTaskAction } from "src/features/task/action";
+import { completeBehaviorManagementTaskAction, declineBehaviorManagementTaskAction } from "src/features/task/action";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import Pill from "src/components/Pill";
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";

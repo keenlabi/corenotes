@@ -31,7 +31,14 @@ export const AssessmentInitState:AssessmentStateType = {
             assigneesList: []
         }
     },
-    assessmentSession: undefined
+    assessmentSession: {
+        id: "",
+        assessmentId: "",
+        title: "",
+        status: "",
+        createdAt: "",
+        questions: []
+    }
 }
 
 export const AssessmentState = atom({

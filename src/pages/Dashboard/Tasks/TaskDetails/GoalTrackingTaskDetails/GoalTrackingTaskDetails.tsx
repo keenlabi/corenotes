@@ -1,4 +1,3 @@
-import GoBackButton from "src/components/Buttons/GoBackButton";
 import styles from "./goaltrackingtaskdetails.module.css";
 import { resetTaskState, useTaskState } from "src/features/task/state";
 import FormWrapper from "src/components/FormComponents/FormWrapper";
