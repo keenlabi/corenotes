@@ -23,3 +23,10 @@ export interface formStateType {
 }
 
 export interface setFormStateType extends React.Dispatch<React.SetStateAction<formStateType>> {}
+
+export function setInput(value:string, inputModel:formFieldType, setInputModel:setFormFieldType, validateModel:(inputModel:formFieldType)=> void) {
+    inputModel.value = value
+    validateModel(inputModel)
+    setInputModel({...inputModel});
+}
+

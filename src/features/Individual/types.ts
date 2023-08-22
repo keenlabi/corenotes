@@ -1,4 +1,3 @@
-import { AssessmentListItemType } from "../assessment/types";
 import { initStateType } from "../types";
 
 export interface IndividualStateType extends initStateType {
@@ -10,10 +9,10 @@ export interface IndividualStateType extends initStateType {
     newIndividual:NewIndividualType;
     profile: IndividualProfileType;
     assessments: {
-        list: AssessmentListItemType[];
+        list: IIndividualAssessmentsList[];
         currentPage:number;
         totalPages:number;
-        session: IAssessmentSession;
+        session: IIndividualAssessmentSession;
     },
     services:IndividualServiceListItemType[];
     medications: {
@@ -37,7 +36,42 @@ export interface IndividualStateType extends initStateType {
         list:IDailyLivingActivity[];
         currentPage:number;
         totalPages:number;
+    },
+    behaviorsServices:{
+        list:IIndividualBehaviorService[];
+        currentPage:number;
+        totalPages:number;
+    },
+    choreServices: {
+        list:IIndividualChoreService[];
+        currentPage:number;
+        totalPages:number;
     }
+}
+
+export interface IIndividualChoreService {
+    id:string;
+    description:string;
+    frequency:string;
+    time:Array<string>;
+    createdAt:Date;
+}
+
+export interface IIndividualBehaviorService {
+    id:string;
+    description:string;
+    goals:Array<string>;
+    frequency:string;
+    time:string;
+    endDate:string;
+}
+
+export interface IIndividualAssessmentsList {
+    id:string;
+    assessmentId:number;
+    title:string;
+    category:string;
+    questionCount:number;
 }
 
 export interface IDailyLivingActivity {
@@ -207,18 +241,21 @@ export interface IIndividualMedicationsListItem {
     time:string;
 }
 
-export interface IAssessmentSession {
-    id:string,
+export interface IIndividualAssessmentSession {
+    id:string;
+    assessmentId:string;
     title:string;
-    assessmentId:string,
-    status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
-    questions:Array<{
-        id:string,
-        question:string,
-        answer:'YES'|'NO',
-        comment:string
-    }>,
-    createdAt:string
+    status:string;
+    createdAt:string;
+    questions:Array<IIndividualAssessmentSessionQuestion>
+}
+
+export interface IIndividualAssessmentSessionQuestion {
+    id:string;
+    question:string;
+    category:string;
+    answer:string;
+    comment:string;
 }
 
 export interface IGoalService {

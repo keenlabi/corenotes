@@ -1,0 +1,12 @@
+.info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+.info_icon {
+    fill: var(--grey-accent-500);
+}
+.info .message {
+    color: var(--grey-accent-700);
+}

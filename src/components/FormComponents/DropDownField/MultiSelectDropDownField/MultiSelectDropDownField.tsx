@@ -172,7 +172,7 @@ export default function MultiSelectDropDownField({
                 info
                 ?   <div className={styles.info}>
                         <IconInfo className={styles.info_icon} />
-                        <div className={styles.message}>{info}</div>
+                        <div className={styles.message}>{ info }</div>
                     </div>
                 :   null
             }

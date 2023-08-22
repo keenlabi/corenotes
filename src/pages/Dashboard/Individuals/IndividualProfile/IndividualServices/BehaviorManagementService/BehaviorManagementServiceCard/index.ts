@@ -1,0 +1,2 @@
+import BehaviorManagementServiceCard from "./BehaviorManagementServiceCard";
+export default BehaviorManagementServiceCard
