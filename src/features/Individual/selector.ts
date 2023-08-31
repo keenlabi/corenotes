@@ -15,6 +15,7 @@ import {
     fetchIndividualBehaviorManagementServicesListAction, 
     fetchIndividualChoreServicesListAction, 
     fetchIndividualDailyLivingActivitiesListAction, 
+    fetchIndividualDocumentsAction, 
     fetchIndividualGoalsAction, 
     fetchIndividualListAction, 
     fetchIndividualMedicationsAction, 
@@ -23,7 +24,7 @@ import {
     fetchIndividualSupervisoryReviewHistoryAction} from "./action"
 import formatIndividual from "./utils/formatIndividual"
 import { individualInitState } from "./state"
-import { IIndividualAssessmentSession, IIndividualAssessmentsList } from "./types"
+import { IIndividualAssessmentSession, IIndividualAssessmentsList, IndividualStateType } from "./types"
 import { AssessmentInitState } from "../assessment/state"
 
 interface IFetchIndividualList {
@@ -386,3 +387,36 @@ const fetchIndividualChoreServices = selectorFamily({
     }
 })
 export const useFetchIndividualChoreServicesSelector = (individualId:number, pageNumber:number)=> useRecoilValue(fetchIndividualChoreServices({ individualId, pageNumber }))
+
+interface IFetchIndividualDocument {
+    data:Pick<IndividualStateType, 'documents'>['documents'];
+    code:number;
+    message:string;
+    error:boolean
+}
+
+const fetchIndividualDocumentsSelector = selectorFamily({
+    key: 'fetch_individual_documents_selector',
+    get: ({id, pageNumber}:{id:string, pageNumber:number})=> async ()=> {
+        return await fetchIndividualDocumentsAction(id, pageNumber)
+        .then((response)=> {
+            return {
+                data: response.data,
+                code: response.code,
+                message: response.message,
+                error: false
+
+            } satisfies IFetchIndividualDocument
+        })
+        .catch((error)=> {
+            return {
+                code: error.code,
+                error: true,
+                message: error.message,
+                data: individualInitState.documents
+
+            } satisfies IFetchIndividualDocument
+        })
+    }
+})
+export const useFetchIndividualDocumentsSelector = (id:string, pageNumber:number)=> useRecoilValue(fetchIndividualDocumentsSelector({id, pageNumber}))

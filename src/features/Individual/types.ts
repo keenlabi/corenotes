@@ -46,7 +46,24 @@ export interface IndividualStateType extends initStateType {
         list:IIndividualChoreService[];
         currentPage:number;
         totalPages:number;
-    }
+    },
+    documents:IIndividualDocumentsList
+}
+
+export interface IIndividualDocumentsList {
+    list:Array<IIndividualDocument>;
+    currentPage:number;
+    totalPages:number;
+}
+
+export interface IIndividualDocument {
+    id:string,
+    docTitle: string,
+    docType: string,
+    docDate: string,
+    docFileLink: string,
+    docFileName: string,
+    createdAt:string
 }
 
 export interface IIndividualChoreService {

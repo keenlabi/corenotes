@@ -18,7 +18,6 @@ import { formFieldType, setFormFieldType } from "src/components/FormComponents/F
 import { getAllProvidedServiceAction } from "src/features/service/action";
 import RowContainer from "src/components/Layout/RowContainer";
 import formatTime from "src/utils/formatTime";
-import ToggleSwitch from "src/components/Buttons/ToggleButton";
 import SizedBox from "src/components/SizedBox";
 
 export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()=> void }) {
@@ -57,8 +56,6 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
         selected: false,
         selectedOptionIndex: 0
     })
-
-    const [isServiceScheduled, setIsServiceScheduled] = useState(false);
 
     const [serviceStartDateModel, setServiceStartDateModel] = useState<formFieldType>({
         type: 'date',
@@ -135,33 +132,31 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
         model.selectedOptionIndex = optionIndex;
 
         if(model.name === 'requested-service') {
-            if(isServiceScheduled) {
-                if(model.value?.label.toLowerCase().split(' ').join('-') === 'medication-administration') {
-                    serviceFrequencyModel.selected = true;
-                    setServiceFrequencyModel({...serviceFrequencyModel})
-    
-                    serviceFrequencyAttrModel.validated = true;
-                    setServiceFrequencyAttrModel({...serviceFrequencyAttrModel})
-    
-                    serviceTimeModel.validated = true;
-                    setServiceTimeModel({...serviceTimeModel})
-    
-                    serviceStartDateModel.validated = true;
-                    setServiceStartDateModel({...serviceStartDateModel})
-    
-                } else {
-                    serviceFrequencyModel.selected = false;
-                    setServiceFrequencyModel({...serviceFrequencyModel})
-    
-                    serviceFrequencyAttrModel.validated = false;
-                    setServiceFrequencyAttrModel({...serviceFrequencyAttrModel})
-    
-                    serviceTimeModel.validated = false;
-                    setServiceTimeModel({...serviceTimeModel})
-    
-                    serviceStartDateModel.validated = false;
-                    setServiceStartDateModel({...serviceStartDateModel})
-                }
+            if(model.value?.label.toLowerCase().split(' ').join('-') === 'medication-administration') {
+                serviceFrequencyModel.selected = true;
+                setServiceFrequencyModel({...serviceFrequencyModel})
+
+                serviceFrequencyAttrModel.validated = true;
+                setServiceFrequencyAttrModel({...serviceFrequencyAttrModel})
+
+                serviceTimeModel.validated = true;
+                setServiceTimeModel({...serviceTimeModel})
+
+                serviceStartDateModel.validated = true;
+                setServiceStartDateModel({...serviceStartDateModel})
+
+            } else {
+                serviceFrequencyModel.selected = false;
+                setServiceFrequencyModel({...serviceFrequencyModel})
+
+                serviceFrequencyAttrModel.validated = false;
+                setServiceFrequencyAttrModel({...serviceFrequencyAttrModel})
+
+                serviceTimeModel.validated = false;
+                setServiceTimeModel({...serviceTimeModel})
+
+                serviceStartDateModel.validated = false;
+                setServiceStartDateModel({...serviceStartDateModel})
             }
         }
 
@@ -274,24 +269,22 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
             return false;
         }
 
-        if(isServiceScheduled) {
-            if(!serviceFrequencyModel.selected) {
-                setIsFormValidated(false)
-                return false;
-            }
+        if(!serviceFrequencyModel.selected) {
+            setIsFormValidated(false)
+            return false;
+        }
 
-            if(['every-x-days', 'every-x-weeks', 'every-x-days'].includes(serviceFrequencyModel.value?.value ?? "")) {
-                if(!serviceFrequencyAttrModel.validated) {
-                    setIsFormValidated(false)
-                    return false;
-                }
-            }
-    
-            if(!serviceStartDateModel.validated) {
-                console.log('HERE')
+        if(['every-x-days', 'every-x-weeks', 'every-x-days'].includes(serviceFrequencyModel.value?.value ?? "")) {
+            if(!serviceFrequencyAttrModel.validated) {
                 setIsFormValidated(false)
                 return false;
             }
+        }
+
+        if(!serviceStartDateModel.validated) {
+            console.log('HERE')
+            setIsFormValidated(false)
+            return false;
         }
 
         setIsFormValidated(true);
@@ -299,7 +292,7 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
     }
 
     function submitForm() {
-        if(validateForm()) {
+        // if(validateForm()) {
 
             const payload:IAddServiceToIndividualPayload = {
                 serviceId: requestedServiceModel.value!.value!,
@@ -339,7 +332,7 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
                     error: true,
                 }))
             })
-        }
+        // }
     }
 
     function resetFormStateModal() {
@@ -393,59 +386,51 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
                         onSelect={(optionIndex:number)=> selectOption(optionIndex, requestedServiceModel, setRequestedServiceModel)}
                     />
 
-                    <div>
-                        <div className={styles.schedule_label}>Set Schedule?</div>
-                        <ToggleSwitch 
-                            onToggle={(switchState: boolean) => setIsServiceScheduled(switchState)} 
-                            initState={false}
-                        />
-                    </div>
-
                 {
-                    isServiceScheduled
-                    ?   requestedServiceModel.value?.label.toLowerCase().split(' ').join('-') !== 'medication-administration'
-                        ?   <div>
-                                <RowContainer alignment={"top"}>
-                                    <DropDownField
-                                        placeholder={serviceFrequencyModel.placeholder}
-                                        options={serviceFrequencyModel.options}
-                                        selected={serviceFrequencyModel.selected} 
-                                        selectedOptionIndex={serviceFrequencyModel.selectedOptionIndex}
-                                        error={serviceFrequencyModel.error} 
-                                        onSelect={(optionIndex: number) => selectOption(optionIndex, serviceFrequencyModel, setServiceFrequencyModel)} 
-                                    />
+                   
+                    !['medication-administration', 'chore', 'daily-living-activities', 'behavior-management', 'goal-tracking']
+                    .includes(requestedServiceModel.value?.label.toLowerCase().split(' ').join('-') ?? "")
+                    ?   <div>
+                            <RowContainer alignment={"top"}>
+                                <DropDownField
+                                    placeholder={serviceFrequencyModel.placeholder}
+                                    options={serviceFrequencyModel.options}
+                                    selected={serviceFrequencyModel.selected} 
+                                    selectedOptionIndex={serviceFrequencyModel.selectedOptionIndex}
+                                    error={serviceFrequencyModel.error} 
+                                    onSelect={(optionIndex: number) => selectOption(optionIndex, serviceFrequencyModel, setServiceFrequencyModel)} 
+                                />
 
-                                    <InputField
-                                        readonly={serviceFrequencyAttrModel.readonly}
-                                        extraInputContainerStyle={styles.side_padding}
-                                        type={serviceFrequencyAttrModel.type}
-                                        placeholder={serviceFrequencyAttrModel.placeholder}
-                                        prefixIcon={serviceFrequencyAttrModel.prefixIcon}
-                                        suffixIcon={serviceFrequencyAttrModel.suffixIcon}
-                                        error={serviceFrequencyAttrModel.error}
-                                        onInput={(value:string)=> setInput(value, serviceFrequencyAttrModel, setServiceFrequencyAttrModel)}
-                                    />
-                                </RowContainer>
-                                <SizedBox height="15px" />
-                                <RowContainer>
-                                    <InputField
-                                        type={serviceStartDateModel.type}
-                                        placeholder={serviceStartDateModel.placeholder}
-                                        value={serviceStartDateModel.value}
-                                        error={serviceStartDateModel.error}
-                                        onInput={(value:string)=> setInput(value, serviceStartDateModel, setServiceStartDateModel)}
-                                    />
+                                <InputField
+                                    readonly={serviceFrequencyAttrModel.readonly}
+                                    extraInputContainerStyle={styles.side_padding}
+                                    type={serviceFrequencyAttrModel.type}
+                                    placeholder={serviceFrequencyAttrModel.placeholder}
+                                    prefixIcon={serviceFrequencyAttrModel.prefixIcon}
+                                    suffixIcon={serviceFrequencyAttrModel.suffixIcon}
+                                    error={serviceFrequencyAttrModel.error}
+                                    onInput={(value:string)=> setInput(value, serviceFrequencyAttrModel, setServiceFrequencyAttrModel)}
+                                />
+                            </RowContainer>
+                            <SizedBox height="15px" />
+                            <RowContainer>
+                                <InputField
+                                    type={serviceStartDateModel.type}
+                                    placeholder={serviceStartDateModel.placeholder}
+                                    value={serviceStartDateModel.value}
+                                    error={serviceStartDateModel.error}
+                                    onInput={(value:string)=> setInput(value, serviceStartDateModel, setServiceStartDateModel)}
+                                />
 
-                                    <InputField
-                                        type={serviceTimeModel.type}
-                                        placeholder={serviceTimeModel.placeholder}
-                                        value={serviceTimeModel.value}
-                                        error={serviceTimeModel.error}
-                                        onInput={(value:string)=> setInput(value, serviceTimeModel, setServiceTimeModel)}
-                                    />
-                                </RowContainer>
-                            </div>
-                        :   null
+                                <InputField
+                                    type={serviceTimeModel.type}
+                                    placeholder={serviceTimeModel.placeholder}
+                                    value={serviceTimeModel.value}
+                                    error={serviceTimeModel.error}
+                                    onInput={(value:string)=> setInput(value, serviceTimeModel, setServiceTimeModel)}
+                                />
+                            </RowContainer>
+                        </div>
                     :   null
                 }
                 </div>
@@ -463,7 +448,7 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
                         width="200px"
                         label="Assign Service"
                         clickAction={()=> submitForm()}
-                        disabled={!isFormValidated}
+                        // disabled={!isFormValidated}
                         isLoading={individualState.status === 'LOADING'}
                     />
                 </div>

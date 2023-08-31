@@ -6,8 +6,8 @@ import SizedBox from "src/components/SizedBox";
 import { FaList, FaPills, FaPlus } from "react-icons/fa";
 
 export default function TasksListHeader({ 
-    openBarcodeScanner, addPRNmed
-}: { openBarcodeScanner: () => void, addPRNmed:()=>void }) {
+    openBarcodeScanner, addPRNmed, addPRNService
+}: { openBarcodeScanner: () => void, addPRNmed:()=>void, addPRNService: ()=> void }) {
 
     const taskStateValue = useTaskStateValue();
 
@@ -74,6 +74,11 @@ export default function TasksListHeader({
                     <div className={styles.administer_prn} onClick={addPRNmed}>
                         <FaPlus className={styles.btn_icon} />
                         <div className={styles.label}>  Administer PRN Med  </div>
+                    </div>
+
+                    <div className={styles.administer_prn_service} onClick={addPRNService}>
+                        <FaPlus className={styles.btn_icon} />
+                        <div className={styles.label}>  New PRN Service  </div>
                     </div>
                 </div>
             </div>

@@ -114,6 +114,11 @@ export const individualInitState:IndividualStateType = {
         list: [],
         currentPage: 1,
         totalPages: 1
+    },
+    documents:{
+        list: [],
+        currentPage: 1,
+        totalPages: 1
     }
 }
 

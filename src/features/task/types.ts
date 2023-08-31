@@ -76,6 +76,9 @@ export interface ITaskDetails {
         id:string;
         title:string;
         description:string;
+    },
+    bowelMovement:{
+        hasNotMovedIn2Days:boolean
     }
 }
 
