@@ -11,7 +11,7 @@ import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import { completeBowelMovementTaskAction, declineBowelMovementTaskAction } from "src/features/task/action";
-import { FaInfo, FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 
 export default function BowelMovementTaskDetails() {
 
