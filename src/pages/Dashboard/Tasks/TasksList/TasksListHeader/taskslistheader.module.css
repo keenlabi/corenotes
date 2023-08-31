@@ -71,3 +71,15 @@
     color: white;
     font-weight: 600;
 }
+.administer_prn_service {
+    overflow: hidden;
+    border-radius: 5px;
+    
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    gap: 0.5rem;
+    background: var(--green-accent-100);
+    color: white;
+    cursor: pointer;
+}

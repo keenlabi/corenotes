@@ -39,6 +39,7 @@ import GoalTrackingService from "src/pages/Dashboard/Individuals/IndividualProfi
 import DailyLivingActivitiesService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/DailyLivingActivitiesService/DailyLivingActivitiesService";
 import BehaviorManagementService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/BehaviorManagementService/BehaviorManagementService";
 import ChoreService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/ChoreService";
+import IndividualDocuments from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualDocuments";
 // import MedicationServiceIndividualsModal from "src/pages/Dashboard/Medications/MedicationDetails/MedicationServiceIndividualsModal";
 
 const DashboardRoutes:routerType[] = [
@@ -178,7 +179,7 @@ const DashboardRoutes:routerType[] = [
                             {
                                 path:'documents',
                                 title: 'Documents',
-                                element: <div />,
+                                element: <IndividualDocuments />,
                             },
                             {
                                 path:'reports',

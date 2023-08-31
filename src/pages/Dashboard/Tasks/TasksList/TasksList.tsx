@@ -7,6 +7,7 @@ import TaskCard from "./TaskCard";
 import SizedBox from "src/components/SizedBox";
 import MedicationCodeScannerModal from "src/components/Scanner/MedicationCodeScannerModal";
 import AddPRNMedicationModal from "../TaskDetails/AddPRNMedicationModal";
+import AddPRNServiceModal from "../TaskDetails/AddPRNServiceModal";
 
 export default function TasksList() {
 
@@ -17,6 +18,8 @@ export default function TasksList() {
     const [isScannerVisible, setIsScannerVisible] = useState(false);
 
     const [PRNModalVisible, setPRNModalVisible] = useState(false)
+
+    const [PRNServiceModalVisible, setPRNServiceModalVisible] = useState(false)
 
     useEffect(()=> {
         setTaskState(state => ({
@@ -34,6 +37,7 @@ export default function TasksList() {
             <TasksListHeader 
                 openBarcodeScanner={()=> setIsScannerVisible(true)}
                 addPRNmed={()=> setPRNModalVisible(true)}
+                addPRNService={()=> setPRNServiceModalVisible(true)}
             />
             
             <SizedBox height="50px" />
@@ -72,6 +76,12 @@ export default function TasksList() {
             {
                 PRNModalVisible
                 ?   <AddPRNMedicationModal closeModal={()=> setPRNModalVisible(false)} />
+                :   null
+            }
+
+            {
+                PRNServiceModalVisible
+                ?   <AddPRNServiceModal closeModal={()=> setPRNServiceModalVisible(false)} />
                 :   null
             }
         </div>

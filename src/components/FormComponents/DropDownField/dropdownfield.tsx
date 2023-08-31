@@ -6,6 +6,8 @@ import { DropDownOption, DropDownProps } from "./types";
 import FormLabel from "../FormLabel";
 import FormInputError from "../FormInputError";
 import filterObjectList from "src/utils/filterObjectList";
+import CircularRingLoader from "src/components/Loaders/CircularRingLoader";
+import ComponentLoader from "src/components/Loaders/ComponentLoader";
 
 export default function DropDownField({
     label,
@@ -20,7 +22,8 @@ export default function DropDownField({
     extraStyle,
     width,
     height,
-    bottomOffset
+    bottomOffset,
+    showLoading
 }: DropDownProps) {
 
     useEffect(()=> {
@@ -77,11 +80,19 @@ export default function DropDownField({
                     :   (selected)
                         ?   <div className={styles.selected_option} onClick={()=> dropOptions()}>
                                 { options[selectedOptionIndex].label }
-                                <FaAngleDown onClick={()=> dropOptions()} />
+                                {
+                                    showLoading
+                                    ?   <ComponentLoader />
+                                    :   <FaAngleDown onClick={()=> dropOptions()} />
+                                }
                             </div>
                         :   <div className={styles.unselected} onClick={()=> dropOptions()}>
                                 <div className={styles.placeholder}>{placeholder}</div>
-                                <FaAngleDown onClick={()=> dropOptions()}/>
+                                {
+                                    showLoading
+                                    ?   <ComponentLoader />
+                                    :   <FaAngleDown onClick={()=> dropOptions()} />
+                                }
                             </div>
                 }
 

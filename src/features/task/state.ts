@@ -47,6 +47,9 @@ export const taskInitState:ITaskState = {
             id: "",
             title: "",
             description: ""
+        },
+        bowelMovement: {
+            hasNotMovedIn2Days: false
         }
     }
 }

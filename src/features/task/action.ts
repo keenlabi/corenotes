@@ -98,7 +98,7 @@ export function findMedicationTaskWithCodeAction(medicationBarcode:string) {
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -117,7 +117,7 @@ export function completeGoalTrackingTaskAction(taskId:number, payload:ICompleteG
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -130,7 +130,7 @@ export function declineGoalTrackingTaskAction(taskId:number) {
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -148,7 +148,7 @@ export function completeSkinIntegrityTaskAction(taskId:number, payload:IComplete
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -161,7 +161,7 @@ export function declineSkinIntegrityTaskAction(taskId:number) {
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -172,6 +172,7 @@ interface ICompleteBowelMovementTask {
 
 export function completeBowelMovementTaskAction(taskId:number, payload:ICompleteBowelMovementTask) {
     return new Promise<IFetchTaskDetailsResponse>((resolve, reject)=> {
+        console.log(payload)
         postFetch(`/tasks/${taskId}/complete-bowel-movement`, payload)
         .then((response)=> {
             resolve({
@@ -179,7 +180,7 @@ export function completeBowelMovementTaskAction(taskId:number, payload:IComplete
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -192,7 +193,7 @@ export function declineBowelMovementTaskAction(taskId:number) {
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -209,7 +210,7 @@ export function completeDailyLivingActivityTaskAction(taskId:number, payload:ICo
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -222,7 +223,7 @@ export function declineDailyLivingActivityTaskAction(taskId:number) {
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -240,7 +241,7 @@ export function completeShiftNotesTaskAction(taskId:number, payload:ICompleteShi
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -253,7 +254,7 @@ export function declineShiftNotesTaskAction(taskId:number) {
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -266,7 +267,7 @@ export function completeBloodGlucoseCheckTaskAction(taskId:number, payload:IComp
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -279,7 +280,7 @@ export function declineBloodGlucoseCheckTaskAction(taskId:number) {
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -296,7 +297,7 @@ export function declineBehaviorManagementTaskAction(taskId:number, payload:IDecl
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -313,7 +314,7 @@ export function completeBehaviorManagementTaskAction(taskId:number, payload:ICom
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -334,7 +335,7 @@ export function completeSeizureTrackingTaskAction(taskId:number, payload:IComple
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -351,7 +352,7 @@ export function declineSeizureTrackingTaskAction(taskId:number, payload:IDecline
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -458,7 +459,7 @@ export function completeChoreTaskAction(taskId:number, payload:ICompleteChoreTas
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -475,7 +476,7 @@ export function declineChoreTaskAction(taskId:number, payload:IDeclineChoreTask)
                 data: { task: response.data.task }
             })
         })
-        .catch((error)=> reject(error.response.data))
+        .catch((error)=> reject(error))
     })
 }
 
@@ -518,3 +519,31 @@ export function declinePRNMedicationReviewTaskAction(taskId:number, payload:IDec
 }
 
 // ***************************************
+
+interface ICreatePRNTask {
+    individualId:number;
+    serviceId:number;
+    schedule:{
+        startDate:string;
+        frequency:string;
+        frequencyAttr:number;
+        time:string;
+    }
+}
+
+export function createPRNTaskAction(payload:ICreatePRNTask) {
+    return new Promise<IFetchTasksListResponse>((resolve, reject)=> {
+        postFetch(`/tasks`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.tasks
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}

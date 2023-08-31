@@ -44,3 +44,16 @@
     display: flex;
     gap: 1rem;
 }
+
+.instructions {
+    background: var(--red-accent-faded-100);
+    color: var(--red-accent-100);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.instructions .message {
+    font-size: 0.9rem;
+}

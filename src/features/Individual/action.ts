@@ -1,6 +1,6 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IDailyLivingActivity, IGoalService, IIndividualAssessmentSession, IIndividualAssessmentSessionQuestion, IIndividualAssessmentsList, IIndividualBehaviorService, IIndividualChoreService, IIndividualMedicationsListItem, ISupervisoryMedicationReviews, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
+import { IDailyLivingActivity, IGoalService, IIndividualAssessmentSession, IIndividualAssessmentSessionQuestion, IIndividualAssessmentsList, IIndividualBehaviorService, IIndividualChoreService, IIndividualDocumentsList, IIndividualMedicationsListItem, ISupervisoryMedicationReviews, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
 
 export interface IndividualListResponseType extends Omit<successResponseType, 'data'> {
     data: { 
@@ -552,3 +552,39 @@ export function addChoreToIndividualAction(individualId:string, payload:IAddChor
     })
 }
 // ****************************************************
+
+export interface fetchIndividualDocumentsSuccessResponseType extends Omit<successResponseType, 'data'> {
+    data:IIndividualDocumentsList;
+}
+
+export function fetchIndividualDocumentsAction(individualId:string, pageNumber:number) {
+    return new Promise<fetchIndividualDocumentsSuccessResponseType>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/documents/${pageNumber}`)
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: {
+                    currentPage:response.data.currentPage,
+                    totalPages:response.data.totalPages,
+                    list: response.data.individualDocuments
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function uploadIndividualDocumentAction(individualId:string, payload:FormData) {
+    return new Promise<fetchIndividualDocumentsSuccessResponseType>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/documents`, payload)
+        .then((response:successResponseType)=> resolve({
+            ...response,
+            data: {
+                currentPage:response.data.currentPage,
+                totalPages:response.data.totalPages,
+                list: response.data.documents
+            }
+        }))
+        .catch((error)=> reject(error))
+    })
+}

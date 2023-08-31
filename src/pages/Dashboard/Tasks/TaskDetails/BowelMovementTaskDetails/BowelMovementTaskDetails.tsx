@@ -11,6 +11,7 @@ import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import { completeBowelMovementTaskAction, declineBowelMovementTaskAction } from "src/features/task/action";
+import { FaInfo, FaInfoCircle } from "react-icons/fa";
 
 export default function BowelMovementTaskDetails() {
 
@@ -24,6 +25,7 @@ export default function BowelMovementTaskDetails() {
     
     const [timeTakenModel, setTimeTakenModel] = useState<formFieldType>({
         type: "number",
+        name: "amount",
         label: "Amount",
         value: "",
         error: "",
@@ -44,6 +46,8 @@ export default function BowelMovementTaskDetails() {
         inputModel.value = value
         validateModel(inputModel)
         setInputModel({...inputModel});
+
+        showWarning()
 
         validateForm()
     }
@@ -147,6 +151,14 @@ export default function BowelMovementTaskDetails() {
         })
     }
 
+    const [showNoBowelMovInstruction, setShowNoBowelMovInstruction] = useState(false);
+
+    function showWarning() {
+        if(timeTakenModel.value === "0" && taskState.taskDetails.bowelMovement.hasNotMovedIn2Days) {
+            setShowNoBowelMovInstruction(true)
+        } else setShowNoBowelMovInstruction(false)
+    }
+
     return (
         <div className={styles.goal_tracking_task_details}>
             <FormStateModal 
@@ -177,6 +189,17 @@ export default function BowelMovementTaskDetails() {
                     error={timeTakenModel.error}
                     onInput={(value:string)=> setInput(value, timeTakenModel, setTimeTakenModel)}
                 />
+
+                {
+                    showNoBowelMovInstruction
+                    ?   <div className={styles.instructions}>
+                            <FaInfoCircle />
+                            <div className={styles.message}>
+                                Individual has not had bowel movement in 3 days in a row now, <strong>give PRN medication</strong>.
+                            </div>
+                        </div>
+                    :   <></>
+                }
 
                 <TextField
                     error={notesModel.error}
