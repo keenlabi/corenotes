@@ -448,7 +448,7 @@ export default function AddIndividualServiceModal({ closeModal }:{ closeModal:()
                         width="200px"
                         label="Assign Service"
                         clickAction={()=> submitForm()}
-                        // disabled={!isFormValidated}
+                        disabled={!isFormValidated}
                         isLoading={individualState.status === 'LOADING'}
                     />
                 </div>
