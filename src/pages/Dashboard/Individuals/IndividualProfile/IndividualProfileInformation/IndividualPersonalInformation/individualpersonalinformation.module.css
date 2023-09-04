@@ -1,36 +1,67 @@
 .individual_personal_information {
-    margin-top: 70px;
 }
 .heading {
-    font-size: 24px;
-    font-weight: 600;
-    margin-top: 2%;
-    color: var(--black-accent-100);
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 2%;
+  color: var(--black-accent-100);
 }
 
 .info_section {
-    margin-top: 5%;
-    display: flex;
-    gap: 1rem;
-    row-gap: 2rem;
-    column-gap: 4rem;
-    flex-wrap: wrap;
-    width: 100%;
+  margin-top: 5%;
+  display: flex;
+  gap: 1rem;
+  row-gap: 2rem;
+  -moz-column-gap: 4rem;
+  column-gap: 4rem;
+  flex-wrap: wrap;
+  width: 100%;
 }
 .info_field {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 .info_field .label {
-    font-weight: 400;
-    font-size: 18px;
-    color: var(--grey-accent-600-a);
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--grey-accent-600-a);
 }
 .info_field .value {
-    font-weight: 500;
-    font-size: 20px;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--black-accent-100);
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 414px) {
+  .individual_personal_information {
+    margin-top: 30px;
+    box-sizing: border-box;
+  }
+  .heading {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 2%;
     color: var(--black-accent-100);
-    text-transform: capitalize;
+  }
+
+  .info_section {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info_field {
+    width: 100%;
+  }
+
+  .info_field .label {
+    font-size: 14px;
+  }
+
+  .info_field .value {
+    font-size: 14px;
+  }
 }

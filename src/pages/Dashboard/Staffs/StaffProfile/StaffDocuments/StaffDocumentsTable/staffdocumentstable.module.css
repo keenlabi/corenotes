@@ -1,23 +1,23 @@
 .user_image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 tbody td {
-    color: var(--black-accent-200);
-    font-weight: 400;
+  color: var(--black-accent-200);
+  font-weight: 400;
 }
 
 .fullname {
-    color: var(--black-accent-100);
-    font-weight: 600;
+  color: var(--black-accent-100);
+  font-weight: 600;
 }
 .compartment {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }

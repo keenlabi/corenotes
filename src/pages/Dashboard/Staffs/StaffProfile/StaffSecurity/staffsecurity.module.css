@@ -1,5 +1,12 @@
 .staff_security {
-    display: flex;
-    flex-direction: column;
-    gap: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+@media screen and (max-width: 414px) {
+  .staff_security {
+    gap: 2rem;
+    margin-bottom: 20px;
+  }
 }

@@ -1,14 +1,14 @@
 .row_container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 .align_top {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 .align_center {
-    align-items: center;
+  align-items: center;
 }
 .align_bottom {
-    align-items: flex-end;
+  align-items: flex-end;
 }

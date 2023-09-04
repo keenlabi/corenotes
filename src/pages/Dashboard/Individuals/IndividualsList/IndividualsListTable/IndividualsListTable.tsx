@@ -1,5 +1,5 @@
-import Table from "src/components/Table"
-import styles from "./individualslisttable.module.css"
+import Table from "src/components/Table";
+import styles from "./individualslisttable.module.css";
 import { useEffect, useState } from "react";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import sortByDate from "src/utils/sortByDate";
@@ -8,39 +8,44 @@ import { IndividualListItemType } from "src/features/Individual/types";
 import IndividualViewProfileButton from "./IndividualViewProfileButton";
 
 export default function IndividualsListTable({
-    currentPage, 
-    totalPages,
-    goToPage,
-    individuals,
-    errorMessage
-}:{individuals:IndividualListItemType[] ,currentPage:number, totalPages:number, errorMessage:string, goToPage:(pageNumber:number)=> void}) {
-    
-    const [isLoading, setIsLoading] = useState(false);
+  currentPage,
+  totalPages,
+  goToPage,
+  individuals,
+  errorMessage,
+}: {
+  individuals: IndividualListItemType[];
+  currentPage: number;
+  totalPages: number;
+  errorMessage: string;
+  goToPage: (pageNumber: number) => void;
+}) {
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [tableBody, setTableBody] = useState<JSX.Element[][]|object[][]>([]);
-    const tableHead = [
-        '',
-        'Name',
-        'Age',
-        'Gender',
-        'Compartment',
-        'Medicaid number',
-        ''
-    ]
+  const [tableBody, setTableBody] = useState<JSX.Element[][] | object[][]>([]);
+  const tableHead = [
+    "",
+    "Name",
+    "Age",
+    "Gender",
+    "Compartment",
+    "Medicaid number",
+    "",
+  ];
 
-    useEffect(()=> {
-        setIsLoading(true)
+  useEffect(() => {
+    setIsLoading(true);
 
-        sortByDate(individuals)
-        .then((result)=> {
-            const newTransactions = formatTransactionsTable(result);
-            setTableBody(newTransactions)
-            setIsLoading(false)
-        })
-        .catch((error)=> {
-            console.log(error)
-        })
-    }, [individuals])
+    sortByDate(individuals)
+      .then((result) => {
+        const newTransactions = formatTransactionsTable(result);
+        setTableBody(newTransactions);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [individuals]);
 
     function formatTransactionsTable (individuals:IndividualListItemType[]) {
         return individuals.map((individual)=> {
@@ -77,26 +82,26 @@ export default function IndividualsListTable({
         });
     }
 
-    const paginateAction = (pageNumber:string|number)=> {
-        setIsLoading(true);
-        goToPage(parseInt(pageNumber.toString()))
-    }
+  const paginateAction = (pageNumber: string | number) => {
+    setIsLoading(true);
+    goToPage(parseInt(pageNumber.toString()));
+  };
 
-    return (
-        <div className={styles.staff_list_table}>
-            {   
-                isLoading
-                ?   <ComponentLoader />
-                :   <Table 
-                        head={tableHead}
-                        body={tableBody}
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        goToPage={(pageNumber:string|number)=> paginateAction(pageNumber)}
-                        extraStyle={styles}
-                        emptyListMessage={errorMessage}
-                    />
-            }
-        </div>
-    )
+  return (
+    <div className={styles.staff_list_table}>
+      {isLoading ? (
+        <ComponentLoader />
+      ) : (
+        <Table
+          head={tableHead}
+          body={tableBody}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          goToPage={(pageNumber: string | number) => paginateAction(pageNumber)}
+          extraStyle={styles}
+          emptyListMessage={errorMessage}
+        />
+      )}
+    </div>
+  );
 }

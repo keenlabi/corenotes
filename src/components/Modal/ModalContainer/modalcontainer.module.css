@@ -1,34 +1,79 @@
 .modal_container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: var(--absolute-z-index-modal);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--absolute-z-index-modal);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
-.modal_bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: calc(var(--absolute-z-index-modal) - 100);
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(7.5px);
-    cursor: pointer;
+
+.modal_container > div {
+  width: 100%;
+  height: 100%;
+  z-index: calc(var(--absolute-z-index-modal) - 100);
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(7.5px);
+  backdrop-filter: blur(7.5px);
 }
+
+/* .modal_bg {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 98.7%;
+  height: 97.5%;
+  z-index: calc(var(--absolute-z-index-modal) - 100);
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(7.5px);
+  backdrop-filter: blur(7.5px);
+  cursor: pointer;
+  border: 10px solid blue;
+} */
 
 .content_container {
-    background: white;
-    width: 60vw;
-    height: max-content;
-    max-height: 80vh;
-    margin: 0 auto;
-    border-radius: 16px;
+  position: absolute !important;
+  top: 0;
+  background: white !important;
+  width: 60% !important;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  max-height: 80%;
+  margin: 0 auto !important;
+  border-radius: 16px;
+  z-index: 99999 !important;
 
-    overflow-y: auto;
+  overflow-y: scroll;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media screen and (max-width: 414px) {
+  .modal_container {
+    max-height: 100vh;
+    height: 100%;
+    box-sizing: border-box;
+    /* margin-top: var(--mobile-dashboard-navbar-header-height); */
+  }
+  .modal_container > div {
+    width: 100%;
+    height: 100%;
+    display: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .content_container {
+    width: 100% !important;
+    max-height: 100% !important;
+    height: 100%;
+    display: block !important;
+    border-radius: 0;
+    top: 0;
+    transform: translateY(0%);
+  }
 }

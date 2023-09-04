@@ -1,37 +1,58 @@
 .heading {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    height: 60px;
-    padding: 0 5%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 60px;
+  padding: 0 5%;
 }
 
 .number_circle {
-    border: 1px solid;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+  border: 1px solid;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .text {
-    font-size: 20px;
-    font-weight: 500;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .form_content {
-    margin-left: 8.5%;
-    margin-right: 6%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  margin-left: 8.5%;
+  margin-right: 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 .row {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 .row > div {
-    width: calc(100% / 3);
+  width: calc(100% / 3);
+}
+
+@media screen and (max-width: 414px) {
+  .heading {
+    width: 80%;
+  }
+
+  .form_content {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.5rem;
+  }
+
+  .row > div {
+    width: 100%;
+  }
 }
