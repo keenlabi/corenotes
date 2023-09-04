@@ -1,21 +1,45 @@
 .staff_profile_header {
-    border-bottom: 1px solid var(--table-row-line-color);
-    padding: 0 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
+  border-bottom: 1px solid var(--table-row-line-color);
+  padding: 0 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
 }
 
 .nav_item {
-    height: max-content;
-    padding: 10px;
-    border-radius: 25px;
-    font-size: 1rem;
-    color: var(--black-accent-200);
-    cursor: pointer;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 10px;
+  border-radius: 25px;
+  font-size: 1rem;
+  color: var(--black-accent-200);
+  cursor: pointer;
 }
+
 .nav_item.active {
-    color: var(--dark-blue-accent-100);
-    background: var(--dark-blue-faded-accent-100);
+  color: var(--dark-blue-accent-100);
+  background: var(--dark-blue-faded-accent-100);
+}
+
+@media screen and (max-width: 414px) {
+  .staff_profile_header {
+    gap: 1em;
+    padding: 0 5%;
+    overflow-x: scroll;
+  }
+
+  .staff_profile_header {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .staff_profile_header::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav_item {
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
 }

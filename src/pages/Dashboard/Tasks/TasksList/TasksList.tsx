@@ -10,10 +10,20 @@ import AddPRNMedicationModal from "../TaskDetails/AddPRNMedicationModal";
 import AddPRNServiceModal from "../TaskDetails/AddPRNServiceModal";
 
 export default function TasksList() {
+  const [taskState, setTaskState] = useTaskState();
 
-    const [taskState, setTaskState] = useTaskState();
+  const fetchTasksListResponse = useFetchTasksListSelector(
+    taskState.tasks.currentPage
+  );
 
-    const fetchTasksListResponse = useFetchTasksListSelector(taskState.tasks.currentPage);
+  useEffect(() => {
+    setTaskState((state) => ({
+      ...state,
+      message: fetchTasksListResponse.message,
+      error: fetchTasksListResponse.error,
+      tasks: fetchTasksListResponse.tasks,
+    }));
+  }, [fetchTasksListResponse, setTaskState]);
 
     const [isScannerVisible, setIsScannerVisible] = useState(false);
 
