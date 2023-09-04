@@ -10,26 +10,34 @@ export const AssessmentInitState:AssessmentStateType = {
         currentPage: 1,
         totalPages: 1,
     },
-    assessmentDetails:{
+    assessmentDetails: {
         id: "",
         assessmentId: "",
         title: "",
         category: "",
         questions: []
     },
-    assessmentCategories:[],
-    questionCategories:[],
+    assessmentCategories: [],
+    questionCategories: [],
     newAssessment: {
-        title:'',
-        category:'',
-        questions:[{
-            category:'',
-            question:''
+        title: '',
+        category: '',
+        questions: [{
+            category: '',
+            question: ''
         }],
-        assignees:{
-            assigneesType:'ALL',
-            assigneesList:[]
+        assignees: {
+            assigneesType: 'ALL',
+            assigneesList: []
         }
+    },
+    assessmentSession: {
+        id: "",
+        assessmentId: "",
+        title: "",
+        status: "",
+        createdAt: "",
+        questions: []
     }
 }
 

@@ -9,7 +9,7 @@ import { MultiSelectDropDownFormData, setMultiSelectDropDownFormData } from "src
 import RowContainer from "src/components/Layout/RowContainer";
 import InputField from "src/components/FormComponents/InputField";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
-import TagInputField, { ISetTagsInputFormData, ITagsInputFormData } from "src/components/FormComponents/InputField/TagInputField/TagInputField";
+import TagInputField from "src/components/FormComponents/InputField/TagInputField/TagInputField";
 import MultiSelectDropDownField from "src/components/FormComponents/DropDownField/MultiSelectDropDownField";
 import TextField from "src/components/FormComponents/TextField";
 import { INewMedication } from "src/features/medication/types";
@@ -18,6 +18,7 @@ import FormStateModal from "src/components/FormComponents/FormStateModal/FormSta
 import { useFetchStaffRoleSelector } from "src/features/staff/selector";
 import { useStaffState } from "src/features/staff/state";
 import { createMedicationAction } from "src/features/medication/action";
+import { ISetTagsInputFormData, ITagsInputFormData } from "src/components/FormComponents/InputField/TagInputField/types";
 
 export default function CreateMedicationModal({ closeModal }:{ closeModal:()=> void }) {
 
@@ -472,15 +473,15 @@ export default function CreateMedicationModal({ closeModal }:{ closeModal:()=> v
     function submitMedicationModel() {
         if(validateForm()) {
             const payload:INewMedication = {
-                name: medNameModel.value,
-                strength: medStrengthModel.value,
+                name: medNameModel.value!,
+                strength: medStrengthModel.value!,
                 route: medRouteModel.value!.value!,
                 medType: medTypeModel.value!.value!,
                 indications: medIndicationsModel.value,
                 providers: medProvidersModel.value,
-                pharmarcy: medPharmarcyModel.value,
-                prescriber: medPrescriberModel.value,
-                instructions: medInstructionsModel.value,
+                pharmarcy: medPharmarcyModel.value!,
+                prescriber: medPrescriberModel.value!,
+                instructions: medInstructionsModel.value!,
                 category: medCategoryModel.value!.value!
             }
 

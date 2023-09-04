@@ -1,0 +1,2 @@
+import AddNewDailyLivingActivityModal from "./AddNewDailyLivingActivityModal";
+export default AddNewDailyLivingActivityModal;

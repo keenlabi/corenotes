@@ -62,7 +62,7 @@ export default function DeactivateStaff() {
     
     function deactivateStaff() {
         const payload = {
-            password: userPassword.value
+            password: userPassword.value!
         }
 
         setActivateStaffState(state => {
@@ -110,7 +110,7 @@ export default function DeactivateStaff() {
 
     function activateStaff() {
         const payload = {
-            password: userPassword.value
+            password: userPassword.value!
         }
 
         setActivateStaffState(state => {
@@ -171,9 +171,9 @@ export default function DeactivateStaff() {
                 resetState={()=> setActivateStaffState({...activateStaffState, status: 'IDLE', error:false})}
                 extraStyles={styles.right}
             >
-                <PasswordInputField 
+                <PasswordInputField
                     placeholder={userPassword.placeholder}
-                    value={userPassword.value}
+                    value={userPassword.value!}
                     error={userPassword.error}
                     onInput={(value: string) => setInput(value, userPassword, setUserPassword)} 
                 />

@@ -15,7 +15,8 @@ export default function IndividualDietInformationForm() {
         relative: true,
         error:'',
         options: ['Unspecified', 'Low Sodium', 'Diabetic', 'Pureed', 'Low Cholestrol', 'Regular', 'Low fat', 'Salt-free', 'Low potassium', 'Soft', 'Glutten free', 'Low fiber', 'Sugar free'],
-        value:[]
+        value:[],
+        validated: false
     })
 
     function storeNewDietSelections(selections:Array<string>) {

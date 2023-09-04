@@ -5,7 +5,7 @@ import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import sortByDate from "src/utils/sortByDate";
 import { IMedication } from "src/features/medication/types";
 import NoBackgroundButton from "src/components/Buttons/NoBackgroundButton/NoBackgroundButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function MedicationsListTable({
     currentPage, 
@@ -23,7 +23,6 @@ export default function MedicationsListTable({
         'Strength',
         'Med Type',
         'Category',
-        'Barcode',
     ]
 
     useEffect(()=> {

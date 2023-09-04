@@ -2,6 +2,8 @@ import styles from "./individualmedicationcard.module.css"
 
 interface IIndividualMedicationCardProps {
     name:string;
+    active:boolean;
+    category:string;
     frequency:string;
     time:string;
     strength:string;
@@ -15,6 +17,8 @@ interface IIndividualMedicationCardProps {
 
 export default function IndividualMedicationCard({
     name, 
+    active,
+    category,
     strength,
     frequency,
     time,
@@ -24,6 +28,13 @@ export default function IndividualMedicationCard({
 
     return (
         <div className={styles.medication_service_card} onClick={action}>
+            
+            {
+                !active
+                ?   <div className={styles.in_active}> Inactive </div>
+                :   null
+            }
+
             <div className={styles.title}>{ name + ' (' + strength +')' }</div>
 
             <div className={styles.dets}>
@@ -32,17 +43,21 @@ export default function IndividualMedicationCard({
                     <div className={styles.frequency}>{ frequency }</div>
                 </div>
 
-                <div className={styles.pills_count}>
-                    <div className={styles.administered}>
-                        <div className={styles.digit}>{amount.administered}</div>
-                        <div className={styles.label}>Taken</div>
-                    </div>
+                {
+                    category === 'controlled'
+                    ?   <div className={styles.pills_count}>
+                            <div className={styles.administered}>
+                                <div className={styles.digit}>{amount.administered}</div>
+                                <div className={styles.label}>Taken</div>
+                            </div>
 
-                    <div className={styles.current}>
-                        <div className={styles.digit}>{amount.current}</div>
-                        <div className={styles.label}>Left</div>
-                    </div>
-                </div>
+                            <div className={styles.current}>
+                                <div className={styles.digit}>{amount.current}</div>
+                                <div className={styles.label}>Left</div>
+                            </div>
+                        </div>
+                    :   null
+                }
             </div>
         </div>
     )

@@ -76,16 +76,49 @@ export const individualInitState:IndividualStateType = {
         session: {
             id: '',
             title: '',
-            category: '',
             questions: [],
-            assessmentId: ""
+            assessmentId: "",
+            status: "PENDING",
+            createdAt: ""
         }
     },
     services: [],
     medications: {
-        list:[],
-        currentPage:1,
-        totalPages:1
+        list: [],
+        currentPage: 1,
+        totalPages: 1
+    },
+    goalServices: {
+        list: [],
+        currentPage: 1,
+        totalPages: 1
+    },
+    supervisoryMedicationReviews: {
+        medicationId: "",
+        lastMonthReviewed: undefined,
+        list: [],
+        currentPage: 1,
+        totalPages: 1
+    },
+    dailyLivingActivities: {
+        list: [],
+        currentPage: 1,
+        totalPages: 1
+    },
+    behaviorsServices: {
+        list: [],
+        currentPage: 1,
+        totalPages: 1
+    },
+    choreServices: {
+        list: [],
+        currentPage: 1,
+        totalPages: 1
+    },
+    documents:{
+        list: [],
+        currentPage: 1,
+        totalPages: 1
     }
 }
 

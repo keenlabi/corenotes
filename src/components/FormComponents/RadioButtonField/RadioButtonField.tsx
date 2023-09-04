@@ -2,6 +2,7 @@ import SizedBox from "src/components/SizedBox";
 import FormLabel from "../FormLabel";
 import RadioButton from "./RadioButton";
 import styles from "./radiobuttonfield.module.css";
+import { RadioButtonFormFieldType, SetRadioButtonFormFieldType } from "./types";
 
 export interface RadioButtonType {
     label:string,
@@ -47,4 +48,12 @@ export default function RadioButtonField ({
             </div>
         </div>
     )
+}
+
+export function selectRadioOption(optionIndex:number, model:RadioButtonFormFieldType, setModel:SetRadioButtonFormFieldType) {
+    model.value = model.options[optionIndex].value;
+    model.selected = true;
+    model.selectedIndex = optionIndex;
+
+    setModel({...model})
 }

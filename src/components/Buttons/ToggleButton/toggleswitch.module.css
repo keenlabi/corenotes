@@ -1,0 +1,23 @@
+.toggle_switch {
+    background: var(--grey-accent-400);
+    width: 56px;
+    border-radius: 1000px;
+    cursor: pointer;
+    padding: 5px;
+}
+.toggle_switch.active {
+    background: var(--dark-blue-faded-accent-100);
+}
+.knob {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    background: var(--grey-accent-600);
+    border-radius: 50%;
+    left: 0em;
+    transition: left 0.1s ease-out;
+}
+.knob.active {
+    background: var(--blue-accent-100);
+    left: calc(60px - 30px);
+}

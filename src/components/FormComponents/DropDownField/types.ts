@@ -17,7 +17,8 @@ export interface DropDownProps {
     width?:string,
     height?:string,
     bottomOffset?:string,
-    validated?:boolean
+    validated?:boolean;
+    showLoading?:boolean;
 }
 
 export interface DropDownOption {

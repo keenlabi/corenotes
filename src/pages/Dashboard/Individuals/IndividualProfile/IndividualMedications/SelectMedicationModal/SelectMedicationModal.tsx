@@ -12,25 +12,23 @@ import InputField from "src/components/FormComponents/InputField";
 import { useFetchMedicationsListSelector } from "src/features/medication/selector";
 import { useMedicationState } from "src/features/medication/state";
 import RowContainer from "src/components/Layout/RowContainer";
-import { addMedicationToIndividualAction } from "src/features/Individual/action";
+import { addMedicationToIndividualAction, administerPRNMedicationToIndividualAction } from "src/features/Individual/action";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
+import { IMedication, IMedicationType } from "src/features/medication/types";
+import TextField from "src/components/FormComponents/TextField";
 
-export default function SelectMedicationModal({closeModal}:{closeModal:()=> void}) {
+export default function SelectMedicationModal({ individualId, individualMedicationId, medType, closeModal }:{ individualId?:string, individualMedicationId?:string, medType:IMedicationType, closeModal:()=> void}) {
 
     const params = useParams();
 
     const [individualState, setIndividualState] = useIndividualState();
 
     const [medicationState, setMedicationState] = useMedicationState();
-
-    const [isFormValidated, setIsFormValidated] = useState(false);
     
-    const serviceMedicationsListResponse = useFetchMedicationsListSelector(medicationState.medications.currentPage);   
+    const serviceMedicationsListResponse = useFetchMedicationsListSelector(medType, medicationState.medications.currentPage);   
 
     useEffect(()=> {
-        console.log(serviceMedicationsListResponse)
-
         setMedicationState(state => ({
             ...state,
             medications: serviceMedicationsListResponse.medications
@@ -55,6 +53,8 @@ export default function SelectMedicationModal({closeModal}:{closeModal:()=> void
         selectedOptionIndex: 0,
         error: ""
     });
+
+    const [selectedMedDets, setSelectedMedDets] = useState<IMedication>()
 
     const [medAllocatedModel, setMedAllocatedModel] = useState<formFieldType>({
         type: "number",
@@ -129,6 +129,24 @@ export default function SelectMedicationModal({closeModal}:{closeModal:()=> void
         validated: false
     })
 
+    const [medPRNNoteModel, setMedPRNNoteModel] = useState<formFieldType>({
+        type: "text",
+        label: "Reasons for administering",
+        placeholder: "Reasons for administering medication",
+        value:'',
+        error: "",
+        validated: false
+    })
+
+    const [medAmountAdministered, setMedAmountAdministered] = useState<formFieldType>({
+        type: "number",
+        label: "Amount admininstered",
+        placeholder: "Amount admininstered",
+        value:'',
+        error: "",
+        validated: false
+    })
+
     function setInput(value:string, model:formFieldType, setModel:setFormFieldType) {
         model.value = value;
 
@@ -160,9 +178,56 @@ export default function SelectMedicationModal({closeModal}:{closeModal:()=> void
             const match = individualState.medications.list.filter(medication => medication.id === model.value?.value)
             const medicationMatch = medicationState.medications.list.filter(medication => medication.id === model.value?.value)
 
+            setSelectedMedDets(medicationMatch[0])
+
             if(match.length) {
                 model.error = `${capitalize(match[0].name)} (${medicationMatch[0].strength}) medication has already been assigned to user`
                 model.validated = false;
+            }
+
+            if(medType !== "PRN") {
+                if(medicationMatch[0].category === 'controlled') {
+                    if(!medAllocatedModel.validated) {
+                        medAllocatedModel.error = `${medAllocatedModel.placeholder} field cannot be empty`;
+                        medAllocatedModel.validated = false;
+                        setMedAllocatedModel({ ...medAllocatedModel })
+                        setIsFormValidated(false)
+                        return;
+                    }
+                } else {
+                    if(!medicationModel.validated) {
+                        setIsFormValidated(false)
+                        return;
+                    }
+                    if(!medFrequencyModel.validated) {
+                        setIsFormValidated(false)
+                        return;
+                    }
+                    if(['every-x-weeks', 'every-x-days'].includes(medFrequencyModel.value!.value!)) {
+                        if(!medFrequencyAttrModel.validated) {
+                            setIsFormValidated(false)
+                            return;
+                        }
+                    }
+                    if(!medTimeModel.validated) {
+                        setIsFormValidated(false)
+                        return;
+                    }
+            
+                    setIsFormValidated(true)
+                }
+
+            } else {
+                if(!medAmountAdministered.validated) {
+                    setIsFormValidated(false)
+                    return;
+                }
+                if(!medPRNNoteModel.validated) {
+                    if(!medAllocatedModel.validated) {
+                        setIsFormValidated(false)
+                        return;
+                    }
+                }
             }
         }
 
@@ -186,72 +251,117 @@ export default function SelectMedicationModal({closeModal}:{closeModal:()=> void
         
 
         setModel({ ...model });
-
-        enableButton();
     }
+
+    const [isFormValidated, setIsFormValidated] = useState(false);
 
     function enableButton() {
         if(!medicationModel.validated) {
             setIsFormValidated(false)
             return;
         }
-        if(!medAllocatedModel.validated) {
-            setIsFormValidated(false)
-            return;
-        }
-        if(!medFrequencyModel.validated) {
-            setIsFormValidated(false)
-            return;
-        }
-        if(['every-x-weeks', 'every-x-days'].includes(medFrequencyModel.value!.value!)) {
-            if(!medFrequencyAttrModel.validated) {
+
+        if(medType !== "PRN") {
+            if(selectedMedDets?.category === 'controlled') {
+                if(!medAllocatedModel.validated) {
+                    setIsFormValidated(false)
+                    return;
+                }
+            }
+            if(!medFrequencyModel.validated) {
                 setIsFormValidated(false)
                 return;
             }
-        }
-        if(!medTimeModel.validated) {
-            setIsFormValidated(false)
-            return;
+            if(['every-x-weeks', 'every-x-days'].includes(medFrequencyModel.value!.value!)) {
+                if(!medFrequencyAttrModel.validated) {
+                    setIsFormValidated(false)
+                    return;
+                }
+            }
+            if(!medTimeModel.validated) {
+                setIsFormValidated(false)
+                return;
+            }
+        } else {
+            if(!medAmountAdministered.validated) {
+                setIsFormValidated(false)
+                return;
+            }
+            if(!medPRNNoteModel.validated) {
+                if(!medAllocatedModel.validated) {
+                    setIsFormValidated(false)
+                    return;
+                }
+            }
         }
 
         setIsFormValidated(true)
-        return;
+        return true;
     }
 
     function submitAddMedicationToIndividual() {
-        const payload = {
-            medicationId: medicationModel.value!.value!,
-            schedule:{
-                startDate: medStartDateModel.value,
-                frequency: medFrequencyModel.value!.value!,
-                frequencyAttr: parseInt(medFrequencyAttrModel.value),
-                time: medTimeModel.value,
-            },
-            amountAllocated: parseInt(medAllocatedModel.value),
-        }
+        if(medType === "PRN") {
+            const payload = {
+                individualMedicationId: individualMedicationId ?? "",
+                selectedMedicationId: medicationModel.value!.value!,
+                note: medPRNNoteModel.value!,
+                amountAdministered: parseInt(medAmountAdministered.value!)
+            }
 
-        addMedicationToIndividualAction(parseInt(params.individualId!), payload)
-        .then((response)=> {
-            setIndividualState(state => ({
-                ...state,
-                status: "SUCCESS",
-                error: false,
-                message: response.message,
-                medications: {
-                    ...response.data,
-                    list: response.data.list
+            administerPRNMedicationToIndividualAction(individualId!, payload)
+            .then(()=> {
+                setIndividualState(state => ({
+                    ...state,
+                    status: "SUCCESS",
+                    error: false,
+                    message: "PRN medication administered to individual successfully"
+                }))
+            })
+            .catch(()=> {
+                setIndividualState(state => ({
+                    ...state,
+                    status: "FAILED",
+                    error: true,
+                    message: "There was an error administering PRN medication to individual"
+                }))
+            })
+
+        } else {
+            if(isFormValidated) {
+                const payload = {
+                    medicationId: medicationModel.value!.value!,
+                    schedule:{
+                        startDate: medStartDateModel.value!,
+                        frequency: medFrequencyModel.value!.value!,
+                        frequencyAttr: parseInt(medFrequencyAttrModel.value! ?? "0"),
+                        time: medTimeModel.value!,
+                    },
+                    amountAllocated: parseInt(medAllocatedModel.value! ?? "0"),
                 }
-            }))
-        })
-        .catch((error)=> {
-            console.log(error)
-            setIndividualState(state => ({
-                ...state,
-                status: "FAILED",
-                error: true,
-                message: error.message
-            }))
-        })
+
+                addMedicationToIndividualAction(parseInt(params.individualId!), payload)
+                .then((response)=> {
+                    setIndividualState(state => ({
+                        ...state,
+                        status: "SUCCESS",
+                        error: false,
+                        message: response.message,
+                        medications: {
+                            ...response.data,
+                            list: response.data.list
+                        }
+                    }))
+                })
+                .catch((error)=> {
+                    setIndividualState(state => ({
+                        ...state,
+                        status: "FAILED",
+                        error: true,
+                        message: error.message
+                    }))
+                })
+            }
+        }
     }
 
     function resetInidividualState() {
@@ -275,7 +385,7 @@ export default function SelectMedicationModal({closeModal}:{closeModal:()=> void
                 />
 
                 <div className={styles.header}>
-                    <div className={styles.titiel}> Add medicatoin to individual </div>
+                    <div className={styles.titiel}> Add medication to individual </div>
                     <IconCancelCircle onClick={()=> closeModal()}/>
                 </div>
 
@@ -298,59 +408,87 @@ export default function SelectMedicationModal({closeModal}:{closeModal:()=> void
                                 onSelect={(optionIndex: number) => selectOption(optionIndex, medicationModel, setMedicationModel)} 
                             />
 
-                            <InputField 
-                                type={medAllocatedModel.type}
-                                placeholder={medAllocatedModel.placeholder}
-                                error={medAllocatedModel.error}
-                                onInput={(value:string)=> setInput(value, medAllocatedModel, setMedAllocatedModel)}
-                            />
+                            {
+                                medType === "PRN"
+                                ?   <InputField
+                                        extraInputContainerStyle={styles.side_padding}
+                                        type={medAmountAdministered.type}
+                                        placeholder={medAmountAdministered.placeholder}
+                                        prefixIcon={medAmountAdministered.prefixIcon}
+                                        suffixIcon={medAmountAdministered.suffixIcon}
+                                        error={medAmountAdministered.error}
+                                        onInput={(value:string)=> setInput(value, medAmountAdministered, setMedAmountAdministered)}
+                                    />
+                                :   <div />
+                            }
+
+                            {   
+                                selectedMedDets?.category === 'controlled'
+                                ?   <InputField 
+                                        type={medAllocatedModel.type}
+                                        placeholder={medAllocatedModel.placeholder}
+                                        error={medAllocatedModel.error}
+                                        onInput={(value:string)=> setInput(value, medAllocatedModel, setMedAllocatedModel)}
+                                    />
+                                :   <div hidden></div>
+                            }
                         </RowContainer>
                     </div>
+                    
+                    {
+                        medType !== "PRN"
+                        ?   <div className={styles.section}>
+                                <div className={styles.section_header}>
+                                    <div className={styles.digit}>2</div>
+                                    <div className={styles.text}>Schedule</div>
+                                </div>
+                                
+                                <RowContainer alignment={"top"}>
+                                    <DropDownField
+                                        placeholder={medFrequencyModel.placeholder}
+                                        options={medFrequencyModel.options}
+                                        selected={medFrequencyModel.selected} 
+                                        selectedOptionIndex={medFrequencyModel.selectedOptionIndex}
+                                        error={medFrequencyModel.error} 
+                                        onSelect={(optionIndex: number) => selectOption(optionIndex, medFrequencyModel, setMedFrequencyModel)} 
+                                    />
 
-                    <div className={styles.section}>
-                        <div className={styles.section_header}>
-                            <div className={styles.digit}>2</div>
-                            <div className={styles.text}>Schedule</div>
-                        </div>
-                        
-                        <RowContainer alignment={"top"}>
-                            <DropDownField
-                                placeholder={medFrequencyModel.placeholder}
-                                options={medFrequencyModel.options}
-                                selected={medFrequencyModel.selected} 
-                                selectedOptionIndex={medFrequencyModel.selectedOptionIndex}
-                                error={medFrequencyModel.error} 
-                                onSelect={(optionIndex: number) => selectOption(optionIndex, medFrequencyModel, setMedFrequencyModel)} 
-                            />
+                                    <InputField
+                                        readonly={medFrequencyAttrModel.readonly}
+                                        extraInputContainerStyle={styles.side_padding}
+                                        type={medFrequencyAttrModel.type}
+                                        placeholder={medFrequencyAttrModel.placeholder}
+                                        prefixIcon={medFrequencyAttrModel.prefixIcon}
+                                        suffixIcon={medFrequencyAttrModel.suffixIcon}
+                                        error={medFrequencyAttrModel.error}
+                                        onInput={(value:string)=> setInput(value, medFrequencyAttrModel, setMedFrequencyAttrModel)}
+                                    />
+                                </RowContainer>
+                                
+                                <RowContainer>
+                                    <InputField
+                                        type={medStartDateModel.type}
+                                        placeholder={medStartDateModel.placeholder}
+                                        error={medStartDateModel.error}
+                                        onInput={(value:string)=> setInput(value, medStartDateModel, setMedStartDateModel)}
+                                    />
 
-                            <InputField
-                                readonly={medFrequencyAttrModel.readonly}
-                                extraInputContainerStyle={styles.side_padding}
-                                type={medFrequencyAttrModel.type}
-                                placeholder={medFrequencyAttrModel.placeholder}
-                                prefixIcon={medFrequencyAttrModel.prefixIcon}
-                                suffixIcon={medFrequencyAttrModel.suffixIcon}
-                                error={medFrequencyAttrModel.error}
-                                onInput={(value:string)=> setInput(value, medFrequencyAttrModel, setMedFrequencyAttrModel)}
-                            />
-                        </RowContainer>
-                        
-                        <RowContainer>
-                            <InputField
-                                type={medStartDateModel.type}
-                                placeholder={medStartDateModel.placeholder}
-                                error={medStartDateModel.error}
-                                onInput={(value:string)=> setInput(value, medStartDateModel, setMedStartDateModel)}
-                            />
-
-                            <InputField
-                                type={medTimeModel.type}
-                                placeholder={medTimeModel.placeholder}
-                                error={medTimeModel.error}
-                                onInput={(value:string)=> setInput(value, medTimeModel, setMedTimeModel)}
-                            />
-                        </RowContainer>
-                    </div>
+                                    <InputField
+                                        type={medTimeModel.type}
+                                        placeholder={medTimeModel.placeholder}
+                                        error={medTimeModel.error}
+                                        onInput={(value:string)=> setInput(value, medTimeModel, setMedTimeModel)}
+                                    />
+                                </RowContainer>
+                            </div>
+                        :   <div className={styles.note}>
+                                <TextField 
+                                    placeholder={medPRNNoteModel.placeholder}
+                                    error={medPRNNoteModel.error}
+                                    onInput={(value:string)=> setInput(value, medPRNNoteModel, setMedPRNNoteModel)}
+                                />
+                            </div>
+                    }
                 </div>
 
                 <div className={styles.buttons}>

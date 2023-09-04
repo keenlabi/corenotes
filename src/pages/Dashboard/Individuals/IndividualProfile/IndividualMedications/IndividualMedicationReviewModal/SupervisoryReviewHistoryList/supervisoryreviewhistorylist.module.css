@@ -1,0 +1,35 @@
+.history {
+    font-weight: 700;
+}
+.review {
+    border-left: 1px solid var(--grey-accent-600);
+    display: flex;
+    gap:0.5rem;
+    height: 100px;
+}
+.point {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--grey-accent-600);
+    margin-left: -5px;
+}
+.content {
+    margin-top: -5px;
+}
+.title {
+    display: flex;
+    gap: 0.3rem;
+}
+.name {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.date_time {
+    display: flex;
+    gap: 0.5rem;
+}
+.month {
+    text-transform: capitalize;
+    font-weight: 600;
+}

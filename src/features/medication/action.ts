@@ -1,6 +1,6 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IMedication, IMedicationDetails, INewMedication } from "./types";
+import { IMedication, IMedicationDetails, IMedicationType, INewMedication } from "./types";
 import { IndividualListItemType } from "../Individual/types";
 
 export interface IFetchMedicationListResponse extends Omit<successResponseType, 'data'> {
@@ -11,9 +11,9 @@ export interface IFetchMedicationListResponse extends Omit<successResponseType, 
     }
 }
 
-export function fetchMedicationsListAction(pageNumber:number) {
+export function fetchMedicationsListAction(medType:IMedicationType, pageNumber:number) {
     return new Promise<IFetchMedicationListResponse>((resolve, reject)=> {
-        getFetch(`/medications/${pageNumber}`)
+        getFetch(`/medications/?pageNumber=${pageNumber}&medType=${medType}`)
         .then((response)=> {
             resolve({
                 ...response,

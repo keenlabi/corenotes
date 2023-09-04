@@ -10,7 +10,7 @@ export default function MedicationsList() {
 
     const [medicationState, setMedicationState] = useMedicationState();
     
-    const medicationListResponse = useFetchMedicationsListSelector(medicationState.medications.currentPage);
+    const medicationListResponse = useFetchMedicationsListSelector("", medicationState.medications.currentPage);
 
     useEffect(()=> {
         setMedicationState(state => ({

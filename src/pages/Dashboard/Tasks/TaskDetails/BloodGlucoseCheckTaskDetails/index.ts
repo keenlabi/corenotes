@@ -1,0 +1,2 @@
+import BloodGlucoseCheckTaskDetails from "./BloodGlucoseCheckTaskDetails";
+export default BloodGlucoseCheckTaskDetails;
