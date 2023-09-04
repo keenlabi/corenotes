@@ -1,0 +1,65 @@
+.card {
+    border-left: 2px solid var(--blue-accent-100);
+    border-radius: 5px;
+    min-height: 6rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-card-100);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+.objective {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--black-accent-100);
+    text-transform: capitalize;
+}
+.method {
+    font-weight: 500;
+    color: var(--grey-accent-700);
+    text-transform: capitalize;
+    font-size: 1.1rem;
+}
+
+.dets {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    gap: 1rem;
+}
+.schedule {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.schedule > div {
+    font-weight: 700;
+    color: var(--blue-accent-100);
+    padding: 5px 10px;
+    background: var(--grey-accent-300);
+    border-radius: 30px;
+    height: max-content;
+    width: max-content;
+    text-transform: capitalize;
+}
+
+.individual {
+    display: flex;
+    height: max-content;
+    align-items: center;
+    gap: 10px;
+}
+.name {
+    font-weight: 500;
+    color: var(--grey-accent-900);
+}
+
+.todo {
+    border-radius: 100px;
+    background: var(--blue-accent-100);
+    color: white;
+    width: max-content;
+    padding: 3px 20px;
+}

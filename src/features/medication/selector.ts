@@ -1,6 +1,7 @@
 import { selectorFamily, useRecoilValue } from "recoil"
 import { IFetchMedicationDetailsResponse, IFetchMedicationListResponse, fetchMedicationDetailsAction, fetchMedicationsListAction } from "./action";
 import { medicationInitState } from "./state";
+import { IMedicationType } from "./types";
 
 interface IFetchMedicationList {
     medications: Pick<IFetchMedicationListResponse, 'data'>['data'];
@@ -11,8 +12,8 @@ interface IFetchMedicationList {
 
 const fetchMedicationsListSelector = selectorFamily({
     key: 'fetch_medications_list_selector',
-    get: (pageNumber:number)=> async ()=> {
-        return await fetchMedicationsListAction(pageNumber)
+    get: ({medType, pageNumber}:{medType:IMedicationType, pageNumber:number})=> async ()=> {
+        return await fetchMedicationsListAction(medType, pageNumber)
         .then((response)=> {
             return {
                 medications: response.data,
@@ -33,7 +34,7 @@ const fetchMedicationsListSelector = selectorFamily({
         })
     }
 })
-export const useFetchMedicationsListSelector = (pageNumber:number)=> useRecoilValue(fetchMedicationsListSelector(pageNumber))
+export const useFetchMedicationsListSelector = (medType:IMedicationType, pageNumber:number)=> useRecoilValue(fetchMedicationsListSelector({medType, pageNumber}))
 
 interface IFetchMedicationDetails {
     medication: Pick<IFetchMedicationDetailsResponse, 'data'>['data']['medication'];

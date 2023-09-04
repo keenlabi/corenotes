@@ -32,6 +32,7 @@ export interface IMedicationDetails {
     prescriber:string;
     instructions:string;
     category:string;
+    barcode:number;
     amount:{
         current:number;
         startWith:number;
@@ -58,3 +59,5 @@ export interface INewMedication {
     instructions:string;
     category:string;
 }
+
+export type IMedicationType = ""|"PRN"|"SCHEDULED"

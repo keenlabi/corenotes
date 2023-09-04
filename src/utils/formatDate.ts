@@ -1,4 +1,5 @@
 export default function formatDate(dateTime:string) {
+    if(!dateTime) return dateTime;
     const date = new Date(dateTime);
     
     const dateString = date.toLocaleDateString('en-us', {

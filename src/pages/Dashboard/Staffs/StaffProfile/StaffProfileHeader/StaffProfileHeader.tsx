@@ -20,7 +20,11 @@ export default function StaffProfileHeader({
     return (
         <div className={styles.section_identity}>
             <div className={styles.user_info}>
-                { UserImage(staffState.details.personal.profileImage, staffState.details.personal.firstname, "100px") }
+                <UserImage 
+                    imageUrl={staffState.details.personal.profileImage} 
+                    fullname={staffState.details.personal.firstname}
+                    size={"60px"}
+                />
                 <div className={styles.info}>
                     <div className={styles.fullname}>{ staffState.details.personal.firstname }, {staffState.details.personal.lastname}</div>
                     <div className={styles.last_update}>Updated: 04/04/2023 01:00pm</div>

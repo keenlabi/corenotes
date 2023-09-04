@@ -14,7 +14,6 @@ const fetchTasksListSelector = selectorFamily({
     get: (pageNumber:number)=> async ()=> {
         return await fetchTasksListAction(pageNumber)
         .then((response)=> {
-            console.log(response)
             return {
                 tasks: response.data,
                 code: response.code,

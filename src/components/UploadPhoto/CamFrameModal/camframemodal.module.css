@@ -1,0 +1,60 @@
+.modal_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.757);
+    position: absolute;
+}
+.close_icon {
+    position: absolute;
+    right: 50%;
+    top: 3%;
+    cursor: pointer;
+    z-index: 100;
+}
+.close_icon path {
+    stroke: white;
+}
+.camera_space {
+    width: 400px;
+    height: 600px;
+}
+.camera {
+    width: 100%;
+    height: 80%;
+    position: relative;
+    z-index: 100000;
+}
+.capture_button {
+    width: 100px;
+    height: 100px;
+    background: white;
+    position: absolute;
+    right: calc(50% - 50px);
+    bottom: 100px;
+    cursor: pointer;
+    z-index: 100;
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 500px) {
+    .close_icon {
+        right: 5%;
+        top: 3%;
+    }
+    .camera_frame {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+}

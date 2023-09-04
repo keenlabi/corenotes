@@ -52,7 +52,8 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
         options: compartmentStateValue.compartmentsList.map( compartment => compartment.title),
         error:'',
         value:[],
-        info: 'An empty selection means service is available to all compartments'
+        info: 'An empty selection means service is available to all compartments',
+        validated: false
     }) 
 
     function setInput(value:string, model:formFieldType, setModel:setFormFieldType) {

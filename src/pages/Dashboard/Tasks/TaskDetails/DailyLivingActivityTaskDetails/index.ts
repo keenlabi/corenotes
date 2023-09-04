@@ -1,0 +1,2 @@
+import DailyLivingActivityTaskDetails from "./DailyLivingActivityTaskDetails";
+export default DailyLivingActivityTaskDetails;

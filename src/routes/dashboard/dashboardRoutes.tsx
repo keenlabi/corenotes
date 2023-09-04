@@ -34,6 +34,13 @@ import IndividualMedications from "src/pages/Dashboard/Individuals/IndividualPro
 import TasksOutlet from "src/pages/Dashboard/Tasks";
 import TasksList from "src/pages/Dashboard/Tasks/TasksList";
 import TaskDetails from "src/pages/Dashboard/Tasks/TaskDetails";
+import { Outlet } from "react-router-dom";
+import GoalTrackingService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/GoalTrackingService";
+import DailyLivingActivitiesService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/DailyLivingActivitiesService/DailyLivingActivitiesService";
+import BehaviorManagementService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/BehaviorManagementService/BehaviorManagementService";
+import ChoreService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/ChoreService";
+import IndividualDocuments from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualDocuments";
+// import MedicationServiceIndividualsModal from "src/pages/Dashboard/Medications/MedicationDetails/MedicationServiceIndividualsModal";
 
 const DashboardRoutes:routerType[] = [
     {
@@ -43,7 +50,7 @@ const DashboardRoutes:routerType[] = [
         element: <Dashboard />,
         children: [
             {
-                path:'tasks',
+                path:'',
                 element: <TasksOutlet />,
                 children: [
                     {
@@ -124,13 +131,45 @@ const DashboardRoutes:routerType[] = [
                             },
                             {
                                 path:'services',
-                                title: 'Services',
-                                element: <IndividualServices />,
+                                title: '',
+                                element: <Outlet />,
+                                children: [
+                                    {
+                                        path:'',
+                                        title: 'Individual Services',
+                                        element: <IndividualServices />,
+                                    },
+                                    {
+                                        path:'medication-administration',
+                                        title: 'Medication Administration Service',
+                                        element: <IndividualMedications />,
+                                    },
+                                    {
+                                        path:'goal-tracking',
+                                        title: 'Goal Tracking Service',
+                                        element: <GoalTrackingService />,
+                                    },
+                                    {
+                                        path:'daily-living-activity',
+                                        title: 'Daily Living Activity',
+                                        element: <DailyLivingActivitiesService />,
+                                    },
+                                    {
+                                        path:'behavior-management',
+                                        title: 'Behavior Management',
+                                        element: <BehaviorManagementService />,
+                                    },
+                                    {
+                                        path:'chore',
+                                        title: 'Chore',
+                                        element: <ChoreService />,
+                                    }
+                                ]
                             },
                             {
                                 path:'medications',
                                 title: 'Medications',
-                                element: <IndividualMedications />,
+                                element: <IndividualMedications />
                             },
                             {
                                 path:'assessments',
@@ -140,7 +179,7 @@ const DashboardRoutes:routerType[] = [
                             {
                                 path:'documents',
                                 title: 'Documents',
-                                element: <div />,
+                                element: <IndividualDocuments />,
                             },
                             {
                                 path:'reports',

@@ -3,17 +3,7 @@ import InputField from "..";
 import { formFieldType, setFormFieldType } from "../../FormWrapper/types";
 import styles from "./taginputfield.module.css"
 import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel.svg";
-
-export interface ITagsInputFormData {
-    name:string;
-    label?:string;
-    placeholder:string;
-    value:Array<string>;
-    error:string;
-    validated:boolean;
-}
-
-export interface ISetTagsInputFormData extends React.Dispatch<React.SetStateAction<ITagsInputFormData>> {}
+import FormInfo from "../../FormInfo";
 
 export default function TagInputField({
     label, placeholder, value, error, onTagAdded
@@ -78,6 +68,13 @@ export default function TagInputField({
                 onEnterKeyPressed={()=> addToTag()}
                 onInput={(value:string)=> setInput(value, tagInputModel, setTagInputModel)}
             />
+
+            {
+                !tags.length 
+                ?   <FormInfo message="Press enter to save tag" />
+                :   null
+            }
+            
 
             {
                 tags.length

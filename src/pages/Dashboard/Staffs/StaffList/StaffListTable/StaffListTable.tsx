@@ -41,29 +41,31 @@ export default function StaffListTable({
       });
   }, [staffs]);
 
-  function formatTransactionsTable(staffs: staffsListType[]) {
-    return staffs.map((staff) => {
-      return [
-        {
-          rowKey: staff.staffId,
-          actionEvent: "action_button_click",
-          actionButtonPosition: 6,
-        },
-        <div className={styles.user_image}>
-          {UserImage(staff.profileImage, staff.fullname, "40px")}
-        </div>,
-        <div className={styles.fullname}>{staff.fullname}</div>,
-        <div className={styles.role}>{staff.role}</div>,
-        <div className={styles.phoneNumber}>{staff.phoneNumber}</div>,
-        <div className={styles.compartment}>
-          {formatDate(staff.lastSeen)} - {formatTime(staff.lastSeen)}
-        </div>,
-        <div className={styles.button}>
-          <StaffViewProfileButton id={staff.staffId.toString()} />
-        </div>,
-      ];
-    });
-  }
+    function formatTransactionsTable (staffs:staffsListType[]) {
+        return staffs.map((staff)=> {
+            return  [
+                {
+                    rowKey: staff.staffId,
+                    actionEvent: 'action_button_click',
+                    actionButtonPosition: 6
+                },
+                <div className={styles.user_image}>
+                    <UserImage 
+                        imageUrl={staff.profileImage} 
+                        fullname={staff?.fullname} 
+                        size="50px"
+                    />
+                </div>,
+                <div className={styles.fullname}>{staff.fullname}</div>,
+                <div>{staff.role}</div>,
+                <div>{staff.phoneNumber}</div>,
+                <div className={styles.compartment}>{formatDate(staff.lastSeen)} - {formatTime(staff.lastSeen)}</div>,
+                <div className={styles.button}>
+                    <StaffViewProfileButton id={ staff.staffId.toString() } />
+                </div>
+            ]
+        });
+    }
 
   const paginateAction = (pageNumber: string | number) => {
     setIsLoading(true);

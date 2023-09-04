@@ -72,7 +72,7 @@ export default function InputField({
                     type={internalType}
                     className={`${styles.input}`}
                     placeholder={placeholder}
-                    // value={value}
+                    value={value}
                     readOnly={readonly}
                     onFocus={()=> { 
                         type === 'date' 

@@ -44,7 +44,7 @@ export default function AddStaffRoleModal({ closeModal }:{ closeModal:()=> void 
 
     function submitRole() {
         const payload = {
-            title: roleTitle.value,
+            title: roleTitle.value!,
             privileges: selectedPrivileges
         }
 

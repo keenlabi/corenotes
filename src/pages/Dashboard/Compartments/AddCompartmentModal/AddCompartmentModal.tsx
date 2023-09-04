@@ -50,7 +50,7 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
             return;
         }
 
-        const isMatch = compartmentState.compartmentsList.filter((compartment) => compartment.title === updatedModel.value.toLowerCase())[0]?.title;
+        const isMatch = compartmentState.compartmentsList.filter((compartment) => compartment.title === updatedModel.value?.toLowerCase())[0]?.title;
 
         if(isMatch) {
             updatedModel.error = "Compartment already exist";
@@ -65,7 +65,7 @@ export default function AddCompartmentModal({ close }:{close:()=> void}) {
 
     function submitAddCompartment() {
         const payload:newCompartmentData = {
-            title: compartmentTitle.value,
+            title: compartmentTitle.value!,
             compartmentImage: compartmentImage?.image
         }
 

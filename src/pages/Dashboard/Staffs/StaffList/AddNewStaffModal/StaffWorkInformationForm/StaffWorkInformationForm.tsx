@@ -239,7 +239,7 @@ export default function StaffWorkInformationForm() {
                 <div className={styles.row}>
                     <PasswordInputField
                         placeholder={passwordModel.placeholder}
-                        value={passwordModel.value}
+                        value={passwordModel.value!}
                         error={passwordModel.error}
                         showPrefixIcon={false}
                         onInput={(inputValue:string) => setInput(inputValue, passwordModel, setPasswordModel)}
