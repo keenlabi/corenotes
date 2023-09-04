@@ -1,23 +1,29 @@
 .page_header {
-    height: 120px;
-    display: flex;
-    align-items: center;
-    padding: 0 5%;
-    background: white;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  background: white;
 }
 
 .search_bar {
-    height: 50%;
-    width: 70%;
-    border-radius: 8px;
+  height: 50%;
+  width: 70%;
+  border-radius: 8px;
 }
 
 .user_profile {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .input_container {
-    background: var(--grey-accent-100-b);
-    border-radius: 8px;
-    border: 0;
+  background: var(--grey-accent-100-b);
+  border-radius: 8px;
+  border: 0;
+}
+
+@media screen and (max-width: 414px) {
+  .page_header {
+    display: none;
+  }
 }

@@ -1,4 +1,12 @@
 .grid_list {
-    display: grid;
-    gap: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 414px) {
+  .grid_list {
+    grid-template-columns: repeat(1, 1fr) !important;
+    width: 100%;
+    box-sizing: border-box;
+  }
 }

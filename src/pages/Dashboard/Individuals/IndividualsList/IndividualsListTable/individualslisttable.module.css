@@ -1,40 +1,63 @@
-    th, td {
-        padding: 0 20px;
-    }
+th,
+td {
+  padding: 0 10px;
+}
 
-    .user_image {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.user_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    tbody td {
-        color: var(--black-accent-200);
-        font-weight: 400;
-    }
+tbody td {
+  color: var(--black-accent-200);
+  font-weight: 400;
+}
 
-    .fullname {
-        color: var(--black-accent-100);
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        text-transform: capitalize;
-    }
+.fullname {
+  color: var(--black-accent-100);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-transform: capitalize;
+}
 
-    .compartment {
-        text-transform: capitalize;
-    }
+.compartment {
+  text-transform: capitalize;
+  width: max-;
+}
 
-    .gender {
-        text-transform: capitalize;
-    }
+.gender {
+  text-transform: capitalize;
+}
 
-    .age {
-        display: flex;
-    }
+.age {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 414px) {
+  th,
+  td {
+    padding: 0 5px !important;
+    width: 100%;
+  }
+
+  .user_image {
+    margin-left: 0;
+  }
+
+  td:has(.age) {
+    display: none;
+    width: auto;
+  }
+}
