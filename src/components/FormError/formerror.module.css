@@ -1,0 +1,25 @@
+.error_modal {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(244, 67, 73);
+    color: white;
+    font-weight: 600;
+    padding: 10px;
+    position: fixed;
+    z-index: var(--absolute-z-index-navigation);
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.text {
+    font-size: 1rem;
+    width: 95%;
+    text-align: center;
+}
+.close_icon {
+    font-size: 1.3rem;
+    width: 5%;
+    cursor: pointer;
+}
