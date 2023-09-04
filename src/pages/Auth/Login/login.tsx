@@ -11,8 +11,9 @@ import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types"
-import LoginAction from "src/features/auth/actions"
+
 import { useAuthState } from "src/features/auth/state"
+import { LoginAction } from "src/features/auth/actions"
 
 export default function Login() {
 
