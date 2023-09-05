@@ -5,32 +5,34 @@ import StaffProfileHeader from "../StaffProfileHeader";
 import StaffPersonalInformation from "./StaffPersonalInformation";
 import { useState } from "react";
 import EditStaffProfileModal from "./EditStaffProfile";
+import { useStaffValue } from "src/features/staff/state";
 
 export default function StaffProfileInformation() {
+	const [showEditProfileModal, setShowEditProfileModal] = useState(false);
+	const staffState = useStaffValue();
 
-    const [showEditProfileModal, setShowEditProfileModal] = useState(false);
+	return (
+		<div className={styles.staff_profile_information}>
+			<StaffProfileHeader
+				actionType="edit-profile"
+				editProfileAction={() => setShowEditProfileModal(true)}
+			/>
 
-    return (
-        <div className={styles.staff_profile_information}>
-            
-            <StaffProfileHeader 
-                actionType='edit-profile'
-                editProfileAction={()=> setShowEditProfileModal(true)}
-            />
+			<StaffPersonalInformation />
 
-            <StaffPersonalInformation />
+			<SizedBox height={"100px"} />
 
-            <SizedBox height={"100px"} />
+			<StaffWorkInformation />
 
-            <StaffWorkInformation />
-
-            {
-                showEditProfileModal
-                ?   <EditStaffProfileModal 
-                        closeModal={()=> setShowEditProfileModal(false)} 
-                    />
-                :   null
-            }
-        </div>
-    )
+			{showEditProfileModal ? (
+				<EditStaffProfileModal
+					closeModal={() => setShowEditProfileModal(false)}
+					// staffState={staffState}
+					// onSetStaff={function (): void {
+					// 	throw new Error("Function not implemented.");
+					// }}
+				/>
+			) : null}
+		</div>
+	);
 }

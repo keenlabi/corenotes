@@ -1,5 +1,7 @@
 export interface initStateType {
-    status:"IDLE"|"LOADING"|"SUCCESS"|"FAILED",
-    error:boolean,
-    message:string
+	status: "IDLE" | "LOADING" | "SUCCESS" | "FAILED";
+	signupDetails: object;
+	bankVerification: object;
+	error: boolean;
+	message: string;
 }

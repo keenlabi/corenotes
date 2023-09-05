@@ -141,55 +141,55 @@ export interface IStaffDocument {
 }
 
 export interface IStaffDetails {
-    id: string,
-    // ACCOUNT INFO
-    role:{
-        title:string,
-        privileges:{
-            staff_profile_view:boolean;
-            staff_registration:boolean;
-            staff_document_upload:boolean;
-        }
-    },
-    active: boolean,
-    lastSeen: string,
-    
-    // PERSONAL INFORMATION
-    personal: {
-        firstname: string,
-        lastname: string,
-        nickname: string,
-        initials: string,
-        dob:string,
-        gender: string,
-        address: string,
-        city: string,
-        state: string,
-        zipCode: string,
-        phoneNumber: {
-            work: string,
-            cell: string,
-            other: string
-        },
-        emergencyContact: {
-            name: string,
-            relationship: string,
-            phoneNumber: string
-        },
-        email: string,
-        profileImage: string,
-    },
-    
-    work: {
-        // WORK INFORMATION
-        compartment: string,
-        title: string,
-        providerRole: string,
-        hiredAt: string,
-        username: string,
-        employeeId: string,
-        jobSchedule: string
-    }
+	id: string;
+	// ACCOUNT INFO
+	role: {
+		title: string;
+		privileges: {
+			staff_profile_view: boolean;
+			staff_registration: boolean;
+			staff_document_upload: boolean;
+		};
+	};
+	active: boolean;
+	lastSeen: string;
+
+	// PERSONAL INFORMATION
+	personal: {
+		firstname: string;
+		lastname: string;
+		nickname: string;
+		initials: string;
+		dob: string;
+		gender: string;
+		address: string;
+		city: string;
+		state: string;
+		zipCode: string;
+		phoneNumber: {
+			work: string;
+			cell: string;
+			other: string;
+		};
+		emergencyContact: {
+			name: string;
+			relationship: string;
+			phoneNumber: string;
+		};
+		email: string;
+		profileImage: string;
+	};
+
+	work: {
+		// WORK INFORMATION
+		compartment: string;
+		title: string;
+		providerRole: string;
+		hiredAt: string;
+		username: string;
+		employeeId: string;
+		jobSchedule: string;
+	};
 }
 
 export interface NewStaffType {
