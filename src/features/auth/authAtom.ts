@@ -21,7 +21,7 @@ export const authInitState:authStateType = {
         accountNumber:'',
         accountName:''
     },
-    status: 'idle',
+    status: 'IDLE',
     error: false,
     message:''
 }

@@ -5,7 +5,7 @@ import { ReactComponent as IconAngleDown } from "src/assets/icons/icon-angle-dow
 import capitalize from "src/utils/capitalize";
 import { useUserState, userInitState } from "src/features/user/state";
 import { useState } from "react";
-import { LogOutAction } from "src/features/auth/actions";
+
 import { authInitState, useAuthState} from "src/features/auth/state";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ export default function UserProfileCard({
         setAuthState(authInitState)
         navigate({pathname: "/"})
       })
-      .catch((error) => {
+      .catch((error: { message: any; }) => {
         setAuthState((state)=> {
             return {
                 ...state,
@@ -78,3 +78,7 @@ export default function UserProfileCard({
     </div>
   );
 }
+function LogOutAction() {
+    throw new Error("Function not implemented.");
+}
+
