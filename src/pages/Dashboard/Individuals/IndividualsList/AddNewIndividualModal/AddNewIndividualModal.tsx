@@ -22,7 +22,6 @@ export default function AddNewIndividualModal({
 	closeModal,
 }: {
 	closeModal: () => void;
-	userState: any;
 }) {
 	const [individualState, setIndividualState] = useIndividualState();
 
