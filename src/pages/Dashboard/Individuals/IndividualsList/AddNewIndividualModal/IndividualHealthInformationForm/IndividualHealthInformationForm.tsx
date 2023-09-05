@@ -7,15 +7,14 @@ import { Suspense } from "react";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 
 export default function IndividualHealthInformationForm() {
-
-    return (
-        <div className={styles.health_information}>
-            <IndividualCompartmentForm removeLabel={false} />
-            <Suspense fallback={<ComponentLoader />}>
-                <IndividualRequestedServicesForm />
-            </Suspense>
-            <IndividualDietInformationForm />
-            <IndividualAllergiesInformationForm />
-        </div>
-    )
+	return (
+		<div className={styles.health_information}>
+			<IndividualCompartmentForm removeLabel={false} />
+			<Suspense fallback={<ComponentLoader />}>
+				<IndividualRequestedServicesForm />
+			</Suspense>
+			<IndividualDietInformationForm />
+			<IndividualAllergiesInformationForm />
+		</div>
+	);
 }
