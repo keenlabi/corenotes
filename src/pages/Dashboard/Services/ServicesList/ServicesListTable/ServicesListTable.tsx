@@ -7,6 +7,7 @@ import { ServicesListItemType } from "src/features/service/types";
 import formatDate from "src/utils/formatDate";
 import formatTime from "src/utils/formatTime";
 import capitalize from "src/utils/capitalize";
+import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 
 export default function ServicesListTable({
     currentPage, 
@@ -23,9 +24,12 @@ export default function ServicesListTable({
         'Title',
         'Category',
         'Individuals',
-        'Date created'
+        'Date created',
+        'Delete Services'
     ]
-
+function clickAction(){
+    
+}
     useEffect(()=> {
         setIsLoading(true)
 
@@ -51,7 +55,18 @@ export default function ServicesListTable({
                 <div className={styles.title}>{capitalize(service.title)}</div>,
                 <div className={styles.category}>{capitalize(service.category)}</div>,
                 <div className={styles.individuals}>{service.assignedIndividualsCount}</div>,
-                <div className={styles.date}>{formatDate(service.createdAt)} {formatTime(service.createdAt)} </div>
+                <div className={styles.date}>{formatDate(service.createdAt)} {formatTime(service.createdAt)} </div>,
+           <div>
+                 <PrimaryTextButton
+            label={'Delete'}
+            width={'100px'}
+            isLoading={false}
+            backgroundColor={"var(--red-100)"}
+            labelColor={"var(--red-accent-100)"}
+            clickAction={clickAction}
+            disabled={false}
+        />
+           </div>
             ]
         });
     }

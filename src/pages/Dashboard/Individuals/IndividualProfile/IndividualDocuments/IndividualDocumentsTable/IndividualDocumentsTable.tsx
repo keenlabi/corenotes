@@ -6,6 +6,7 @@ import { staffsDocumentsListType } from "src/features/staff/utils/formatStaffDoc
 import sortByDate from "src/utils/sortByDate";
 import { useStaffValue } from "src/features/staff/state";
 import DownloadIndividualDocButton from "./DownloadIndividualDocButton/DownloadIndividualDocButton";
+import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 
 export default function IndividualDocumentsTable({
     currentPage,
@@ -26,9 +27,12 @@ export default function IndividualDocumentsTable({
         'Date added',
         'Type/Description',
         'File type',
-        '',
+        'Document',
+        'Delete Document'
     ]
+function DeleteDocument(){
 
+}
     useEffect(()=> {
         setIsLoading(true)
 
@@ -60,6 +64,15 @@ export default function IndividualDocumentsTable({
                         fileName={document.docFileName}
                         fileLink={document.docFileLink}
                     />
+                </div>,
+                <div> <PrimaryTextButton
+                label={'Delete'}
+                width={'100px'}
+                isLoading={false}
+                backgroundColor={"var(--red-accent-100)"}
+                labelColor={"white"}
+                clickAction={DeleteDocument}
+                disabled={false}/>
                 </div>
             ]
         });
