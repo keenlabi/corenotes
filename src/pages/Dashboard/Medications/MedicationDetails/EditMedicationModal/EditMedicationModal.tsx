@@ -1,11 +1,20 @@
-import styles from "./addmedicationmodal.module.css"
-import ModalContainer from "src/components/Modal/ModalContainer"
+import styles from "./editmedicationmodal.module.css";
+import ModalContainer from "src/components/Modal/ModalContainer";
 import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { useEffect, useState } from "react";
-import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
-import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
-import { MultiSelectDropDownFormData, setMultiSelectDropDownFormData } from "src/components/FormComponents/DropDownField/MultiSelectDropDownField/types";
+import {
+	formFieldType,
+	setFormFieldType,
+} from "src/components/FormComponents/FormWrapper/types";
+import {
+	DropDownFormData,
+	setDropDownFormData,
+} from "src/components/FormComponents/DropDownField/types";
+import {
+	MultiSelectDropDownFormData,
+	setMultiSelectDropDownFormData,
+} from "src/components/FormComponents/DropDownField/MultiSelectDropDownField/types";
 import RowContainer from "src/components/Layout/RowContainer";
 import InputField from "src/components/FormComponents/InputField";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
@@ -13,12 +22,18 @@ import TagInputField from "src/components/FormComponents/InputField/TagInputFiel
 import MultiSelectDropDownField from "src/components/FormComponents/DropDownField/MultiSelectDropDownField";
 import TextField from "src/components/FormComponents/TextField";
 import { INewMedication } from "src/features/medication/types";
-import { medicationInitState, useMedicationState } from "src/features/medication/state";
+import {
+	medicationInitState,
+	useMedicationState,
+} from "src/features/medication/state";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import { useFetchStaffRoleSelector } from "src/features/staff/selector";
 import { useStaffState } from "src/features/staff/state";
 import { createMedicationAction } from "src/features/medication/action";
-import { ISetTagsInputFormData, ITagsInputFormData } from "src/components/FormComponents/InputField/TagInputField/types";
+import {
+	ISetTagsInputFormData,
+	ITagsInputFormData,
+} from "src/components/FormComponents/InputField/TagInputField/types";
 
 export default function CreateMedicationModal({
 	closeModal,
@@ -48,14 +63,14 @@ export default function CreateMedicationModal({
 
 	const [medNameModel, setMedNameModel] = useState<formFieldType>({
 		placeholder: "Name",
-		value: "",
+		value: medicationState.medicationDetails.name,
 		error: "",
 		validated: false,
 	});
 
 	const [medStrengthModel, setMedStrengthModel] = useState<formFieldType>({
 		placeholder: "Strength",
-		value: "",
+		value: medicationState.medicationDetails.strength,
 		error: "",
 		validated: false,
 	});
@@ -296,21 +311,21 @@ export default function CreateMedicationModal({
 	const [medInstructionsModel, setMedInstructionsModel] =
 		useState<formFieldType>({
 			placeholder: "Medication instructions",
-			value: "",
+			value: medicationState.medicationDetails.instructions,
 			error: "",
 			validated: false,
 		});
 
 	const [medPharmarcyModel, setMedPharmachyModel] = useState<formFieldType>({
 		placeholder: "Pharmacy",
-		value: "",
+		value: medicationState.medicationDetails.pharmarcy,
 		error: "",
 		validated: false,
 	});
 
 	const [medPrescriberModel, setMedPrescriberModel] = useState<formFieldType>({
 		placeholder: "Prescriber",
-		value: "",
+		value: medicationState.medicationDetails.prescriber,
 		error: "",
 		validated: false,
 	});
@@ -559,7 +574,7 @@ export default function CreateMedicationModal({
 				/>
 
 				<div className={styles.header}>
-					<div className={styles.titiel}>Add Medication</div>
+					<div className={styles.titiel}>Edit Medication</div>
 					<IconCancelCircle onClick={closeModal} />
 				</div>
 
@@ -568,6 +583,7 @@ export default function CreateMedicationModal({
 						<InputField
 							placeholder={medNameModel.placeholder}
 							error={medNameModel.error}
+							value={medNameModel.value}
 							onInput={(value: string) =>
 								setInput(value, medNameModel, setMedNameModel)
 							}
@@ -576,6 +592,7 @@ export default function CreateMedicationModal({
 						<InputField
 							placeholder={medStrengthModel.placeholder}
 							error={medStrengthModel.error}
+							value={medStrengthModel.value}
 							onInput={(value: string) =>
 								setInput(value, medStrengthModel, setMedStrengthModel)
 							}
@@ -645,6 +662,7 @@ export default function CreateMedicationModal({
 							type={medPrescriberModel.type}
 							placeholder={medPrescriberModel.placeholder}
 							error={medPrescriberModel.error}
+							value={medPrescriberModel.value}
 							onInput={(value: string) =>
 								setInput(value, medPrescriberModel, setMedPrescriberModel)
 							}
@@ -665,6 +683,7 @@ export default function CreateMedicationModal({
 					<TextField
 						height="200px"
 						placeholder={medInstructionsModel.placeholder}
+						value={medInstructionsModel.value}
 						onInput={(value: string) =>
 							setInput(value, medInstructionsModel, setMedInstructionsModel)
 						}
