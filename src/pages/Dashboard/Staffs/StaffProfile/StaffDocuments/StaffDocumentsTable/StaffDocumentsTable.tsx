@@ -6,6 +6,7 @@ import { staffsDocumentsListType } from "src/features/staff/utils/formatStaffDoc
 import DownloadStaffDocButton from "./DownloadStaffDocButton/DownloadStaffDocButton";
 import sortByDate from "src/utils/sortByDate";
 import { useStaffValue } from "src/features/staff/state";
+import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton/PrimaryTextButton";
 
 export default function StaffDocumentsTable({
     currentPage,
@@ -26,9 +27,13 @@ export default function StaffDocumentsTable({
         'Date added',
         'Type/Description',
         'File type',
-        '',
+        'Document',
+        'Delete Document'
     ]
+    
+    function DeleteDocument(){
 
+    }
     useEffect(()=> {
         console.log(staffState.documents.list)
         setIsLoading(true)
@@ -61,7 +66,17 @@ export default function StaffDocumentsTable({
                         fileName={document.docFileName}
                         fileLink={document.docFileLink}
                     />
-                </div>
+                </div>,
+                <div> <PrimaryTextButton
+                label={'Delete'}
+                width={'100px'}
+                isLoading={false}
+                backgroundColor={"var(--red-accent-100)"}
+                labelColor={"white"}
+                clickAction={DeleteDocument}
+                disabled={false}
+            /></div>
+                
             ]
         });
     }

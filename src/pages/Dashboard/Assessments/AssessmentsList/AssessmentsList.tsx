@@ -26,6 +26,7 @@ export default function AssessmentsList() {
         }))
 
     }, [fetchAssessmentsListResponse, setAssessmentState])
+    console.log(assessmentState)
 
     return (
         <div className={styles.assessemts_list_page}>

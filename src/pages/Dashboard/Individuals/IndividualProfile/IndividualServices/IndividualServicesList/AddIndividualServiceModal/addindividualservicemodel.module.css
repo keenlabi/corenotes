@@ -47,9 +47,9 @@
   position: absolute;
   width: 90%;
   bottom: 0;
-}
-
+} 
+/* 
 @media screen and (max-width: 414px) {
   .add_individual_service_modal {
   }
-}
+} */

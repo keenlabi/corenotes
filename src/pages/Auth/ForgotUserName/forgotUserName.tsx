@@ -1,4 +1,4 @@
-import styles from "./forgotpassword.module.css";
+import styles from '../ForgotPassword/forgotpassword.module.css'
 import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -6,16 +6,15 @@ import TextButton from "../../../components/Buttons/TextButton/textbutton";
 import InputField from "../../../components/FormComponents/InputField/InputField";
 import FormErrorModal from "../../../components/FormError/FormErrorModal";
 import { useAuthState } from "../../../features/auth/authAtom";
-import { emailValid } from "../../../utils/emailValidation";
 import { ResetPasswordAction } from "../../../features/auth/actions";
-import PasswordResetSuccess from "./components/PasswordResetSuccess";
 
-export default function ForgotPassword() {
+
+export default function ForgotUserName() {
   const [authState, setAuthState] = useAuthState();
 
-  const [RecoverEmailModel, setRecoverEmailModel] = useState({
-    type: "email",
-    label: "Email address",
+  const [RecoverUserNameModel, setRecoverUserNameModel] = useState({
+    type: "text",
+    label: "Username",
     value: "",
     error: "",
     validated: false,
@@ -33,8 +32,8 @@ export default function ForgotPassword() {
       updatedModel.validated = false;
       return false;
     }
-    if (!emailValid(updatedModel.value)) {
-      updatedModel.error = "Please enter a valid email";
+    if ((updatedModel.value) === '') {
+      updatedModel.error = "Please enter a username";
       updatedModel.validated = false;
       return false;
     }
@@ -47,10 +46,10 @@ export default function ForgotPassword() {
   const [isResetSent, setIsResetSent] = useState(false);
 
   const RecoverPassword = () => {
-    if (!validateModel(RecoverEmailModel)) return false;
+    if (!validateModel(RecoverUserNameModel)) return false;
 
     const payload = {
-      email: RecoverEmailModel.value,
+      username: RecoverUserNameModel.value,
     };
 
     setAuthState((state) => {
@@ -94,7 +93,7 @@ export default function ForgotPassword() {
       {!isResetSent ? (
         <div className={styles.recover_email_form_container}>
           <div className={styles.form_title}>
-            <div className={styles.title}>Forgot Password?</div>
+            <div className={styles.title}>Forgot UserName?</div>
             <div className={styles.sub_title}>
               No worries, we'll send reset instructions
             </div>
@@ -105,18 +104,18 @@ export default function ForgotPassword() {
             onSubmit={(e) => e.preventDefault()}
           >
             <InputField
-              type={RecoverEmailModel.type}
-              label={RecoverEmailModel.label}
-              error={RecoverEmailModel.error}
+              type={RecoverUserNameModel.type}
+              label={RecoverUserNameModel.label}
+              error={RecoverUserNameModel.error}
               onInput={(inputVal: string) =>
-                setInput(inputVal, RecoverEmailModel, setRecoverEmailModel)
+                setInput(inputVal, RecoverUserNameModel, setRecoverUserNameModel)
               }
             />
 
             <div className={styles.submit_btn_wrapper}>
               <TextButton
                 label="Reset Password"
-                disabled={!RecoverEmailModel.validated}
+                disabled={!RecoverUserNameModel.validated}
                 isLoading={authState.status === "loading"}
                 onClick={() => RecoverPassword()}
               />
@@ -125,7 +124,7 @@ export default function ForgotPassword() {
         </div>
       ) : (
         <PasswordResetSuccess
-          email={RecoverEmailModel.value}
+          email={RecoverUserNameModel.value}
           editEmail={() => setIsResetSent(false)}
           resendLink={() => RecoverPassword()}
         />
