@@ -148,50 +148,50 @@ export default function SetNewPassword() {
   };
 
   return (
-    <div className={styles.container}>
-      <FormErrorModal errorState={authState} setErrorState={setAuthState} />
+		<div className={styles.container}>
+			<FormErrorModal errorState={authState} setErrorState={setAuthState} />
 
-      {newPasswordSet ? (
-        <SetNewPasswordSuccess />
-      ) : (
-        <div className={styles.recover_email_form_container}>
-          <FormContainer formHeading="Set New Password">
-            <PasswordField
-              label={NewPasswordModel.label}
-              error={NewPasswordModel.error}
-              onInput={(inputVal: string) =>
-                setInput(inputVal, NewPasswordModel, setNewPasswordModel)
-              }
-            />
+			{newPasswordSet ? (
+				<SetNewPasswordSuccess />
+			) : (
+				<div className={styles.recover_email_form_container}>
+					<FormContainer formHeading="Set New Password">
+						<PasswordField
+							label={NewPasswordModel.label}
+							error={NewPasswordModel.error}
+							onInput={(inputVal: string) =>
+								setInput(inputVal, NewPasswordModel, setNewPasswordModel)
+							}
+						/>
 
-            <PasswordField
-              label={ConfirmPasswordModel.label}
-              error={ConfirmPasswordModel.error}
-              onInput={(inputVal: string) =>
-                setInput(
-                  inputVal,
-                  ConfirmPasswordModel,
-                  setConfirmPasswordModel
-                )
-              }
-            />
+						<PasswordField
+							label={ConfirmPasswordModel.label}
+							error={ConfirmPasswordModel.error}
+							onInput={(inputVal: string) =>
+								setInput(
+									inputVal,
+									ConfirmPasswordModel,
+									setConfirmPasswordModel
+								)
+							}
+						/>
 
-            <PrimaryTextButton
-              label="Reset Password"
-              disabled={!isFormValidated}
-              isLoading={authState.status === "loading"}
-              action={() => setNewPassword()}
-            />
-          </FormContainer>
+						<PrimaryTextButton
+							label="Reset Password"
+							disabled={!isFormValidated}
+							isLoading={authState.status === "LOADING"}
+							action={() => setNewPassword()}
+						/>
+					</FormContainer>
 
-          <Link to="/login">
-            <div className={styles.back_btn_wrapper}>
-              <FaArrowLeft />
-              <div>Back to Login</div>
-            </div>
-          </Link>
-        </div>
-      )}
-    </div>
-  );
+					<Link to="/login">
+						<div className={styles.back_btn_wrapper}>
+							<FaArrowLeft />
+							<div>Back to Login</div>
+						</div>
+					</Link>
+				</div>
+			)}
+		</div>
+	);
 }

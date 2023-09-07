@@ -1,17 +1,84 @@
 .header {
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    gap: 2em;
+    /* justify-content: space-between; */
+    padding: 10px;
 }
 .title {
     font-weight: 600;
     font-size: 2rem;
     text-transform: capitalize;
 }
+
+.capsule {
+    border-radius: 16px;
+    background: rgba(0, 128, 0, 0.8);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 5px 10px;
+    text-transform: capitalize;
+}
+
+.body {
+    margin-top: 1.5em;
+    padding-bottom: 5em;
+}
+
+.detail {
+    padding: 20px 10px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block: 15px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.detailTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.detailValue {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.instructions {
+    padding: 10px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 35px;
+    border-bottom: 1px solid #000;
+}
+
+.details p {
+    padding: 10px;
+    width: 70%;
+    font-size: 1rem;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+}
+
 .actions {
     margin-left: auto;
 }
 
 .medication_services_list {
     padding: 0 10px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit_profile_button {
+    padding: 10px 20px;
 }

@@ -4,15 +4,19 @@ import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg";
 import { staffInitState, useStaffState } from "src/features/staff/state";
 import { useEffect, useState } from "react";
-import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
+import {
+	DropDownFormData,
+	setDropDownFormData,
+} from "src/components/FormComponents/DropDownField/types";
 import { useFetchStaffRoleSelector } from "src/features/staff/selector";
 // import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { updateStaffProfileAction } from "src/features/staff/actions";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
+import IndividualPersonalInformationForm from "../../../IndividualsList/AddNewIndividualModal/IndividualPersonalInformationForm";
+import IndividualHealthInformationForm from "../../../IndividualsList/AddNewIndividualModal/IndividualHealthInformationForm";
+import { useIndividualState } from "src/features/Individual/state";
 // import AddNewStaffModal from "../../../StaffList/AddNewStaffModal";
-import StaffPersonalInformationForm from "../../../StaffList/AddNewStaffModal/StaffPersonalInformationForm";
-import StaffWorkInformationForm from "../../../StaffList/AddNewStaffModal/StaffWorkInformationForm";
 
 export default function EditStaffProfileModal({
 	closeModal,
@@ -21,13 +25,13 @@ export default function EditStaffProfileModal({
 	closeModal: () => void;
 	// userState: object;
 }) {
-	const [staffState, setStaffState] = useStaffState();
+	const [individualState, setIndividualState] = useIndividualState();
 
 	const params = useParams();
 
-	const staffRolesResponse = useFetchStaffRoleSelector(
-		staffState.roles.currentPage
-	);
+	// const staffRolesResponse = useFetchStaffRoleSelector(
+	// 	staffState.roles.currentPage
+	// );
 
 	const [providerRoleModel, setProviderRoleModel] = useState<DropDownFormData>({
 		name: "provider-role",
@@ -50,38 +54,38 @@ export default function EditStaffProfileModal({
 		setModel({ ...model });
 	}
 
-	useEffect(() => {
-		const currentStaffRole = staffRolesResponse.data.staffRoles.findIndex(
-			(role) => role?.title === staffState.details.work.providerRole
-		);
-		// console.log(currentStaffRole);
+	// useEffect(() => {
+	// 	const currentStaffRole = staffRolesResponse.data.staffRoles.findIndex(
+	// 		(role) => role?.title === individualState.profile.work.providerRole
+	// 	);
+	// 	// console.log(currentStaffRole);
 
-		setStaffState((state) => ({
-			...state,
-			status: "IDLE",
-			error: staffRolesResponse.error,
-			roles: {
-				list: staffRolesResponse.data.staffRoles,
-				currentPage: staffRolesResponse.data.currentPage,
-				totalPages: staffRolesResponse.data.totalPages,
-			},
-		}));
+	// 	setIndvidualState((state) => ({
+	// 		...state,
+	// 		status: "IDLE",
+	// 		error: staffRolesResponse.error,
+	// 		roles: {
+	// 			list: staffRolesResponse.data.staffRoles,
+	// 			currentPage: staffRolesResponse.data.currentPage,
+	// 			totalPages: staffRolesResponse.data.totalPages,
+	// 		},
+	// 	}));
 
-		setProviderRoleModel((state) => ({
-			...state,
-			options: [
-				...staffRolesResponse.data.staffRoles.map((role) => ({
-					id: role.id,
-					label: role.title,
-					value: role.id,
-				})),
-			],
-			selected: currentStaffRole > -1 ? true : false,
-			selectedOptionIndex: currentStaffRole > -1 ? currentStaffRole : 0,
-		}));
-	}, [setStaffState, staffRolesResponse, staffState.details]);
+	// 	setProviderRoleModel((state) => ({
+	// 		...state,
+	// 		options: [
+	// 			...staffRolesResponse.data.staffRoles.map((role) => ({
+	// 				id: role.id,
+	// 				label: role.title,
+	// 				value: role.id,
+	// 			})),
+	// 		],
+	// 		selected: currentStaffRole > -1 ? true : false,
+	// 		selectedOptionIndex: currentStaffRole > -1 ? currentStaffRole : 0,
+	// 	}));
+	// }, [setIndividualState, staffRolesResponse, individualState.profile]);
 
-	const userState = staffState.details;
+	const userState = individualState.profile.personalInformation;
 
 	function submitStaffProfile() {
 		const payload = {
@@ -89,14 +93,14 @@ export default function EditStaffProfileModal({
 			providerRole: providerRoleModel.value!.value!,
 		};
 
-		setStaffState((state) => ({
+		setIndividualState((state) => ({
 			...state,
 			status: "LOADING",
 		}));
 
 		updateStaffProfileAction(payload)
 			.then((response) => {
-				setStaffState((state) => ({
+				setIndividualState((state) => ({
 					...state,
 					status: "SUCCESS",
 					// details: response.data.staff,
@@ -105,7 +109,7 @@ export default function EditStaffProfileModal({
 				}));
 			})
 			.catch((error) => {
-				setStaffState((state) => ({
+				setIndividualState((state) => ({
 					...state,
 					status: "FAILED",
 					details: staffInitState.details,
@@ -116,7 +120,7 @@ export default function EditStaffProfileModal({
 	}
 
 	function resetStaffState() {
-		setStaffState((state) => ({
+		setIndividualState((state) => ({
 			...state,
 			status: "IDLE",
 			message: "",
@@ -128,9 +132,9 @@ export default function EditStaffProfileModal({
 		<ModalContainer close={() => closeModal()}>
 			<div className={styles.edit_staff_profile}>
 				<FormStateModal
-					status={staffState.status}
-					error={staffState.error}
-					message={staffState.message}
+					status={individualState.status}
+					error={individualState.error}
+					message={individualState.message}
 					reset={() => resetStaffState()}
 				/>
 
@@ -139,14 +143,14 @@ export default function EditStaffProfileModal({
 					<IconCancelCircle
 						className={styles.icon_cancel}
 						onClick={() =>
-							staffState.status === "LOADING" ? () => ({}) : closeModal()
+							individualState.status === "LOADING" ? () => ({}) : closeModal()
 						}
 					/>
 				</div>
 
 				<div className={styles.registration_form_section}>
-					<StaffPersonalInformationForm userState={userState} />
-					<StaffWorkInformationForm userState={userState} />
+					<IndividualPersonalInformationForm userState={userState} />
+					<IndividualHealthInformationForm />
 				</div>
 
 				{/* <div className={styles.body}>
@@ -162,7 +166,7 @@ export default function EditStaffProfileModal({
 
 				<div className={styles.buttons}>
 					<PrimaryTextButton
-						isLoading={staffState.status === "LOADING"}
+						isLoading={individualState.status === "LOADING"}
 						disabled={!providerRoleModel.selected}
 						width={"20%"}
 						label="Submit"

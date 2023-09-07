@@ -52,18 +52,21 @@ export interface IFetchMedicationDetailsResponse extends Omit<successResponseTyp
 }
 
 export function fetchMedicationDetailsAction(medicationId:number) {
-    return new Promise<IFetchMedicationDetailsResponse>((resolve, reject)=> {
-        getFetch(`/medications/details/${medicationId}`)
-        .then((response)=> {
-            resolve({
-                ...response,
-                data: {
-                    medication: response.data.medication,
-                }
-            })
-        })
-        .catch((error)=> reject(error))
-    })
+    return new Promise<IFetchMedicationDetailsResponse>((resolve, reject) => {
+			getFetch(`/medications/details/${medicationId}`)
+				.then((response) => {
+					resolve({
+						...response,
+						data: {
+							medication: response.data.medication,
+						},
+					});
+				})
+				.catch((error) => {
+					reject(error);
+				});
+		});
+
 }
 
 export interface IAddMedicationToService {
