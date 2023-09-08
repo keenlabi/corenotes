@@ -54,6 +54,7 @@ export default function AssessmentsList() {
                                             assignedTo={assessment.assignedTo}
                                             path={assessment.assessmentId}                     
                                         />
+                                    
                             })
                         :   <DataLoadingError message="There are no assessments to show" />
                     }
