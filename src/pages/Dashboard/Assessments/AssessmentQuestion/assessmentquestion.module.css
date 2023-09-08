@@ -14,8 +14,11 @@
     border-radius: 1000px;
     padding: 5px 10px;
     text-align: center;
+    width: -webkit-max-content;
+    width: -moz-max-content;
     width: max-content;
     font-weight: 600;
+    border: 1px solid red;
 }
 .question_text {
     display: flex;

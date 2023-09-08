@@ -15,6 +15,9 @@ export default function AssessmentsList() {
 
     const [assessmentState, setAssessmentState] = useAssessmentState();    
 
+    console.log(assessmentState);
+    
+
     const fetchAssessmentsListResponse = useFetchAssessmentsListSelector(assessmentState.assessments.currentPage);
 
     useEffect(()=> {
