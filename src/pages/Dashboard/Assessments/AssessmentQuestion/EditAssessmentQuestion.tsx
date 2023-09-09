@@ -7,26 +7,18 @@ import { useFetchAssessmentDetailsResponse } from "src/features/assessment/selec
 import { useAssessmentState } from "src/features/assessment/state";
 import DataLoadingError from "src/components/DataLoadingError";
 import InputField from "src/components/FormComponents/InputField";
-import {
-  formFieldType,
-  setFormFieldType,
-} from "src/components/FormComponents/FormWrapper/types";
+import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
-export default function EditStaffProfileModal({
-  closeModal,
-}: // userState,
-{
-  closeModal: () => void;
-  // userState: object;
-}) {
+
+export default function EditStaffProfileModal({ closeModal }:{ closeModal: () => void }) {
+  
   const params = useParams();
 
   const [assessmentState, setAssessmentState] = useAssessmentState();
 
-  const assessmentDetailsResponse = useFetchAssessmentDetailsResponse(
-    params.assessmentId!
-  );
+  const assessmentDetailsResponse = useFetchAssessmentDetailsResponse(params.assessmentId!);
+
   useEffect(() => {
     setAssessmentState((state) => ({
       ...state,
@@ -34,61 +26,52 @@ export default function EditStaffProfileModal({
       assessmentDetails: assessmentDetailsResponse.assessment,
     }));
   }, [assessmentDetailsResponse, setAssessmentState]);
-  console.log(assessmentState);
-  const [assessmentTitleModal, setAssessmentTitleModal] =
-    useState<formFieldType>({
-      type: "text",
-      label: "Assessment Title",
-      placeholder: "Assessment Title",
-      value: assessmentState.assessmentDetails.title,
-      error: "",
-      validated: false,
-    });
+
+  const [assessmentTitleModal, setAssessmentTitleModal] = useState<formFieldType>({
+    type: "text",
+    label: "Assessment Title",
+    placeholder: "Assessment Title",
+    value: assessmentState.assessmentDetails.title,
+    error: "",
+    validated: false,
+  });
+
   // Compute the initial value outside the useState
-  const initialAssessmentQuestionValue =
-    assessmentState.assessmentDetails.questions.map(
-      (question) => question.question
-    );
+  const initialAssessmentQuestionValue = assessmentState.assessmentDetails.questions.map((question) => question.question);
 
   // Use the initial value in the useState
-  const [assessmentQuestionModal, setAssessmentQuestionModal] =
-    useState<formFieldType>({
-      type: "text",
-      label: "Assessment Question",
-      placeholder: "Assessment Question",
-      value: initialAssessmentQuestionValue,
-      error: "",
-      validated: false,
-    });
+  const [assessmentQuestionModal, setAssessmentQuestionModal] = useState<formFieldType>({
+    type: "text",
+    label: "Assessment Question",
+    placeholder: "Assessment Question",
+    value: initialAssessmentQuestionValue[0],
+    error: "",
+    validated: false,
+  });
+
   // Use the initial value in the useState
-  const initialAssessmentQuestionCategoryValue =
-    assessmentState.assessmentDetails.questions.map(
-      (question) => question.category
-    );
+  const initialAssessmentQuestionCategoryValue = assessmentState.assessmentDetails.questions.map((question) => question.category);
+
   const [assessmentQuestionCategoryModal, setAssessmentQuestionCategoryModal] =
     useState<formFieldType>({
       type: "text",
       label: "Assessment QuestionCategory",
       placeholder: "Assessment QuestionCategory",
-      value: initialAssessmentQuestionCategoryValue,
+      value: initialAssessmentQuestionCategoryValue[0],
       error: "",
       validated: false,
     });
 
-  const [assessmentCategoryModal, setAssessmentCategoryModal] =
-    useState<formFieldType>({
-      type: "text",
-      label: "Assessment Category",
-      placeholder: "Assessment Category",
-      value: assessmentState.assessmentDetails.category,
-      error: "",
-      validated: false,
-    });
-  function setInput(
-    value: string,
-    inputModel: formFieldType,
-    setInputModel: setFormFieldType
-  ) {
+  const [assessmentCategoryModal, setAssessmentCategoryModal] = useState<formFieldType>({
+    type: "text",
+    label: "Assessment Category",
+    placeholder: "Assessment Category",
+    value: assessmentState.assessmentDetails.category,
+    error: "",
+    validated: false,
+  });
+
+  function setInput(value: string, inputModel: formFieldType, setInputModel: setFormFieldType) {
     inputModel.value = value;
     validateModel(inputModel);
     setInputModel({ ...inputModel });
@@ -105,6 +88,7 @@ export default function EditStaffProfileModal({
     updatedInputModel.error = "";
     return;
   }
+  
   function EditAssementQuestion(): void {
     throw new Error("Function not implemented.");
   }

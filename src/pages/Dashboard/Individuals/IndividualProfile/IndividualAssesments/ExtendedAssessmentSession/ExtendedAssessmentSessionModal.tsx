@@ -201,12 +201,9 @@ export default function ExtendedAssessmentSessionModal({
 										question={sessionQuestion.question}
 										answer={sessionQuestion.answer}
 										comment={sessionQuestion.comment}
-										optionSelectAction={(value: string) =>
-											selectAnswer(value, sessionQuestion.id)
-										}
-										commentAction={(value: string) =>
-											makeComment(value, sessionQuestion.id)
-										}
+										optionSelectAction={(value: string) => selectAnswer(value, sessionQuestion.id)}
+										commentAction={(value: string) => makeComment(value, sessionQuestion.id)} 
+										questionCategory={sessionQuestion.category}
 									/>
 								);
 							}
