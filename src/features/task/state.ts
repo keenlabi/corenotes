@@ -52,8 +52,7 @@ export const taskInitState: ITaskState = {
 			hasNotMovedIn2Days: false,
 		},
 	},
-	signupDetails: {},
-	bankVerification: {},
+
 };
 
 export const TaskState = atom({

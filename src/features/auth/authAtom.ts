@@ -3,24 +3,6 @@ import { authStateType } from "./types";
 
 export const authInitState: authStateType = {
 	isSignedIn: localStorage.getItem("sid.set") ? true : false,
-	signupDetails: {
-		email: "",
-		fullname: "",
-		password: "",
-		phoneNumber: "",
-		bank: {
-			name: "",
-			accountNumber: "",
-			accountName: "",
-		},
-	},
-	bankVerification: {
-		verified: false,
-		bankCode: "",
-		bankName: "",
-		accountNumber: "",
-		accountName: "",
-	},
 	status: "IDLE",
 	error: false,
 	message: "",
