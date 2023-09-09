@@ -69,7 +69,7 @@ export default function AssessmentsList() {
 			</GridList>
 
 			{isAssessmentModalVisible ? (
-				<ExtendedAssessmentSessionModal
+				<AssessmentSessionModal
 					assessmentSessionId={assessmentSessionId}
 					closeModal={() => setIsAssessmentModalVisible(false)}
 				/>
