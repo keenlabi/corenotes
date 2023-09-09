@@ -120,12 +120,12 @@ export default function StaffActivities() {
                 </div>
                 <br></br>
                 <PrimaryTextButton
-            label={"Create Activity"}
-            isLoading={false}
-            disabled={false}
-            width="200px"
-            clickAction={() => loginInTrigger()}
-          />
+                    label={"Create Activity"}
+                    isLoading={false}
+                    disabled={false}
+                    width="200px"
+                    clickAction={() => ({})}
+                />
                 <SizedBox height="50px" />
                 
                 <StaffActivitiesTable

@@ -23,16 +23,16 @@ export default function PasswordResetSuccess({
 			<div className={styles.recovery_email}> {email} </div>
 
 			<div className={styles.recovery_email_set}>
-				<PrimaryTextButton label="Change Email" action={() => editEmail()} />
+				<PrimaryTextButton label="Change Email" clickAction={() => editEmail()} />
 
 				<div className={styles.resend}>
 					<div className={styles.resend_qtn}>Didn't receive the email?</div>
 					<SecondaryTextButton
-						secondaryStyle={styles.resend_btn}
+						extraStyle={styles.resend_btn}
 						loaderColor={"var(--teal-accent-100)"}
 						label="Click to Resend"
 						isLoading={authState.status === "LOADING"}
-						action={() => resendLink()}
+						clickAction={() => resendLink()}
 					/>
 				</div>
 			</div>

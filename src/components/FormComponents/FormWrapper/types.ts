@@ -1,5 +1,5 @@
 export interface formFieldType {
-    type?:"text" | "number" | "password" | "date" | "time",
+    type?:"text" | "number" | "password" | "date" | "time" | "email",
     optional?:boolean,
     name?:string,
     label?: string,

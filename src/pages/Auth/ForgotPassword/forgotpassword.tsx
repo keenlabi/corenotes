@@ -9,11 +9,12 @@ import { useAuthState } from "../../../features/auth/authAtom";
 import { emailValid } from "../../../utils/emailValidation";
 import { ResetPasswordAction } from "../../../features/auth/actions";
 import PasswordResetSuccess from "./components/PasswordResetSuccess";
+import { formFieldType } from "src/components/FormComponents/FormWrapper/types";
 
 export default function ForgotPassword() {
   const [authState, setAuthState] = useAuthState();
 
-  const [RecoverEmailModel, setRecoverEmailModel] = useState({
+  const [RecoverEmailModel, setRecoverEmailModel] = useState<formFieldType>({
     type: "email",
     label: "Email address",
     value: "",
@@ -56,18 +57,18 @@ export default function ForgotPassword() {
     setAuthState((state) => {
       return {
         ...state,
-        status: "loading",
+        status: "LOADING",
         error: false,
         message: "",
       };
     });
 
     ResetPasswordAction(payload)
-      .then((data) => {
+      .then(() => {
         setAuthState((state) => {
           return {
             ...state,
-            status: "succeeded",
+            status: "SUCCESS",
             error: false,
             message: "",
           };
@@ -78,7 +79,7 @@ export default function ForgotPassword() {
         setAuthState((state) => {
           return {
             ...state,
-            status: "failed",
+            status: "FAILED",
             error: true,
             message: error.message,
           };
@@ -105,7 +106,7 @@ export default function ForgotPassword() {
             onSubmit={(e) => e.preventDefault()}
           >
             <InputField
-              type={RecoverEmailModel.type}
+              type={RecoverEmailModel.type!}
               label={RecoverEmailModel.label}
               error={RecoverEmailModel.error}
               onInput={(inputVal: string) =>
@@ -117,7 +118,7 @@ export default function ForgotPassword() {
               <TextButton
                 label="Reset Password"
                 disabled={!RecoverEmailModel.validated}
-                isLoading={authState.status === "loading"}
+                isLoading={authState.status === "LOADING"}
                 onClick={() => RecoverPassword()}
               />
             </div>

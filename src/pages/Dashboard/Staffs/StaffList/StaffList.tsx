@@ -6,7 +6,6 @@ import { useStaffState } from "src/features/staff/state";
 import StaffListHeader from "./StaffListHeader/StaffListHeader";
 import AddNewStaffModal from "./AddNewStaffModal";
 import formatStaffList from "src/features/staff/utils/formatStaffsList";
-import SizedBox from "src/components/SizedBox";
 
 export default function StaffList() {
   const [staffState, setStaffState] = useStaffState();

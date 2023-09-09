@@ -3,14 +3,11 @@ import styles from "./staffpersonalinformationform.module.css"
 import InputField from "src/components/FormComponents/InputField";
 import { useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
-import { useStaffState } from "src/features/staff/state";
+import { useSetStaffState } from "src/features/staff/state";
 
-export default function StaffPersonalInformationForm({
-	userState,
-}: {
-	userState: any;
-}) {
-	const [staffState, setStaffState] = useStaffState();
+export default function StaffPersonalInformationForm({ userState }: { userState: any;}) {
+
+	const setStaffState = useSetStaffState();
 
 	const [firstnameModel, setFirstnameModel] = useState<formFieldType>({
 		type: "text",

@@ -1,25 +1,16 @@
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import styles from "../individualhealthinformation.module.css"
 import { useEffect, useState } from "react";
-import {
-	useIndividualState,
-	useSetIndividualState,
-} from "src/features/Individual/state";
-import {
-	DropDownFormData,
-	setDropDownFormData,
-} from "src/components/FormComponents/DropDownField/types";
+import { useSetIndividualState } from "src/features/Individual/state";
+import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { useFetchCompartmentList } from "src/features/compartment/selector";
 import { useCompartmentState } from "src/features/compartment/state";
 
-export default function IndividualCompartmentForm({
-	removeLabel,
-}: {
-	removeLabel: boolean;
-}) {
-	// const setIndividualState = useSetIndividualState()
-	const [individualState, setIndividualState] = useIndividualState();
+export default function IndividualCompartmentForm({ removeLabel }: { removeLabel: boolean }) {
+
+	// const setIndividualState = useSetIndividualState(
+	const setIndividualState = useSetIndividualState();
 
 	const [compartmentState, setCompartmentState] = useCompartmentState();
 
@@ -43,11 +34,7 @@ export default function IndividualCompartmentForm({
 				value: compartment.compartmentId.toString(),
 			})),
 		}));
-	}, [
-		compartmentState.compartmentsList,
-		fetchCompartmentListReponse,
-		setCompartmentState,
-	]);
+	}, [compartmentState.compartmentsList, fetchCompartmentListReponse, setCompartmentState]);
 
 	const [compartmentModel, setCompartmentModel] = useState<DropDownFormData>({
 		label: "",
@@ -60,11 +47,7 @@ export default function IndividualCompartmentForm({
 		selectedOptionIndex: 0,
 	});
 
-	function selectOption(
-		optionIndex: number,
-		model: DropDownFormData,
-		setModel: setDropDownFormData
-	) {
+	function selectOption(optionIndex: number, model: DropDownFormData, setModel: setDropDownFormData) {
 		model.value = model.options[optionIndex];
 		model.selected = true;
 		model.selectedOptionIndex = optionIndex;
@@ -82,14 +65,15 @@ export default function IndividualCompartmentForm({
 
 	return (
 		<FormWrapper extraStyles={styles.staff_personal_information_form}>
-			{removeLabel ? (
-				<div></div>
-			) : (
-				<div className={styles.heading}>
-					<div className={styles.number_circle}>2</div>
-					<div className={styles.text}>Compartment</div>
-				</div>
-			)}
+			{	removeLabel 
+				? <div></div>
+				: (
+					<div className={styles.heading}>
+						<div className={styles.number_circle}>2</div>
+						<div className={styles.text}>Compartment</div>
+					</div>
+				)
+			}
 
 			<div className={removeLabel ? "" : styles.form_content}>
 				<div className={styles.row}>
@@ -101,9 +85,7 @@ export default function IndividualCompartmentForm({
 						error={compartmentModel.error}
 						selected={compartmentModel.selected}
 						selectedOptionIndex={compartmentModel.selectedOptionIndex}
-						onSelect={(optionIndex: number) =>
-							selectOption(optionIndex, compartmentModel, setCompartmentModel)
-						}
+						onSelect={(optionIndex: number) => selectOption(optionIndex, compartmentModel, setCompartmentModel)}
 					/>
 				</div>
 			</div>

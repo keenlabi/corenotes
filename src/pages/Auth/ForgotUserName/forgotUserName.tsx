@@ -6,13 +6,14 @@ import TextButton from "../../../components/Buttons/TextButton/textbutton";
 import InputField from "../../../components/FormComponents/InputField/InputField";
 import FormErrorModal from "../../../components/FormError/FormErrorModal";
 import { useAuthState } from "../../../features/auth/authAtom";
-import { ResetPasswordAction } from "../../../features/auth/actions";
+import { formFieldType } from 'src/components/FormComponents/FormWrapper/types';
+import PasswordResetSuccess from '../ForgotPassword/components/PasswordResetSuccess';
 
 
 export default function ForgotUserName() {
   const [authState, setAuthState] = useAuthState();
 
-  const [RecoverUserNameModel, setRecoverUserNameModel] = useState({
+  const [RecoverUserNameModel, setRecoverUserNameModel] = useState<formFieldType>({
     type: "text",
     label: "Username",
     value: "",
@@ -48,43 +49,43 @@ export default function ForgotUserName() {
   const RecoverPassword = () => {
     if (!validateModel(RecoverUserNameModel)) return false;
 
-    const payload = {
-      username: RecoverUserNameModel.value,
-    };
+    // const payload = {
+    //   username: RecoverUserNameModel.value,
+    // };
 
     setAuthState((state) => {
       return {
         ...state,
-        status: "loading",
+        status: "LOADING",
         error: false,
         message: "",
       };
     });
 
-    ResetPasswordAction(payload)
-      .then((data) => {
-        setAuthState((state) => {
-          return {
-            ...state,
-            status: "succeeded",
-            error: false,
-            message: "",
-          };
-        });
-        setIsResetSent(true);
-      })
-      .catch((error) => {
-        setAuthState((state) => {
-          return {
-            ...state,
-            status: "failed",
-            error: true,
-            message: error.message,
-          };
-        });
+    // ResetPasswordAction(payload)
+    //   .then((data) => {
+    //     setAuthState((state) => {
+    //       return {
+    //         ...state,
+    //         status: "SUCCESS",
+    //         error: false,
+    //         message: "",
+    //       };
+    //     });
+    //     setIsResetSent(true);
+    //   })
+    //   .catch((error) => {
+    //     setAuthState((state) => {
+    //       return {
+    //         ...state,
+    //         status: "FAILED",
+    //         error: true,
+    //         message: error.message,
+    //       };
+    //     });
 
-        setIsResetSent(false);
-      });
+    //     setIsResetSent(false);
+    //   });
   };
   return (
     <div className={styles.container}>
@@ -116,7 +117,7 @@ export default function ForgotUserName() {
               <TextButton
                 label="Reset Password"
                 disabled={!RecoverUserNameModel.validated}
-                isLoading={authState.status === "loading"}
+                isLoading={authState.status === "LOADING"}
                 onClick={() => RecoverPassword()}
               />
             </div>

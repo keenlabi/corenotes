@@ -7,24 +7,18 @@ import { ReactComponent as iconOverview } from "src/assets/icons/icon-home.svg";
 import { ReactComponent as iconBriefcase } from "src/assets/icons/icon-briefcase.svg";
 import { ReactComponent as iconUsers } from "src/assets/icons/icon-users.svg";
 import { ReactComponent as iconFlag } from "src/assets/icons/icon-flag.svg";
-import { ReactComponent as iconAdminUser } from "src/assets/icons/icon-admin-user.svg";
-import { ReactComponent as iconSettings } from "src/assets/icons/icon-setting.svg";
 
 import { NavOptionsType } from "src/components/Navigation/types.ts";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import PageHeader from "./components/PageHeader";
 import MobileSidebar from "src/components/Navigation/MobileSidebar";
-import SizedBox from "src/components/SizedBox";
 
 export default function Dashboard() {
 	const location = useLocation();
 
 	const isCurrentNav = (path: string[]) => {
-		const allDir = location.pathname
-			.substring(1, location.pathname.length)
-			.split("/");
-		const firstTwoDirMax =
-			allDir.length > 1 ? `/${allDir[0]}/${allDir[1]}` : `/${allDir[0]}`;
+		const allDir = location.pathname.substring(1, location.pathname.length).split("/");
+		const firstTwoDirMax = allDir.length > 1 ? `/${allDir[0]}/${allDir[1]}` : `/${allDir[0]}`;
 
 		if (path.includes(firstTwoDirMax)) return true;
 		else return false;
@@ -251,13 +245,8 @@ export default function Dashboard() {
 							? index === optionPosition
 								? { ...navOption, active: true }
 								: { ...navOption, active: false }
-							: [navOption.path, `${navOption.path}/`].includes(
-									location.pathname
-							  ) ||
-							  navOption.path ===
-									`/${location.pathname.split("/")[1]}/${
-										location.pathname.split("/")[2]
-									}`
+							: [navOption.path, `${navOption.path}/`].includes(location.pathname) 
+								|| navOption.path === `/${location.pathname.split("/")[1]}/${location.pathname.split("/")[2]}`
 							? { ...navOption, active: true }
 							: { ...navOption, active: false };
 					}),

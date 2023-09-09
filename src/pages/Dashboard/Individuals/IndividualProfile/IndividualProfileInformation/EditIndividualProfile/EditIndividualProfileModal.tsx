@@ -2,21 +2,16 @@ import ModalContainer from "src/components/Modal/ModalContainer";
 import styles from "./editstaffprofilemodal.module.css";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg";
-import { staffInitState, useStaffState } from "src/features/staff/state";
-import { useEffect, useState } from "react";
-import {
-	DropDownFormData,
-	setDropDownFormData,
-} from "src/components/FormComponents/DropDownField/types";
-import { useFetchStaffRoleSelector } from "src/features/staff/selector";
-// import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
+import { staffInitState } from "src/features/staff/state";
+import { useState } from "react";
+import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import { updateStaffProfileAction } from "src/features/staff/actions";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import IndividualPersonalInformationForm from "../../../IndividualsList/AddNewIndividualModal/IndividualPersonalInformationForm";
 import IndividualHealthInformationForm from "../../../IndividualsList/AddNewIndividualModal/IndividualHealthInformationForm";
 import { useIndividualState } from "src/features/Individual/state";
-// import AddNewStaffModal from "../../../StaffList/AddNewStaffModal";
+import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 
 export default function EditStaffProfileModal({
 	closeModal,
@@ -42,11 +37,7 @@ export default function EditStaffProfileModal({
 		error: "",
 	});
 
-	function selectOption(
-		optionIndex: number,
-		model: DropDownFormData,
-		setModel: setDropDownFormData
-	) {
+	function selectOption(optionIndex: number, model: DropDownFormData, setModel:setDropDownFormData) {
 		model.value = model.options[optionIndex];
 		model.selected = true;
 		model.selectedOptionIndex = optionIndex;
@@ -153,16 +144,16 @@ export default function EditStaffProfileModal({
 					<IndividualHealthInformationForm />
 				</div>
 
-				{/* <div className={styles.body}>
-			        <DropDownField
-			            placeholder={providerRoleModel.placeholder}
-			            options={providerRoleModel.options}
-			            selected={providerRoleModel.selected}
-			            selectedOptionIndex={providerRoleModel.selectedOptionIndex}
-			            error={providerRoleModel.error}
-			            onSelect={(optionIndex:number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
-			        />
-			    </div> */}
+				<div className={styles.body}>
+					<DropDownField
+						placeholder={providerRoleModel.placeholder}
+						options={providerRoleModel.options}
+						selected={providerRoleModel.selected}
+						selectedOptionIndex={providerRoleModel.selectedOptionIndex}
+						error={providerRoleModel.error}
+						onSelect={(optionIndex:number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
+					/>
+				</div>
 
 				<div className={styles.buttons}>
 					<PrimaryTextButton

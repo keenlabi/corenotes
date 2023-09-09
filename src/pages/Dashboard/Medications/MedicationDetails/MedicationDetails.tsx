@@ -1,10 +1,7 @@
 import styles from "./medicationdetails.module.css"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-	MedicationState,
-	useMedicationState,
-} from "src/features/medication/state";
+import { useMedicationState } from "src/features/medication/state";
 import { useFetchMedicationDetailsSelector } from "src/features/medication/selector";
 import GoBackButton from "src/components/Buttons/GoBackButton";
 import SizedBox from "src/components/SizedBox";
