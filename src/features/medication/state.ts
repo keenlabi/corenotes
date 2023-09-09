@@ -30,8 +30,7 @@ export const medicationInitState: IMedicationState = {
 		barcode: 0,
 		services: [],
 	},
-	signupDetails: {},
-	bankVerification: {},
+
 };
 
 export const MedicationState = atom({

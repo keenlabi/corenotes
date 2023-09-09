@@ -21,8 +21,7 @@ export const compartmentInitState: CompartmentStateType = {
 		},
 		services: [],
 	},
-	signupDetails: {},
-	bankVerification: {},
+
 };
 
 export const CompartmentAtom = atom({

@@ -120,8 +120,6 @@ export const individualInitState: IndividualStateType = {
 		currentPage: 1,
 		totalPages: 1,
 	},
-	signupDetails: {},
-	bankVerification: {},
 };
 
 export const IndividualAtom = atom({

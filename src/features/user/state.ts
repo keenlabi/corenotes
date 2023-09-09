@@ -25,8 +25,7 @@ export const userInitState: userStateType = {
 			},
 		},
 	},
-	signupDetails: {},
-	bankVerification: {},
+
 };
 
 

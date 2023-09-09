@@ -41,8 +41,7 @@ export const AssessmentInitState: AssessmentStateType = {
 		createdAt: "",
 		questions: [],
 	},
-	signupDetails: {},
-	bankVerification: {},
+
 };
 
 export const AssessmentState = atom({
