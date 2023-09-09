@@ -132,34 +132,35 @@ export default function QuestionCard({
 			</div>
 
 			<div className={styles.question_content}>
-			<div className={styles.question_number}>Q{position}</div>
-			<div className={styles.question_content}>
-				<div className={styles.question}>
-					{question}{" "}
-					<span className={styles.question_category}>{questionCategory}</span>
-				</div>
-        
-				<div className={styles.radio}>
-					<RadioButtonField
-						label={answerOptions.label}
-						options={answerOptions.options}
-						selected={answerOptions.selected}
-						selectedIndex={answerOptions.selectedIndex}
-						selectOption={(optionIndex: number) =>
-							selectAnswer(optionIndex, answerOptions, setAnswerOptions)
-						}
-					/>
-				</div>
-				<div className={styles.comment}>
-					<TextField
-						width="94%"
-						height="74%"
-						placeholder={commentModel.placeholder}
-						value={commentModel.value}
-						onInput={(value: string) =>
-							setInput(value, commentModel, setCommentModel)
-						}
-					/>
+				<div className={styles.question_number}>Q{position}</div>
+				<div className={styles.question_content}>
+					<div className={styles.question}>
+						{question}{" "}
+						<span className={styles.question_category}>{questionCategory}</span>
+					</div>
+			
+					<div className={styles.radio}>
+						<RadioButtonField
+							label={answerOptions.label}
+							options={answerOptions.options}
+							selected={answerOptions.selected}
+							selectedIndex={answerOptions.selectedIndex}
+							selectOption={(optionIndex: number) =>
+								selectAnswer(optionIndex, answerOptions, setAnswerOptions)
+							}
+						/>
+					</div>
+					<div className={styles.comment}>
+						<TextField
+							width="94%"
+							height="74%"
+							placeholder={commentModel.placeholder}
+							value={commentModel.value}
+							onInput={(value: string) =>
+								setInput(value, commentModel, setCommentModel)
+							}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
