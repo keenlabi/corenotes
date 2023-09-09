@@ -6,7 +6,6 @@ import GridList from "src/components/GridList/GridList";
 import AssessmentSessionModal from "../AssessmentSession/AssessmentSessionModal";
 import { useFetchIndividualAssessmentsList } from "src/features/Individual/selector";
 import { useParams } from "react-router-dom";
-import ExtendedAssessmentSessionModal from "../ExtendedAssessmentSession/ExtendedAssessmentSessionModal";
 
 export default function AssessmentsList() {
 	const params = useParams();

@@ -113,8 +113,6 @@ export const staffInitState: staffStateType = {
 			staff_document_upload: false,
 		},
 	},
-	signupDetails: Object,
-	bankVerification: Object,
 };
 
 export const staffAtom = atom({

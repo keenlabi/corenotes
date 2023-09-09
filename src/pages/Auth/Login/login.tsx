@@ -14,7 +14,7 @@ import {
   formFieldType,
   setFormFieldType,
 } from "src/components/FormComponents/FormWrapper/types";
-import LoginAction from "src/features/auth/actions";
+import {LoginAction} from "src/features/auth/actions";
 import { useAuthState } from "src/features/auth/state";
 
 export default function Login() {
