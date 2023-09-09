@@ -257,61 +257,60 @@ export default function CreateAssessment() {
     }
 
     function submitAssessment() {
-        const payload:ICreateAssessmentPayload = {
-            title:  assessmentTitle.value,
-            category:   category.value?.value ?? '',
-            questions:  questionsModel.questions
-                        .filter(question => question.question !== '')
-                        .map(question => ({ 
-                            category: question.category,
-                            question: question.question
-                        })),
-            assignedTo: assessmentAssignToModel.value!.value!,
-            assignees:{
-                assigneesType:'ALL',
-                assigneesList:[]
-            }
-        }
+			const payload: ICreateAssessmentPayload = {
+				title: assessmentTitle.value,
+				category: category.value?.value ?? "",
+				questions: questionsModel.questions
+					.filter((question) => question.question !== "")
+					.map((question) => ({
+						category: question.category,
+						question: question.question,
+					})),
+				assignedTo: assessmentAssignToModel.value!.value!,
+				assignees: {
+					assigneesType: "ALL",
+					assigneesList: [],
+				},
+			};
 
-        if(payload.assignedTo === 'services') {
-            payload.assignees = assignedServices;
-        }
+			if (payload.assignedTo === "services") {
+				payload.assignees = assignedServices;
+			}
 
-        if(payload.assignedTo === 'individuals') {
-            payload.assignees = assignedIndividuals;
-        }
+			if (payload.assignedTo === "individuals") {
+				payload.assignees = assignedIndividuals;
+			}
 
-        console.log(payload)
+			console.log(payload);
 
-        setAssessmentState(state => ({
-            ...state,
-            status:'LOADING',
-            error: false,
-            message: ''
-        }))
+			setAssessmentState((state) => ({
+				...state,
+				status: "LOADING",
+				error: false,
+				message: "",
+			}));
 
-        createAssessmentAction(payload)
-        .then((response:AssessmentListResponseType)=> {
-            setAssessmentState(state => ({
-                ...state,
-                status:'SUCCESS',
-                error: false,
-                message: 'Assessment created successfully',
-                list: response.data,
-                newAssessment: AssessmentInitState.newAssessment
-            }))
-
-            // setQuestionsModel(state => ({...state, questions:['']}))
-        })
-        .catch((error)=> {
-            setAssessmentState(state => ({
-                ...state,
-                status:'FAILED',
-                error: true,
-                message: error.message ?? 'There was an error creating assessment'
-            }))
-        })
-    }
+			createAssessmentAction(payload)
+				.then((response: AssessmentListResponseType) => {
+					setAssessmentState((state) => ({
+						...state,
+						status: "SUCCESS",
+						error: false,
+						message: "Assessment created successfully",
+						list: response.data,
+						newAssessment: AssessmentInitState.newAssessment,
+					}));
+					// setQuestionsModel((state) => ({ ...state, questions: [""] }));
+				})
+				.catch((error) => {
+					setAssessmentState((state) => ({
+						...state,
+						status: "FAILED",
+						error: true,
+						message: error.message ?? "There was an error creating assessment",
+					}));
+				});
+		}
 
     const [questionCategoryVisibility, setQuestionCategoryVisibility] = useState(false);
     function openQuestionCategoryModal() {
