@@ -8,6 +8,7 @@ import EditStaffProfileModal from "./EditStaffProfile";
 import { useStaffValue } from "src/features/staff/state";
 
 export default function StaffProfileInformation() {
+	
 	const [showEditProfileModal, setShowEditProfileModal] = useState(false);
 	const staffState = useStaffValue();
 
@@ -27,10 +28,7 @@ export default function StaffProfileInformation() {
 			{showEditProfileModal ? (
 				<EditStaffProfileModal
 					closeModal={() => setShowEditProfileModal(false)}
-					// staffState={staffState}
-					// onSetStaff={function (): void {
-					// 	throw new Error("Function not implemented.");
-					// }}
+					staffState={staffState}
 				/>
 			) : null}
 		</div>

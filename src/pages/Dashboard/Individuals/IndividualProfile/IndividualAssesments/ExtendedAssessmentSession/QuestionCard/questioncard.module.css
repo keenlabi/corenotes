@@ -1,7 +1,9 @@
 .question_card {
     min-height: 150px;
-    padding: 5px 10px;
+    padding: 10px 20px;
     display: flex;
+    flex-direction: column;
+    gap: 15px;
 
     box-shadow: var(--shadow-card-100);
     background: white;
@@ -11,16 +13,23 @@
     cursor: pointer;
 }
 
+.question_wrapper {
+    display: flex;
+    gap: 1em;
+}
+
 .question_number {
-    padding: 10px;
+    padding-left: 15px;
     color: var(--red-accent-100);
     font-weight: 700;
     font-size: 1.1rem;
 }
 .question_content {
-    padding: 10px;
-    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid rgb(128, 128, 128, .5);
+    border-radius: 8px;
 }
+
 .question {
     font-weight: 600;
     font-size: 1.1rem;
@@ -39,7 +48,9 @@
 }
 
 .radio {
-    /* margin-block: .5em; */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
 }
 
 .comment {

@@ -9,12 +9,9 @@ import { useState } from "react";
 import { authInitState, useAuthState} from "src/features/auth/state";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import { useNavigate } from "react-router-dom";
+import { LogoutAction } from "src/features/auth/actions";
 
-export default function UserProfileCard({
-  extraStyles,
-}: {
-  extraStyles: string;
-}) {
+export default function UserProfileCard({ extraStyles }: { extraStyles: string }) {
     const navigate = useNavigate();
   const [userState, setUserState] = useUserState();
   const [authState, setAuthState] = useAuthState();
@@ -24,23 +21,23 @@ export default function UserProfileCard({
     setShowLogoutDropdown(!showLogoutDropdown);
   };
   function LogOut() {
-    LogOutAction()
-      .then(() => {
-        localStorage.removeItem('sid.set')
-        setUserState(userInitState);
-        setAuthState(authInitState)
-        navigate({pathname: "/"})
+    LogoutAction()
+    .then(() => {
+      localStorage.removeItem('sid.set')
+      setUserState(userInitState);
+      setAuthState(authInitState)
+      navigate({pathname: "/"})
+    })
+    .catch((error: { message: string;}) => {
+      setAuthState((state)=> {
+        return {
+          ...state,
+          error: true,
+          message: error.message,
+          status:'FAILED'
+        }
       })
-      .catch((error: { message: any; }) => {
-        setAuthState((state)=> {
-            return {
-                ...state,
-                error: true,
-                message: error.message,
-                status:'FAILED'
-            }
-        })
-      });
+    });
   }
 
   return (
@@ -77,8 +74,5 @@ export default function UserProfileCard({
       )}
     </div>
   );
-}
-function LogOutAction() {
-    throw new Error("Function not implemented.");
 }
 

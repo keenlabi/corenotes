@@ -4,7 +4,7 @@ import { initStateType } from "./types";
 export const InitState:initStateType = {
     status: 'IDLE',
     error: false,
-    message: ''
+    message: '',
 }
 
 export const InitAtom = atom({

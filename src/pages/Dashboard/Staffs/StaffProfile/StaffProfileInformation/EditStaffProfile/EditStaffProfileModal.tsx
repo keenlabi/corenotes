@@ -2,32 +2,27 @@ import ModalContainer from "src/components/Modal/ModalContainer";
 import styles from "./editstaffprofilemodal.module.css";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg";
-import { staffInitState, useStaffState } from "src/features/staff/state";
+import { staffInitState, useSetStaffState } from "src/features/staff/state";
 import { useEffect, useState } from "react";
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import { useFetchStaffRoleSelector } from "src/features/staff/selector";
-// import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { updateStaffProfileAction } from "src/features/staff/actions";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
-// import AddNewStaffModal from "../../../StaffList/AddNewStaffModal";
 import StaffPersonalInformationForm from "../../../StaffList/AddNewStaffModal/StaffPersonalInformationForm";
 import StaffWorkInformationForm from "../../../StaffList/AddNewStaffModal/StaffWorkInformationForm";
+import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
+import { staffStateType } from "src/features/staff/types";
 
-export default function EditStaffProfileModal({
-	closeModal,
-}: // userState,
-{
+export default function EditStaffProfileModal({ staffState, closeModal }:{ 
+	staffState:staffStateType;
 	closeModal: () => void;
-	// userState: object;
 }) {
-	const [staffState, setStaffState] = useStaffState();
+	const  setStaffState = useSetStaffState();
 
 	const params = useParams();
 
-	const staffRolesResponse = useFetchStaffRoleSelector(
-		staffState.roles.currentPage
-	);
+	const staffRolesResponse = useFetchStaffRoleSelector(staffState.roles.currentPage);
 
 	const [providerRoleModel, setProviderRoleModel] = useState<DropDownFormData>({
 		name: "provider-role",
@@ -38,11 +33,7 @@ export default function EditStaffProfileModal({
 		error: "",
 	});
 
-	function selectOption(
-		optionIndex: number,
-		model: DropDownFormData,
-		setModel: setDropDownFormData
-	) {
+	function selectOption(optionIndex:number, model:DropDownFormData, setModel:setDropDownFormData) {
 		model.value = model.options[optionIndex];
 		model.selected = true;
 		model.selectedOptionIndex = optionIndex;
@@ -51,9 +42,7 @@ export default function EditStaffProfileModal({
 	}
 
 	useEffect(() => {
-		const currentStaffRole = staffRolesResponse.data.staffRoles.findIndex(
-			(role) => role?.title === staffState.details.work.providerRole
-		);
+		const currentStaffRole = staffRolesResponse.data.staffRoles.findIndex((role) => role?.title === staffState.details.work.providerRole);
 		// console.log(currentStaffRole);
 
 		setStaffState((state) => ({
@@ -149,16 +138,16 @@ export default function EditStaffProfileModal({
 					<StaffWorkInformationForm userState={userState} />
 				</div>
 
-				{/* <div className={styles.body}>
-			        <DropDownField
-			            placeholder={providerRoleModel.placeholder}
-			            options={providerRoleModel.options}
-			            selected={providerRoleModel.selected}
-			            selectedOptionIndex={providerRoleModel.selectedOptionIndex}
-			            error={providerRoleModel.error}
-			            onSelect={(optionIndex:number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
-			        />
-			    </div> */}
+				<div className={styles.body}>
+					<DropDownField
+						placeholder={providerRoleModel.placeholder}
+						options={providerRoleModel.options}
+						selected={providerRoleModel.selected}
+						selectedOptionIndex={providerRoleModel.selectedOptionIndex}
+						error={providerRoleModel.error}
+						onSelect={(optionIndex:number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
+					/>
+				</div>
 
 				<div className={styles.buttons}>
 					<PrimaryTextButton

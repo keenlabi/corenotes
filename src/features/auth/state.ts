@@ -5,9 +5,7 @@ export const authInitState: authStateType = {
 	isSignedIn: localStorage.getItem("sid.set") ? true : false,
 	status: "IDLE",
 	error: false,
-	message: "",
-	signupDetails: {},
-	bankVerification: {},
+	message: ""
 };
 
 const AuthAtom = atom({
