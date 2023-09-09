@@ -18,7 +18,6 @@ export interface QuestionCardProps {
 	comment: string;
 	optionSelectAction: (option: "YES" | "NO" | string) => void;
 	commentAction: (comment: string) => void;
-	questionCategory: string;
 }
 
 export default function QuestionCard({
@@ -28,7 +27,6 @@ export default function QuestionCard({
 	position,
 	optionSelectAction,
 	commentAction,
-	questionCategory,
 }: QuestionCardProps) {
 	const [answerOptions, setAnswerOptions] = useState<RadioButtonFormFieldType>({
 		options: [
@@ -103,8 +101,35 @@ export default function QuestionCard({
 			<div className={styles.question_number}>Q{position}</div>
 			<div className={styles.question_content}>
 				<div className={styles.question}>
-					{question}{" "}
-					<span className={styles.question_category}>{questionCategory}</span>
+					{question} <span className={styles.question_category}>Outcome</span>
+				</div>
+				<div className={styles.radio}>
+					<RadioButtonField
+						label={answerOptions.label}
+						options={answerOptions.options}
+						selected={answerOptions.selected}
+						selectedIndex={answerOptions.selectedIndex}
+						selectOption={(optionIndex: number) =>
+							selectAnswer(optionIndex, answerOptions, setAnswerOptions)
+						}
+					/>
+				</div>
+				<div className={styles.comment}>
+					<TextField
+						width="94%"
+						height="74%"
+						placeholder={commentModel.placeholder}
+						value={commentModel.value}
+						onInput={(value: string) =>
+							setInput(value, commentModel, setCommentModel)
+						}
+					/>
+				</div>
+			</div>
+
+			<div className={styles.question_content}>
+				<div className={styles.question}>
+					{question} <span className={styles.question_category}>Solution</span>
 				</div>
 				<div className={styles.radio}>
 					<RadioButtonField

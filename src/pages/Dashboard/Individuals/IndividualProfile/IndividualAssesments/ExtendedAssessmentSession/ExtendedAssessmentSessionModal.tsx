@@ -195,37 +195,19 @@ export default function ExtendedAssessmentSessionModal({
 						{individualState.assessments.session.questions.map(
 							(sessionQuestion, index) => {
 								return (
-									<>
-										<QuestionCard
-											key={sessionQuestion.id}
-											position={index + 1}
-											question={sessionQuestion.question}
-											answer={sessionQuestion.answer}
-											comment={sessionQuestion.comment}
-											optionSelectAction={(value: string) =>
-												selectAnswer(value, sessionQuestion.id)
-											}
-											commentAction={(value: string) =>
-												makeComment(value, sessionQuestion.id)
-											}
-											questionCategory={"Outcome"}
-										/>
-
-										<QuestionCard
-											key={sessionQuestion.id}
-											position={index + 1}
-											question={sessionQuestion.question}
-											answer={sessionQuestion.answer}
-											comment={sessionQuestion.comment}
-											optionSelectAction={(value: string) =>
-												selectAnswer(value, sessionQuestion.id)
-											}
-											commentAction={(value: string) =>
-												makeComment(value, sessionQuestion.id)
-											}
-											questionCategory={"Solution"}
-										/>
-									</>
+									<QuestionCard
+										key={sessionQuestion.id}
+										position={index + 1}
+										question={sessionQuestion.question}
+										answer={sessionQuestion.answer}
+										comment={sessionQuestion.comment}
+										optionSelectAction={(value: string) =>
+											selectAnswer(value, sessionQuestion.id)
+										}
+										commentAction={(value: string) =>
+											makeComment(value, sessionQuestion.id)
+										}
+									/>
 								);
 							}
 						)}
