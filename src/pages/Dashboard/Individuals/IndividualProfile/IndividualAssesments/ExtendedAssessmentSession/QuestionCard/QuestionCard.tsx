@@ -98,11 +98,11 @@ export default function QuestionCard({
 
 	return (
 		<div className={styles.question_card}>
-			<div className={styles.question_number}>Q{position}</div>
+			<div className={styles.question_wrapper}>
+				<div className={styles.question_number}>Q{position}</div>
+				<div className={styles.question}>{question}</div>
+			</div>
 			<div className={styles.question_content}>
-				<div className={styles.question}>
-					{question} <span className={styles.question_category}>Outcome</span>
-				</div>
 				<div className={styles.radio}>
 					<RadioButtonField
 						label={answerOptions.label}
@@ -113,10 +113,11 @@ export default function QuestionCard({
 							selectAnswer(optionIndex, answerOptions, setAnswerOptions)
 						}
 					/>
+					<span className={styles.question_category}>Outcome</span>
 				</div>
 				<div className={styles.comment}>
 					<TextField
-						width="94%"
+						width="97%"
 						height="74%"
 						placeholder={commentModel.placeholder}
 						value={commentModel.value}
@@ -128,9 +129,6 @@ export default function QuestionCard({
 			</div>
 
 			<div className={styles.question_content}>
-				<div className={styles.question}>
-					{question} <span className={styles.question_category}>Solution</span>
-				</div>
 				<div className={styles.radio}>
 					<RadioButtonField
 						label={answerOptions.label}
@@ -141,10 +139,11 @@ export default function QuestionCard({
 							selectAnswer(optionIndex, answerOptions, setAnswerOptions)
 						}
 					/>
+					<span className={styles.question_category}>Support</span>
 				</div>
 				<div className={styles.comment}>
 					<TextField
-						width="94%"
+						width="97%"
 						height="74%"
 						placeholder={commentModel.placeholder}
 						value={commentModel.value}

@@ -3,7 +3,7 @@
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 
     box-shadow: var(--shadow-card-100);
     background: white;
@@ -13,7 +13,10 @@
     cursor: pointer;
 }
 
-
+.question_wrapper {
+    display: flex;
+    gap: 1em;
+}
 
 .question_number {
     padding-left: 15px;
@@ -44,6 +47,11 @@
     font-weight: 500;
 }
 
+.radio {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
 .comment {
     margin-top: 10px;
     width: 100%;
