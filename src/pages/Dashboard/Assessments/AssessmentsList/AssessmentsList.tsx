@@ -15,6 +15,9 @@ export default function AssessmentsList() {
 
     const [assessmentState, setAssessmentState] = useAssessmentState();    
 
+    console.log(assessmentState);
+    
+
     const fetchAssessmentsListResponse = useFetchAssessmentsListSelector(assessmentState.assessments.currentPage);
 
     useEffect(()=> {
@@ -26,6 +29,7 @@ export default function AssessmentsList() {
         }))
 
     }, [fetchAssessmentsListResponse, setAssessmentState])
+    console.log(assessmentState)
 
     return (
         <div className={styles.assessemts_list_page}>
@@ -53,6 +57,7 @@ export default function AssessmentsList() {
                                             assignedTo={assessment.assignedTo}
                                             path={assessment.assessmentId}                     
                                         />
+                                    
                             })
                         :   <DataLoadingError message="There are no assessments to show" />
                     }

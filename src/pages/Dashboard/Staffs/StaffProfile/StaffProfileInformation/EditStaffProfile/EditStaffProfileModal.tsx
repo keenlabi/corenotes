@@ -6,146 +6,170 @@ import { staffInitState, useStaffState } from "src/features/staff/state";
 import { useEffect, useState } from "react";
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import { useFetchStaffRoleSelector } from "src/features/staff/selector";
-import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
+// import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { updateStaffProfileAction } from "src/features/staff/actions";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
+// import AddNewStaffModal from "../../../StaffList/AddNewStaffModal";
+import StaffPersonalInformationForm from "../../../StaffList/AddNewStaffModal/StaffPersonalInformationForm";
+import StaffWorkInformationForm from "../../../StaffList/AddNewStaffModal/StaffWorkInformationForm";
 
-export default function EditStaffProfileModal({closeModal}:{closeModal:()=> void}) {
+export default function EditStaffProfileModal({
+	closeModal,
+}: // userState,
+{
+	closeModal: () => void;
+	// userState: object;
+}) {
+	const [staffState, setStaffState] = useStaffState();
 
-    const [staffState, setStaffState] = useStaffState();
+	const params = useParams();
 
-    const params = useParams();
+	const staffRolesResponse = useFetchStaffRoleSelector(
+		staffState.roles.currentPage
+	);
 
-    const staffRolesResponse = useFetchStaffRoleSelector(staffState.roles.currentPage);
+	const [providerRoleModel, setProviderRoleModel] = useState<DropDownFormData>({
+		name: "provider-role",
+		placeholder: "Provider role",
+		options: [],
+		selected: false,
+		selectedOptionIndex: 0,
+		error: "",
+	});
 
-    const [providerRoleModel, setProviderRoleModel] = useState<DropDownFormData>({
-        name: "provider-role",
-        placeholder:'Provider role',
-        options: [],
-        selected: false,
-        selectedOptionIndex: 0,
-        error: '',
-    })
+	function selectOption(
+		optionIndex: number,
+		model: DropDownFormData,
+		setModel: setDropDownFormData
+	) {
+		model.value = model.options[optionIndex];
+		model.selected = true;
+		model.selectedOptionIndex = optionIndex;
 
-    function selectOption(optionIndex:number, model:DropDownFormData, setModel:setDropDownFormData) {
-        model.value = model.options[optionIndex];
-        model.selected = true;
-        model.selectedOptionIndex = optionIndex;
+		setModel({ ...model });
+	}
 
-        setModel({...model})
-    }
+	useEffect(() => {
+		const currentStaffRole = staffRolesResponse.data.staffRoles.findIndex(
+			(role) => role?.title === staffState.details.work.providerRole
+		);
+		// console.log(currentStaffRole);
 
-    useEffect(()=> {
+		setStaffState((state) => ({
+			...state,
+			status: "IDLE",
+			error: staffRolesResponse.error,
+			roles: {
+				list: staffRolesResponse.data.staffRoles,
+				currentPage: staffRolesResponse.data.currentPage,
+				totalPages: staffRolesResponse.data.totalPages,
+			},
+		}));
 
-        const currentStaffRole = staffRolesResponse.data.staffRoles.findIndex(role => role?.title === staffState.details.work.providerRole)
-        console.log(currentStaffRole)
+		setProviderRoleModel((state) => ({
+			...state,
+			options: [
+				...staffRolesResponse.data.staffRoles.map((role) => ({
+					id: role.id,
+					label: role.title,
+					value: role.id,
+				})),
+			],
+			selected: currentStaffRole > -1 ? true : false,
+			selectedOptionIndex: currentStaffRole > -1 ? currentStaffRole : 0,
+		}));
+	}, [setStaffState, staffRolesResponse, staffState.details]);
 
-        setStaffState(state => ({
-            ...state,
-            status:'IDLE',
-            error: staffRolesResponse.error,
-            roles: {
-                list: staffRolesResponse.data.staffRoles,
-                currentPage: staffRolesResponse.data.currentPage,
-                totalPages: staffRolesResponse.data.totalPages,
-            }
-        }))
+	const userState = staffState.details;
 
-        setProviderRoleModel(state => ({
-            ...state,
-            options: [...staffRolesResponse.data.staffRoles.map(role => ({
-                id: role.id,
-                label: role.title,
-                value: role.id
-            }))],
-            selected: currentStaffRole > -1 ?true :false,
-            selectedOptionIndex: currentStaffRole > -1 ?currentStaffRole :0
-        }))
+	function submitStaffProfile() {
+		const payload = {
+			staffId: params.staffId!,
+			providerRole: providerRoleModel.value!.value!,
+		};
 
-    }, [setStaffState, staffRolesResponse, staffState.details])
+		setStaffState((state) => ({
+			...state,
+			status: "LOADING",
+		}));
 
-    function submitStaffProfile() {
-        const payload = {
-            staffId: params.staffId!,
-            providerRole: providerRoleModel.value!.value!,
-        }
+		updateStaffProfileAction(payload)
+			.then((response) => {
+				setStaffState((state) => ({
+					...state,
+					status: "SUCCESS",
+					// details: response.data.staff,
+					message: response.message,
+					error: false,
+				}));
+			})
+			.catch((error) => {
+				setStaffState((state) => ({
+					...state,
+					status: "FAILED",
+					details: staffInitState.details,
+					message: error.message,
+					error: false,
+				}));
+			});
+	}
 
-        setStaffState(state => ({
-            ...state,
-            status: 'LOADING'
-        }))
+	function resetStaffState() {
+		setStaffState((state) => ({
+			...state,
+			status: "IDLE",
+			message: "",
+			error: false,
+		}));
+	}
 
-        updateStaffProfileAction(payload)
-        .then((response)=> {
-            setStaffState( state => ({
-                ...state,
-                status: 'SUCCESS',
-                // details: response.data.staff,
-                message: response.message,
-                error: false,
-            }))
-        })
-        .catch((error)=> {
-            setStaffState( state => ({
-                ...state,
-                status: 'FAILED',
-                details: staffInitState.details,
-                message: error.message,
-                error: false,
-            }))
-        })
-    }
+	return (
+		<ModalContainer close={() => closeModal()}>
+			<div className={styles.edit_staff_profile}>
+				<FormStateModal
+					status={staffState.status}
+					error={staffState.error}
+					message={staffState.message}
+					reset={() => resetStaffState()}
+				/>
 
-    function resetStaffState() {
-        setStaffState(state => ({
-            ...state,
-            status: 'IDLE',
-            message: '',
-            error: false
-        }))
-    }
+				<div className={styles.header}>
+					<div className={styles.title}>Edit Profile</div>
+					<IconCancelCircle
+						className={styles.icon_cancel}
+						onClick={() =>
+							staffState.status === "LOADING" ? () => ({}) : closeModal()
+						}
+					/>
+				</div>
 
-    return (
-        <ModalContainer close={()=> closeModal()}>
-            <div className={styles.edit_staff_profile}>
+				<div className={styles.registration_form_section}>
+					<StaffPersonalInformationForm userState={userState} />
+					<StaffWorkInformationForm userState={userState} />
+				</div>
 
-                <FormStateModal 
-                    status={staffState.status}
-                    error={staffState.error}
-                    message={staffState.message}
-                    reset={()=> resetStaffState()}
-                />
+				{/* <div className={styles.body}>
+			        <DropDownField
+			            placeholder={providerRoleModel.placeholder}
+			            options={providerRoleModel.options}
+			            selected={providerRoleModel.selected}
+			            selectedOptionIndex={providerRoleModel.selectedOptionIndex}
+			            error={providerRoleModel.error}
+			            onSelect={(optionIndex:number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
+			        />
+			    </div> */}
 
-                <div className={styles.header}>
-                    <div className={styles.title}>Add service to category</div>
-                    <IconCancelCircle 
-                        className={styles.icon_cancel} 
-                        onClick={()=> staffState.status === 'LOADING' ?()=>({}) :closeModal() }
-                    />
-                </div>
-
-                <div className={styles.body}>
-                    <DropDownField 
-                        placeholder={providerRoleModel.placeholder}
-                        options={providerRoleModel.options}
-                        selected={providerRoleModel.selected}
-                        selectedOptionIndex={providerRoleModel.selectedOptionIndex}
-                        error={providerRoleModel.error}  
-                        onSelect={(optionIndex:number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
-                    />
-                </div>
-
-                <div className={styles.buttons}>
-                    <PrimaryTextButton
-                        isLoading={staffState.status === 'LOADING'}
-                        disabled={!providerRoleModel.selected}
-                        width={"20%"}
-                        label="Submit"
-                        clickAction={()=> submitStaffProfile()}
-                    />
-                </div>
-            </div>
-        </ModalContainer>
-    )
+				<div className={styles.buttons}>
+					<PrimaryTextButton
+						isLoading={staffState.status === "LOADING"}
+						disabled={!providerRoleModel.selected}
+						width={"20%"}
+						label="Submit"
+						clickAction={() => submitStaffProfile()}
+					/>
+				</div>
+			</div>
+		</ModalContainer>
+	);
 }

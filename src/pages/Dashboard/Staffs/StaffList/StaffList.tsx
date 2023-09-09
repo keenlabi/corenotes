@@ -6,61 +6,56 @@ import { useStaffState } from "src/features/staff/state";
 import StaffListHeader from "./StaffListHeader/StaffListHeader";
 import AddNewStaffModal from "./AddNewStaffModal";
 import formatStaffList from "src/features/staff/utils/formatStaffsList";
+import SizedBox from "src/components/SizedBox";
 
 export default function StaffList() {
+  const [staffState, setStaffState] = useStaffState();
+  const staffsListResponse = useFetchStaffListSelector(staffState.currentPage);
 
-    const [staffState, setStaffState] = useStaffState();
-    const staffsListResponse = useFetchStaffListSelector(staffState.currentPage);
+  const [isNewStaffModalVisible, setIsNewStaffModalVisible] = useState(false);
 
-    const [isNewStaffModalVisible, setIsNewStaffModalVisible] = useState(false)
+  useEffect(() => {
+    if (!staffsListResponse.error) {
+      setStaffState((state) => {
+        return {
+          ...state,
+          status: "SUCCESS",
+          error: false,
+          message: staffsListResponse.message,
+          list: staffsListResponse.staffs.staffs,
+          currentPage: staffsListResponse.staffs.currentPage,
+          currentActivitiesPage: staffsListResponse.staffs.totalPages,
+        };
+      });
+    } else {
+      setStaffState((state) => {
+        return {
+          ...state,
+          status: "FAILED",
+          error: true,
+          message: staffsListResponse.message,
+        };
+      });
+    }
+  }, [staffsListResponse, setStaffState]);
 
-    useEffect(()=> {
-        if(!staffsListResponse.error) {
-            setStaffState((state)=> {
-                return {
-                    ...state,
-                    status: 'SUCCESS',
-                    error: false,
-                    message: staffsListResponse.message,
-                    list: staffsListResponse.staffs.staffs,
-                    currentPage: staffsListResponse.staffs.currentPage,
-                    currentActivitiesPage: staffsListResponse.staffs.totalPages
-                }
-            })
-        } else {
-            setStaffState((state)=> {
-                return {
-                    ...state,
-                    status: 'FAILED',
-                    error: true,
-                    message: staffsListResponse.message
-                }
-            })
-        }
-    }, [staffsListResponse, setStaffState])
+  return (
+    <div className={styles.staff_list}>
+      <StaffListHeader
+        showNewStaffModal={() => setIsNewStaffModalVisible(true)}
+      />
 
-    return (
-        <div className={styles.staff_list}>
-            
-            <StaffListHeader  
-                showNewStaffModal={()=> setIsNewStaffModalVisible(true)}
-            />
+      <StaffListTable
+        staffs={formatStaffList(staffState.list)}
+        currentPage={0}
+        totalPages={0}
+        goToPage={(pageNumber: number) => console.log(pageNumber)}
+        errorMessage={staffState.message}
+      />
 
-            <StaffListTable
-                staffs={formatStaffList(staffState.list)}
-                currentPage={0} 
-                totalPages={0} 
-                goToPage={(pageNumber:number)=> console.log(pageNumber)} 
-                errorMessage={staffState.message}
-            />
-
-            {
-                isNewStaffModalVisible
-                ?   <AddNewStaffModal 
-                        closeModal={()=> setIsNewStaffModalVisible(false)}
-                    />
-                :   null
-            }
-        </div>
-    )
+      {isNewStaffModalVisible ? (
+        <AddNewStaffModal closeModal={() => setIsNewStaffModalVisible(false)} />
+      ) : null}
+    </div>
+  );
 }

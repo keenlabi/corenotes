@@ -1,34 +1,58 @@
 .staff_personal_information {
-    margin-top: 70px;
 }
 .heading {
-    font-size: 24px;
-    font-weight: 600;
-    margin-top: 2%;
-    color: var(--black-accent-100);
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 2%;
+  color: var(--black-accent-100);
 }
 
 .info_section {
-    margin-top: 5%;
-    display: flex;
-    gap: 1rem;
-    row-gap: 26px;
-    flex-wrap: wrap;
-    width: 90%;
+  margin-top: 5%;
+  display: flex;
+  gap: 1rem;
+  row-gap: 26px;
+  flex-wrap: wrap;
+  width: 90%;
 }
 .info_field {
-    width: calc(100% / 3.5);
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
+  width: calc(100% / 3.5);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 .info_field .label {
-    font-weight: 400;
-    font-size: 16px;
-    color: var(--grey-accent-600-a);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--grey-accent-600-a);
+  /* border: 1px solid red; */
 }
 .info_field .value {
-    font-weight: 500;
-    font-size: 17px;
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--black-accent-100);
+}
+
+@media screen and (max-width: 414px) {
+  .staff_personal_information {
+    margin-top: 30px;
+  }
+  .heading {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 2%;
     color: var(--black-accent-100);
+  }
+
+  .info_section {
+    width: 100%;
+  }
+
+  .info_field .label {
+    font-size: 14px;
+  }
+
+  .info_field .value {
+    font-size: 14px;
+  }
 }

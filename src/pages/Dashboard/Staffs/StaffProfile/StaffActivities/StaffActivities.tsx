@@ -10,6 +10,7 @@ import SizedBox from "src/components/SizedBox"
 import { useFetchStaffActivities } from "src/features/staff/selector"
 import { useParams } from "react-router-dom"
 import { useStaffState } from "src/features/staff/state"
+import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton"
 
 export default function StaffActivities() {
     
@@ -117,7 +118,14 @@ export default function StaffActivities() {
                         onSelect={(optionIndex:number)=> selectOption(optionIndex, activityTypeModel, setActivityTypeModel)}
                     />
                 </div>
-
+                <br></br>
+                <PrimaryTextButton
+            label={"Create Activity"}
+            isLoading={false}
+            disabled={false}
+            width="200px"
+            clickAction={() => loginInTrigger()}
+          />
                 <SizedBox height="50px" />
                 
                 <StaffActivitiesTable

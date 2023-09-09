@@ -1,36 +1,43 @@
 .form_state_modal {
-    position: fixed;
-    top: 2%;
-    right: 2%;
-    min-width: 300px;
-    min-height: 40px;
-    border-radius: 12px;
-    padding: 5px 10px;
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  min-width: 300px;
+  min-height: 40px;
+  border-radius: 12px;
+  padding: 5px 10px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: white;
 }
 .error_state {
-    background: var(--red-accent-100);
+  background: var(--red-accent-100);
 }
 .success_state {
-    color: var(--green-accent-100);
-    border: 1px solid var(--green-accent-100);
-    background-color: var(--green-faded-accent-100);
+  color: var(--green-accent-100);
+  border: 1px solid var(--green-accent-100);
+  background-color: var(--green-faded-accent-100);
 }
 
 .close_icon {
-    cursor: pointer;
+  cursor: pointer;
 }
 .error_state .close_icon path {
-    fill: white;
-    stroke: var(--red-accent-100);
+  fill: white;
+  stroke: var(--red-accent-100);
 }
 
 .success_state .close_icon path {
-    fill: none;
-    stroke: var(--green-accent-100);
+  fill: none;
+  stroke: var(--green-accent-100);
+}
+
+@media screen and (max-width: 414px) {
+  .form_state_modal {
+    top: 8%;
+    z-index: 999;
+  }
 }

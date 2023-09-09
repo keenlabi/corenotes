@@ -14,40 +14,40 @@ export default function StaffProfileHeader({
     editProfileAction?: ()=> void;
     clickAction?: ()=> void;
 }) {
+	const staffState = useStaffValue();
 
-    const staffState = useStaffValue();
-    
-    return (
-        <div className={styles.section_identity}>
-            <div className={styles.user_info}>
-                <UserImage 
-                    imageUrl={staffState.details.personal.profileImage} 
-                    fullname={staffState.details.personal.firstname}
-                    size={"60px"}
-                />
-                <div className={styles.info}>
-                    <div className={styles.fullname}>{ staffState.details.personal.firstname }, {staffState.details.personal.lastname}</div>
-                    <div className={styles.last_update}>Updated: 04/04/2023 01:00pm</div>
-                </div>
-            </div>
+	return (
+		<div className={styles.section_identity}>
+			<div className={styles.user_info}>
+				<UserImage
+					imageUrl={staffState.details.personal.profileImage}
+					fullname={staffState.details.personal.firstname}
+					size={"60px"}
+				/>
+				<div className={styles.info}>
+					<div className={styles.fullname}>
+						{staffState.details.personal.firstname},{" "}
+						{staffState.details.personal.lastname}
+					</div>
+					<div className={styles.last_update}>Updated: 04/04/2023 01:00pm</div>
+				</div>
+			</div>
 
-            {
-                actionType === 'edit-profile'
-                ?   <IconButton
-                        extraStyle={styles.edit_profile_button}
-                        label="Edit info"
-                        suffixIcon={<IconEditProfile />}
-                        onClick={()=> editProfileAction?.()}
-                    />
-                :   actionType === 'upload-doc'
-                    ?   <IconButton
-                            extraStyle={styles.upload_document_button}
-                            label="Upload new document"
-                            prefixIcon={<IconUploadDoc />}
-                            onClick={()=> clickAction?.()}
-                        />
-                    :   null
-            }
-        </div>
-    )
+			{actionType === "edit-profile" ? (
+				<IconButton
+					extraStyle={styles.edit_profile_button}
+					label="Edit info"
+					suffixIcon={<IconEditProfile />}
+					onClick={() => editProfileAction?.()}
+				/>
+			) : actionType === "upload-doc" ? (
+				<IconButton
+					extraStyle={styles.upload_document_button}
+					label="Upload new document"
+					prefixIcon={<IconUploadDoc />}
+					onClick={() => clickAction?.()}
+				/>
+			) : null}
+		</div>
+	);
 }

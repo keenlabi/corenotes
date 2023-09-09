@@ -1,21 +1,41 @@
 .staff_list_header {
-    display: flex;
-    align-items: center;
+  display: flex;
+  /* align-items: center; */
 }
 .heading {
-    color: var(--black-accent-100);
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-right: auto;
+  color: var(--black-accent-100);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-right: auto;
 }
 
 .actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 .nav_link {
-    color: var(--dark-blue-accent-200);
-    font-weight: 400;
-    font-size: 1.1rem;
+  color: var(--dark-blue-accent-200);
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
+@media screen and (max-width: 414px) {
+  .staff_list_header {
+    flex-direction: column;
+    width: 100%;
+    align-items: normal;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-top: var(--mobile-dashboard-navbar-header-height);
+  }
+
+  .heading {
+    width: 100%;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
