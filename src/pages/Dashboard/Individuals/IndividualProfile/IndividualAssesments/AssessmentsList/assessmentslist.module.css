@@ -42,6 +42,8 @@
     border: 1px solid var(--green-accent-100);
     color: var(--green-accent-100);
     background-color: var(--green-faded-accent-100);
+    width: -webkit-max-content;
+    width: -moz-max-content;
     width: max-content;
     font-size: 14px;
 }
