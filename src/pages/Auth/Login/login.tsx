@@ -9,7 +9,7 @@ import { ReactComponent as IconUser } from "src/assets/icons/icon-user.svg";
 import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField/PasswordInputField";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   formFieldType,
   setFormFieldType,
@@ -18,7 +18,24 @@ import LoginAction from "src/features/auth/actions";
 import { useAuthState } from "src/features/auth/state";
 
 export default function Login() {
+  const [latitude, setlatitude] = useState<number>();
+  const [longitude, setlongitude] = useState<number>();
   const navigate = useNavigate();
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        setlatitude(latitude);
+        setlongitude(longitude);
+      });
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  };
+
+  useEffect(() => {
+    getLocation();
+  }, []);
 
   const [authState, setAuthState] = useAuthState();
 
@@ -106,6 +123,8 @@ export default function Login() {
       const payload = {
         username: usernameModel.value ?? "",
         password: passwordModel.value ?? "",
+        latitude: latitude ?? "",
+        longitude: longitude ?? "",
       };
 
       setAuthState((state) => {
@@ -186,9 +205,7 @@ export default function Login() {
           </div>
           <div className={styles.forgot_prompt}>
             <Link to={"/forgot-username"}>Forgot username</Link>
-            <Link to={"/forgot-password"}>
-              Forgot password
-            </Link>
+            <Link to={"/forgot-password"}>Forgot password</Link>
           </div>
 
           <SizedBox height="50px" />

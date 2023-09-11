@@ -12,6 +12,17 @@ export default function LoginAction(payload: {
   });
 }
 
+export  function LogOutAction(payload: {
+  latitude: number | string;
+  longitude: number | string;
+}) {
+  return new Promise<successResponseType>((resolve, reject) => {
+    postFetch(`/auth/logout`, payload)
+      .then((response: successResponseType) => resolve(response))
+      .catch((error) => reject(error));
+  });
+}
+
 export function ResetPasswordAction(payload: { email: string }) {
   return new Promise((resolve, reject) => {
     postFetch("/auth/forgot-password", payload)
