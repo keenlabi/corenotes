@@ -18,6 +18,7 @@ import { useFetchAssessmentCategories } from "src/features/assessment/selector";
 import AddQuestionCategoryModal from "./AddQuestionCategory/AddQuestionCategory";
 import AddAssessmentCategoryModal from "./AddAssessmentCategory";
 import GoBackButton from "src/components/Buttons/GoBackButton";
+import RowContainer from "src/components/Layout/RowContainer";
 
 export default function CreateAssessment() {
 
@@ -114,40 +115,24 @@ export default function CreateAssessment() {
         selectedOptionIndex: 0,
     })
 
-    const [assessmentAssignToModel, setAssessmentAssignToModel] = useState<DropDownFormData>({
-        placeholder: 'Assign to',
-        name:'assign-to',
+    const [assessmentTypeModel, setAssessmentTypeModel] = useState<DropDownFormData>({
+        placeholder: 'Assessment type',
+        name:'assessment-type',
         options:[
             {
                 id:'1',
-                label:'Individuals',
-                value:'individuals'
+                label:'Generic',
+                value:'generic'
             },
             {
                 id:'2',
-                label:'Service',
-                value:'services'
+                label:'Personal Outcome',
+                value:'personal-outcomes'
             }
         ],
         error: '',
         selected: false,
         selectedOptionIndex: 0,
-    })
-
-    const [assignedIndividuals, setAssignedIndividuals] = useState<{
-        assigneesType:string,
-        assigneesList:Array<string>
-    }>({
-        assigneesType:assessmentState.newAssessment.assignees.assigneesType ?? 'ALL',
-        assigneesList:assessmentState.newAssessment.assignees.assigneesList ?? []
-    })
-
-    const [assignedServices, setAssignedServices] = useState<{
-        assigneesType:string,
-        assigneesList:Array<string>
-    }>({
-        assigneesType:assessmentState.newAssessment.assignees.assigneesType ?? 'ALL',
-        assigneesList:assessmentState.newAssessment.assignees.assigneesList ?? []
     })
 
     const [isFormValid, setIsFormValid] = useState(false)
@@ -177,15 +162,6 @@ export default function CreateAssessment() {
         model.selectedOptionIndex = optionIndex;
         model.selected = true;
         model.value = model.options[optionIndex];
-
-        if(model.name === 'assign-to') {
-            if(model.value.value === 'individuals') {
-                selectAllIndividuals()
-            }
-            if(model.value.value === 'services') {
-                selectAllServices()
-            }
-        }
 
         setModel({...model})
         enableButton()
@@ -225,28 +201,12 @@ export default function CreateAssessment() {
         enableButton()
     }
 
-    function selectAllIndividuals() {
-        setAssignedIndividuals({
-            assigneesType:'ALL',
-            assigneesList:[]
-        })
-        enableButton()
-    }
-
-    function selectAllServices() {
-        setAssignedServices({
-            assigneesType:'ALL',
-            assigneesList:[]
-        })
-        enableButton()
-    }
-
     function validateForm() {
         if(!assessmentTitle.validated) return false;
         if(!category.selected) return false;
         if(questionsModel.questions.filter(question => question.model.value === undefined).length) return false;
         if(!questionsModel.questions.filter(question => question.question !== '').length) return false;
-        if(!assessmentAssignToModel.selected) return false;
+        if(!assessmentTypeModel.selected) return false;
 
         return true;
     }
@@ -257,65 +217,51 @@ export default function CreateAssessment() {
     }
 
     function submitAssessment() {
-			const payload: ICreateAssessmentPayload = {
-				title: assessmentTitle.value,
-				category: category.value?.value ?? "",
-				questions: questionsModel.questions
-					.filter((question) => question.question !== "")
-					.map((question) => ({
-						category: question.category,
-						question: question.question,
-					})),
-				assignedTo: assessmentAssignToModel.value!.value!,
-				assignees: {
-					assigneesType: "ALL",
-					assigneesList: [],
-				},
-			};
+        const payload: ICreateAssessmentPayload = {
+            title: assessmentTitle.value,
+            category: category.value?.value ?? "",
+            questions: questionsModel.questions
+                .filter((question) => question.question !== "")
+                .map((question) => ({
+                    category: question.category,
+                    question: question.question,
+                })),
+            assessmentType: assessmentTypeModel.value!.value!
+        };
 
-			if (payload.assignedTo === "services") {
-				payload.assignees = assignedServices;
-			}
+        console.log(payload);
 
-			if (payload.assignedTo === "individuals") {
-				payload.assignees = assignedIndividuals;
-			}
+        setAssessmentState((state) => ({
+            ...state,
+            status: "LOADING",
+            error: false,
+            message: "",
+        }));
 
-			console.log(payload);
-
-			setAssessmentState((state) => ({
-				...state,
-				status: "LOADING",
-				error: false,
-				message: "",
-			}));
-
-			createAssessmentAction(payload)
-				.then((response: AssessmentListResponseType) => {
-					setAssessmentState((state) => ({
-						...state,
-						status: "SUCCESS",
-						error: false,
-						message: "Assessment created successfully",
-						list: response.data,
-						newAssessment: AssessmentInitState.newAssessment,
-					}));
-					// setQuestionsModel((state) => ({ ...state, questions: [""] }));
-				})
-				.catch((error) => {
-					setAssessmentState((state) => ({
-						...state,
-						status: "FAILED",
-						error: true,
-						message: error.message ?? "There was an error creating assessment",
-					}));
-				});
-		}
+        createAssessmentAction(payload)
+        .then((response:AssessmentListResponseType) => {
+            setAssessmentState((state) => ({
+                ...state,
+                status: "SUCCESS",
+                error: false,
+                message: "Assessment created successfully",
+                list: response.data,
+                newAssessment: AssessmentInitState.newAssessment,
+            }));
+            // setQuestionsModel((state) => ({ ...state, questions: [""] }));
+        })
+        .catch((error) => {
+            setAssessmentState((state) => ({
+                ...state,
+                status: "FAILED",
+                error: true,
+                message: error.message ?? "There was an error creating assessment",
+            }));
+        });
+	}
 
     const [questionCategoryVisibility, setQuestionCategoryVisibility] = useState(false);
-    function openQuestionCategoryModal() {
-        setQuestionCategoryVisibility(!questionCategoryVisibility)
-    }
+    function openQuestionCategoryModal () { setQuestionCategoryVisibility(!questionCategoryVisibility) }
 
     const [assessmentCategoryVisibility, setAssessmentCategoryVisibility] = useState(false);
     function openAssessmentCategoryModal() {
@@ -345,15 +291,16 @@ export default function CreateAssessment() {
                     state={assessmentState} 
                     resetState={()=> setAssessmentState(state => ({...state, status: 'IDLE', message:'', error:false}))}
                 >
-                    <div className={styles.section}>
+                    <RowContainer>
                         <InputField 
                             placeholder={assessmentTitle.placeholder}
+                            inputContainer="50%"
                             value={assessmentTitle.value} 
                             error={assessmentTitle.error}
                             onInput={(value:string)=> setInput(value, assessmentTitle, setAssessmentTitle)}
                         />
 
-                        <div className={styles.row}>
+                        <div className={`${styles.category_selection} ${styles.row}`}>
                             <DropDownField
                                 placeholder={category.placeholder}
                                 error={category.error} 
@@ -367,10 +314,22 @@ export default function CreateAssessment() {
                                 className={styles.add_button} 
                                 onClick={()=> openAssessmentCategoryModal()}
                             >
-                                <IconPlusCircle className={styles.plus} />
-                                Add
+                                <IconPlusCircle className={styles.plus} /> Add
                             </div>
                         </div>
+                    </RowContainer>
+
+                    <div>
+                        <div className={styles.section_title}>Assessment Type</div>
+                        <SizedBox height="20px" />
+                        <DropDownField
+                            label={assessmentTypeModel.label}
+                            options={assessmentTypeModel.options}
+                            selectedOptionIndex={assessmentTypeModel.selectedOptionIndex}
+                            selected={assessmentTypeModel.selected} 
+                            error={assessmentTypeModel.error}
+                            onSelect={(optionIndex:number)=> selectOption(optionIndex, assessmentTypeModel, setAssessmentTypeModel)}
+                        />
                     </div>
 
                     <div className={styles.section}>
@@ -434,48 +393,7 @@ export default function CreateAssessment() {
                             Add question
                         </div>
                     </div>
-                    
-                    <div>
-                        <div className={styles.section_title}>Assign to</div>
-                        <SizedBox height="20px" />
-                        <DropDownField
-                            label={assessmentAssignToModel.label}
-                            options={assessmentAssignToModel.options}
-                            selectedOptionIndex={assessmentAssignToModel.selectedOptionIndex}
-                            selected={assessmentAssignToModel.selected} 
-                            error={assessmentAssignToModel.error}
-                            onSelect={(optionIndex:number)=> selectOption(optionIndex, assessmentAssignToModel, setAssessmentAssignToModel)}
-                        />
-                    </div>
                 </FormWrapper>
-
-                {/* <div className={styles.assignee}>
-                    <div className={styles.title}>Individuals</div>
-                    <div className={styles.selection_pane}>
-                        <div className={styles.select_all}>
-                            <RadioButton 
-                                label={"Select all"} 
-                                selected={assignedIndividuals.assigneesType === 'ALL'}
-                                onSelect={()=> selectAllIndividuals()}
-                            />
-                        </div>
-
-                        <div className={`${styles.select_all} ${styles.selection}`}>
-                            {
-                                individualState.individuals.list.map(individual => {
-                                    return  <div key={individual.id} className={styles.container}>
-                                                <RadioButton
-                                                    label={`${individual.firstname} ${individual.lastname}`}
-                                                    selected={assignedIndividuals.assigneesList.includes(individual.id)}
-                                                    onSelect={()=> selectSpecificIndividual(individual.id)}       
-                                                />
-                                            </div>
-                                })
-                            }
-                        </div>
-                    </div>
-                </div> */}
-
 
             </div>
             

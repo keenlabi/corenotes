@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import styles from "./assessmentcard.module.css";
+import styles from "./selectassessmentcard.module.css";
 
 interface AssessmentCardProps {
     title:string;
@@ -8,27 +7,28 @@ interface AssessmentCardProps {
     questionsCount:number;
     assessmentType:string;
     path?:string;
-    openAction?:()=> void
+    isSelected:boolean;
+    selectAction?:()=> void
 }
 
-export default function AssessmentCard({
+export default function SelectAssessmentCard({
     title,
     category,
     status,
     questionsCount,
     assessmentType,
-    path,
-    openAction
+    isSelected,
+    selectAction
 }:AssessmentCardProps) {
     return (
-        <Link to={path?.toString() ?? ""} className={styles.assessment_card} onClick={openAction}>
-            <div className={styles.category}>{category}assessment</div>
+        <div className={`${styles.assessment_card} ${isSelected ?styles.is_selected :""}`} onClick={selectAction}>
+            <div className={styles.category}>{category} assessment</div>
 
             <div className={styles.title}>{title}</div>
             <div className={styles.questions_count}>{questionsCount} questions</div>
 
             <div className={styles.assigned_to}>{ assessmentType }</div>
             <div className={styles.status}>{status}</div>
-        </Link>
+        </div>
     )
 }

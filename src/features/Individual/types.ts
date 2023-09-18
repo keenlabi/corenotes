@@ -89,6 +89,7 @@ export interface IIndividualAssessmentsList {
     title:string;
     category:string;
     questionCount:number;
+    assessmentType:string;
 }
 
 export interface IDailyLivingActivity {
