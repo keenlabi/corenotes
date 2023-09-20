@@ -13,11 +13,8 @@ export default function AssessmentsList() {
 
     const navigate = useNavigate();
 
-    const [assessmentState, setAssessmentState] = useAssessmentState();    
-
-    console.log(assessmentState);
+    const [assessmentState, setAssessmentState] = useAssessmentState();
     
-
     const fetchAssessmentsListResponse = useFetchAssessmentsListSelector(assessmentState.assessments.currentPage);
 
     useEffect(()=> {
@@ -54,7 +51,7 @@ export default function AssessmentsList() {
                                             title={assessment.title}
                                             category={assessment.category} 
                                             questionsCount={assessment.questionsCount}
-                                            assignedTo={assessment.assignedTo}
+                                            assessmentType={assessment.assessmentType}
                                             path={assessment.assessmentId}                     
                                         />
                                     

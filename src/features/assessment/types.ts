@@ -38,11 +38,8 @@ export interface AssessmentListItemType {
     category:string;
     questionsCount:number;
     status:string;
-    assignedTo:string;
-    assignees: {
-        assigneesType:string;
-        assigneesList:Array<string>;
-    };
+    assessmentType:string;
+    assignees:string;
 }
 
 // Type for creating new assessment
@@ -52,11 +49,7 @@ export interface NewAssessmentType {
     questions: Array<{
         question:string,
         category:string
-    }>,
-    assignees:{
-        assigneesType: 'ALL'|'SPECIFIC',
-        assigneesList: Array<string>,
-    }
+    }>
 }
 
 // Type for the assessment state object

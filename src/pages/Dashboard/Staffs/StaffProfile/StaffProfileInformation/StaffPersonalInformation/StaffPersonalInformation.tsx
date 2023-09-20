@@ -42,10 +42,6 @@ export default function StaffPersonalInformation() {
 			value: staffState.details.personal.phoneNumber.cell,
 		},
 		{
-			label: "Other phone",
-			value: staffState.details.personal.phoneNumber.other,
-		},
-		{
 			label: "Emergency contact",
 			value: staffState.details.personal.emergencyContact.name,
 		},

@@ -6,13 +6,7 @@ interface navItemsType {
   active: boolean;
 }
 
-export default function StaffProfileNavigation({
-  navItems,
-  changeNav,
-}: {
-  navItems: navItemsType[];
-  changeNav: (index: number) => void;
-}) {
+export default function StaffProfileNavigation({ navItems, changeNav }: { navItems: navItemsType[]; changeNav: (index: number) => void }) {
   return (
     <div style={{ overflow: "hidden" }}>
       <div className={styles.staff_profile_header}>
@@ -21,9 +15,9 @@ export default function StaffProfileNavigation({
             <div
               key={navItem.label}
               className={`
-                                        ${styles.nav_item}
-                                        ${navItem.active ? styles.active : null}
-                                    `}
+                  ${styles.nav_item}
+                  ${navItem.active ? styles.active : null}
+              `}
               onClick={() => changeNav(index)}
             >
               {navItem.label}

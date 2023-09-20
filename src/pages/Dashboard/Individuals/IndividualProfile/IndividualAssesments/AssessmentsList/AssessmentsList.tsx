@@ -6,11 +6,15 @@ import GridList from "src/components/GridList/GridList";
 import AssessmentSessionModal from "../AssessmentSession/AssessmentSessionModal";
 import { useFetchIndividualAssessmentsList } from "src/features/Individual/selector";
 import { useParams } from "react-router-dom";
+import AddNewNoBackgroundIconButton from "src/components/Buttons/AddNewNoBackgroundIconButton";
+import AddIndividualAssessmentModal from "./AddIndividualAssessmentModal";
 
 export default function AssessmentsList() {
 	const params = useParams();
 
 	const [individualState, setIndividualState] = useIndividualState();
+
+	const [addAssessmentModal, setShowAddAssessmentModal] = useState<boolean>(false);
 
 	const assessmentsResponse = useFetchIndividualAssessmentsList(
 		parseInt(params.individualId!),
@@ -39,8 +43,7 @@ export default function AssessmentsList() {
 		};
 	}, [assessmentsResponse, setIndividualState]);
 
-	const [isAssessmentModalVisible, setIsAssessmentModalVisible] =
-		useState(false);
+	const [isAssessmentModalVisible, setIsAssessmentModalVisible] = useState(false);
 	const [assessmentSessionId, setAssessmentSessionId] = useState("");
 
 	function toggleTakeAssessmentModal(assessmentObjId: string) {
@@ -51,6 +54,19 @@ export default function AssessmentsList() {
 
 	return (
 		<div className={styles.assessment_list}>
+			<div className={styles.options}>
+                <AddNewNoBackgroundIconButton 
+                    label={"Add Assessment"}
+                    action={()=> setShowAddAssessmentModal(true)}
+                />
+            </div>
+
+			{
+				addAssessmentModal
+				?	<AddIndividualAssessmentModal closeModal={()=> setShowAddAssessmentModal(false)} />
+				:	null
+			}
+			
 			<GridList columnCount={3}>
 				{individualState.assessments.list.map((assessment) => {
 					return (
@@ -59,7 +75,7 @@ export default function AssessmentsList() {
 							category={assessment.category}
 							title={assessment.title}
 							questionsCount={assessment.questionCount}
-							assignedTo={""}
+							assessmentType={assessment.assessmentType}
 							status={""}
 							openAction={() => toggleTakeAssessmentModal(assessment.id)}
 						/>

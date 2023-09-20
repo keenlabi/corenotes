@@ -66,38 +66,35 @@ export const staffInitState: staffStateType = {
 	totalActivitiesPage: 1,
 	activities: [],
 	newStaff: {
-		// PERSONAL INFORMATION
-		firstname: "",
-		lastname: "",
-		nickname: "",
-		initials: "",
-		dob: "",
-		gender: "",
-		address: "",
-		city: "",
-		state: "",
-		zipCode: "",
-		phoneNumber: {
-			work: "",
-			cell: "",
-			other: "",
+		personal: {
+			firstname: "",
+			lastname: "",
+			nickname: "",
+			initials: "",
+			dob: "",
+			gender: "",
+			address: "",
+			city: "",
+			state: "",
+			zipCode: "",
+			phoneNumber: {
+				work: "",
+				cell: "",
+			},
+			email: "",
+			emergencyContact: {
+				name: "",
+				relationship: "",
+				phoneNumber: "",
+			},
 		},
-		emergencyContact: {
-			name: "",
-			relationship: "",
-			phoneNumber: "",
-		},
-		email: "",
-
-		// WORK INFORMATION
-		compartment: "",
-		title: "",
-		providerRole: "",
-		hiredAt: "",
-		username: "",
-		employeeId: "",
-		jobSchedule: "",
-		password: "",
+		work: {
+			providerRole: "",
+			hiredAt: "",
+			username: "",
+			jobSchedule: "",
+			password: "",
+		}
 	},
 	roles: {
 		list: [],

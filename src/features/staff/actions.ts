@@ -59,7 +59,7 @@ export function fetchStaffAction(staffId:string) {
     })
 }
 
-export function registerStaffAction(payload:FormData) {
+export function registerStaffAction(payload:any) {
     return new Promise<fetchStaffListSuccessResponseType>((resolve, reject)=> {
         postFetch(`/staffs/register`, payload)
         .then((response:successResponseType)=> resolve({

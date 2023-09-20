@@ -1,5 +1,6 @@
-import ModalContainer from "src/components/Modal/ModalContainer";
+import { useState } from "react";
 import styles from "./addnewstaffmodal.module.css";
+import ModalContainer from "src/components/Modal/ModalContainer";
 import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg";
 import StaffPersonalInformationForm from "./StaffPersonalInformationForm/StaffPersonalInformationForm";
 import StaffWorkInformationForm from "./StaffWorkInformationForm";
@@ -7,60 +8,102 @@ import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton"
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import { useStaffState } from "src/features/staff/state";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
-import { useState, useEffect } from "react";
-import {
-  fetchStaffListSuccessResponseType,
-  registerStaffAction,
-} from "src/features/staff/actions";
-import JSONToFormData from "src/utils/JSONToFormData";
-import SizedBox from "src/components/SizedBox";
+import { fetchStaffListSuccessResponseType, registerStaffAction } from "src/features/staff/actions";
+import { INewStaffPersonalInformation, INewStaffWorkInformation, NewStaffType } from "src/features/staff/types";
 
-export default function AddNewStaffModal({
-  closeModal,
-}: {
-  closeModal: () => void;
-}) {
+export default function AddNewStaffModal({ closeModal }: { closeModal: () => void }) {
+	
 	const [staffState, setStaffState] = useStaffState();
 
-	const [isFormValid, setIsFormValid] = useState(false);
+	const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
-	useEffect(() => {
-		validateForm();
-	}, [staffState.newStaff, validateForm]);
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	function validateForm() {
-		if (
-			!staffState.newStaff.firstname ||
-			!staffState.newStaff.lastname ||
-			!staffState.newStaff.nickname ||
-			!staffState.newStaff.initials ||
-			!staffState.newStaff.dob ||
-			!staffState.newStaff.gender ||
-			!staffState.newStaff.address ||
-			!staffState.newStaff.city ||
-			!staffState.newStaff.state ||
-			!staffState.newStaff.zipCode ||
-			!staffState.newStaff.phoneNumber.work ||
-			!staffState.newStaff.phoneNumber.cell ||
-			!staffState.newStaff.emergencyContact.name ||
-			!staffState.newStaff.emergencyContact.relationship ||
-			!staffState.newStaff.emergencyContact.phoneNumber ||
-			!staffState.newStaff.email ||
-			// !staffState.newStaff.compartment ||
-			!staffState.newStaff.title ||
-			!staffState.newStaff.providerRole ||
-			!staffState.newStaff.hiredAt ||
-			!staffState.newStaff.username ||
-			!staffState.newStaff.employeeId ||
-			!staffState.newStaff.jobSchedule
-		) {
-			setIsFormValid(false);
-			return false;
-		} else {
-			setIsFormValid(true);
-			return true;
+	function validatePersonalForm(newStaffInfo:INewStaffPersonalInformation) {
+		const staffInfo:NewStaffType = {
+			...staffState.newStaff,
+			personal: newStaffInfo
 		}
+
+		enableButton(staffInfo)
+	}
+
+	function validateWorkForm(newStaffInfo:INewStaffWorkInformation) {
+		const staffInfo:NewStaffType = {
+			...staffState.newStaff,
+			work: newStaffInfo
+		}
+
+		enableButton(staffInfo)
+	}
+
+	function enableButton(newStaffInfo:NewStaffType) {
+		const message:string = validateForm(newStaffInfo);
+		setStaffState(state => ({
+			...state,
+			newStaff: newStaffInfo
+		}))
+		setIsButtonEnabled(message ?false :true)
+	}
+
+	function validateForm(newStaffInfo:NewStaffType) {
+		if (!newStaffInfo.personal.firstname) {
+			return "Firstname field cannot be empty";
+		}
+		if (!newStaffInfo.personal.lastname) {
+			return "Lastname field cannot be empty";
+		}
+		if (!newStaffInfo.personal.dob) {
+			return "Date of birth field cannot be empty";
+		} 
+		if (!newStaffInfo.personal.gender) {
+			return "Gender field cannot be empty";
+		}
+		if (!newStaffInfo.personal.address) {
+			return "Address field cannot be empty"; 
+		}
+		if (!newStaffInfo.personal.city) {
+			return "City field cannot be empty";
+		}
+		if (!newStaffInfo.personal.state) {
+			return "State field cannot be empty";
+		}
+		if (!newStaffInfo.personal.zipCode) {
+			return "Zip code field cannot be empty";
+		}
+		if (!newStaffInfo.personal.phoneNumber.work) {
+			return "Work phone field cannot be empty";
+		}
+		if (!newStaffInfo.personal.phoneNumber.cell) {
+			return "Cell phone field cannot be empty";
+		}
+		if (!newStaffInfo.personal.email) {
+			return "Email field cannot be empty";
+		}
+		if (!newStaffInfo.personal.emergencyContact.name) {
+			return "Emergency Contact name field cannot be empty";
+		}
+		if (!newStaffInfo.personal.emergencyContact.relationship) {
+			return "Relationship with emergency contact field cannot be empty";
+		}
+		if (!newStaffInfo.personal.emergencyContact.phoneNumber) {
+			return "Emergency Contact phone field cannot be empty";
+		}
+		if (!newStaffInfo.work.jobSchedule) {
+			return "Staff schedule type field cannot be empty";
+		}
+		if (!newStaffInfo.work.providerRole) {
+			return "Please select a role for new staff";
+		}
+		if (!newStaffInfo.work.hiredAt) {
+			return "Hire date field cannot be empty";
+		}
+		if (!newStaffInfo.work.username) {
+			return "Staff username field cannot be empty";
+		}
+		if (!newStaffInfo.work.password) {
+			return "Staff password field cannot be empty";
+		}
+
+		return ""
 	}
 
 	function resetFormStateModel() {
@@ -77,77 +120,70 @@ export default function AddNewStaffModal({
 	}
 
 	function registerStaff() {
-		if (validateForm()) {
+
+		const payload  = {
+			...staffState.newStaff.personal,
+			...staffState.newStaff.work
+		}
+		console.log(payload)
+		setStaffState((state) => {
+			return {
+				...state,
+				status: "LOADING",
+				error: false,
+				message: "",
+			};
+		});
+			
+		registerStaffAction(payload)
+		.then(({ data }: fetchStaffListSuccessResponseType) => {
 			setStaffState((state) => {
 				return {
 					...state,
-					status: "LOADING",
+					status: "SUCCESS",
 					error: false,
-					message: "",
+					message: "Staff registered successfully",
+					list: data.staffs,
 				};
 			});
-
-			JSONToFormData(staffState.newStaff)
-				.then((formDataResult: FormData) => {
-					for (const val of formDataResult.entries()) {
-						console.log(val[0] + ", " + val[1]);
-					}
-					registerStaffAction(formDataResult)
-						.then(({ data }: fetchStaffListSuccessResponseType) => {
-							setStaffState((state) => {
-								return {
-									...state,
-									status: "SUCCESS",
-									error: false,
-									message: "Staff registered successfully",
-									list: data.staffs,
-								};
-							});
-						})
-						.catch((error) => {
-							setStaffState((state) => {
-								return {
-									...state,
-									status: "FAILED",
-									error: true,
-									message: error.message,
-								};
-							});
-						});
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
+		})
+		.catch((error) => {
+			setStaffState((state) => {
+				return {
+					...state,
+					status: "FAILED",
+					error: true,
+					message: error.message,
+				};
+			});
+		});
 	}
 
-	const userState = staffState.newStaff;
+	function _closeModal() {
+		if(staffState.status !== "LOADING") closeModal()
+	}
 
 	return (
-		<ModalContainer
-			close={() => (staffState.status !== "LOADING" ? closeModal() : null)}>
-			<div className={styles.add_new_staff}>
+		<ModalContainer close={()=> _closeModal()}>
+			<div>
 				<FormStateModal
 					status={staffState.status}
 					error={staffState.error}
 					message={staffState.message}
 					reset={() => resetFormStateModel()}
 				/>
-				<SizedBox height="60px" />
 
 				<div className={styles.top_section}>
 					<div className={styles.heading}>Add new staff</div>
 					<IconCancelCircle
 						className={styles.icon_cancel}
-						onClick={() =>
-							staffState.status === "LOADING" ? () => ({}) : closeModal()
-						}
+						onClick={()=> _closeModal()}
 					/>
 				</div>
 
 				<div className={styles.registration_form_section}>
-					<StaffPersonalInformationForm userState={userState} />
-					<StaffWorkInformationForm userState={userState} />
+					<StaffPersonalInformationForm onModified={validatePersonalForm} />
+					<StaffWorkInformationForm onModified={validateWorkForm} />
 				</div>
 
 				<div className={styles.action_buttons}>
@@ -161,7 +197,7 @@ export default function AddNewStaffModal({
 
 					<PrimaryTextButton
 						isLoading={staffState.status === "LOADING"}
-						disabled={!isFormValid}
+						disabled={!isButtonEnabled}
 						width={"20%"}
 						label={"Save"}
 						clickAction={() => {
@@ -172,4 +208,5 @@ export default function AddNewStaffModal({
 			</div>
 		</ModalContainer>
 	);
+
 }

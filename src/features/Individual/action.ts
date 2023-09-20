@@ -588,3 +588,20 @@ export function uploadIndividualDocumentAction(individualId:string, payload:Form
         .catch((error)=> reject(error))
     })
 }
+
+export function addAssessmentToIndividualAction(individualId:string, payload:{ assessments:string[] }) {
+    return new Promise<IFetchIndividualAssessmentsResponse>((resolve, reject)=> {
+        postFetch(`/individuals/${individualId}/assessments`, payload)
+        .then((response:successResponseType)=> resolve({
+            ...response,
+            data: {
+                individualAssessments: {
+                    currentPage:response.data.currentPage,
+                    totalPages:response.data.totalPages,
+                    list: response.data.documents
+                }
+            }
+        }))
+        .catch((error)=> reject(error))
+    })
+}

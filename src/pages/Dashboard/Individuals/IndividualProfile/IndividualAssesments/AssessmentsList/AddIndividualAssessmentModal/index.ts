@@ -1,0 +1,2 @@
+import AddIndividualAssessmentModal from "./AddIndividualAssessmentModel";
+export default AddIndividualAssessmentModal;
