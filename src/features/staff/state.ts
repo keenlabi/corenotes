@@ -43,6 +43,7 @@ export const staffInitState: staffStateType = {
 			hiredAt: "",
 			username: "",
 			jobSchedule: "",
+			employeeId: ""
 		},
 		role: {
 			title: "",
