@@ -232,7 +232,7 @@ export default function UploadDocModal({closeModal}:{closeModal:()=> void}) {
                 />
 
                 <div className={styles.top_section}>
-                    <div className={styles.heading}>Add new staff</div>
+                    <div className={styles.heading}>Upload new document</div>
                     <IconCancelCircle 
                         className={styles.icon_cancel}
                         onClick={()=> staffState.status === 'LOADING' ?()=>({}) :closeModal() }

@@ -132,11 +132,11 @@ export default function EditStaffProfileModal({ staffState, closeModal }:{
 						}
 					/>
 				</div>
-
+{/* 
 				<div className={styles.registration_form_section}>
 					<StaffPersonalInformationForm userState={userState} />
 					<StaffWorkInformationForm userState={userState} />
-				</div>
+				</div> */}
 
 				<div className={styles.body}>
 					<DropDownField

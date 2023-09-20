@@ -9,8 +9,6 @@ import { INewStaffPersonalInformation } from "src/features/staff/types";
 
 export default function StaffPersonalInformationForm({ onModified }:{ onModified:(newStaffDetails:INewStaffPersonalInformation)=> void }) {
 
-	const [staffState, setStaffState] = useStaffState();
-
 	const [firstnameModel, setFirstnameModel] = useState<formFieldType>({
 		type: "text",
 		label: "First name",
@@ -30,15 +28,6 @@ export default function StaffPersonalInformationForm({ onModified }:{ onModified
 	});
 
 	const [nicknameModel, setNicknameModel] = useState<formFieldType>({
-		type: "text",
-		label: "Nick name",
-		placeholder: "Nick name",
-		value: "",
-		error: "",
-		validated: false,
-	});
-
-	const [initialsModel, setInitialsModel] = useState<formFieldType>({
 		type: "text",
 		label: "Nick name",
 		placeholder: "Nick name",
