@@ -21,8 +21,7 @@ export default function formatStaff(staff:IStaffUser):IStaffDetails {
             zipCode: staff.zipCode,
             phoneNumber: {
                 work: staff.phoneNumber.work,
-                cell: staff.phoneNumber.cell,
-                other: staff.phoneNumber.other
+                cell: staff.phoneNumber.cell
             },
             emergencyContact: {
                 name: staff.emergencyContact.name,
@@ -34,12 +33,9 @@ export default function formatStaff(staff:IStaffUser):IStaffDetails {
         },
         work: {
             // WORK INFORMATION
-            compartment: staff.compartment,
-            title: staff.title,
             providerRole: staff.providerRole,
             hiredAt: staff.hiredAt,
             username: staff.username,
-            employeeId: staff.employeeId,
             jobSchedule: staff.jobSchedule        
         },
         // documents:{

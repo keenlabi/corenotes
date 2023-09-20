@@ -28,7 +28,6 @@ export const staffInitState: staffStateType = {
 			phoneNumber: {
 				work: "",
 				cell: "",
-				other: "",
 			},
 			emergencyContact: {
 				name: "",
@@ -40,12 +39,9 @@ export const staffInitState: staffStateType = {
 		},
 		// WORK INFORMATION
 		work: {
-			compartment: "",
-			title: "",
 			providerRole: "",
 			hiredAt: "",
 			username: "",
-			employeeId: "",
 			jobSchedule: "",
 		},
 		role: {

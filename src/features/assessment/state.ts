@@ -27,11 +27,7 @@ export const AssessmentInitState: AssessmentStateType = {
 				category: "",
 				question: "",
 			},
-		],
-		assignees: {
-			assigneesType: "ALL",
-			assigneesList: [],
-		},
+		]
 	},
 	assessmentSession: {
 		id: "",

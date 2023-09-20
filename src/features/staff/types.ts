@@ -184,7 +184,6 @@ export interface IStaffDetails {
 		providerRole: string;
 		hiredAt: string;
 		username: string;
-		employeeId: string;
 		jobSchedule: string;
 	};
 }
