@@ -36,7 +36,8 @@ export default function formatStaff(staff:IStaffUser):IStaffDetails {
             providerRole: staff.providerRole,
             hiredAt: staff.hiredAt,
             username: staff.username,
-            jobSchedule: staff.jobSchedule        
+            jobSchedule: staff.jobSchedule,
+            employeeId: staff.employeeId
         },
         // documents:{
         //     list:[],
