@@ -169,7 +169,6 @@ export interface IStaffDetails {
 		phoneNumber: {
 			work: string;
 			cell: string;
-			other: string;
 		};
 		emergencyContact: {
 			name: string;
@@ -182,8 +181,6 @@ export interface IStaffDetails {
 
 	work: {
 		// WORK INFORMATION
-		compartment: string;
-		title: string;
 		providerRole: string;
 		hiredAt: string;
 		username: string;
@@ -193,39 +190,39 @@ export interface IStaffDetails {
 }
 
 export interface NewStaffType {
-    // PERSONAL INFORMATION
-    firstname: string,
-    lastname: string,
-    nickname: string,
-    initials: string,
-    dob:string,
-    gender: string,
-    address: string,
-    city: string,
-    state: string,
-    zipCode: string,
+    personal:INewStaffPersonalInformation;
+    work:INewStaffWorkInformation;
+}
+
+export interface INewStaffPersonalInformation {
+    firstname:string;
+    lastname:string;
+    nickname:string;
+    initials:string;
+    dob:string;
+    gender:string;
+    address:string;
+    city:string;
+    state:string;
+    zipCode:string;
     phoneNumber: {
-        work: string,
-        cell: string,
-        other: string
+        work:string;
+        cell:string;
     },
+    email:string;
     emergencyContact: {
-        name: string,
-        relationship: string,
-        phoneNumber: string
+        name:string;
+        relationship:string;
+        phoneNumber:string;
     },
-    email: string,
-    profileImage?:Blob|MediaSource,
-    
-    // WORK INFORMATION
-    compartment: string,
-    title: string,
-    providerRole: string,
-    hiredAt: string,
-    username: string,
-    employeeId: string,
-    jobSchedule: string,
-    password: string
+}
+
+export interface INewStaffWorkInformation {
+    providerRole:string;
+    hiredAt:string;
+    jobSchedule:string;
+    username:string;
+    password:string;
 }
 
 export interface staffStateType extends initStateType {

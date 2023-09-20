@@ -3,17 +3,19 @@ import styles from "./staffpersonalinformationform.module.css"
 import InputField from "src/components/FormComponents/InputField";
 import { useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
-import { useSetStaffState } from "src/features/staff/state";
+import { useStaffState } from "src/features/staff/state";
+import SizedBox from "src/components/SizedBox";
+import { INewStaffPersonalInformation } from "src/features/staff/types";
 
-export default function StaffPersonalInformationForm({ userState }: { userState: any;}) {
+export default function StaffPersonalInformationForm({ onModified }:{ onModified:(newStaffDetails:INewStaffPersonalInformation)=> void }) {
 
-	const setStaffState = useSetStaffState();
+	const [staffState, setStaffState] = useStaffState();
 
 	const [firstnameModel, setFirstnameModel] = useState<formFieldType>({
 		type: "text",
 		label: "First name",
 		placeholder: "First name",
-		value: userState.firstname,
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -22,7 +24,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		type: "text",
 		label: "Last name",
 		placeholder: "Last name",
-		value: userState.lastname,
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -31,16 +33,16 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		type: "text",
 		label: "Nick name",
 		placeholder: "Nick name",
-		value: userState.nickname,
+		value: "",
 		error: "",
 		validated: false,
 	});
 
 	const [initialsModel, setInitialsModel] = useState<formFieldType>({
 		type: "text",
-		label: "Initials",
-		placeholder: "Initials",
-		value: userState.initials,
+		label: "Nick name",
+		placeholder: "Nick name",
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -49,7 +51,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		type: "date",
 		label: "Date of birth",
 		placeholder: "Date of birth",
-		value: userState.dob,
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -58,7 +60,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		type: "text",
 		label: "Gender",
 		placeholder: "Gender",
-		value: userState.gender,
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -67,7 +69,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		type: "text",
 		label: "Home address",
 		placeholder: "Home address",
-		value: userState.address,
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -75,8 +77,8 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 	const [cityModel, setCityModel] = useState<formFieldType>({
 		type: "text",
 		label: "City",
-		placeholder: "In which city",
-		value: userState.city,
+		placeholder: "City",
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -85,7 +87,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		type: "text",
 		label: "State",
 		placeholder: "State",
-		value: userState.state,
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -94,7 +96,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		type: "text",
 		label: "Zip code",
 		placeholder: "Zip code",
-		value: userState.zipCode,
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -103,7 +105,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		type: "text",
 		label: "Work phone",
 		placeholder: "Work phone",
-		value: userState.phoneNumber.work,
+		value: "",
 		error: "",
 		validated: false,
 	});
@@ -113,71 +115,53 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		name: "cell-phone",
 		label: "Cell phone",
 		placeholder: "Cell phone",
-		value: userState.phoneNumber.cell,
+		value: "",
 		error: "",
 		validated: false,
 	});
-
-	const [otherPhoneModel, setOtherPhoneModel] = useState<formFieldType>({
-		type: "text",
-		name: "other-phone",
-		label: "Other phone",
-		placeholder: "Other phone",
-		value: userState.phoneNumber.other,
-		error: "",
-		validated: false,
-	});
-
-	const [emergencyContactModel, setEmergencyContactModel] =
-		useState<formFieldType>({
-			type: "text",
-			label: "Emergency contact",
-			placeholder: "Emergency contact",
-			value: userState.emergencyContact.name,
-			error: "",
-			validated: false,
-		});
-
-	const [relWithContactModel, setRelWithContactModel] = useState<formFieldType>(
-		{
-			type: "text",
-			label: "Relationship with contact",
-			placeholder: "Relationship with contact",
-			value: userState.emergencyContact.relationship,
-			error: "",
-			validated: false,
-		}
-	);
-
-	const [contactCellPhoneModel, setContactCellPhoneModel] =
-		useState<formFieldType>({
-			type: "text",
-			label: "Contact cell phone",
-			placeholder: "Contact cell phone",
-			value: userState.emergencyContact.phoneNumber,
-			error: "",
-			validated: false,
-		});
 
 	const [emailAddressModel, setEmailAddressModel] = useState<formFieldType>({
 		type: "text",
 		label: "Email Address",
 		placeholder: "Email Address",
-		value: userState.email,
+		value: "",
 		error: "",
 		validated: false,
 	});
 
-	function setInput(
-		value: string,
-		inputModel: formFieldType,
-		setInputModel: setFormFieldType
-	) {
+	const [emergencyContactNameModel, setEmergencyContactNameModel] = useState<formFieldType>({
+		type: "text",
+		label: "Contact name",
+		placeholder: "Contact name",
+		value: "",
+		error: "",
+		validated: false,
+	});
+
+	const [relWithContactModel, setRelWithContactModel] = useState<formFieldType>({
+		type: "text",
+		label: "Relationship with contact",
+		placeholder: "Relationship with contact",
+		value: "",
+		error: "",
+		validated: false,
+	});
+
+	const [contactCellPhoneModel, setContactCellPhoneModel] = useState<formFieldType>({
+		type: "text",
+		label: "Contact cell phone",
+		placeholder: "Contact cell phone",
+		value: "",
+		error: "",
+		validated: false,
+	});
+
+	function setInput(value: string, inputModel: formFieldType, setInputModel: setFormFieldType) {
 		inputModel.value = value;
 		validateModel(inputModel);
 		setInputModel({ ...inputModel });
 
-		submit();
+		submitStaffDetails()
 	}
 
 	function validateModel(updatedInputModel: formFieldType) {
@@ -194,36 +178,31 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 		return;
 	}
 
-	function submit() {
-		setStaffState((staffState) => {
-			return {
-				...staffState,
-				userState: {
-					...userState,
-					firstname: firstnameModel.value,
-					lastname: lastnameModel.value,
-					nickname: nicknameModel.value,
-					initials: initialsModel.value,
-					dob: dobModel.value,
-					gender: genderModel.value,
-					address: homeAddressModel.value,
-					city: cityModel.value,
-					state: stateModel.value,
-					zipCode: stateModel.value,
-					phoneNumber: {
-						work: workPhoneModel.value,
-						cell: cellPhoneModel.value,
-						other: otherPhoneModel.value,
-					},
-					emergencyContact: {
-						name: emergencyContactModel.value,
-						relationship: relWithContactModel.value,
-						phoneNumber: contactCellPhoneModel.value,
-					},
-					email: emailAddressModel.value,
-				},
-			};
-		});
+	function submitStaffDetails() {
+		const staffPersonalInfo:INewStaffPersonalInformation = {
+			firstname: firstnameModel.value,
+			lastname: lastnameModel.value,
+			nickname: nicknameModel.value,
+			initials: firstnameModel.value[0] + lastnameModel.value[0],
+			dob: dobModel.value,
+			gender: genderModel.value,
+			address: homeAddressModel.value,
+			city: cityModel.value,
+			state: stateModel.value,
+			zipCode: stateModel.value,
+			phoneNumber: {
+				work: workPhoneModel.value,
+				cell: cellPhoneModel.value,
+			},
+			emergencyContact: {
+				name: emergencyContactNameModel.value,
+				relationship: relWithContactModel.value,
+				phoneNumber: contactCellPhoneModel.value,
+			},
+			email: emailAddressModel.value,
+		}
+
+		onModified(staffPersonalInfo);
 	}
 
 	return (
@@ -240,9 +219,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={firstnameModel.placeholder}
 						value={firstnameModel.value}
 						error={firstnameModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, firstnameModel, setFirstnameModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, firstnameModel, setFirstnameModel)}
 					/>
 
 					<InputField
@@ -250,9 +227,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={lastnameModel.placeholder}
 						value={lastnameModel.value}
 						error={lastnameModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, lastnameModel, setLastnameModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, lastnameModel, setLastnameModel)}
 					/>
 
 					<InputField
@@ -260,41 +235,25 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={nicknameModel.placeholder}
 						value={nicknameModel.value}
 						error={nicknameModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, nicknameModel, setNicknameModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, nicknameModel, setNicknameModel)}
 					/>
 				</div>
 
 				<div className={styles.row}>
-					<InputField
-						type={initialsModel.type}
-						placeholder={initialsModel.placeholder}
-						value={initialsModel.value}
-						error={initialsModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, initialsModel, setInitialsModel)
-						}
-					/>
 
 					<InputField
 						type={dobModel.type}
 						placeholder={dobModel.placeholder}
 						value={dobModel.value}
 						error={dobModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, dobModel, setdobModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, dobModel, setdobModel)}
 					/>
 
 					<InputField
 						type={genderModel.type}
 						placeholder={genderModel.placeholder}
-						value={genderModel.value}
 						error={genderModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, genderModel, setGenderModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, genderModel, setGenderModel)}
 					/>
 				</div>
 
@@ -303,9 +262,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 					placeholder={homeAddressModel.placeholder}
 					value={homeAddressModel.value}
 					error={homeAddressModel.error}
-					onInput={(inputValue: string) =>
-						setInput(inputValue, homeAddressModel, setHomeAddressModel)
-					}
+					onInput={(inputValue: string) => setInput(inputValue, homeAddressModel, setHomeAddressModel)}
 				/>
 
 				<div className={styles.row}>
@@ -314,9 +271,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={cityModel.placeholder}
 						value={cityModel.value}
 						error={cityModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, cityModel, setCityModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, cityModel, setCityModel)}
 					/>
 
 					<InputField
@@ -324,9 +279,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={stateModel.placeholder}
 						value={stateModel.value}
 						error={stateModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, stateModel, setStateModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, stateModel, setStateModel)}
 					/>
 
 					<InputField
@@ -334,9 +287,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={zipCodeModel.placeholder}
 						value={zipCodeModel.value}
 						error={zipCodeModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, zipCodeModel, setZipCodeModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, zipCodeModel, setZipCodeModel)}
 					/>
 				</div>
 
@@ -346,9 +297,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={workPhoneModel.placeholder}
 						value={workPhoneModel.value}
 						error={workPhoneModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, workPhoneModel, setWorkPhoneModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, workPhoneModel, setWorkPhoneModel)}
 					/>
 
 					<InputField
@@ -356,35 +305,28 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={cellPhoneModel.placeholder}
 						value={cellPhoneModel.value}
 						error={cellPhoneModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, cellPhoneModel, setCellPhoneModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, cellPhoneModel, setCellPhoneModel)}
 					/>
 
 					<InputField
-						type={otherPhoneModel.type}
-						placeholder={otherPhoneModel.placeholder}
-						value={otherPhoneModel.value}
-						error={otherPhoneModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, otherPhoneModel, setOtherPhoneModel)
-						}
+						type={emailAddressModel.type}
+						placeholder={emailAddressModel.placeholder}
+						value={emailAddressModel.value}
+						error={emailAddressModel.error}
+						onInput={(inputValue: string) => setInput(inputValue, emailAddressModel, setEmailAddressModel)}
 					/>
 				</div>
+				
+				<SizedBox height="1px" />
 
+				<div className={styles.sub_heading}>Emergency Contact</div>
 				<div className={styles.row}>
 					<InputField
-						type={emergencyContactModel.type}
-						placeholder={emergencyContactModel.placeholder}
-						value={emergencyContactModel.value}
-						error={emergencyContactModel.error}
-						onInput={(inputValue: string) =>
-							setInput(
-								inputValue,
-								emergencyContactModel,
-								setEmergencyContactModel
-							)
-						}
+						type={emergencyContactNameModel.type}
+						placeholder={emergencyContactNameModel.placeholder}
+						value={emergencyContactNameModel.value}
+						error={emergencyContactNameModel.error}
+						onInput={(inputValue: string) => setInput(inputValue, emergencyContactNameModel, setEmergencyContactNameModel)}
 					/>
 
 					<InputField
@@ -392,9 +334,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={relWithContactModel.placeholder}
 						value={relWithContactModel.value}
 						error={relWithContactModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, relWithContactModel, setRelWithContactModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, relWithContactModel, setRelWithContactModel)}
 					/>
 
 					<InputField
@@ -402,25 +342,7 @@ export default function StaffPersonalInformationForm({ userState }: { userState:
 						placeholder={contactCellPhoneModel.placeholder}
 						value={contactCellPhoneModel.value}
 						error={contactCellPhoneModel.error}
-						onInput={(inputValue: string) =>
-							setInput(
-								inputValue,
-								contactCellPhoneModel,
-								setContactCellPhoneModel
-							)
-						}
-					/>
-				</div>
-
-				<div className={styles.row}>
-					<InputField
-						type={emailAddressModel.type}
-						placeholder={emailAddressModel.placeholder}
-						value={emailAddressModel.value}
-						error={emailAddressModel.error}
-						onInput={(inputValue: string) =>
-							setInput(inputValue, emailAddressModel, setEmailAddressModel)
-						}
+						onInput={(inputValue: string) => setInput(inputValue, contactCellPhoneModel, setContactCellPhoneModel)}
 					/>
 				</div>
 			</div>
