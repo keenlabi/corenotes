@@ -37,7 +37,6 @@ export default function IndividualRequestedServicesForm() {
     })
 
     useEffect(()=> {
-       
         const requestedServicesRepsonse = compartmentDetails.compartment.services?.filter( service => service.category.toLowerCase() === 'requested')
 
         setServiceTemplate(state => ({

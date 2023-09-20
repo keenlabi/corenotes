@@ -20,6 +20,7 @@ export default function AssessmentSessionModal({ assessmentSessionId, closeModal
     const assessmentSessionResponse = useFetchIndividualAssessmentSession(parseInt(params.individualId!), assessmentSessionId);
 
     useEffect(()=> {
+        
         setIndividualState(state => ({
             ...state,
             assessments: {
@@ -164,7 +165,7 @@ export default function AssessmentSessionModal({ assessmentSessionId, closeModal
                                     />
                                 )
                             })
-                        }
+                        } 
                     </GridList>
                 </div>
 

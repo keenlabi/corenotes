@@ -41,3 +41,12 @@
     font-size: 1rem;
     margin-top: 16px;
 }
+
+.status {
+    border-radius: 100px;
+    padding: 8px;
+    background-color: var(--green-faded-accent-100);
+    color: var(--green-accent-100);
+    max-width: min-content;
+    font-size: 0.8rem;
+}
