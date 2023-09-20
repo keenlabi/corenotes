@@ -76,7 +76,7 @@ export default function AssessmentsList() {
 							title={assessment.title}
 							questionsCount={assessment.questionCount}
 							assessmentType={assessment.assessmentType}
-							status={""}
+							status={assessment.status}
 							openAction={() => toggleTakeAssessmentModal(assessment.id)}
 						/>
 					);

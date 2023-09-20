@@ -16,7 +16,7 @@ export interface IndividualProfileSuccessResponseType extends Omit<successRespon
     }
 }
 
-export function registerIndividualAction(payload:FormData) {
+export function registerIndividualAction(payload:any) {
     return new Promise<IndividualListResponseType>((resolve, reject)=> {
         postFetch('/individuals', payload)
         .then((response:successResponseType)=> {

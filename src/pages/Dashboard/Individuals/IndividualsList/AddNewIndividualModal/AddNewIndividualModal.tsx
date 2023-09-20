@@ -5,24 +5,14 @@ import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton"
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import { useState, useEffect } from "react";
-import JSONToFormData from "src/utils/JSONToFormData";
 import IndividualPersonalInformationForm from "./IndividualPersonalInformationForm";
 import IndividualHealthInformationForm from "./IndividualHealthInformationForm";
-import {
-  individualInitState,
-  useIndividualState,
-} from "src/features/Individual/state";
-import {
-  IndividualListResponseType,
-  registerIndividualAction,
-} from "src/features/Individual/action";
+import { individualInitState, useIndividualState } from "src/features/Individual/state";
+import { IndividualListResponseType, registerIndividualAction } from "src/features/Individual/action";
 import SizedBox from "src/components/SizedBox";
 
-export default function AddNewIndividualModal({
-	closeModal,
-}: {
-	closeModal: () => void;
-}) {
+export default function AddNewIndividualModal({ closeModal }: { closeModal: () => void }) {
+
 	const [individualState, setIndividualState] = useIndividualState();
 
 	const [isFormValid, setIsFormValid] = useState(false);
@@ -77,36 +67,30 @@ export default function AddNewIndividualModal({
 				message: "",
 			}));
 
-			JSONToFormData(individualState.newIndividual)
-				.then((formDataResult: FormData) => {
-					registerIndividualAction(formDataResult)
-						.then((response: IndividualListResponseType) => {
-							setIndividualState((state) => {
-								return {
-									...state,
-									status: "SUCCESS",
-									message: "New individual added successfully",
-									individuals: response.data,
-									newIndividual: individualInitState.newIndividual,
-									error: false,
-								};
-							});
-						})
-						.catch((error) => {
-							setIndividualState((state) => {
-								return {
-									...state,
-									status: "FAILED",
-									message:
-										error.message ?? "There was an error creating new user",
-									error: true,
-								};
-							});
-						});
-				})
-				.catch((error) => {
-					console.log(error);
+			registerIndividualAction(individualState.newIndividual)
+			.then((response: IndividualListResponseType) => {
+				setIndividualState((state) => {
+					return {
+						...state,
+						status: "SUCCESS",
+						message: "New individual added successfully",
+						individuals: response.data,
+						newIndividual: individualInitState.newIndividual,
+						error: false,
+					};
 				});
+			})
+			.catch((error) => {
+				setIndividualState((state) => {
+					return {
+						...state,
+						status: "FAILED",
+						message:
+							error.message ?? "There was an error creating new user",
+						error: true,
+					};
+				});
+			});
 		}
 	}
 
@@ -119,7 +103,7 @@ export default function AddNewIndividualModal({
 					? () => {
 							resetFormStateModel();
 							closeModal();
-					  }
+						}
 					: () => ({})
 			}>
 			<div className={styles.add_new_staff}>
@@ -139,7 +123,7 @@ export default function AddNewIndividualModal({
 								? () => {
 										resetFormStateModel();
 										closeModal();
-								  }
+									}
 								: () => ({})
 						}
 					/>
