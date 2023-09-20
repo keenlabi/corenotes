@@ -9,8 +9,6 @@ import { useFetchStaffRoleSelector } from "src/features/staff/selector";
 import { updateStaffProfileAction } from "src/features/staff/actions";
 import { useParams } from "react-router-dom";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
-import StaffPersonalInformationForm from "../../../StaffList/AddNewStaffModal/StaffPersonalInformationForm";
-import StaffWorkInformationForm from "../../../StaffList/AddNewStaffModal/StaffWorkInformationForm";
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { staffStateType } from "src/features/staff/types";
 
@@ -69,8 +67,6 @@ export default function EditStaffProfileModal({ staffState, closeModal }:{
 			selectedOptionIndex: currentStaffRole > -1 ? currentStaffRole : 0,
 		}));
 	}, [setStaffState, staffRolesResponse, staffState.details]);
-
-	const userState = staffState.details;
 
 	function submitStaffProfile() {
 		const payload = {

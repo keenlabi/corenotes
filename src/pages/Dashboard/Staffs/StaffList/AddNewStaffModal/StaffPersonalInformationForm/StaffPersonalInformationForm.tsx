@@ -3,7 +3,6 @@ import styles from "./staffpersonalinformationform.module.css"
 import InputField from "src/components/FormComponents/InputField";
 import { useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
-import { useStaffState } from "src/features/staff/state";
 import SizedBox from "src/components/SizedBox";
 import { INewStaffPersonalInformation } from "src/features/staff/types";
 
