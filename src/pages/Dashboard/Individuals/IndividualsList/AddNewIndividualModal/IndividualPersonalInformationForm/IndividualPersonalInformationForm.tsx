@@ -15,6 +15,8 @@ import { useIndividualState } from "src/features/Individual/state";
 import MultiSelectDropDownField from "src/components/FormComponents/DropDownField/MultiSelectDropDownField";
 import { MultiSelectDropDownFormData } from "src/components/FormComponents/DropDownField/MultiSelectDropDownField/types";
 import { emailValid } from "src/utils/emailValidation";
+import { phoneNumberValid } from "src/utils/phoneNumberValidation";
+
 
 export default function IndividualPersonalInformationForm({
 	userState,
@@ -175,7 +177,7 @@ export default function IndividualPersonalInformationForm({
 
 	const [contactCellPhoneModel, setContactCellPhoneModel] =
 		useState<formFieldType>({
-			type: "number",
+			type: "phone",
 			name: "phone-number",
 			label: "",
 			placeholder: "Cell phone",
@@ -217,6 +219,14 @@ export default function IndividualPersonalInformationForm({
 			if (!emailValid (updatedInputModel.value))  {
 				updatedInputModel.validated = false;
 				updatedInputModel.error = `Enter a valid email address `;
+				return;
+			}
+		}
+		
+		if (updatedInputModel.type  === "phone") {
+			if (!phoneNumberValid (updatedInputModel.value))  {
+				updatedInputModel.validated = false;
+				updatedInputModel.error = `Enter a valid phone number `;
 				return;
 			}
 		}
