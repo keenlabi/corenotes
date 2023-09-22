@@ -2,7 +2,10 @@
     display: flex;
     gap: 1rem;
 }
-
+.options {
+    margin-left: auto;
+    width: min-content;
+}
 .question_groups_list {
     margin-top: 5%;
     display: grid;

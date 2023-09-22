@@ -9,7 +9,7 @@
 }
 
 .category {
-    background: var(--grey-accent-200-b);
+    background: var(--grey-accent-200);
     text-transform: capitalize;
     font-size: 0.8rem;
     border-radius: 1000px;

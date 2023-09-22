@@ -17,6 +17,7 @@ export default function AssessmentDetails() {
     const assessmentDetailsResponse = useFetchAssessmentDetailsResponse(params.assessmentId!)
 
     useEffect(()=> {
+        console.log(assessmentDetailsResponse.assessment);
         setAssessmentState(state => ({
             ...state,
             error: assessmentDetailsResponse.error,

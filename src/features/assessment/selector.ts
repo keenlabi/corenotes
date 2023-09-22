@@ -3,7 +3,7 @@ import { AssessmentCategoriesResponseType, AssessmentListResponseType, fetchAsse
 import { AssessmentInitState } from "./state";
 import { AssessmentModelType } from "./types";
 
-interface IFetchAssessments {
+export interface IFetchAssessments {
     assessments:Pick<AssessmentListResponseType, 'data'>['data'];
     message:string;
     code:number;
@@ -35,7 +35,6 @@ const fetchAssessmentsListSelector = selectorFamily({
     }
 })
 export const useFetchAssessmentsListSelector = (pageNumber:number)=> useRecoilValue(fetchAssessmentsListSelector(pageNumber))
-
 
 // const fetchAssessmentsListSelector = selectorFamily({
 //     key: 'fetch_assessments_list_selector',
