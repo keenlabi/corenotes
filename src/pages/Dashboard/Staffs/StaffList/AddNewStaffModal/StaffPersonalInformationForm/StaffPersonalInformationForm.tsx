@@ -5,6 +5,7 @@ import { useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
 import SizedBox from "src/components/SizedBox";
 import { INewStaffPersonalInformation } from "src/features/staff/types";
+import { emailValid } from "src/utils/emailValidation";
 
 export default function StaffPersonalInformationForm({ onModified }:{ onModified:(newStaffDetails:INewStaffPersonalInformation)=> void }) {
 
@@ -109,7 +110,7 @@ export default function StaffPersonalInformationForm({ onModified }:{ onModified
 	});
 
 	const [emailAddressModel, setEmailAddressModel] = useState<formFieldType>({
-		type: "text",
+		type: "email",
 		label: "Email Address",
 		placeholder: "Email Address",
 		value: "",
@@ -161,6 +162,13 @@ export default function StaffPersonalInformationForm({ onModified }:{ onModified
 			}
 		}
 
+		if (updatedInputModel.type  === "email") {
+			if (!emailValid (updatedInputModel.value))  {
+				updatedInputModel.validated = false;
+				updatedInputModel.error = `Enter a valid email address `;
+				return;
+			}
+		}
 		updatedInputModel.validated = true;
 		updatedInputModel.error = "";
 		return;
