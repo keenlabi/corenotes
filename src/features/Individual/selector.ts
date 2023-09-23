@@ -10,6 +10,7 @@ import {
     IndividualListResponseType, 
     IndividualProfileSuccessResponseType, 
     IndividualServicesSuccessResponseType, 
+    fetchAssessmentsToAssignAction, 
     fetchIndividualAssessmentSessionAction, 
     fetchIndividualAssessmentsList, 
     fetchIndividualBehaviorManagementServicesListAction, 
@@ -26,6 +27,7 @@ import formatIndividual from "./utils/formatIndividual"
 import { individualInitState } from "./state"
 import { IIndividualAssessmentSession, IIndividualAssessmentsList, IndividualStateType } from "./types"
 import { AssessmentInitState } from "../assessment/state"
+import { IFetchAssessments } from "../assessment/selector"
 
 interface IFetchIndividualList {
     code:number;
@@ -83,6 +85,33 @@ const fetchIndividualProfileSelector = selectorFamily({
     }
 })
 export const useFetchIndividualSelector = (individualId:string)=> useRecoilValue(fetchIndividualProfileSelector(individualId))
+
+
+const fetchAssessmentsToAssignListSelector = selectorFamily({
+    key: 'fetch_assessments_list_selector',
+    get: ({ individualId, pageNumber }:{individualId:number, pageNumber:number})=> async ()=> {
+        return await fetchAssessmentsToAssignAction(individualId, pageNumber)
+        .then((response)=> {
+            return {
+                assessments: response.data,
+                code: response.code,
+                message: response.message,
+                error: false
+
+            } satisfies IFetchAssessments
+        })
+        .catch((error)=> {
+            return {
+                assessments: AssessmentInitState.assessments,
+                code: error.code,
+                message: error.message,
+                error: true,
+
+            } satisfies IFetchAssessments
+        })
+    }
+})
+export const useFetchAssessmentsToAssignListSelector = (individualId:number, pageNumber:number)=> useRecoilValue(fetchAssessmentsToAssignListSelector({ individualId, pageNumber }))
 
 interface IIndividualAssessmentsListResponse {
     code:number;

@@ -22,7 +22,7 @@ export default function AssessmentCard({
 }:AssessmentCardProps) {
     return (
         <Link to={path?.toString() ?? ""} className={styles.assessment_card} onClick={openAction}>
-            <div className={styles.category}>{category}assessment</div>
+            <div className={styles.category}>{category} assessment</div>
 
             <div className={styles.title}>{title}</div>
             <div className={styles.questions_count}>{questionsCount} questions</div>
