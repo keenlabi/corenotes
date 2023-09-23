@@ -3,16 +3,16 @@ import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel
 import styles from "./addindividualassessmentmodel.module.css";
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
-import { useIndividualState } from "src/features/Individual/state";
+import { useSetIndividualState } from "src/features/Individual/state";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import { useAssessmentState } from "src/features/assessment/state";
-import { useFetchAssessmentsListSelector } from "src/features/assessment/selector";
 import GridList from "src/components/GridList/GridList";
 import DataLoadingError from "src/components/DataLoadingError";
 import SelectAssessmentCard from "./SelectAssessmentCard";
 import { addAssessmentToIndividualAction } from "src/features/Individual/action";
+import { useFetchAssessmentsToAssignListSelector } from "src/features/Individual/selector";
+import { addEventFeedbackItem, useGlobalEventFeedbackState } from "src/features/globalEventFeedback/state";
 
 export interface IAssessmentToSelect {
     id:string;
@@ -29,20 +29,31 @@ export default function AddIndividualAssessmentModal({ closeModal }:{ closeModal
 
     const { individualId } = useParams();
 
-    const [individualState, setIndividualState] = useIndividualState();
+    const newEventFeedBack = {
+        status: "",
+        message: ""
+    }
+
+    const setIndividualState = useSetIndividualState();
+
+    const [globalEventFeedback, setGlobalEventFeedback] = useGlobalEventFeedbackState();
 
 	const [assessmentState, setAssessmentState] = useAssessmentState();
 
     const [assessmentsToSelectFrom, setAssessmentsToSelectFrom] = useState<IAssessmentToSelect[]>([]);
 
-	const fetchAssessmentsListResponse = useFetchAssessmentsListSelector(assessmentState.assessments.currentPage);
+	const fetchAssessmentsListResponse = useFetchAssessmentsToAssignListSelector(parseInt(individualId!), assessmentState.assessments.currentPage);
     
     useEffect(()=> {
+        // console.log(fetchAssessmentsListResponse)
         setAssessmentState(state => ({
             ...state,
             error: fetchAssessmentsListResponse.error,
             message: fetchAssessmentsListResponse.message,
-            assessments: fetchAssessmentsListResponse.assessments
+            assessments: {
+                ...state.assessments,
+                ...fetchAssessmentsListResponse.assessments
+            }
         })) 
 
         fetchAssessmentsListResponse.assessments.list.forEach(assessment => {
@@ -58,18 +69,9 @@ export default function AddIndividualAssessmentModal({ closeModal }:{ closeModal
 
     }, [assessmentsToSelectFrom, fetchAssessmentsListResponse, setAssessmentState])
 
-    const [selectedAssessmentIds, setSelectedAssessmemtIds] = useState<string[]>([])
+    const [selectedAssessmentIds, setSelectedAssessmemtIds] = useState<string[]>([]);
 
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-
-    function resetFormStateModal() {
-        setIndividualState(state => ({
-            ...state,
-            status: "IDLE",
-            message: "",
-            error: false,
-        }))
-    }
 
     function selectAssessmentToAdd(assessmentId:string) {
 
@@ -78,7 +80,7 @@ export default function AddIndividualAssessmentModal({ closeModal }:{ closeModal
 
         let newSelectedAssessmentIds:string[] = []
 
-        if(currentSelectedState) {
+        if(currentSelectedState) { 
             assessmentsToSelectFrom[selectedAssessmentIndex].isSelected = false;
             newSelectedAssessmentIds = selectedAssessmentIds.filter(selectedAssessmentId => selectedAssessmentId !== assessmentId)
 
@@ -106,6 +108,11 @@ export default function AddIndividualAssessmentModal({ closeModal }:{ closeModal
 
         addAssessmentToIndividualAction(individualId!, payload)
         .then((response)=> {
+            setAssessmentState(state => ({
+                ...state,
+                status: "IDLE",
+            }))
+
             setIndividualState(state => ({
                 ...state,
                 status: "SUCCESS",
@@ -116,26 +123,29 @@ export default function AddIndividualAssessmentModal({ closeModal }:{ closeModal
                     ...response.data.individualAssessments
                 }
             }))
+
+            newEventFeedBack.status = "SUCCESS";
+            newEventFeedBack.message = "Assessment assigned to individual successfully";
+
+            closeModal()
         })
-        .catch(()=> {
+        .catch((error)=> {
             setIndividualState(state => ({
                 ...state,
                 status: "FAILED",
                 error: false,
                 message: "There was an error adding assessment to user"
             }))
+
+            newEventFeedBack.status = "ERROR";
+            newEventFeedBack.message = error.message ?? "There was an error assigning to individual successfully";
         })
+        .finally(()=> addEventFeedbackItem(newEventFeedBack, [...globalEventFeedback], setGlobalEventFeedback))
     }
 
     return (
         <ModalContainer close={()=> closeModal()}>
             <div className={styles.add_individual_service_modal}>
-                <FormStateModal 
-                    status={individualState.status} 
-                    error={individualState.error} 
-                    message={individualState.message}
-                    reset={()=> resetFormStateModal()} 
-                />
 
                 <div className={styles.header}>
                     <div className={styles.heading}>Add assessment to individual</div>

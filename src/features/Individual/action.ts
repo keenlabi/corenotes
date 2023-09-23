@@ -1,6 +1,7 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
 import { IDailyLivingActivity, IGoalService, IIndividualAssessmentSession, IIndividualAssessmentSessionQuestion, IIndividualAssessmentsList, IIndividualBehaviorService, IIndividualChoreService, IIndividualDocumentsList, IIndividualMedicationsListItem, ISupervisoryMedicationReviews, IndividualListItemType, IndividualProfileResponseType, IndividualServiceListItemType } from "./types"
+import { AssessmentListResponseType } from "../assessment/action"
 
 export interface IndividualListResponseType extends Omit<successResponseType, 'data'> {
     data: { 
@@ -592,16 +593,30 @@ export function uploadIndividualDocumentAction(individualId:string, payload:Form
 export function addAssessmentToIndividualAction(individualId:string, payload:{ assessments:string[] }) {
     return new Promise<IFetchIndividualAssessmentsResponse>((resolve, reject)=> {
         postFetch(`/individuals/${individualId}/assessments`, payload)
-        .then((response:successResponseType)=> resolve({
-            ...response,
-            data: {
-                individualAssessments: {
-                    currentPage:response.data.currentPage,
-                    totalPages:response.data.totalPages,
-                    list: response.data.documents
-                }
-            }
-        }))
+        .then((response:successResponseType)=> {
+            resolve({
+                ...response,
+                data: { individualAssessments: response.data.individualAssessments }
+            })
+        })
         .catch((error)=> reject(error))
+    })
+}
+
+export function fetchAssessmentsToAssignAction(individualId:number, pageNumber:number) {
+    return new Promise<AssessmentListResponseType>((resolve, reject)=> {
+        getFetch(`/individuals/${individualId}/unassigned-assessments/${pageNumber}`)
+        .then((response)=> {
+            console.log(response)
+            resolve({
+                ...response,
+                data: {
+                    list: response.data.assessments,
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages
+                }
+            })
+        })
+        .catch((error)=> reject({error}))
     })
 }

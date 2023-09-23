@@ -115,25 +115,25 @@ export default function CreateAssessment() {
         selectedOptionIndex: 0,
     })
 
-    const [assessmentTypeModel, setAssessmentTypeModel] = useState<DropDownFormData>({
-        placeholder: 'Assessment type',
-        name:'assessment-type',
-        options:[
-            {
-                id:'1',
-                label:'Generic',
-                value:'generic'
-            },
-            {
-                id:'2',
-                label:'Personal Outcome',
-                value:'personal-outcomes'
-            }
-        ],
-        error: '',
-        selected: false,
-        selectedOptionIndex: 0,
-    })
+    // const [assessmentTypeModel, setAssessmentTypeModel] = useState<DropDownFormData>({
+    //     placeholder: 'Assessment type',
+    //     name:'assessment-type',
+    //     options:[
+    //         {
+    //             id:'1',
+    //             label:'Generic',
+    //             value:'generic'
+    //         },
+    //         {
+    //             id:'2',
+    //             label:'Personal Outcome',
+    //             value:'personal-outcomes'
+    //         }
+    //     ],
+    //     error: '',
+    //     selected: false,
+    //     selectedOptionIndex: 0,
+    // })
 
     const [isFormValid, setIsFormValid] = useState(false)
 
@@ -206,7 +206,6 @@ export default function CreateAssessment() {
         if(!category.selected) return false;
         if(questionsModel.questions.filter(question => question.model.value === undefined).length) return false;
         if(!questionsModel.questions.filter(question => question.question !== '').length) return false;
-        if(!assessmentTypeModel.selected) return false;
 
         return true;
     }
@@ -217,7 +216,7 @@ export default function CreateAssessment() {
     }
 
     function submitAssessment() {
-        const payload: ICreateAssessmentPayload = {
+        const payload:ICreateAssessmentPayload = {
             title: assessmentTitle.value,
             category: category.value?.value ?? "",
             questions: questionsModel.questions
@@ -225,11 +224,8 @@ export default function CreateAssessment() {
                 .map((question) => ({
                     category: question.category,
                     question: question.question,
-                })),
-            assessmentType: assessmentTypeModel.value!.value!
+                }))
         };
-
-        console.log(payload);
 
         setAssessmentState((state) => ({
             ...state,
@@ -248,7 +244,6 @@ export default function CreateAssessment() {
                 list: response.data,
                 newAssessment: AssessmentInitState.newAssessment,
             }));
-            // setQuestionsModel((state) => ({ ...state, questions: [""] }));
         })
         .catch((error) => {
             setAssessmentState((state) => ({
@@ -319,7 +314,7 @@ export default function CreateAssessment() {
                         </div>
                     </RowContainer>
 
-                    <div>
+                    {/* <div>
                         <div className={styles.section_title}>Assessment Type</div>
                         <SizedBox height="20px" />
                         <DropDownField
@@ -330,7 +325,7 @@ export default function CreateAssessment() {
                             error={assessmentTypeModel.error}
                             onSelect={(optionIndex:number)=> selectOption(optionIndex, assessmentTypeModel, setAssessmentTypeModel)}
                         />
-                    </div>
+                    </div> */}
 
                     <div className={styles.section}>
                         <div className={styles.section_title}>Assessment questions</div>

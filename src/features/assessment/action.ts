@@ -11,10 +11,9 @@ export interface AssessmentListResponseType extends Omit<successResponseType, 'd
 }
 
 export interface ICreateAssessmentPayload {
-    title:string,
-    category:string,
-    questions:Array<{category:string, question:string}>,
-    assessmentType:string;
+    title:string;
+    category:string;
+    questions:Array<{category:string, question:string}>;
 }
 
 export function createAssessmentAction(payload:ICreateAssessmentPayload) {
