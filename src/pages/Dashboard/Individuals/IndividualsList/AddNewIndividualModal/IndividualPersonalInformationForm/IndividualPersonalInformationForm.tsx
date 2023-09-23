@@ -14,6 +14,7 @@ import DropDownField from "src/components/FormComponents/DropDownField/dropdownf
 import { useIndividualState } from "src/features/Individual/state";
 import MultiSelectDropDownField from "src/components/FormComponents/DropDownField/MultiSelectDropDownField";
 import { MultiSelectDropDownFormData } from "src/components/FormComponents/DropDownField/MultiSelectDropDownField/types";
+import { emailValid } from "src/utils/emailValidation";
 
 export default function IndividualPersonalInformationForm({
 	userState,
@@ -185,7 +186,7 @@ export default function IndividualPersonalInformationForm({
 
 	const [contactEmailAddressModel, setContactEmailAddressModel] =
 		useState<formFieldType>({
-			type: "text",
+			type: "email",
 			label: "",
 			placeholder: "Email address",
 			value: userState.contact.email,
@@ -212,6 +213,13 @@ export default function IndividualPersonalInformationForm({
 			return;
 		}
 
+		if (updatedInputModel.type  === "email") {
+			if (!emailValid (updatedInputModel.value))  {
+				updatedInputModel.validated = false;
+				updatedInputModel.error = `Enter a valid email address `;
+				return;
+			}
+		}
 		updatedInputModel.validated = true;
 		updatedInputModel.error = "";
 		return;
