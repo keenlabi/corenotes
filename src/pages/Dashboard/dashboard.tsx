@@ -12,8 +12,14 @@ import { NavOptionsType } from "src/components/Navigation/types.ts";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
 import PageHeader from "./components/PageHeader";
 import MobileSidebar from "src/components/Navigation/MobileSidebar";
+import { removeEventFeedbackItem, useGlobalEventFeedbackState } from "src/features/globalEventFeedback/state";
+import GlobalEventFeedback from "src/components/GlobalEventFeedback";
 
 export default function Dashboard() {
+
+	const [globalEventFeedbackState, setGlobalEventFeedbackState] = useGlobalEventFeedbackState();
+	const [events, setEvents] = useState(globalEventFeedbackState);
+
 	const location = useLocation();
 
 	const isCurrentNav = (path: string[]) => {
@@ -253,10 +259,28 @@ export default function Dashboard() {
 				];
 			});
 		};
+
 		setActiveNav(activeNavPosition);
-	}, [activeNavPosition, location]);
+		setEvents([...globalEventFeedbackState]);
+		
+	}, [activeNavPosition, globalEventFeedbackState, location]);
+
 	return (
 		<div className={styles.body}>
+
+			<div className={styles.global_event_feedbacks}>
+				{
+					events.map((feedback, index)=> {
+						return 	<GlobalEventFeedback
+									key={index}
+									status={feedback.status} 
+									message={feedback.message}  
+									close={()=> removeEventFeedbackItem(index, globalEventFeedbackState, setGlobalEventFeedbackState)}
+								/>
+					})
+				}
+			</div>
+
 			<Sidebar navOptions={NavOptions} navigateTo={setActiveNavPosition} />
 
 			<MobileSidebar
