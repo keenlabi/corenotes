@@ -175,7 +175,7 @@ export default function Dashboard() {
 				"TEAM_LEAD_CNA",
 				"HOME_MAN",
 				"ADMIN_ASS",
-				"ADMIN",
+				"ADMINISTRATOR",
 			],
 		},
 		{
@@ -186,7 +186,7 @@ export default function Dashboard() {
 			icon: iconBriefcase,
 			activeIcon: iconBriefcase,
 			active: isCurrentNav(["/dashboard/staffs"]),
-			roles: ["HR", "DDP"],
+			roles: ["HR", "ADMINISTRATOR"],
 		},
 		{
 			label: "individuals",
@@ -196,7 +196,7 @@ export default function Dashboard() {
 			icon: iconUsers,
 			activeIcon: iconUsers,
 			active: isCurrentNav(["/dashboard/individuals"]),
-			roles: ["DDP", "ADMIN"],
+			roles: ["RN", "DDP", "ADMINISTRATOR"],
 		},
 		{
 			label: "Compartments",
@@ -206,7 +206,7 @@ export default function Dashboard() {
 			icon: iconFlag,
 			activeIcon: iconFlag,
 			active: isCurrentNav(["/dashboard/compartments"]),
-			roles: ["HR", "DDP", "ADMIN"],
+			roles: ["HR", "DDP", "ADMINISTRATOR"],
 		},
 		{
 			label: "Med Catalogue",
@@ -216,7 +216,7 @@ export default function Dashboard() {
 			icon: iconFlag,
 			activeIcon: iconFlag,
 			active: isCurrentNav(["/dashboard/medications"]),
-			roles: ["HR", "DDP", "ADMIN"],
+			roles: ["HR", "DDP", "ADMINISTRATOR"],
 		},
 		// {
 		//     label: "Administration",

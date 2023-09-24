@@ -24,6 +24,7 @@ export const userInitState: userStateType = {
 				staff_document_upload: false,
 			},
 		},
+		isClockedIn: false
 	},
 
 };

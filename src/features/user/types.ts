@@ -14,6 +14,7 @@ export interface userStateType extends initStateType {
         },
         active: boolean,
         lastSeen: string,
+        isClockedIn: boolean;
         
         // PERSONAL INFORMATION
         personal: {

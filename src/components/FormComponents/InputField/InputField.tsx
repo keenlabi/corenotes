@@ -4,7 +4,7 @@ import FormLabel from "../FormLabel";
 import { useEffect, useState } from "react";
 
 interface inputFieldType {
-    type?:"text" | "number" | "password" | "date" | "time" | "email",
+    type?:"text" | "number" | "password" | "date" | "time" | "email" | "phone",
     label?:string,
     placeholder?:string,
     value?:string,

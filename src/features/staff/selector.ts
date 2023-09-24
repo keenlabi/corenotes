@@ -1,9 +1,9 @@
 import { selectorFamily, useRecoilValue } from "recoil";
-import {fetchStaffAction, fetchStaffActivitiesAction, fetchStaffActivitiesSuccessResponseType, fetchStaffDocumentsAction, fetchStaffDocumentsSuccessResponseType, fetchStaffListAction, fetchStaffListSuccessResponseType, fetchStaffRolesAction, fetchStaffSuccessResponseType } from "./actions";
+import {fetchStaffAction, fetchStaffActivitiesAction, fetchStaffActivitiesSuccessResponseType, fetchStaffDocumentsAction, fetchStaffDocumentsSuccessResponseType, fetchStaffListAction, fetchStaffListSuccessResponseType, fetchStaffRolesAction, fetchStaffShiftsAction, fetchStaffSuccessResponseType } from "./actions";
 import formatStaff from "./utils/formatStaff";
 import { staffInitState } from "./state";
 import formatStaffActivitiesList from "./utils/formatStaffActivities";
-import { IStaffDetails, IStaffRole, staffStateType } from "./types";
+import { IStaffDetails, IStaffRole, IStaffShift, staffStateType } from "./types";
 
 interface IFetchStaffList {
     staffs: Pick<fetchStaffListSuccessResponseType, 'data'>['data'];
@@ -177,3 +177,41 @@ const fetchStaffRolesSelector = selectorFamily({
 })
 
 export const useFetchStaffRoleSelector = (pageNumber:number) => useRecoilValue(fetchStaffRolesSelector(pageNumber))
+
+interface IFetchStaffShiftsList {
+    message:string;
+    code:number;
+    error:boolean;
+    data: {
+        currentPage:number;
+        totalPages:number;
+        list:Array<IStaffShift>;
+    };
+}
+
+const fetchStaffShiftsSelector = selectorFamily({
+    key:'fetch_staff_roles_selector',
+    get: ({ staffId, pageNumber }:{staffId:number; pageNumber:number})=> async ()=> {
+        return await fetchStaffShiftsAction(staffId, pageNumber)
+        .then((response)=> {
+            return {
+                message: response.message,
+                code: response.code,
+                error: false,
+                data: response.data
+
+            } satisfies IFetchStaffShiftsList
+        })
+        .catch((error)=> {
+            return {
+                code: error.statusCode,
+                message: error.message,
+                error: false,
+                data: staffInitState.shifts
+                
+            } satisfies IFetchStaffShiftsList
+        })
+    }
+})
+
+export const useFetchStaffShiftsSelector = (staffId:number, pageNumber:number) => useRecoilValue(fetchStaffShiftsSelector({staffId, pageNumber}))

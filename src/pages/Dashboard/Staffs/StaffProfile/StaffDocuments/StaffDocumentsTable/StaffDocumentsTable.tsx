@@ -31,9 +31,7 @@ export default function StaffDocumentsTable({
         'Delete Document'
     ]
     
-    function DeleteDocument(){
 
-    }
     useEffect(()=> {
         console.log(staffState.documents.list)
         setIsLoading(true)
@@ -73,7 +71,7 @@ export default function StaffDocumentsTable({
                 isLoading={false}
                 backgroundColor={"var(--red-accent-100)"}
                 labelColor={"white"}
-                clickAction={DeleteDocument}
+                clickAction={()=> ({})}
                 disabled={false}
             /></div>
                 

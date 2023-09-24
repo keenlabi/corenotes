@@ -5,6 +5,8 @@ import { useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
 import SizedBox from "src/components/SizedBox";
 import { INewStaffPersonalInformation } from "src/features/staff/types";
+import { emailValid } from "src/utils/emailValidation";
+import { phoneNumberValid } from "src/utils/phoneNumberValidation";
 
 export default function StaffPersonalInformationForm({ onModified }:{ onModified:(newStaffDetails:INewStaffPersonalInformation)=> void }) {
 
@@ -90,7 +92,7 @@ export default function StaffPersonalInformationForm({ onModified }:{ onModified
 	});
 
 	const [workPhoneModel, setWorkPhoneModel] = useState<formFieldType>({
-		type: "text",
+		type: "phone",
 		label: "Work phone",
 		placeholder: "Work phone",
 		value: "",
@@ -99,7 +101,7 @@ export default function StaffPersonalInformationForm({ onModified }:{ onModified
 	});
 
 	const [cellPhoneModel, setCellPhoneModel] = useState<formFieldType>({
-		type: "text",
+		type: "phone",
 		name: "cell-phone",
 		label: "Cell phone",
 		placeholder: "Cell phone",
@@ -109,7 +111,7 @@ export default function StaffPersonalInformationForm({ onModified }:{ onModified
 	});
 
 	const [emailAddressModel, setEmailAddressModel] = useState<formFieldType>({
-		type: "text",
+		type: "email",
 		label: "Email Address",
 		placeholder: "Email Address",
 		value: "",
@@ -136,7 +138,7 @@ export default function StaffPersonalInformationForm({ onModified }:{ onModified
 	});
 
 	const [contactCellPhoneModel, setContactCellPhoneModel] = useState<formFieldType>({
-		type: "text",
+		type: "phone",
 		label: "Contact cell phone",
 		placeholder: "Contact cell phone",
 		value: "",
@@ -161,6 +163,22 @@ export default function StaffPersonalInformationForm({ onModified }:{ onModified
 			}
 		}
 
+		if (updatedInputModel.type  === "email") {
+			if (!emailValid (updatedInputModel.value))  {
+				updatedInputModel.validated = false;
+				updatedInputModel.error = `Enter a valid email address `;
+				return;
+			}
+		}
+
+		
+		if (updatedInputModel.type  === "phone") {
+			if (!phoneNumberValid (updatedInputModel.value))  {
+				updatedInputModel.validated = false;
+				updatedInputModel.error = `Enter a valid phone number `;
+				return;
+			}
+		}
 		updatedInputModel.validated = true;
 		updatedInputModel.error = "";
 		return;

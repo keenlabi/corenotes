@@ -3,11 +3,123 @@ import { Link } from "react-router-dom";
 import styles from "./sidebar.module.css";
 import {sideBarNavOptionsType} from "./types";
 import ImageComponent from "src/components/ImageComponent";
-import { useUserStateValue } from "src/features/user/state";
+import { useUserState } from "src/features/user/state";
+import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
+import { clockStaffInAction, clockStaffOutAction } from "src/features/staff/actions";
+import { addEventFeedbackItem, useGlobalEventFeedbackState } from "src/features/globalEventFeedback/state";
+import { useState } from "react";
 
 export default function Sidebar({ navOptions, navigateTo }: sideBarNavOptionsType) {
+    
+    const [globalEventFeedback, setGlobalEventFeedbackState] = useGlobalEventFeedbackState();
 
-    const userState = useUserStateValue();
+    const [userState, setUserState] = useUserState();
+    const [clockInState, setClockInState] = useState(userState);
+    const [clockOutState, setClockOutState] = useState(userState);
+
+    function clockUserIn() {
+        const payload = {
+            startAt: new Date().toISOString()
+        }
+
+        setClockInState(state => ({
+            ...state,
+            status:"LOADING"
+        }))
+        
+        clockStaffInAction(payload)
+        .then((response)=> {
+            setUserState(state => {                                                                                         
+                const user = response.data.staff;
+
+                return {
+                    ...state,
+                    status: "FAILED",
+                    details: {
+                        id: user?.id,
+                        active: user.active,
+                        role: user.role,
+                        lastSeen: user.lastSeen,
+                        isClockedIn: user.isClockedIn,
+                        personal: {
+                            firstname: user.firstname,
+                            lastname: user.lastname,
+                            profileImage: user.profileImage,
+                        }
+                    }
+                }
+            })
+
+            setClockInState(state => ({
+                ...state,
+                status:"IDLE"
+            }))
+        })
+        .catch((error)=> {
+            setClockInState(state => ({
+                ...state,
+                status:"IDLE"
+            }))
+
+            const newFeedback = {
+                status: "ERROR",
+                message: error.message ?? "There was an error clocking in"
+            }
+            addEventFeedbackItem(newFeedback, [...globalEventFeedback], setGlobalEventFeedbackState);
+        })
+    }
+
+    function clockUserOut() {
+        const payload = {
+            endAt: new Date().toISOString()
+        }
+
+        setClockOutState(state => ({
+            ...state,
+            status:"LOADING"
+        }))
+        
+        clockStaffOutAction(payload)
+        .then((response)=> {
+            setClockOutState(state => ({
+                ...state,
+                status:"LOADING"
+            }))
+
+            setUserState(state => {                                                                                         
+                const user = response.data.staff;
+
+                return {
+                    ...state,
+                    status: "FAILED",
+                    details: {
+                        id: user?.id,
+                        active: user.active,
+                        role: user.role,
+                        lastSeen: user.lastSeen,
+                        isClockedIn: user.isClockedIn,
+                        personal: {
+                            firstname: user.firstname,
+                            lastname: user.lastname,
+                            profileImage: user.profileImage,
+                        }
+                    }
+                }
+            })
+        })
+        .catch((error)=> {
+            setClockOutState(state => ({
+                ...state,
+                status:"IDLE"
+            }))
+
+            const newFeedback = {
+                status: "ERROR",
+                message: error.message ?? "There was an error clocking in"
+            }
+            addEventFeedbackItem(newFeedback, [...globalEventFeedback], setGlobalEventFeedbackState);
+        })
+    }
 
     return (
         <div className={styles.sidebar}>
@@ -19,6 +131,22 @@ export default function Sidebar({ navOptions, navigateTo }: sideBarNavOptionsTyp
 
             <div className={styles.navigation_section}>
                 <div className={styles.navigation_bar}>
+                    {
+                        userState.details.role.title !== "ADMINISTRATOR"
+                        ?   userState.details.isClockedIn
+                            ?   <PrimaryTextButton
+                                    label={"Clock Out"}
+                                    isLoading={clockOutState.status === "LOADING"}
+                                    clickAction={()=> clockUserOut()}
+                                />
+                            :   <PrimaryTextButton
+                                    label={"Clock In"} 
+                                    isLoading={clockInState.status === "LOADING"}
+                                    clickAction={()=> clockUserIn()}
+                                />
+                        :   null
+                    }
+
                     {
                         navOptions.map((navOption, index)=> 
                             navOption.roles?.includes(userState.details.role.title)

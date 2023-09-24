@@ -32,7 +32,6 @@
   gap: 1rem;
   position: -webkit-sticky;
   position: sticky;
-  /* width: 90%; */
   bottom: 0;
 }
 

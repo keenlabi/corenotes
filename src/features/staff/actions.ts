@@ -1,6 +1,6 @@
 import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { IActivity, IStaffDocument, IStaffRole, IStaffRoleDetails, IStaffUser } from "./types"
+import { IActivity, IStaffDocument, IStaffRole, IStaffRoleDetails, IStaffShift, IStaffUser } from "./types"
 
 export interface staffListType {
     id:string;
@@ -254,6 +254,90 @@ export function updateStaffProfileAction(payload:{ staffId:string, providerRole:
                 data: { 
                     staff: response.data.staff,
                 }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+// staff shift schedule
+
+interface INewShiftStaffSchedule {
+    startAt:string;
+    endAt:string;
+}
+
+export function addNewShiftScheduleAction(staffId:string, payload:INewShiftStaffSchedule) {
+    return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
+        postFetch(`staffs/${staffId}/shifts`, payload)
+        .then((response)=>  {
+            resolve({
+                ...response,
+                data: { 
+                    staff: response.data.staff,
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export interface IFetchStaffShiftsSuccessResponseType extends Omit<successResponseType, 'data'> {
+    data: {
+        currentPage:number,
+        totalPages:number,
+        list:IStaffShift[]
+    }
+}
+
+export function fetchStaffShiftsAction(staffId:number, pageNumber:number) {
+    return new Promise<IFetchStaffShiftsSuccessResponseType>((resolve, reject)=> {
+        getFetch(`staffs/${staffId}/shifts/${pageNumber}`)
+        .then((response)=>  {
+            resolve({
+                ...response,
+                data: { 
+                    currentPage: response.data.currentPage,
+                    totalPages: response.data.totalPages,
+                    list: response.data.shifts
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IClockStaffInActionPayload {
+    startAt:string;
+}
+
+export function clockStaffInAction(payload:IClockStaffInActionPayload) {
+    return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
+        postFetch(`staffs/clock-in`, payload)
+        .then((response)=>  {
+            console.log(response)
+            resolve({
+                ...response,
+                data: { 
+                    staff: response.data.staff
+                }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+interface IClockStaffOutActionPayload {
+    endAt:string;
+}
+
+export function clockStaffOutAction(payload:IClockStaffOutActionPayload) {
+    return new Promise<fetchStaffSuccessResponseType>((resolve, reject)=> {
+        postFetch(`staffs/clock-out`, payload)
+        .then((response)=>  {
+            resolve({
+                ...response,
+                data: { staff: response.data.staff }
             })
         })
         .catch((error)=> reject(error))
