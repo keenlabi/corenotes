@@ -3,7 +3,7 @@ import { useEffect, useState} from "react";
 import PageLoader from "src/components/Loaders/PageLoader";
 import { useSetUserState } from "src/features/user/state";
 import { useAuthStateValue } from "src/features/auth/state";
-import { fetchUserProfile, fetchUserSuccessResponseType } from "src/features/user/actions";
+import { fetchUserProfile } from "src/features/user/actions";
 
 export default function ProtectedRoute({children}:{children:JSX.Element}) {
 

@@ -1,4 +1,3 @@
-import { useStaffValue } from "src/features/staff/state";
 import styles from "./staffprofileheader.module.css";
 import UserImage from "src/components/ImageComponent/UserImage";
 import IconButton from "src/components/Buttons/IconButton";
