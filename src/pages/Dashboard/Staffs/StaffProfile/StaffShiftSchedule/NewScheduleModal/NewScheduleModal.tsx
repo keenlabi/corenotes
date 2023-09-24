@@ -102,7 +102,7 @@ export default function NewScheduleModal({close}:{close:()=> void}) {
             }))
 
             addNewShiftScheduleAction(params.staffId!, payload)
-            .then((response)=> {
+            .then(()=> {
                 setStaffState(state => ({
                     ...state,
                     status: "SUCCESS"
