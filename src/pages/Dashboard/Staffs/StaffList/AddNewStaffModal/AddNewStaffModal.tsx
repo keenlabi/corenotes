@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import styles from "./addnewstaffmodal.module.css";
 import ModalContainer from "src/components/Modal/ModalContainer";
 import { ReactComponent as IconCancelCircle } from "src/assets/icons/icon-cancel-circle.svg";
@@ -10,6 +10,7 @@ import { useStaffState } from "src/features/staff/state";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import { fetchStaffListSuccessResponseType, registerStaffAction } from "src/features/staff/actions";
 import { INewStaffPersonalInformation, INewStaffWorkInformation, NewStaffType } from "src/features/staff/types";
+import ComponentLoader from "src/components/Loaders/ComponentLoader";
 
 export default function AddNewStaffModal({ closeModal }: { closeModal: () => void }) {
 	
@@ -181,10 +182,12 @@ export default function AddNewStaffModal({ closeModal }: { closeModal: () => voi
 					/>
 				</div>
 
-				<div className={styles.registration_form_section}>
-					<StaffPersonalInformationForm onModified={validatePersonalForm} />
-					<StaffWorkInformationForm onModified={validateWorkForm} />
-				</div>
+				<Suspense fallback={<ComponentLoader />} >
+					<div className={styles.registration_form_section}>
+						<StaffPersonalInformationForm onModified={validatePersonalForm} />
+						<StaffWorkInformationForm onModified={validateWorkForm} />
+					</div>
+				</Suspense>
 
 				<div className={styles.action_buttons}>
 					<FadedBackgroundButton

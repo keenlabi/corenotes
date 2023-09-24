@@ -1,7 +1,7 @@
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { staffStateType } from "./types";
 
-export const staffInitState: staffStateType = {
+export const staffInitState:staffStateType = {
 	status: "IDLE",
 	error: false,
 	message: "",
@@ -107,6 +107,11 @@ export const staffInitState: staffStateType = {
 			staff_document_upload: false,
 		},
 	},
+	shifts: {
+		list: [],
+		currentPage: 1,
+		totalPages: 1
+	}
 };
 
 export const staffAtom = atom({

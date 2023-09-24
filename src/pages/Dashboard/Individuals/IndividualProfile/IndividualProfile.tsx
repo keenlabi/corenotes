@@ -1,9 +1,10 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./individualprofile.module.css";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSetIndividualState } from "src/features/Individual/state";
 import { useFetchIndividualSelector } from "src/features/Individual/selector";
 import IndividualProfileNavigation from "./IndividualProfileNavigation";
+import ComponentLoader from "src/components/Loaders/ComponentLoader";
 
 export default function IndividualProfile() {
 
@@ -100,9 +101,11 @@ export default function IndividualProfile() {
                     changeNav={(index:number)=> changeNav(index)}  
                 />
 
-                <div className={styles.content}>
-                    <Outlet />
-                </div>
+                <Suspense fallback={<ComponentLoader />}>
+                    <div className={styles.content}>
+                        <Outlet />
+                    </div>
+                </Suspense>
             </div>
         </div>
     )

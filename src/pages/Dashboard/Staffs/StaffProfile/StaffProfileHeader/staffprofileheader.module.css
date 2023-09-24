@@ -48,6 +48,10 @@
   stroke: var(--dark-blue-faded-accent-200);
 }
 
+.actions {
+  margin-left: auto;
+}
+
 @media screen and (max-width: 414px) {
   .section_identity {
     flex-direction: column;

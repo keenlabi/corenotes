@@ -19,7 +19,7 @@ export default function ProtectedRoute({children}:{children:JSX.Element}) {
 
     useEffect(()=> {
         fetchUserProfile()
-        .then((data:fetchUserSuccessResponseType)=> {
+        .then((data)=> {
             setUserState(state => {
                 const user = data.data.user;
                 
@@ -30,6 +30,7 @@ export default function ProtectedRoute({children}:{children:JSX.Element}) {
                         active: user.active,
                         role: user.role,
                         lastSeen: user.lastSeen,
+                        isClockedIn: user.isClockedIn,
                         personal: {
                             firstname: user.firstname,
                             lastname: user.lastname,

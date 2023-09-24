@@ -1,7 +1,7 @@
 import FormWrapper from "src/components/FormComponents/FormWrapper";
 import styles from "./staffworkinformationform.module.css"
 import InputField from "src/components/FormComponents/InputField";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { formFieldType, setFormFieldType } from "src/components/FormComponents/FormWrapper/types";
 import { useStaffState } from "src/features/staff/state";
 import PasswordInputField from "src/components/FormComponents/InputField/PasswordInputField";
@@ -9,6 +9,7 @@ import DropDownField from "src/components/FormComponents/DropDownField/dropdownf
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import { useFetchStaffRoleSelector } from "src/features/staff/selector";
 import { INewStaffWorkInformation } from "src/features/staff/types";
+import ComponentLoader from "src/components/Loaders/ComponentLoader";
 
 export default function StaffWorkInformationForm({ onModified }:{ onModified:(newStaffDetails:INewStaffWorkInformation)=> void }) {
 	
@@ -153,14 +154,16 @@ export default function StaffWorkInformationForm({ onModified }:{ onModified:(ne
 						onSelect={(optionIndex: number) => selectOption(optionIndex, scheduleTypeModel, setScheduleTypeModel)} 
 					/>
 
-					<DropDownField
-						placeholder={providerRoleModel.placeholder}
-						options={providerRoleModel.options}
-						selected={providerRoleModel.selected}
-						selectedOptionIndex={providerRoleModel.selectedOptionIndex}
-						error={providerRoleModel.error}
-						onSelect={(optionIndex: number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
-					/>
+					<Suspense fallback={<ComponentLoader />} >
+						<DropDownField
+							placeholder={providerRoleModel.placeholder}
+							options={providerRoleModel.options}
+							selected={providerRoleModel.selected}
+							selectedOptionIndex={providerRoleModel.selectedOptionIndex}
+							error={providerRoleModel.error}
+							onSelect={(optionIndex: number) => selectOption(optionIndex, providerRoleModel, setProviderRoleModel)}
+						/>
+					</Suspense>
 
 					<InputField
 						type={hireDateModel.type}

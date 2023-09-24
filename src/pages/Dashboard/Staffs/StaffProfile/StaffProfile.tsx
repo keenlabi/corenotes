@@ -1,10 +1,11 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./staffprofile.module.css";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import StaffProfileNavigation from "./StaffProfileNavigation/StaffProfileNavigation";
 import { useStaffState } from "src/features/staff/state";
 import { useFetchStaffSelector } from "src/features/staff/selector";
 import { FaAngleLeft } from "react-icons/fa";
+import ComponentLoader from "src/components/Loaders/ComponentLoader";
 
 export default function StaffProfile() {
 
@@ -17,6 +18,11 @@ export default function StaffProfile() {
             label: 'Profile Information',
             path: '',
             active: isCurrentPath('' || params.staffId!)
+        },
+        {
+            label: 'Shifts',
+            path: 'shifts',
+            active: isCurrentPath('shifts')
         },
         {
             label: 'Documents',
@@ -107,9 +113,11 @@ export default function StaffProfile() {
                             changeNav={(index:number)=> changeNav(index)}  
                         />
 
-                        <div className={styles.content}>
-                            <Outlet />
-                        </div>
+                        <Suspense fallback={<ComponentLoader />}>
+                            <div className={styles.content}>
+                                <Outlet />
+                            </div>
+                        </Suspense>
                     </div>
             }
         </div>

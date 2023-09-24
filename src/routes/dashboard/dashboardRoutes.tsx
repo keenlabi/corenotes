@@ -41,6 +41,7 @@ import BehaviorManagementService from "src/pages/Dashboard/Individuals/Individua
 import ChoreService from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualServices/ChoreService";
 import IndividualDocuments from "src/pages/Dashboard/Individuals/IndividualProfile/IndividualDocuments";
 import IndividualReports from "src/pages/Dashboard/Individuals/IndividualReports";
+import staffRoutes from "../staffs/staffsRoutes";
 // import MedicationServiceIndividualsModal from "src/pages/Dashboard/Medications/MedicationDetails/MedicationServiceIndividualsModal";
 
 const DashboardRoutes:routerType[] = [
@@ -66,54 +67,11 @@ const DashboardRoutes:routerType[] = [
                     }
                 ]
             },
-            {
-                path:'staffs',
-                element: <Staffs />,
-                allowedRoles:['HR', 'DDP'],
-                children: [
-                    {
-                        path:'',
-                        title: 'Staffs',
-                        element: <StaffList />,
-                    },
-                    {
-                        path:':staffId',
-                        title: 'Staff Profile',
-                        element: <StaffProfile />,
-                        children: [
-                            {
-                                path:'',
-                                title: 'Profile Information',
-                                element: <StaffProfileInformation />,
-                            },
-                            {
-                                path:'documents',
-                                title: 'Documents',
-                                element: <StaffDocuments />,
-                            },
-                            {
-                                path:'activities',
-                                title: 'Activities',
-                                element: <StaffActivities />,
-                            },
-                            {
-                                path:'reports',
-                                title: 'Reports',
-                                element: <StaffReports />,
-                            },
-                            {
-                                path:'security',
-                                title: 'Security',
-                                element: <StaffSecurity />,
-                            }
-                        ]
-                    }
-                ]
-            },
+            staffRoutes,
             {
                 path:'individuals',
                 element: <Individuals />,
-                allowedRoles:['DDP', 'ADMIN'],
+                allowedRoles:["RN", 'DDP', 'ADMINISTRATOR'],
                 children: [
                     {
                         path:'',

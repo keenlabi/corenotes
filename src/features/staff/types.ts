@@ -16,6 +16,7 @@ export interface IUser {
         }
     },
     lastSeen: string,
+    isClockedIn:boolean;
     
     // PERSONAL INFORMATION
     firstname: string,
@@ -80,6 +81,7 @@ export interface IStaffUser {
         }
     },
     lastSeen: string,
+    isClockedIn: boolean;
     
     // PERSONAL INFORMATION
     firstname: string,
@@ -245,6 +247,11 @@ export interface staffStateType extends initStateType {
         list:Array<IStaffDocument>;
         currentPage:number;
         totalPages:number;
+    },
+    shifts:{
+        list:Array<IStaffShift>;
+        currentPage:number;
+        totalPages:number;
     }
 }
 
@@ -276,4 +283,11 @@ export interface IStaffRoleDetails {
         staff_registration:boolean;
         staff_document_upload:boolean;
     };
+}
+
+export interface IStaffShift {
+    id:string;
+    date:string;
+    startTime:string;
+    endTime:string;
 }
