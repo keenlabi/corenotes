@@ -25,7 +25,6 @@ export default function AddNewIndividualModal({ closeModal }: { closeModal: () =
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	function validateForm() {
-		console.log(individualState.newIndividual)
 		if (
 			!individualState.newIndividual.firstname ||
 			!individualState.newIndividual.lastname ||
