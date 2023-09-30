@@ -4,7 +4,6 @@ import styles from "./addnewindividualmodal.module.css";
 import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel-circle.svg";
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
-import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
 import IndividualPersonalInformationForm from "./IndividualPersonalInformationForm";
 import IndividualHealthInformationForm from "./IndividualHealthInformationForm";
 import { individualInitState, useIndividualState } from "src/features/Individual/state";
