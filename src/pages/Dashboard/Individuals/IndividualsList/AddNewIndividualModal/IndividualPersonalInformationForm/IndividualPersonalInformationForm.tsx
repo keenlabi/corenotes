@@ -25,7 +25,6 @@ export default function IndividualPersonalInformationForm({
 }) {
 	const [individualState, setIndividualState] = useIndividualState();
 
-	console.log(individualState);
 
 	const [firstnameModel, setFirstnameModel] = useState<formFieldType>({
 		type: "text",
@@ -250,7 +249,6 @@ export default function IndividualPersonalInformationForm({
 	}
 
 	function submit() {
-		console.log(codeAlertsModel)
 		setIndividualState((state) => {
 			return {
 				...state,
