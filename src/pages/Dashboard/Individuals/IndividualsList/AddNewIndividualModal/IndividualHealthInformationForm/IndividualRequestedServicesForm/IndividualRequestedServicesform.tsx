@@ -8,13 +8,13 @@ import { formFieldType } from "src/components/FormComponents/FormWrapper/types";
 import { ReactComponent as IconAdd } from "src/assets/icons/icon-plus-circle.svg"
 import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel-circle.svg"
 import { useIndividualState } from "src/features/Individual/state";
-import { useFetchCompartmentDetails } from "src/features/compartment/selector";
+import { useFetchCompartmentServices } from "src/features/compartment/selector";
 
 export default function IndividualRequestedServicesForm() {
 
     const [individualState, setIndividualState] = useIndividualState();
 
-    const compartmentDetails = useFetchCompartmentDetails(individualState.newIndividual.compartmentId);
+    const compartmentServicesResponse = useFetchCompartmentServices(individualState.newIndividual.compartmentId);
 
     const [serviceTemplate, setServiceTemplate] = useState<{id:number, service:DropDownFormData, startDate:formFieldType}>({
         id: 1,
@@ -37,17 +37,15 @@ export default function IndividualRequestedServicesForm() {
     })
 
     useEffect(()=> {
-        const requestedServicesRepsonse = compartmentDetails.compartment.services?.filter( service => service.category.toLowerCase() === 'requested')
-
         setServiceTemplate(state => ({
             ...state,
             service: {
                 ...state.service,
-                options: requestedServicesRepsonse.map( service => ({
-                            id:service.id,
-                            label:service.title,
-                            value:service.id
-                        }))
+                options: compartmentServicesResponse.compartmentServices.map( service => ({
+                    id:service.id,
+                    label:service.title,
+                    value:service.id
+                }))
             }
         }))
 
@@ -61,7 +59,7 @@ export default function IndividualRequestedServicesForm() {
                     error:'',
                     selected: false,
                     selectedOptionIndex: 0,
-                    options: requestedServicesRepsonse.map(service => ({
+                    options: compartmentServicesResponse.compartmentServices.map(service => ({
                         id:service.id,
                         label:service.title,
                         value:service.id
@@ -77,7 +75,7 @@ export default function IndividualRequestedServicesForm() {
             }
         ]))
 
-    }, [compartmentDetails.compartment.services])
+    }, [compartmentServicesResponse.compartmentServices])
 
     const [requestedServices, setRequestedServices] = useState<Array<{id:number, service:DropDownFormData, startDate:formFieldType}>>([
         {
@@ -132,7 +130,7 @@ export default function IndividualRequestedServicesForm() {
     }
 
     function addNewRequestedService() {
-        if(serviceTemplate.service.options.length && requestedServices.length < compartmentDetails.compartment.services.length) {
+        if(serviceTemplate.service.options.length && requestedServices.length < compartmentServicesResponse.compartmentServices.length) {
             serviceTemplate.id = requestedServices.length + 1;
 
             // remove option[optionIndex] from serviceTemplate
@@ -207,7 +205,7 @@ export default function IndividualRequestedServicesForm() {
 
                 {
                     serviceTemplate.service.options.length
-                    && requestedServices.length < compartmentDetails.compartment.services.length
+                    && requestedServices.length < compartmentServicesResponse.compartmentServices.length
                     ?   <div 
                             className={styles.add_new_service} 
                             onClick={()=> addNewRequestedService()}

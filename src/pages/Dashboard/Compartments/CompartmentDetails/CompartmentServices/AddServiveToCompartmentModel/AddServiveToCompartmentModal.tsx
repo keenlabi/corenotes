@@ -8,13 +8,15 @@ import { Suspense, useState } from "react";
 import { DropDownFormData, setDropDownFormData } from "src/components/FormComponents/DropDownField/types";
 import ServicesListDropDownField from "src/pages/Dashboard/Services/components/ServicesListDropDownField";
 import { useParams } from "react-router-dom";
-import { postCompartmentServiceDetails } from "src/features/compartment/action";
-import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
+import { patchCompartmentServiceDetails } from "src/features/compartment/action";
 import ComponentLoader from "src/components/Loaders/ComponentLoader";
+import { addEventFeedbackItem, useGlobalEventFeedbackState } from "src/features/globalEventFeedback/state";
 
 export default function AddServiceToCompartmentModal({ closeModal }:{ closeModal:()=> void }) {
 
     const params = useParams();
+
+    const [globalEventFeedback, setGlobalEventFeedback] = useGlobalEventFeedbackState(); 
 
     const [compartmentState, setCompartmentState] = useCompartmentState();
 
@@ -60,7 +62,6 @@ export default function AddServiceToCompartmentModal({ closeModal }:{ closeModal
 
     function submitService() {
         const payload = {
-            compartmentId: parseInt(params.compartmentId!),
             serviceId: serviceId
         }
 
@@ -71,15 +72,28 @@ export default function AddServiceToCompartmentModal({ closeModal }:{ closeModal
             message: ''
         }))
 
-        postCompartmentServiceDetails(payload)
+        let newCompartmentFeedbackItem = {
+            status: "",
+            message: ""
+        }
+
+        patchCompartmentServiceDetails(parseInt(params.compartmentId!), payload)
         .then((response)=> {
             setCompartmentState(state => ({
                 ...state,
                 status: 'SUCCESS',
                 error: false,
                 message: response.message,
-                compartment: response.data.compartment
+                compartment: {
+                    ...state.compartment,
+                    services: response.data.compartmentServices
+                }
             }))
+
+            newCompartmentFeedbackItem = {
+                status: "SUCCESS",
+                message: response.message
+            }
         })
         .catch((error)=> {
             setCompartmentState(state => ({
@@ -88,28 +102,21 @@ export default function AddServiceToCompartmentModal({ closeModal }:{ closeModal
                 error: true,
                 message: error.message
             }))
-        })
-    }
 
-    function resetCompartmentState() {
-        setCompartmentState(state => ({
-            ...state,
-            status: 'IDLE',
-            error: false,
-            message: '',
-        }))
+            newCompartmentFeedbackItem = {
+                status: "ERROR",
+                message: error.message
+            }
+        })
+        .finally(()=> {
+            addEventFeedbackItem(newCompartmentFeedbackItem, [ ...globalEventFeedback ], setGlobalEventFeedback);
+            closeModal();
+        })
     }
 
     return (
         <ModalContainer close={()=> closeModal()}>
             <div className={styles.add_service_to_compartment_model}>
-
-                <FormStateModal 
-                    status={compartmentState.status} 
-                    error={compartmentState.error} 
-                    message={compartmentState.message}
-                    reset={()=> resetCompartmentState()}
-                />
 
                 <div className={styles.header}>
                     <div className={styles.title}>Add service to category</div>

@@ -7,9 +7,7 @@ interface CompartmentCardProps {
     id:string;
     title:string;
     image:string,
-    servicesCount:number;
-    staffRolesCount:number,
-    assignedIndividualsCount:number,
+    subCompartmentsCount:number;
     backgroundColor:string,
     labelColor:string,
     path:string
@@ -18,7 +16,7 @@ interface CompartmentCardProps {
 export default function CompartmentCard({ 
     title, 
     image, 
-    servicesCount,
+    subCompartmentsCount,
     backgroundColor,
     labelColor,
     path
@@ -32,7 +30,7 @@ export default function CompartmentCard({
         >
 
             <div className={styles.title} style={{ color: labelColor }} >{ capitalize(title) }</div>
-            <div className={styles.count}>{ servicesCount } services assigned</div>
+            <div className={styles.count}>{ subCompartmentsCount } sub compartments</div>
             <ImageComponent 
                 src={image}
                 placeholder={image}

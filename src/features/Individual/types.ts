@@ -150,7 +150,8 @@ export interface NewIndividualType {
         other: Array<string>
     },
     compartment:string,
-    compartmentId:number
+    compartmentId:number;
+    subCompartmentId:string;
 }
 
 export interface IndividualProfileResponseType {

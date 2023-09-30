@@ -37,6 +37,7 @@ export const individualInitState: IndividualStateType = {
 		},
 		compartment: "",
 		compartmentId: 0,
+		subCompartmentId: ""
 	},
 	profile: {
 		id: "",

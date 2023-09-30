@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import { useCompartmentState } from "src/features/compartment/state";
 import { useFetchCompartmentDetails } from "src/features/compartment/selector";
 import SizedBox from "src/components/SizedBox";
-import CompartmentServiceList from "./CompartmentServicesList";
+import CompartmentSubcompartmentList from "./Subcompartments";
+import CompartmentServicesList from "./CompartmentServices/CompartmentServicesList/CompartmentServicesList";
 
 export default function CompartmentDetails() {
 
@@ -41,7 +42,11 @@ export default function CompartmentDetails() {
 
             <SizedBox height="50px" />
 
-            <CompartmentServiceList />
+            <CompartmentSubcompartmentList />
+
+            <SizedBox height="40px" />
+            
+            <CompartmentServicesList />
         </div>
     )
 }

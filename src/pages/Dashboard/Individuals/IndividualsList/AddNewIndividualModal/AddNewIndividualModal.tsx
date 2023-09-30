@@ -1,19 +1,22 @@
+import { useState, useEffect } from "react";
 import ModalContainer from "src/components/Modal/ModalContainer";
 import styles from "./addnewindividualmodal.module.css";
 import { ReactComponent as IconCancel } from "src/assets/icons/icon-cancel-circle.svg";
 import FadedBackgroundButton from "src/components/Buttons/FadedBackgroundButton";
 import PrimaryTextButton from "src/components/Buttons/PrimaryTextButton";
 import FormStateModal from "src/components/FormComponents/FormStateModal/FormStateModal";
-import { useState, useEffect } from "react";
 import IndividualPersonalInformationForm from "./IndividualPersonalInformationForm";
 import IndividualHealthInformationForm from "./IndividualHealthInformationForm";
 import { individualInitState, useIndividualState } from "src/features/Individual/state";
 import { IndividualListResponseType, registerIndividualAction } from "src/features/Individual/action";
 import SizedBox from "src/components/SizedBox";
+import { addEventFeedbackItem, useGlobalEventFeedbackState } from "src/features/globalEventFeedback/state";
 
 export default function AddNewIndividualModal({ closeModal }: { closeModal: () => void }) {
 
 	const [individualState, setIndividualState] = useIndividualState();
+
+	const [globalEventFeedback, setGlobalEventFeedback] = useGlobalEventFeedbackState();
 
 	const [isFormValid, setIsFormValid] = useState(false);
 
@@ -23,6 +26,7 @@ export default function AddNewIndividualModal({ closeModal }: { closeModal: () =
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	function validateForm() {
+		console.log(individualState.newIndividual)
 		if (
 			!individualState.newIndividual.firstname ||
 			!individualState.newIndividual.lastname ||
@@ -34,6 +38,7 @@ export default function AddNewIndividualModal({ closeModal }: { closeModal: () =
 			!individualState.newIndividual.contact.phoneNumber ||
 			!individualState.newIndividual.weight ||
 			!individualState.newIndividual.compartment ||
+			// !individualState.newIndividual.subCompartmentId ||
 			!individualState.newIndividual.medicaidNumber ||
 			!individualState.newIndividual.maritalStatus ||
 			!individualState.newIndividual.codeAlert.length ||
@@ -67,6 +72,11 @@ export default function AddNewIndividualModal({ closeModal }: { closeModal: () =
 				message: "",
 			}));
 
+			let newEventFeedback = {
+				status:"",
+				message:""
+			}
+
 			registerIndividualAction(individualState.newIndividual)
 			.then((response: IndividualListResponseType) => {
 				setIndividualState((state) => {
@@ -79,18 +89,32 @@ export default function AddNewIndividualModal({ closeModal }: { closeModal: () =
 						error: false,
 					};
 				});
+
+				newEventFeedback = {
+					status: "SUCCESS",
+					message: "Individual has been created successfully"
+				}
+				
 			})
 			.catch((error) => {
 				setIndividualState((state) => {
 					return {
 						...state,
 						status: "FAILED",
-						message:
-							error.message ?? "There was an error creating new user",
+						message: error.message ?? "There was an error creating new user",
 						error: true,
 					};
 				});
-			});
+
+				newEventFeedback = {
+					status: "ERROR",
+					message: error.message
+				}
+			})
+			.finally(()=> {
+				addEventFeedbackItem(newEventFeedback, [ ...globalEventFeedback ], setGlobalEventFeedback)
+				closeModal();
+			})
 		}
 	}
 
@@ -107,12 +131,6 @@ export default function AddNewIndividualModal({ closeModal }: { closeModal: () =
 					: () => ({})
 			}>
 			<div className={styles.add_new_staff}>
-				<FormStateModal
-					status={individualState.status}
-					error={individualState.error}
-					message={individualState.message}
-					reset={() => resetFormStateModel()}
-				/>
 
 				<div className={styles.top_section}>
 					<div className={styles.heading}>Add new individual</div>
