@@ -250,6 +250,7 @@ export default function IndividualPersonalInformationForm({
 	}
 
 	function submit() {
+		console.log(codeAlertsModel)
 		setIndividualState((state) => {
 			return {
 				...state,
@@ -403,12 +404,10 @@ export default function IndividualPersonalInformationForm({
 						options={codeAlertsModel.options}
 						error={codeAlertsModel.error}
 						label={""}
-						onSelect={(selectedValues: Array<string>) =>
-							setCodeAlertsModel((state) => ({
-								...state,
-								value: selectedValues,
-							}))
-						}
+						onSelect={(selectedValues: Array<string>) => {
+							setCodeAlertsModel((state) => ({ ...state, value: selectedValues }))
+							submit();
+						}}
 					/>
 
 					<InputField

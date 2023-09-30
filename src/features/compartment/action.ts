@@ -1,6 +1,6 @@
-import { getFetch, postFetch } from "src/lib/fetch"
+import { getFetch, patchFetch, postFetch } from "src/lib/fetch"
 import { successResponseType } from "src/lib/types"
-import { CompartmentDetails, CompartmentListItem } from "./types"
+import { CompartmentDetails, CompartmentListItem, ICompartmentServices } from "./types"
 
 export interface GetCompartmentsResponse extends successResponseType {
     data: {
@@ -68,9 +68,13 @@ export function getCompartmentDetails(compartmentId:number) {
     })
 }
 
-export function postCompartmentServiceDetails(payload:{compartmentId:number, serviceId:string}) {
+interface IPostNewSubcompartment {
+    title:string;
+}
+
+export function postNewSubcompartment(compartmentId:number, payload:IPostNewSubcompartment) {
     return new Promise<IGetCompartmentDetailsResponse>((resolve, reject)=> {
-        postFetch(`/compartments/services`, payload)
+        postFetch(`/compartments/${compartmentId}`, payload)
         .then((response)=> {
             resolve({
                 ...response,
@@ -80,3 +84,46 @@ export function postCompartmentServiceDetails(payload:{compartmentId:number, ser
         .catch((error)=> reject(error))
     })
 }
+
+export interface IGetCompartmentServicesResponse extends successResponseType {
+    data: { compartmentServices:Array<ICompartmentServices> }
+}
+
+export function getCompartmentServices(compartmentId:number) {
+    return new Promise<IGetCompartmentServicesResponse>((resolve, reject)=> {
+        getFetch(`/compartments/${compartmentId}/services`)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { compartmentServices: response.data.compartmentServices }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function patchCompartmentServiceDetails(compartmentId:number, payload:{serviceId:string}) {
+    return new Promise<IGetCompartmentServicesResponse>((resolve, reject)=> {
+        patchFetch(`/compartments/${compartmentId}/services`, payload)
+        .then((response)=> {
+            resolve({
+                ...response,
+                data: { compartmentServices: response.data.compartmentServices }
+            })
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+// export function getSubCompartmentsAction(compartmentId:number) {
+//     return new Promise<IGetCompartmentServicesResponse>((resolve, reject)=> {
+//         getFetch(`/compartments/${compartmentId}/subcompartments`)
+//         .then((response)=> {
+//             resolve({
+//                 ...response,
+//                 data: { compartmentServices: response.data.compartmentServices }
+//             })
+//         })
+//         .catch((error)=> reject(error))
+//     })
+// }

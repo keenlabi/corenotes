@@ -6,17 +6,19 @@ import { DropDownFormData, setDropDownFormData } from "src/components/FormCompon
 import DropDownField from "src/components/FormComponents/DropDownField/dropdownfield";
 import { useFetchCompartmentList } from "src/features/compartment/selector";
 import { useCompartmentState } from "src/features/compartment/state";
+import { getCompartmentDetails } from "src/features/compartment/action";
+import { addEventFeedbackItem, useGlobalEventFeedbackState } from "src/features/globalEventFeedback/state";
 
 export default function IndividualCompartmentForm({ removeLabel }: { removeLabel: boolean }) {
 
 	// const setIndividualState = useSetIndividualState(
 	const setIndividualState = useSetIndividualState();
 
+	const [globalEventFeedbackState, setGlobalEventFeedbackState] = useGlobalEventFeedbackState()
+
 	const [compartmentState, setCompartmentState] = useCompartmentState();
 
-	const fetchCompartmentListReponse = useFetchCompartmentList(
-		compartmentState.currentListPage
-	);
+	const fetchCompartmentListReponse = useFetchCompartmentList(compartmentState.currentListPage);
 
 	useEffect(() => {
 		setCompartmentState((state) => ({
@@ -30,7 +32,7 @@ export default function IndividualCompartmentForm({ removeLabel }: { removeLabel
 			...state,
 			options: compartmentState.compartmentsList.map((compartment) => ({
 				id: compartment.id,
-				label: compartment.title,
+				label: `${compartment.title} (${compartment.subCompartmentsCount} - subcompartments)`,
 				value: compartment.compartmentId.toString(),
 			})),
 		}));
@@ -47,32 +49,80 @@ export default function IndividualCompartmentForm({ removeLabel }: { removeLabel
 		selectedOptionIndex: 0,
 	});
 
+	const [subCompartmentModel, setSubCompartmentModel] = useState<DropDownFormData>({
+		label: "",
+		name: "sub-compartment",
+		placeholder: "Select sub compartment",
+		relative: true,
+		error: "",
+		options: [],
+		selected: false,
+		selectedOptionIndex: 0,
+	});
+
 	function selectOption(optionIndex: number, model: DropDownFormData, setModel: setDropDownFormData) {
+
 		model.value = model.options[optionIndex];
-		model.selected = true;
+		model.selected = true; 					 
 		model.selectedOptionIndex = optionIndex;
 		setModel({ ...model });
 
-		setIndividualState((state) => ({
-			...state,
-			newIndividual: {
-				...state.newIndividual,
-				compartment: model.value!.id,
-				compartmentId: parseInt(model.value!.value!),
-			},
-		}));
+		if(model.name === "compartment") {
+			setIndividualState((state) => ({
+				...state,
+				newIndividual: {
+					...state.newIndividual,
+					compartment: model.value!.id,
+					compartmentId: parseInt(model.value!.value!),
+				},
+			}));
+
+			const compartment = compartmentState.compartmentsList.filter((compartment) => compartment.id === model.value!.id);
+			
+			if(compartment[0]) { 
+				getCompartmentDetails(compartment[0].compartmentId)
+				.then((response)=> {
+					setSubCompartmentModel(state => ({
+						...state,
+						selected: false,
+						options: response.data.compartment.subCompartments.map((subCompartment)=> ({
+							id: subCompartment.id,
+							label: subCompartment.title,
+							value: subCompartment.id
+						}))
+					}));
+				})
+				.catch(()=> {
+
+					const newGlobalEventFeedback = {
+						status: "ERROR",
+						message: ""
+					}
+
+					addEventFeedbackItem(newGlobalEventFeedback, [ ...globalEventFeedbackState ], setGlobalEventFeedbackState)
+				})
+			}
+		}
+
+		if(model.name === "sub-compartment") {
+			setIndividualState((state) => ({
+				...state,
+				newIndividual: {
+					...state.newIndividual,
+					subCompartmentId: model.value!.id
+				},
+			}));
+		}
 	}
 
 	return (
 		<FormWrapper extraStyles={styles.staff_personal_information_form}>
 			{	removeLabel 
-				? <div></div>
-				: (
-					<div className={styles.heading}>
+				? 	<div></div>
+				: 	<div className={styles.heading}>
 						<div className={styles.number_circle}>2</div>
 						<div className={styles.text}>Compartment</div>
 					</div>
-				)
 			}
 
 			<div className={removeLabel ? "" : styles.form_content}>
@@ -87,6 +137,19 @@ export default function IndividualCompartmentForm({ removeLabel }: { removeLabel
 						selectedOptionIndex={compartmentModel.selectedOptionIndex}
 						onSelect={(optionIndex: number) => selectOption(optionIndex, compartmentModel, setCompartmentModel)}
 					/>
+
+					{
+						<DropDownField
+							width={"100%"}
+							label={subCompartmentModel.label!}
+							placeholder={subCompartmentModel.placeholder}
+							options={subCompartmentModel.options}
+							error={subCompartmentModel.error}
+							selected={subCompartmentModel.selected}
+							selectedOptionIndex={subCompartmentModel.selectedOptionIndex}
+							onSelect={(optionIndex: number) => selectOption(optionIndex, subCompartmentModel, setSubCompartmentModel)}
+						/>
+					}
 				</div>
 			</div>
 		</FormWrapper>

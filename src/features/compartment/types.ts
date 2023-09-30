@@ -4,7 +4,7 @@ export interface CompartmentStateType extends initStateType {
     compartmentsList:CompartmentListItem[],
     currentListPage:number,
     totalListPages:number,
-    compartment: CompartmentDetails
+    compartment:CompartmentDetails,
 }
 
 export interface CompartmentListItem {
@@ -12,7 +12,7 @@ export interface CompartmentListItem {
     compartmentId:number;
     title:string;
     image:string;
-    servicesCount:number;
+    subCompartmentsCount:number;
     staffRolesCount:number;
     assignedIndividualsCount:number;
     meta: {
@@ -26,20 +26,23 @@ export interface CompartmentDetails {
     compartmentId:number;
     title:string;
     image:string;
-    staffRoles:Array<string>;
-    assignedIndividuals:Array<string>;
+    subCompartments:Array<{
+        id:string;
+        title:string;
+        description:string;
+        staffRolesCount:number;
+        individualsCount:number;
+        servicesCount:number;
+        createdAt:string;
+    }>;
+    services:Array<ICompartmentServices>;
     meta: {
         bgColor:string;
         labelColor:string;
     };
-    services:Array<{
-        id:string;
-        serviceId:number;
-        title:string;
-        description: string;
-        individuals:string;
-        staffRoles:string;
-        assessments:Array<string>;
-        category:string;
-    }>
+}
+
+export interface ICompartmentServices {
+    id:string;
+    title:string;
 }
